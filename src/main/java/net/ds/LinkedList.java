@@ -116,7 +116,7 @@ public class LinkedList<Item> {
         return null;
     }
 
-    private void traverseIteratively() {
+    public void traverseIteratively() {
         Node current = first;
         while (current != null){
             System.out.print(" >> " + current.key +"-" + current.value);
@@ -329,42 +329,4 @@ public class LinkedList<Item> {
         }
         first = prev;
     }
-
-    public void test(){
-
-        put(1015, "Sam1015");
-        put(1014, "Sam1014");
-        put(1013, "Sam1013");
-        put(1012, "Sam1012");
-        put(1011, "Sam1011");
-        put(1010, "Sam1010");
-        put(1009, "Sam1009");
-
-        Node node = get(1009);
-        String nodeValue = node.value;
-        String nodeValueToMatch = "Sam1009";
-        if (nodeValue == nodeValueToMatch){
-            System.out.println("Same-Sam1009");
-        }
-
-        System.out.println("\n list.toString() " +toString());
-        System.out.println("----------------");
-
-        //list.traverseIteratively();
-        //testTraverseRecurssively();
-        System.out.println("----------------");
-
-        testReversing();
-        System.out.println("----------------");
-
-        traverseIteratively();
-        System.out.println("----------------");
-
-    }
-
-    public static void main(String[] args){
-        LinkedList<String> listObject = new LinkedList<>();
-        listObject.test();
-    }
-
 }
