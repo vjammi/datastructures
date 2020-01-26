@@ -315,7 +315,7 @@ public class LinkedList<Item> {
         return x;
     }
 
-    public void reverse_practice() {
+/*    public void reverse_practice() {
         Node prev = null;
         Node current = first;
         Node next = null;
@@ -328,5 +328,5 @@ public class LinkedList<Item> {
             current = next;
         }
         first = prev;
-    }
+    }*/
 }
