@@ -1,9 +1,9 @@
-package net.ds;
+package algo.ds.archive;
 
 /**
  * Created on 06/07/2018. GOLD
  */
-public class LinkedList<Item> {
+public class LinkedList2<Item> {
 
     private Node first, last;
     private int n;
@@ -20,7 +20,7 @@ public class LinkedList<Item> {
         }
     }
 
-    public LinkedList(){
+    public LinkedList2(){
         this.first = null;
         this.last = null;
         n = 0;
@@ -102,7 +102,7 @@ public class LinkedList<Item> {
         return null;
     }
 
-    private Node get2(int key) {
+    public Node get2(int key) {
         Node x = first;
 
         while (x != null){
@@ -188,7 +188,7 @@ public class LinkedList<Item> {
             current.next = previous; // Now assign the reference of the previous to the current.next
             System.out.print(current.key +" << ");
 
-            // when current.next is null[we have come to the end of the LinkedList].
+            // when current.next is null[we have come to the end of the LinkedList2].
             // Now Point the first to this node, since we are reversing the list
             if (next == null){
                 this.first = current;
@@ -315,7 +315,7 @@ public class LinkedList<Item> {
         return x;
     }
 
-/*    public void reverse_practice() {
+    public void reverse_practice() {
         Node prev = null;
         Node current = first;
         Node next = null;
@@ -328,5 +328,9 @@ public class LinkedList<Item> {
             current = next;
         }
         first = prev;
-    }*/
+    }
+
+
+
+
 }
