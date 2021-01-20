@@ -1,8 +1,7 @@
 package algo.ds.linkedlist;
 
 
-// Java program to implement
-// a Singly Linked List
+// Singly Linked List
 public class LinkedList {
     Node head; // head of list
 

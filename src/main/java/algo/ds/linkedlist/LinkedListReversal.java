@@ -1,9 +1,9 @@
-package algo.ds.archive;
+package algo.ds.linkedlist;
 
 /**
  * Created on 06/07/2018. GOLD
  */
-public class LinkedList2<Item> {
+public class LinkedListReversal<Item> {
 
     private Node first, last;
     private int n;
@@ -20,7 +20,7 @@ public class LinkedList2<Item> {
         }
     }
 
-    public LinkedList2(){
+    public LinkedListReversal(){
         this.first = null;
         this.last = null;
         n = 0;
@@ -188,7 +188,7 @@ public class LinkedList2<Item> {
             current.next = previous; // Now assign the reference of the previous to the current.next
             System.out.print(current.key +" << ");
 
-            // when current.next is null[we have come to the end of the LinkedList2].
+            // when current.next is null[we have come to the end of the LinkedListReversal].
             // Now Point the first to this node, since we are reversing the list
             if (next == null){
                 this.first = current;
