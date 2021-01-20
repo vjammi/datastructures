@@ -1,4 +1,4 @@
-package algo.ds;
+package algo.ds.linkedlist;
 
 
 // Java program to implement

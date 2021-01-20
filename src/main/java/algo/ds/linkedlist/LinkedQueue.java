@@ -1,4 +1,4 @@
-package algo.ds;
+package algo.ds.linkedlist;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
