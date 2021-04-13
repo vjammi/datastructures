@@ -1,3 +1,5 @@
 algorithms.iml
 target/
 .idea/
+/src/main/java/scratchpad/
+/src/main/java/ds/tbd/
