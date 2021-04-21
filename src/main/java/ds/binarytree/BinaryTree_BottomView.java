@@ -50,7 +50,7 @@ class Tree {
         int hd = 0;
 
         // TreeMapTest which stores key value pair sorted on key value
-        Map<Integer, Integer> map = new TreeMap<>();
+        Map<Integer, Integer> map = new TreeMap();
 
         // QueueImplementingIterable to store tree nodes in level order traversal
         Queue<Node> queue = new LinkedList<Node>();

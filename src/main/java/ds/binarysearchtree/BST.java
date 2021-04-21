@@ -1,4 +1,5 @@
 package ds.binarysearchtree;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -116,7 +117,7 @@ public class BST {
 
     private void levelOrder(Node root) {
         Node x = root;
-        Queue<Node> queue = new LinkedList<>();
+        Queue<Node> queue = new LinkedList();
         queue.add(x);
 
         while(!queue.isEmpty()){

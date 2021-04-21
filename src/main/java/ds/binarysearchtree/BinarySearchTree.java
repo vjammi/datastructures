@@ -221,7 +221,7 @@ public class BinarySearchTree {
     public void levelOrder(Node root) {
         if (root == null) return;
 
-        java.util.Queue<Node> q = new LinkedList<>();
+        java.util.Queue<Node> q = new LinkedList();
         //QueueImplementingIterable<TrieNode> q = new QueueImplementingIterable<>();
 
         // Enqueue root node
@@ -243,7 +243,7 @@ public class BinarySearchTree {
             return;
         }
 
-        java.util.Queue<Node> queue = new LinkedList<>();
+        java.util.Queue<Node> queue = new LinkedList();
 
         ((LinkedList<Node>) queue).add(root);
         // queue.add(root); ???
