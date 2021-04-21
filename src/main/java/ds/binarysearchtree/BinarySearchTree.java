@@ -3,6 +3,7 @@ package ds.binarysearchtree;
 import java.util.LinkedList;
 
 public class BinarySearchTree {
+
     Node root;
 
     class Node{
