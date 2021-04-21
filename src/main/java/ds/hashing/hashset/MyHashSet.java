@@ -1,4 +1,4 @@
-package ds.hashtable;
+package ds.hashing.hashset;
 
 /*
     Design a HashSet without using any built-in hash table libraries.

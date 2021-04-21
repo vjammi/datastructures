@@ -1,4 +1,4 @@
-package ds.hashtable;
+package ds.hashing;
 
 /******************************************************************************
  *  Compilation:  javac Hashing_LinearProbingST.java

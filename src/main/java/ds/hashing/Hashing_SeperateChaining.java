@@ -1,4 +1,4 @@
-package ds.hashtable;
+package ds.hashing;
 
 public class Hashing_SeperateChaining<Key, Value> {
 

@@ -1,22 +1,22 @@
-package ds.hashtable;
+package ds.hashing;
 
 import java.util.Arrays;
 
 /**
  * Created by Vijay Jammi on 06/04/2018.
  */
-public class Hashing_CustomObjects {
+public class HashingObjects {
     private String who;
     private String when ;
     private double amount;
 
-    public Hashing_CustomObjects(String who, String when, double amount){
+    public HashingObjects(String who, String when, double amount){
         this.who = who;
         this.when = when;
         this.amount = amount;
     }
 
-    public Hashing_CustomObjects(){
+    public HashingObjects(){
     }
 
     public int hashCode() {
@@ -76,7 +76,7 @@ public class Hashing_CustomObjects {
         char[] firstName = {'v','i','j','a','y'};
         char[] lastName = {'j','a','m','m','i'};
 
-        Hashing_CustomObjects h = new Hashing_CustomObjects();
+        HashingObjects h = new HashingObjects();
         System.out.println("hashCode()  " + h.hashCode(firstName));
         System.out.println("hashCode1() " +h.hashCode1("vijay"));
         //The hash value of the empty string is zero.

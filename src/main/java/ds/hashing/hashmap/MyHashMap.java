@@ -1,4 +1,4 @@
-package ds.hashtable;
+package ds.hashing.hashmap;
 
 import java.util.ArrayList;
 import java.util.List;
