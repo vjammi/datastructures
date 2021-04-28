@@ -54,17 +54,15 @@ public class IsomorphicStrings {
         return true;
     }
 
-    private boolean valueSeqMatches(List<Integer> indexesOfSKey, List<Integer> indexesOfTKey) {
-        if (indexesOfSKey.size() != indexesOfTKey.size())
+    private boolean valueSeqMatches(List<Integer> listS, List<Integer> listT) {
+        if (listS.size() != listT.size())
             return false;
 
-        if ( indexesOfSKey.hashCode() != indexesOfTKey.hashCode()){
+        // Time Limit Exceeds when elements of listS are compared with the elements of listT
+        // Praise God, it turns out that we could compare the hashCode() of each list instead.
+        if ( listS.hashCode() != listT.hashCode()){
             return false;
         }
-
-//        if ( !indexesOfSKey.containsAll(indexesOfTKey) || !indexesOfTKey.containsAll(indexesOfSKey)){
-//            return false;
-//        }
         return true;
     }
 
