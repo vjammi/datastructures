@@ -16,7 +16,7 @@ package ds.slidingwindow;
     Output: 2
     Explanation: The subarray [4,3] has the minimal length under the problem constraint.
 */
-//Naive solution would be to find a nexted forloop - o(N2)
+// Naive solution would be to use a nested for loop - o(N2)
 // Setup 2 pointers - start and end pointers.
 // Move the end pointer until a window is found. Then adjust the window by moving the start pointer.
 // then we move the end pointer to find next window
