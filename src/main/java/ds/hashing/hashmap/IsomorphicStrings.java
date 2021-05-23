@@ -72,7 +72,7 @@ public class IsomorphicStrings {
             charHashIndexes.add(charIndex);
             map.put(charHash, charHashIndexes);
         }else{
-            List<Integer>  charHashIndexes = new ArrayList<>();
+            List<Integer>  charHashIndexes = new ArrayList();
             charHashIndexes.add(charIndex);
             map.put(charHash, charHashIndexes);
         }

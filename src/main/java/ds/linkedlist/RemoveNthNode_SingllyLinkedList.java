@@ -36,6 +36,7 @@ public class RemoveNthNode_SingllyLinkedList {
                 forward = forward.next;
                 i--;
             }
+
             if (i == 1 && current == head && forward.next == null) {
                 head = current.next;
                 current.next = null;
@@ -53,6 +54,26 @@ public class RemoveNthNode_SingllyLinkedList {
         return head;
 
     }
+
+    public ListNode removeNthFromEndTemplate(ListNode head, int n) {
+
+        // https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&t=467
+        // Setup the dummy node to point to the head of the list
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        // Setup teh walker and runner to start at the dummy node
+
+        // Advance the runner so that the dist between is N
+
+        // Advance the runner and walker one step at a time, until the runner reaches the end
+            //while (runner != null) {}
+
+        // Delete the Nth node from the end
+
+        // return dummy.next
+        return dummy.next;
+    }
+
 
     private void add(int[] arr) {
         ListNode last = null;
