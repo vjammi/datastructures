@@ -33,34 +33,37 @@ Pattern #1: Path based Tree Problems
                     
                                         
     class Solution {
-        public List<List<Integer>> pathSum(TreeNode root, int sum) {
-            List<Integer> curr = new ArrayList<>();
-            List<List<Integer>> ret = new ArrayList<>();            
-            
+        private int targetSum;
+    
+        public List<List<Integer>> pathSum(TreeNode root, int targetSum) {            
+            Stack<Integer> stack = new Stack(); 
+            List<List<Integer>> result = new ArrayList<>();            
+            this.targetSum = targetSum;
+    
             if (root == null)
-                return ret;
-                
-            pathSum(root, sum, curr, ret);
-            
-            return ret;
+                return result;
+    
+            pathSum(root, 0, stack, result);
+    
+            return result;
         }
-        
-        public void pathSum(TreeNode node, int sum, List<Integer> curr, List<List<Integer>> ret) {
-        
+    
+        public void pathSum(TreeNode node, int sum, Stack<Integer> stack, List<List<Integer>> result) {
+    
             if (node ==null)
                 return;
-                
-            curr.add(node.val);
-            if (node.left == null && node.right==null && node.val == sum){
-                ret.add(new ArrayList(curr));
+    
+            stack.push(node.val); 
+            sum = sum + node.val;
+            if (node.left == null && node.right==null && sum == targetSum){ 
+                result.add(new ArrayList(stack));
             }
-                        
-            pathSum(node.left, sum - node.val, curr, ret);
-            pathSum(node.right, sum - node.val, curr, ret);
-            
-            curr.remove(curr.size()-1);
-        }        
-        
+    
+            pathSum(node.left, sum, stack, result);
+            pathSum(node.right, sum, stack, result);
+    
+            stack.pop(); 
+        }
     }
 
    Other Problems
