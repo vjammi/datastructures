@@ -139,7 +139,7 @@ Code
     The base cases basically ensure that we stop, when we see a node that we have encountered before. Obviousouly when the node is labeled 0 we should visit it
     if its 1 we checked it in a previous traversal and there are no cycles necessarily.
     However, if its -1, it would mean we encountered the node in the same exploration.
-    Now if this were to be a undirected graph, you woujld know if there is a cycle if you pass the parent node in
+    Now if this were to be a undirected graph, you would know if there is a cycle if you pass the parent node in
     Note: This is not a cycle. This can be fixed by passing the parent node as a param to the next node you are visiting.   
             -1      -1
             0   -    1
