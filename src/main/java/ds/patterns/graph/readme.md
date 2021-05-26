@@ -1,6 +1,13 @@
 Graph Problems
-Collection of vertices and edges. Unlike a Tree which uses a Node class, in graph we usually care about the adjacent nodes here.
-Relationship between teh edges. Neighbors of a node. We can usually represent a graph with an adjacency list or adjecncy matrix.
+Collection of vertices and edges. Unlike a Tree which uses a Node class, in a graph we usually care about the adjacent nodes here.
+    1. Directed & undirected edges
+    2. Connected Components
+    3. Cycle Detection
+    4. Topological Sort
+    5. Graph Coloring
+    6. Indegrees
+
+Relationship between teh edges. Neighbors of a node. We can usually represent a graph with an adjacency list or adjacency matrix.
               3
              / 
             2
@@ -32,7 +39,7 @@ Visited Array
 2. Adjacency Matrix
 
 1. 323. Number of Connected Components in an Undirected Graph
-    You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
+    You have a graph of n nodes. You are given an integer n, and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
     Return the number of connected components in the graph.
     
     Input:     n = 5, 
@@ -47,17 +54,17 @@ Visited Array
         Each of these is called a connected component. 
         We need to algorithmically count these connected components. 
         Similar to the number of islands problem in a graph instead of a matrix.
-        We want to pick a node and see all the nmodes connected to it the the next node. 
+        We want to pick a node and see all the nodes connected to it the next node. 
         Eventually we will visits all the nodes in that cluster, that would be 1 connected component. 
         The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array] so that we do not visit them again.  
          
     Code
-        We setup an adjency list or a matrix  so that we can easily lookup each nodes neighbors.  
+        We setup an adjacency list or a matrix  so that we can easily lookup each nodes neighbors.  
         you will get the edges in as a list of pairs. you want to go thru each of the edges and list which nodes are adjacent in the adjacency list.
-        We can use a hashmap or a list of lists for the adjacency list.
+        We can use a hashmap, or a list of lists for the adjacency list.
         We will set the key as the nodes name and the values a list of its edges.
         We initially use a for loop to initialize all these lists to be empty then we iterate thru the input pairs and populate the 
-        adjency list with edges.
+        adjacency list with edges.
         Since the graph is undirected, we need to add each edge twice, since a is b's neighbors. Then b is a's neighbor too.
         
         After this we need to iterate thruy each node and explore all its neighbors. 
@@ -131,7 +138,7 @@ Code
     since there were no cycles found.    
     The base cases basically ensure that we stop, when we see a node that we have encountered before. Obviousouly when the node is labeled 0 we should visit it
     if its 1 we checked it in a previous traversal and there are no cycles necessarily.
-    However if its -1, it would mean we encountered the node in the same exploration.
+    However, if its -1, it would mean we encountered the node in the same exploration.
     Now if this were to be a undirected graph, you woujld know if there is a cycle if you pass the parent node in
     Note: This is not a cycle. This can be fixed by passing the parent node as a param to the next node you are visiting.   
             -1      -1
@@ -154,14 +161,3 @@ Code
 6. Other Problems 
     Union Find, 
     Bellman
-
-
-
-1. Directed & undirected edges
-2. Connected Components
-3. Cycle Detection
-4. Topological Sort
-5. Graph Coloring
-6. Indegrees
-
-
