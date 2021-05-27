@@ -80,7 +80,7 @@ public class CourseSchedule {
             List<Integer> list = adjacencyList.get(node);
             for (int neighbor: list){
                 boolean cycle = dfs(adjacencyList, visited, neighbor);
-                // if a cycle is found return false else continue;
+                // if a cycle is found return false, which should bubble all the way up to return false, else continue
                 if(!cycle)
                     return false;
             }
