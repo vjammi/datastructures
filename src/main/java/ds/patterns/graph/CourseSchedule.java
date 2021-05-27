@@ -64,12 +64,12 @@ public class CourseSchedule {
 
     private boolean dfs(Map<Integer, ArrayList<Integer>> adjacencyList, int[] visited, int node){
 
-        // if we run into a node that visited in the current dfs, then there is a cycle
+        // if we run into a node that visited in the current dfs traversal, then there is a cycle
         if (visited[node] == -1 ){
             return false;
         }
 
-        // if we run into a node that we have already seen in an earlier dfs
+        // if we run into a node that we have already seen in an previous dfs traversal
         if (visited[node] == 1){
             return true;
         }
