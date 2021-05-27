@@ -38,6 +38,7 @@ Visited Array
    An Adjacency List is usually a Hashmap, or a List of Lists
 2. Adjacency Matrix
 
+
 1. 323. Number of Connected Components in an Undirected Graph
     You have a graph of n nodes. You are given an integer n, and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
     Return the number of connected components in the graph.
@@ -134,27 +135,90 @@ Code
     then we run the DFS function. Note that not all the components may be connected.
     We are done if the cycle is found. 
     Within the DFS function. as we enter the dfs [up the hill] we mark the node as -1.
-    Now when we are done visiting, on the way back [downhill] we change it to 1, marking as tghe node as visited and we return true 
+    Now when we are done visiting, on the way back [downhill] we change it to 1, marking as the node as visited and we return true 
     since there were no cycles found.    
-    The base cases basically ensure that we stop, when we see a node that we have encountered before. Obviousouly when the node is labeled 0 we should visit it
+    The base cases basically ensure that we stop, when we see a node that we have encountered before. Obliviously when the node is labeled 0 we should visit it
     if its 1 we checked it in a previous traversal and there are no cycles necessarily.
     However, if its -1, it would mean we encountered the node in the same exploration.
-    Now if this were to be a undirected graph, you would know if there is a cycle if you pass the parent node in
-    Note: This is not a cycle. This can be fixed by passing the parent node as a param to the next node you are visiting.   
+     
+    If the above example is an undirected graph, you would not be able to use the same logic to detect if there is a cycle.
+    You pass the parent node to determine where you came from.
+    
+    For example, this one below is not a cycle.    
             -1      -1
-            0   -    1
-     
-3. Graph Valid Tree
+             0   -   1
+    This can be identified by passing the parent node as a param to the next node you are visiting.
+        
+3. 261. Graph Valid Tree
+   You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
+   Return true if the edges of the given graph make up a valid tree, and false otherwise.
     
-     
+   Example 1:
+   Input: n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]
+   Output: true
+    
+   Example 2:
+   Input: n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]
+   Output: false
 
-4. Possible Bi-partition
+4. Possible Bi-partition [Example of Graph coloring, also called bipartite graph]
 
-    This is an undirected graph. If DFS finds two neighboring nodes with the same grouping, then we return false - not a Bi-partite
+    Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
+    Each person may dislike some other people, and they should not go into the same group.
     
+    Formally, if dislikes[i] = [a, b], it means it is not allowed to put the people numbered a and b into the same group.
+    Return true if and only if it is possible to split everyone into two groups in this way.
     
-      
-5. Min Height Tree
+    Example 2:
+    Input: n = 4, dislikes = [[1,2],[1,3],[2,4]]
+    Output: true
+    Explanation: group1 [1,4], group2 [2,3]
+
+    Solution
+        Very similar to the LC 207 Course Schedule. 
+        The only difference is that this is an undirected graph. 
+        If DFS finds two neighboring nodes with the same grouping/coloring, then we return false - not a Bipartite graph
+        
+        Example 1:
+        Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[5,2]]
+        
+        Group Labeling
+                       0 = UnVisited
+                      -1 = Group A
+                       1 = Group B
+                       
+                         3   1
+                 1     /   \
+                 1 - 2      4 0     Example of a bipartite
+                     0 \   /
+                         1   1
+                        
+                          3  1   
+                 1     /  | 
+                 1 - 2    |         Example of not a bipartite
+                       \  | 
+                          1  1
+      If we run into a situation where two nodes share the same label, then the graph is not a bipartite.
+                                 
+                        
+5. 310. Minimum Height Trees
+    A tree is an undirected graph in which any two vertices are connected by exactly one path. 
+    In other words, any connected graph without simple cycles is a tree.
+    
+    Given a tree of n nodes labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that 
+    there is an undirected edge between the two nodes ai and bi in the tree, you can choose any node of the tree as the root. 
+    When you select a node x as the root, the result tree has height h. 
+    Among all possible rooted trees, those with minimum height (i.e. min(h)) are called minimum height trees (MHTs).
+    Return a list of all MHTs' root labels. 
+    You can return the answer in any order.
+    The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.
+    
+    Example 1:
+    Input: n = 4, edges = [[1,0],[1,2],[1,3]]
+    Output: [1]
+    Explanation: As shown, the height of the tree is 1 when the root is the node with label 1 which is the only MHT.
+
+    Solution
     We will solve this using BFS.
     
 
