@@ -1,6 +1,5 @@
-Trees
-
-Pattern #1: Path based Tree Problems
+Trees Pattern #1: Path based Tree Problems.
+Problems related to Path finding. Given a particular tree, find a path that optimizes some criteria.
 
 1. Path Sum II
     Given the root of a binary tree and an integer targetSum, 
@@ -89,21 +88,27 @@ Pattern #1: Path based Tree Problems
     
     Example 2 
                     1
-                 6      3
+            /    6      3   \
               7     2       4
-                        5
+                        5    /
     Constraints: Path should go from parent to child i.e 1,3,4,5 and 
                  The numbers have to be increasing.
-                 consequetive [6,7], [3,4]
-                 
-    A Common Tree Pattern: 
-    This pattern extremely common. 
-    Here in this problem we have to pass intermediate solution/values back up the tree, up the recursion call stack. 
-    You might be asked to delete the node, which in this case you might need to pass the modified node up the call stack
-    Regardless, all of them follow this recursive traversal pattern.
-    You need to determine what you need to do within the single step of the problem
+                 consequetive [6,7], [3,4,5]
+
+    Solution
+        If we are at a certain node in the tree, we can compute the longest consecutive path of the node by calculating 
+        the longest consecutive path of the left and right child and returning those values we will be able to compute for the current node.
+        We then repeat the same by bubbling it up the call stack.
+        In the above example, we check if 3 is concequetive to the left and right and then we add 1 if true. 
     
-    
+    Pattern
+        This pattern extremely common. 
+        Here in this problem we have to pass intermediate solution/values back up the tree, up the recursion call stack. 
+        In other cases you might be asked to delete the node, which in this case you might need to pass the modified node up the call stack
+        Regardless, all of them follow this recursive traversal pattern.
+        You need to determine what you need to do within the single step of the problem.
+        
+        
     public class Solution{
         
         private int result = 0;
