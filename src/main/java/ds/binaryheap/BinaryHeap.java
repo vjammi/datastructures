@@ -91,6 +91,11 @@ public class BinaryHeap {
         pq[j] = t;
     }
 
+    public static void main(String[] args) {
+        BinaryHeap heap = new BinaryHeap(20);
+        heap.loadData();
+    }
+
     private void loadData() {
         int i = 0;
         while (i < 10) {
@@ -106,11 +111,6 @@ public class BinaryHeap {
 
             i++;
         }
-    }
-
-    public static void main(String[] args) {
-        BinaryHeap heap = new BinaryHeap(20);
-        heap.loadData();
     }
 
     private void printArraycontent(int key) {
