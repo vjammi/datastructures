@@ -4,10 +4,48 @@ Here we will be exploring all the nodes within a tree, generally in some unique 
 
 ![Binary Tree Traversals](/img/binarytree.jpg "Binary Tree Traversals").
 
-1. Binary Tree Level Order Traversal
-   Find the largest value in each Tree Row 
-   Binary Tree Zigzag Level Order Traversal
-   
-2. Populating Next right pointers in each node
+1. 102. Binary Tree Level Order Traversal
+   Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+   Example 1:
+   Input: root = [3,9,20,null,null,15,7]
+   Output: [[3],[9,20],[15,7]]
 
-3. Constructing Binary Tree from Preorder/Inorder Traversals
+   1.1 Find the largest value in each Tree Row 
+   1.2 Binary Tree Zigzag Level Order Traversal
+   
+2. 116. Populating Next Right Pointers in Each Node
+    You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. 
+    The binary tree has the following definition:
+        struct Node {
+          int val;
+          Node *left;
+          Node *right;
+          Node *next;
+        }
+    Populate each next pointer to point to its next right node. If there is no next right node, 
+    the next pointer should be set to NULL.
+    Initially, all next pointers are set to NULL.
+
+    Solution
+        We will need top use a level order traversal.
+        At any point we are going down and across/laterally. We do not need to recurse or backtrack. 
+        At any point we are connecting the nodes at its next level, children's level
+        We will assign the next pointers to the 
+            1. left node 
+            2. right node
+                             1
+     
+                       2     >      3
+     
+                4   >   5     >    6   >    7
+     
+             8 > 9 > 10 > 11  > 12 > 13 > 14 > 15            
+        
+
+3. 105. Construct Binary Tree from Preorder and Inorder Traversal
+   Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
+   Example 1:
+   Input: preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]
+   Output: [3,9,20,null,null,15,7]
+   
+   
