@@ -13,7 +13,7 @@ public class BinaryHeapMin {
         return N;
     }
 
-    private int delMax() {
+    private int delMin() {
         int max = pq[1];
         pq[1] = pq[N];
         N--;
@@ -26,6 +26,7 @@ public class BinaryHeapMin {
         int minChild = 0;
         int l = 2*k;
         int m = 2*k+1;
+
         while(l<=N || m<=N){
             if (m <= N)
                 minChild = pq[l] < pq[m] ? l : m;
@@ -75,12 +76,12 @@ public class BinaryHeapMin {
             insert(num);
             printArray(num);
         }
-        delMax(); printArray(pq[1]);
-        delMax(); printArray(pq[1]);
-        delMax(); printArray(pq[1]);
-        delMax(); printArray(pq[1]);
-        delMax(); printArray(pq[1]);
-        delMax(); printArray(pq[1]);
+        delMin(); printArray(pq[1]);
+        delMin(); printArray(pq[1]);
+        delMin(); printArray(pq[1]);
+        delMin(); printArray(pq[1]);
+        delMin(); printArray(pq[1]);
+        delMin(); printArray(pq[1]);
     }
 
     private void printArray(int num) {
