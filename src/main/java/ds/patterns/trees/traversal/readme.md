@@ -2,13 +2,14 @@
 Unlike the previous tree patterns (given a particular tree, find a path that optimizes some criteria), we are not looking here for an optimal solution of any sort. 
 Here we will be exploring all the nodes within a tree, generally in some unique way other than preorder, inorder and postorder traversal. 
 
-![Binary Tree Traversals](/img/binarytree.jpg "Binary Tree Traversals").
+![Binary Tree Traversals](img/binarytree.jpg "Binary Tree Traversals").
 
 #### 102. Binary Tree Level Order Traversal
    Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
    Example 1:
    Input: root = [3,9,20,null,null,15,7]
    Output: [[3],[9,20],[15,7]]
+
 Solution
 
     public class BinaryTreeLevelOrderTraversal {
