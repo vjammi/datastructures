@@ -215,12 +215,12 @@ Solution
             // If this new value is best Max path sum of the entire tree so far then we take it. If not we use the one we have so far.
             // Note that global max variable is not returned but is used to compute the Max Path Sum at each step
             max = Math.max(max, node.val + left+ right);
+            
             // Because the we need to decide which segment we what to return to the parent. because we cannot send the whole.
             // because it might be using a structure that is forking but the parent needs to us a straight/linear continuous structure.
             // Since we need to maintain a continuous structure, we need to add the current node.
             // We then choose add the left or the right segment of the subtree. we cannot add both segments.
-            int returnVal = Math.max(left, right) + node.val;
-    
+            int returnVal = Math.max(left, right) + node.val;    
             return returnVal;
         }
     }
