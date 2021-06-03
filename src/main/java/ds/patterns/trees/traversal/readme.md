@@ -9,11 +9,42 @@ Here we will be exploring all the nodes within a tree, generally in some unique 
    Example 1:
    Input: root = [3,9,20,null,null,15,7]
    Output: [[3],[9,20],[15,7]]
+Solution
 
-##### Find the largest value in each Tree Row 
-##### Binary Tree Zigzag Level Order Traversal
+    public class BinaryTreeLevelOrderTraversal {
+        class TreeNode {
+            //...
+        }
+    
+        public List<List<Integer>> levelOrder(TreeNode root) {
+            List<List<Integer>> lists = new ArrayList<>();
+            traversal(root, lists, 0);
+            return lists;
+        }
+    
+        public void traversal(TreeNode node, List<List<Integer>> lists, int level){
+            if (node == null)
+                return;
+    
+            if (level == lists.size()){  // Ugly way of checking a list for that level has already been created
+                System.out.println(node.val +" -- " +level);
+                List<Integer> list = new ArrayList<>();
+                list.add(node.val);
+                lists.add(list);
+            }else{ // else - if a list for that level has already been created, then just retrieve the list by level and add the node value to the list
+                lists.get(level).add(node.val);
+                System.out.println(node.val +" - " +level);
+            }
+    
+            traversal(node.left,  lists, level+1);
+            traversal(node.right, lists, level+1);
+        }
+    }
+
+### Find the largest value in each Tree Row 
+### Binary Tree Zigzag Level Order Traversal
    
-#### 116. Populating Next Right Pointers in Each Node
+## 116. Populating Next Right Pointers in Each Node
 You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. 
 The binary tree has the following definition:
 
@@ -43,7 +74,79 @@ Solution
      
              8 > 9 > 10 > 11  > 12 > 13 > 14 > 15            
 
-#### 105. Construct Binary Tree from Preorder and Inorder Traversal
+Solution
+
+    public class PopulatingNextRightPointersInEachNode {
+        class Node {...}
+    
+        public Node connect(Node root) {
+            if (root == null)
+                return root;
+    
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(root);
+    
+            while(!queue.isEmpty()){
+                Node node = queue.poll();
+    
+                // Assigning next pointer to a left node
+                if (node.left !=null && node.right !=null ){
+                    node.left.next = node.right;
+    
+                }else if(node.left != null && node.right == null){
+                    Node nextNode = node.next;
+                    if (nextNode == null){
+                        node.left.next = null;
+                    }else{
+                        while(nextNode !=null ){
+                            if (nextNode.left != null){
+                                node.left.next = nextNode.left;
+                                break;
+                            }else if (nextNode.right != null){
+                                node.left.next = nextNode.right;
+                                break;
+                            }else{
+                                nextNode = nextNode.next;
+                            }
+                            node.left.next = null;
+                        }
+                    }
+                }
+    
+                // Assigning next pointer to a right node
+                if(node.right != null ){
+                    Node nextNode = node.next;
+                    if (nextNode == null){
+                        node.right.next = null;
+                    }else{
+                        while(nextNode !=null ){
+                            if (nextNode.left != null){
+                                node.right.next = nextNode.left;
+                                break;
+                            }else if (nextNode.right != null){
+                                node.right.next = nextNode.right;
+                                break;
+                            }else{
+                                nextNode = nextNode.next;
+                            }
+                            node.right.next = null;
+                        }
+                    }
+                }
+    
+                if (node.left != null){
+                    queue.add(node.left);
+                }
+                if (node.right != null){
+                    queue.add(node.right);
+                }
+    
+            }
+            return root;
+        }
+    }
+
+## 105. Construct Binary Tree from Preorder and Inorder Traversal
 Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
 Example 1:
    Input: 
