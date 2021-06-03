@@ -35,7 +35,7 @@ public class BinaryTreeLongestConsecutiveSequence {
         int left = longestSequence(node.left);
         int right = longestSequence(node.right);
 
-        // Do something with the previous left and right nodes
+        //*** Now do something with the previous left and right nodes return values ***
 
         int max =1; // LongestConsecutive path at the current node
 

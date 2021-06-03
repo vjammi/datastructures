@@ -1,4 +1,4 @@
-Linked List
+##Linked List
 - insertion and deletion at O(N)
 - finding s specific node is O(N)
 - Add a Dummy nodes
@@ -6,7 +6,7 @@ Linked List
 - If you are reordering elements of a list, you take thee nodes and change their next pointer points to. 
 - if deleting a node, we modify the previous nodes next pointer to point to the next of the node to be deleted. 
    
-1. LC19 Remove Nth Node from End of List
+#### LC19 Remove Nth Node from End of List
     - Add a dummy node to the start of the list with dummy.next pointing to the head. 
       Note: ??? Dummy nodes are pointers, not new nodes 
     - Setup two pointers - Runner and Walker
@@ -31,14 +31,19 @@ Linked List
                          w          r      
         
 
-2. LC24 Swap Nodes in Pairs
+####  LC24 Swap Nodes in Pairs
     Need 3 swaps to swap each pair and to maintain the LinkedList structure.
     
             1   2    3   4   5   6  NULL
     dummy   1   2    3   4   5   6  NULL
-                
+                                   
     dummy   1   2    3   4   5   6  NULL
      ^          ^   
+    
+    dummy ----> 2    3   4   5   6  NULL
+            1<-- 
+            -------->   
+            ^            ^                              
     dummy   2   1    3   4   5   6  NULL
                 ^        ^
     dummy   2   1    4   3   5   6  NULL
@@ -46,10 +51,10 @@ Linked List
     dummy   2   1    4   3 ----- > 
                              5 < 6  
                              ---->  NULL
-2.1 Reverse a Linked List
-2.2 Middle of a LinkedList
+###### 2.1 Reverse a Linked List
+###### 2.2 Middle of a LinkedList
     
-3. Partition List
+#### Partition List
     Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes 
     greater than or equal to x. You should preserve the original relative order of the nodes in each of the two partitions.
     
@@ -91,16 +96,48 @@ Linked List
       ***Very space effecient. Note that we are moving the nodes to the newer lists, not copying the nodes. 
       The only new nodes we are creating are the 2 new dummy nodes.
 
-4. Linked List Cycle II
-    Cycle Detection
-    Basically what we are looking is a loop in the list. Not only that we also want to know where the cycle starts.            
+#### Linked List Cycle II
+Cycle Detection
+    Basically what we are looking is a loop in the list. We also want to know where the cycle starts.            
+
                     4
         1   2   3       5
                     6
+        ^^
+        SF
+        The slow pointer and fast pointer start out at the begining
+        
+                    4
+        1   2   3       5
+                    6
+            ^   ^
+            S   F                   
+        At each step, the slow pointer moves 1 step ahead, fast pointer moves 2 step ahead.
+        
+                    4
+        1   2   3       5
+                    6
+                        ^ ^  They both meet at 5
+                        S F
+
+
+                    4
+        1   2   3       5
+                    6
+        ^               ^
+        S               F
+        Reset the the pointers and move them now 1 step at a time.                         
+
+                    4
+        1   2   3       5
+                    6
+               ^^
+               SF
+        Now they both meet at 3
+                
     An easy solution would be to use an HashSet to store the nodes. If a come to a node that is already in the HashSet then we have a cycle. 
     Since it s a Linked list problem we can try to solve it using pointers.    
     There is an algo called Floyd's cycle finding algo. 
     
     
     
-5. Closing Thoughts

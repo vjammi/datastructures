@@ -13,8 +13,9 @@ package ds.patterns.graph;
     Output: 1
 */
 public class ConnectedComponentsInAnUndirectedGraph {
-    public int countComponents(int n, int[][] edges) {
 
+    public int countComponents(int n, int[][] edges) {
+    
         return 0;
     }
 }

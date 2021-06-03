@@ -3,6 +3,7 @@ package ds.patterns.trees.traversal;
 import ds.binarytree.TreeNode;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -88,15 +89,15 @@ public class BinaryTreeZigzagLevelOrderTraversal {
             rootLeft.val  = 2;
             root.left = rootLeft;
             TreeNode rootRight = new TreeNode();
-            rootRight.val = 5;
+            rootRight.val = 3;
             root.right = rootRight;
 
             TreeNode rootLeftLeft = new TreeNode();
-            rootLeftLeft.val  = 3;
+            rootLeftLeft.val  = 4;
             rootLeft.left = rootLeftLeft;
-            TreeNode rootLeftRight = new TreeNode();
-            rootLeftRight.val = 4;
-            rootLeft.right = rootLeftRight;
+            TreeNode rootRightRight = new TreeNode();
+            rootRightRight.val = 5;
+            rootRight.right = rootRightRight;
 
             System.out.println(zigzagLevelOrder(root).toString());
         }
@@ -105,6 +106,82 @@ public class BinaryTreeZigzagLevelOrderTraversal {
             BinaryTreeZigzagLevelOrderTraversal btzzlo = new BinaryTreeZigzagLevelOrderTraversal();
             btzzlo.zigzagLevelOrder();
         }
+}
 
 
+
+class BinaryTreeZigzagLevelOrderTraversalSolutionBorrowed {
+
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+        public TreeNode() {
+        }
     }
+
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> sol = new ArrayList<>();
+        traversal(root, sol, 0);
+        return sol;
+    }
+
+    // O(n) solution by using LinkedList along with ArrayList. So insertion in the inner list and outer list are both O(1), using DFS and creating new lists when needed.
+    private void traversal(TreeNode curr, List<List<Integer>> lists, int level) {
+        if(curr == null) return;
+
+        if(lists.size() <= level){
+            List<Integer> newLevel = new LinkedList<>();
+            lists.add(newLevel);
+        }
+
+        List<Integer> list  = lists.get(level);
+        if(level % 2 == 0) {
+            list.add(curr.val);
+        }else {
+            // Inserts the the element at the position 0, in the list. Before that it shifts the element
+            // currently at that position if any to the right for the zigZag
+            list.add(0, curr.val);
+        }
+
+        traversal(curr.left, lists, level + 1);
+        traversal(curr.right, lists, level + 1);
+    }
+
+    private void zigzagLevelOrder() {
+        TreeNode root = new TreeNode();
+        root.val = 1;
+        TreeNode rootLeft = new TreeNode();
+        rootLeft.val  = 2;
+        root.left = rootLeft;
+        TreeNode rootRight = new TreeNode();
+        rootRight.val = 5;
+        root.right = rootRight;
+
+        TreeNode rootLeftLeft = new TreeNode();
+        rootLeftLeft.val  = 3;
+        rootLeft.left = rootLeftLeft;
+        TreeNode rootLeftRight = new TreeNode();
+        rootLeftRight.val = 4;
+        rootLeft.right = rootLeftRight;
+
+        System.out.println(zigzagLevelOrder(root).toString());
+    }
+
+    public static void main(String[] args) {
+        BinaryTreeZigzagLevelOrderTraversalSolutionBorrowed btzzlo = new BinaryTreeZigzagLevelOrderTraversalSolutionBorrowed();
+        btzzlo.zigzagLevelOrder();
+    }
+
+}
+

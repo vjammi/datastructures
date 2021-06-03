@@ -83,7 +83,8 @@ public class PathSumII {
 
         // Add the node value to the sum
         sum = sum + node.val;
-        // Check if the the current node is a leaf node. l & r nodes are nulls. if yes check if the sum so far is the target we are looking for
+        // Check if the the current node is a leaf node. l & r nodes are nulls.
+        // if yes check if the sum so far is the target we are looking for
         if (node.left == null && node.right==null && sum == targetSum){
             result.add(new ArrayList(stack));
         }

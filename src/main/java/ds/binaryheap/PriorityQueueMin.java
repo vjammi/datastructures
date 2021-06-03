@@ -101,7 +101,7 @@ public class PriorityQueueMin<Key> implements Iterable<Key> {
         pq = (Key[]) new Object[keys.length + 1];
         for (int i = 0; i < n; i++)
             pq[i+1] = keys[i];
-        for (int k = n/2; k >= 1; k--)
+        for (int k = n; k >= 1; k--)
             sink(k);
         assert isMinHeap();
     }
@@ -287,6 +287,7 @@ public class PriorityQueueMin<Key> implements Iterable<Key> {
         }
         */
 
+        /*
         int M = 20;
         int i = 50;
         while(i < 100){
@@ -298,6 +299,18 @@ public class PriorityQueueMin<Key> implements Iterable<Key> {
             i++;
         }
         System.out.println("(" + pq.size() + " left on pq)");
+        */
+
+        Integer[] keys = new Integer[]{9,8,7,6,5,4,3,2,1,0};
+        PriorityQueueMin<Integer> pqMin = new PriorityQueueMin<>(keys);
+
+        pqMin.delMin();
+        pqMin.delMin();
+        pqMin.delMin();
+        pqMin.delMin();
+        pqMin.delMin();
+
     }
 
 }
+
