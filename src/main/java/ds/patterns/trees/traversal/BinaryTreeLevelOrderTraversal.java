@@ -1,8 +1,5 @@
 package ds.patterns.trees.traversal;
 
-import ds.patterns.trees.path.BinaryTreeLongestConsecutiveSequence;
-import ds.patterns.trees.path.BinaryTreeMaximumPathSum;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -44,6 +44,26 @@ Solution
 
 ### Find the largest value in each Tree Row 
 ### Binary Tree Zigzag Level Order Traversal
+
+    public void traversal(TreeNode node, List<List<Integer>> lists, int level){
+        if (node == null)
+            return;
+
+
+        if (level == lists.size()){  // Ugly way of checking a list for that level has already been created
+            System.out.println(node.val +" -- " +level);
+            List<Integer> list = new ArrayList<>();
+            list.add(node.val);
+            lists.add(list);
+        }else{ // else - if a list for that level has already been created, then just retrieve the list by level and add the node value to the list
+            lists.get(level).add(node.val);
+            System.out.println(node.val +" - " +level);
+        }
+
+        traversal(node.left,  lists, level+1);
+        traversal(node.right, lists, level+1);
+    }
+
    
 ## 116. Populating Next Right Pointers in Each Node
 You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. 
