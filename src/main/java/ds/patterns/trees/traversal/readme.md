@@ -11,11 +11,10 @@ Input: root = [3,9,20,null,null,15,7]
 Output: [[3],[9,20],[15,7]]
 
 Solution
-
+Creates a list of lists (result list) by creating a list for each level and adding that list to the result list.
+  
     public class BinaryTreeLevelOrderTraversal {
-        class TreeNode {
-            //...
-        }
+        class TreeNode {... }
     
         public List<List<Integer>> levelOrder(TreeNode root) {
             List<List<Integer>> lists = new ArrayList<>();
@@ -79,12 +78,11 @@ The binary tree has the following definition:
         }
 
 Populate each next pointer to point to its next right node. If there is no next right node, 
-the next pointer should be set to NULL.
-Initially, all next pointers are set to NULL.
+the next pointer should be set to NULL. Initially, all next pointers are set to NULL.
 
 Solution
-    We will need top use a level order traversal.
-    At any point we are going down and across/laterally. We do not need to recurse or backtrack. 
+    We will use a level order traversal. At any point we are going down and across/laterally. 
+    We do not need to recurse or backtrack. 
     At any point we are connecting the nodes at its next level, children's level
     We will assign the next pointers to the 
             1. left node 
@@ -116,7 +114,6 @@ Solution
                 // Assigning next pointer to a left node
                 if (node.left !=null && node.right !=null ){
                     node.left.next = node.right;
-    
                 }else if(node.left != null && node.right == null){
                     Node nextNode = node.next;
                     if (nextNode == null){
