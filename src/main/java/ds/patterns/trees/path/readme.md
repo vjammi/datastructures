@@ -178,6 +178,7 @@ the recursive tree stack, and the cycle repeats itself.
     Explanation: The optimal path is 15 -> 20 -> 7 with a path sum of 15 + 20 + 7 = 42.            
     
 Intuition
+                
                  -10
                                 
         9                   20      //return currentNode + its left segment or it right seg, which ever is positive
