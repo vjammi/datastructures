@@ -30,7 +30,7 @@ public class BinaryTree_ConstructFromPreOrderInOrder {
     }
 
 
-    private int currentPreOrderIndex = 0;
+    private int preOrderIndex = 0;
     private int[] preorder;
     private int[] inorder;
     private Map<Integer, Integer> inOrderMap = new HashMap<>();
@@ -83,22 +83,20 @@ public class BinaryTree_ConstructFromPreOrderInOrder {
             return null;
         }
 
-        // Base Case [+] of +AB
-        int currentVal = preorder[currentPreOrderIndex];
-        int currentInx = inOrderMap.get(currentVal);
-        TreeNode currentNode = new TreeNode(inorder[currentInx]);
-        currentPreOrderIndex++;
+        // Select the next preorder node as the current root and increment it preorder index
+        int nextPreOrderNodeVal = preorder[preOrderIndex++]; // preOrderIndex++;
+        TreeNode currRootNode = new TreeNode(nextPreOrderNodeVal);
 
-        // A/Left of +AB
-        TreeNode left = buildTree(leftIndex, currentInx - 1);  // Returned left node
-        currentNode.left = left; // On your way back, add the returned node to the left of the current node
+        // A/Left of +AB & B/Right of +AB
+        int inorderNodeInx = inOrderMap.get(nextPreOrderNodeVal); // lookup the index of the nextPreOrderNodeVal within the inorder map.
+        TreeNode leftNode = buildTree(leftIndex, inorderNodeInx - 1);  // Return left node
+        TreeNode rightNode = buildTree(inorderNodeInx + 1, rightIndex); // Return right node
 
-        // B/Right of +AB
-        TreeNode right = buildTree(currentInx + 1, rightIndex); // Returned right node
-        currentNode.right = right; // On your way back, add the returned node to the right of the current node
+        currRootNode.left = leftNode; // On your way back, add the returned node to the left of the current root node
+        currRootNode.right = rightNode; // On your way back, add the returned node to the right of the current root node
 
         // Return the current node to be added to the left or the right side of the parent node.
-        return currentNode;
+        return currRootNode;
     }
 
     public static void main(String[] args) {
