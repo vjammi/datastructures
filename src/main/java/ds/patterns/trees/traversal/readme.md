@@ -87,6 +87,7 @@ Solution
     We will assign the next pointers to the 
             1. left node 
             2. right node
+            
                              1
      
                        2     >      3
