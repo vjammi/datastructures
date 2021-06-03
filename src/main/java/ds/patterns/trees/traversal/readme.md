@@ -45,23 +45,25 @@ Solution
 ### Find the largest value in each Tree Row 
 ### Binary Tree Zigzag Level Order Traversal
 
-    public void traversal(TreeNode node, List<List<Integer>> lists, int level){
-        if (node == null)
-            return;
+    private void zigzagLevelOrderTraversal(TreeNode node, List<List<Integer>> lists, int level) {
+        if(node == null) return;
 
-
-        if (level == lists.size()){  // Ugly way of checking a list for that level has already been created
-            System.out.println(node.val +" -- " +level);
-            List<Integer> list = new ArrayList<>();
-            list.add(node.val);
-            lists.add(list);
-        }else{ // else - if a list for that level has already been created, then just retrieve the list by level and add the node value to the list
-            lists.get(level).add(node.val);
-            System.out.println(node.val +" - " +level);
+        if(lists.size() <= level){
+            List<Integer> newLevel = new LinkedList<>();
+            lists.add(newLevel);
         }
 
-        traversal(node.left,  lists, level+1);
-        traversal(node.right, lists, level+1);
+        List<Integer> list  = lists.get(level);
+        if(level % 2 == 0) {
+            list.add(node.val);
+        }else {
+            // Inserts the the element at the position 0, in the list. 
+            // Shifts the element currently at that position if any to the right for the zigZag
+            list.add(0, node.val);
+        }
+
+        zigzagLevelOrderTraversal(node.left, lists, level + 1);
+        zigzagLevelOrderTraversal(node.right, lists, level + 1);
     }
 
    
