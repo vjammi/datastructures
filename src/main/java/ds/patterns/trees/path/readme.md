@@ -1,7 +1,7 @@
-##Trees Pattern #1: Path based Tree Problems.
+## Trees Pattern #1: Path based Tree Problems.
 Problems related to Path finding. Given a particular tree, find a path that optimizes some criteria.
 
-####1. Path Sum II
+#### Path Sum II
 Given the root of a binary tree and an integer targetSum, 
 return all root-to-leaf paths where each path's sum equals targetSum.
 A leaf is a node with no children.
@@ -80,7 +80,7 @@ Solution
 #### Sum Root to Leaf Numbers
 #### Most Frequent SubTree Sum
         
-####2. LC 298 Binary Tree Longest Consecutive Sequence
+#### LC 298 Binary Tree Longest Consecutive Sequence
 Given the root of a binary tree, return the length of the longest consecutive sequence path.
 The path refers to any sequence of nodes from some starting node to any node in the tree along the parent-child 
 connections. The longest consecutive path needs to be from parent to child (cannot be the reverse).
@@ -157,7 +157,7 @@ Solution
     }
         
 
-####3. LC124 Binary Tree Maximum Path Sum
+#### LC124 Binary Tree Maximum Path Sum
 A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them. 
 A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
 The path sum of a path is the sum of the node's values in the path.
