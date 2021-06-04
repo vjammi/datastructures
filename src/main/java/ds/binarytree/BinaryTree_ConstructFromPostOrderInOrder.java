@@ -26,7 +26,6 @@ public class BinaryTree_ConstructFromPostOrderInOrder {
     Map<Integer, Integer> inorderMap = new HashMap<>();
 
     public void buildTree(BinaryTree_ConstructFromPostOrderInOrder tree) {
-
         for(int i=0; i< inorder.length; i++){
             inorderMap.put(inorder[i], i);
         }
@@ -41,15 +40,19 @@ public class BinaryTree_ConstructFromPostOrderInOrder {
             return null;
         }
 
-        int currentInorderIndex = inorderMap.get(postorder[currentPostOrderIndex]);
-        TreeNode node = new TreeNode(inorder[currentInorderIndex]);
+        int rootValue = postorder[currentPostOrderIndex--];
+        TreeNode rootNode = new TreeNode(rootValue);
+        int inorderIndexForRootValue = inorderMap.get(rootValue);
 
-        currentPostOrderIndex --;
+        rootNode.right = buildTree(inorderIndexForRootValue+1, rightIndex);
+        rootNode.left = buildTree(leftIndex, inorderIndexForRootValue - 1);
 
-        node.right = buildTree(currentInorderIndex+1, rightIndex);
-        node.left = buildTree(leftIndex, currentInorderIndex - 1);
+        //TreeNode right = buildTree(inorderIndexForRootValue+1, rightIndex);
+        //TreeNode left = buildTree(leftIndex, inorderIndexForRootValue - 1);
+        //rootNode.right = right;
+        //rootNode.left = left;
 
-        return node;
+        return rootNode;
     }
 
     private void populate(BinaryTree_ConstructFromPostOrderInOrder tree) {

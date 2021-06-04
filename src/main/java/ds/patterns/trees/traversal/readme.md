@@ -241,3 +241,39 @@ Inorder  [2-1-3]: In a InOrder, you perform something on the left node first, th
         }
         
     }
+    
+## 106. Construct Binary Tree from Inorder and Postorder Traversal
+     
+     public class BinaryTree_ConstructFromPostOrderInOrder {
+        // ...
+
+        public void buildTree(BinaryTree_ConstructFromPostOrderInOrder tree) {
+            for(int i=0; i< inorder.length; i++){
+                inorderMap.put(inorder[i], i);
+            }
+            currentPostOrderIndex = postorder.length - 1;
+            root2 = buildTree(0, inorder.length - 1);
+            print("", tree.root2);
+        }
+        
+        public TreeNode buildTree(int leftIndex, int rightIndex) {
+    
+            if (leftIndex > rightIndex){
+                return null;
+            }
+    
+            int rootValue = postorder[currentPostOrderIndex--];
+            TreeNode rootNode = new TreeNode(rootValue);
+            int inorderIndexForRootValue = inorderMap.get(rootValue);
+    
+            rootNode.right = buildTree(inorderIndexForRootValue+1, rightIndex);
+            rootNode.left = buildTree(leftIndex, inorderIndexForRootValue - 1);
+    
+            //TreeNode right = buildTree(inorderIndexForRootValue+1, rightIndex);
+            //TreeNode left = buildTree(leftIndex, inorderIndexForRootValue - 1);
+            //rootNode.right = right;
+            //rootNode.left = left;
+    
+            return rootNode;
+        }
+    }    
