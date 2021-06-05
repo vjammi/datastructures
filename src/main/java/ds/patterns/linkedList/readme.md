@@ -63,6 +63,7 @@ Note: Deleting the nth node will require the walker to the n+1 nodes behind the 
             walker.next = walker.next.next;
             next.next = null;        
             
+             // return dummy.next
             return dummy.next;
         }                         
                          
