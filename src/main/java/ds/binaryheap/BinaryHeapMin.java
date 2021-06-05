@@ -37,12 +37,12 @@ public class BinaryHeapMin {
         The element which went from bottom to top will most likely violate the heap order, so recursively exchange that node with the min of its two children (sink operation), until the heep order is restored
      */
     private int delMin() {
-        int max = pq[1];
+        int min = pq[1];
         pq[1] = pq[N];
         N--;
         sink(1);
         pq[N + 1] = 0;
-        return max;
+        return min;
     }
 
     private void sink(int k) {
