@@ -1,4 +1,6 @@
 ##Linked List
+Reference: https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&t=467
+
 - insertion and deletion at O(N)
 - finding s specific node is O(N)
 - Add a Dummy nodes
@@ -7,28 +9,63 @@
 - if deleting a node, we modify the previous nodes next pointer to point to the next of the node to be deleted. 
    
 #### LC19 Remove Nth Node from End of List
-    - Add a dummy node to the start of the list with dummy.next pointing to the head. 
-      Note: ??? Dummy nodes are pointers, not new nodes 
-    - Setup two pointers - Runner and Walker
-    - Remove the Nth Node
-    
-    The idea is we setup the runner and walker pointers with the runner setup n steps ahead of the walker. They will be 
-    a distance of N nodes apart. Now we move the runner and walker one step at a time until the runner reaches the end. 
-    At a certain point, the runner will reach the end (r==null), and the walker will be at the Nth node from the end.
-        
-    Deleting the nth node will require the walker to the n+1 nodes behind the runner.
+- Add a dummy node to the start of the list with dummy.next pointing to the head. 
+  Note: ??? Dummy nodes are pointers, not new nodes 
+- Setup two pointers - Runner and Walker
+- Remove the Nth Node
+
+The idea is we setup the runner and walker pointers with the runner setup n steps ahead of the walker. They will be 
+a distance of N nodes apart. Now we move the runner and walker one step at a time until the runner reaches the end. 
+At a certain point, the runner will reach the end (r==null), and the walker will be at the Nth node from the end.
      
-    N=2
-    dummy   1   2    3   4   5   6  NULL
-    r
-    w    
-    dummy   1   2    3   4   5   6  NULL
-    w           r
-    dummy   1   2    3   4   5   6  NULL
-                             w      r
-    Removing will need w to be n+1 steps behind r    
-    dummy   1   2    3   4   5   6  NULL
-                         w          r      
+        N=2
+        dummy   1   2    3   4   5   NULL
+        w r
+        dummy   1   2    3   4   5   NULL
+        w                r                Note: Advance the runner n+1 steps ahead of the walker or walker needs to be n+1 steps behind runner
+        dummy   1   2    3   4   5   NULL
+                         w           r    Note: Advance the runner and walker one step at a time until the runner reaches the end - runner is null
+        dummy   1   2    3   4   5   NULL
+                         w           r    
+        dummy   1   2    3    >   5   NULL
+                         w   4 > null r         
+                               
+Note: Deleting the nth node will require the walker to the n+1 nodes behind the runner.
+                         
+        public ListNode removeNthFromEnd(ListNode head, int n) {
+            
+            if (head == null)
+                return head;
+            
+            // Setup the dummy node to point to the head of the list
+            ListNode dummy = new ListNode(0) ;        
+            dummy.next = head;
+            
+            // Setup the walker and runner to start at the dummy node
+            ListNode walker = dummy;
+            ListNode runner = dummy;
+            
+            // Advance the runner so that the dist between is N+1
+            int i=0;
+            while(runner!=null & i < n+1){
+                runner =  runner.next;
+                i++;
+            }        
+            
+            // Now advance the runner and walker one step at a time until the runner reaches the end - runner is null
+            while(runner!=null){
+                walker = walker.next;
+                runner= runner.next;            
+            }
+            
+            // Delete the Nth node from the end. 
+            ListNode next = walker.next; // Save the next node temporarily so that its next could be set to null
+            walker.next = walker.next.next;
+            next.next = null;        
+            
+            return dummy.next;
+        }                         
+                         
         
 
 ####  LC24 Swap Nodes in Pairs
