@@ -1,4 +1,4 @@
-##Linked List
+#Linked List
 Reference: https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&t=467
 
 - insertion and deletion at O(N)
@@ -8,7 +8,7 @@ Reference: https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&
 - If you are reordering elements of a list, you take thee nodes and change their next pointer points to. 
 - if deleting a node, we modify the previous nodes next pointer to point to the next of the node to be deleted. 
    
-#### LC19 Remove Nth Node from End of List
+## LC19 Remove Nth Node from End of List
 - Add a dummy node to the start of the list with dummy.next pointing to the head. 
   Note: ??? Dummy nodes are pointers, not new nodes 
 - Setup two pointers - Runner and Walker
@@ -69,7 +69,7 @@ Note: Deleting the nth node will require the walker to the n+1 nodes behind the 
                          
         
 
-####  LC24 Swap Nodes in Pairs
+##  LC24 Swap Nodes in Pairs
     Need 3 swaps to swap each pair and to maintain the LinkedList structure.
     Reference: https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&t=747
         
@@ -158,10 +158,10 @@ Implementation
     }
 
 
-###### 2.1 Reverse a Linked List
-###### 2.2 Middle of a LinkedList
+#### 2.1 Reverse a Linked List
+#### 2.2 Middle of a LinkedList
     
-#### Partition List
+## Partition List
     Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes 
     greater than or equal to x. You should preserve the original relative order of the nodes in each of the two partitions.
     
@@ -203,7 +203,7 @@ Implementation
       ***Very space effecient. Note that we are moving the nodes to the newer lists, not copying the nodes. 
       The only new nodes we are creating are the 2 new dummy nodes.
 
-#### Linked List Cycle II
+## Linked List Cycle II
 Cycle Detection
     Basically what we are looking is a loop in the list. We also want to know where the cycle starts.            
 
@@ -245,6 +245,3 @@ Cycle Detection
     An easy solution would be to use an HashSet to store the nodes. If a come to a node that is already in the HashSet then we have a cycle. 
     Since it s a Linked list problem we can try to solve it using pointers.    
     There is an algo called Floyd's cycle finding algo. 
-    
-    
-    
