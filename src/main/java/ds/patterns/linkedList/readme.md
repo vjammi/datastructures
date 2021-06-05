@@ -71,7 +71,8 @@ Note: Deleting the nth node will require the walker to the n+1 nodes behind the 
 
 ####  LC24 Swap Nodes in Pairs
     Need 3 swaps to swap each pair and to maintain the LinkedList structure.
-    
+    Reference: https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&t=747
+        
             1   2    3   4   5   6  NULL
     dummy   1   2    3   4   5   6  NULL
                                    
@@ -81,14 +82,82 @@ Note: Deleting the nth node will require the walker to the n+1 nodes behind the 
     dummy ----> 2    3   4   5   6  NULL
             1<-- 
             -------->   
-            ^            ^                              
+    ^           ^                              
+    dummy ----> 2    3   4   5   6  NULL
+            1<-- 
+            -------->   
+    ^       ^
+    dummy   2   1    3   4   5   6  NULL
+    ^           ^
+    dummy   2   1    3   4   5   6  NULL
+                ^        ^
+    ...
+    
+    dummy   2   1    4   3 ----- > 
+                         ^   5 < 6  
+                             ---->  NULL
+                             ^
+
+Summary of pointer movements
+
+    dummy   1   2    3   4   5   6  NULL
+    ^           ^
     dummy   2   1    3   4   5   6  NULL
                 ^        ^
     dummy   2   1    4   3   5   6  NULL
                          ^       ^
-    dummy   2   1    4   3 ----- > 
-                             5 < 6  
-                             ---->  NULL
+Implementation
+                     
+    public ListNode swapPairs(ListNode head) {
+        if (head == null)
+            return head;
+        
+        // Setup the dummy node to point to the head of the list
+        ListNode dummy = new ListNode(0);        
+        dummy.next = head;        
+        
+        // Setup the walker and runner to start at the dummy node
+        ListNode walker = dummy;
+        ListNode runner = dummy;
+        
+        // Advance the runner so that the runner is 2 steps ahead of walker
+        int i = 0;
+        while(runner!=null && i < 2){
+            runner = runner.next;
+            i++;
+        }
+        
+        // Now the main logic to swap the nodes
+        //    Swap the nodes
+        //    Advance the runner one step
+        //    Advance the runner and walker 2 steps for processing the next pair
+        while(runner!=null){
+            // walker 
+            ListNode next = walker.next;
+            // runner
+            
+            // Swap the Nodes
+            next.next = runner.next; // 1 Point the next to runners next
+            walker.next = runner;    // 2 Point the walker's next to runner
+            runner.next = next;      // 3 Point the runner's next to next
+            
+            
+            // Advance the runner 1 step to point to the last element of the current pair
+            runner =  runner.next;
+            
+            // Now advance the runner and walker 2 steps for processing the next pair            
+            walker = runner;               // To advance the walker to take the runner's position            
+            int j = 0;
+            while(runner!=null && j < 2){  // Advance the runner 2 steps ahead
+                runner = runner.next;
+                j++;
+            }
+        }            
+        
+        return dummy.next;        
+    }
+
+
 ###### 2.1 Reverse a Linked List
 ###### 2.2 Middle of a LinkedList
     
