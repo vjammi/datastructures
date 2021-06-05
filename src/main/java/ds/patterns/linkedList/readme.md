@@ -1,6 +1,4 @@
-#Linked List
-Reference: https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&t=467
-
+# Linked List Patterns
 - insertion and deletion at O(N)
 - finding s specific node is O(N)
 - Add a Dummy nodes
