@@ -180,22 +180,33 @@ Example 1:
                      9        20
                           15      7
 Solution
-   
               1
             2   3
+    PreOrder [1-2-3]: In a Preorder, you perform something on the current node first, before exploring its left and right nodes ???
+    Inorder  [2-1-3]: In a InOrder, you perform something on the left node first, then the parent node and then on its right node ???.  
 
-PreOrder [1-2-3]: In a Preorder, you perform something on the current node first, before exploring its left and right nodes ???
-Inorder  [2-1-3]: In a InOrder, you perform something on the left node first, then the parent node and then on its right node ???.
+        
+                                       16
+                 
+                           10                      22
+                 
+                     8          12           20           24
+                 
+                 6       9   11      13   19     21    23     25
+                 
+            NULL     7   
 
+            // preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
+                           ^ -->
+            // inorder    [6 7 8 9 10 11 12 13 16 19 20 21 22 23 24 25]
+                                                ^
     public class BinaryTree_ConstructFromPreOrderInOrder {
-    
-        private int currentPreOrderIndex = 0;
+        
+        private int nextPreorderIndex = 0;
         private int[] preorder;
         private int[] inorder;
         private Map<Integer, Integer> inOrderMap = new HashMap<>();
-
-        //int[] preorder = {16,10,8,6,7,9,12,11,13,22,20,19,21,24,23,25};
-        //int[] inorder  = {6,7,8,9,10,11,12,13,16,19,20,21,22,23,24,25};    
+    
         public TreeNode buildTree(int[] preorder, int[] inorder) {
             this.preorder = preorder;
             this.inorder = inorder;
@@ -207,73 +218,86 @@ Inorder  [2-1-3]: In a InOrder, you perform something on the left node first, th
             int leftIndex = 0; int rightIndex = preorder.length - 1;
             return buildTree(leftIndex, rightIndex);
         }
-    
+
         private TreeNode buildTree(int leftIndex, int rightIndex) {
-    
-            // Break the recursion by returning null [when right index crosses the left index. The same condition holds good, while traversing both the left and right side of an element in the InOrder array].
-            // This is similar to a return, while building a tree, when we encounter node == null while traversing either the left or the right nodes
-            if (rightIndex < leftIndex){
-                // At some point when we hit the root of the leftmost child - with its null left and right pointers.
-                //      Left index will continue to be 0 but right pointer will now become 0-1 = -1.
-                //      This is when we return. Right index (0-1) becomes smaller than the left index (0).
-                // Similarly, at some point when we hit the root of the rightmost child - with null left and right pointers.
-                //      Left and right index point the same node. Left index will continue to be incremented by 1,
-                //      thereby crossing the length of the array. However, the right index will continue to be at n-1.
-                //      This is when we return again. Right index (n-1) becomes smaller than the left index (currentInd + 1 = n)
-                // Eitehr ways in both cases right index becomes smaller than the left index, causing the return.
+            if (leftIndex > rightIndex){ // or we could also say (rightIndex < leftIndex){
                 return null;
             }
     
             // Select the next preorder node as the current root and increment it preorder index
-            int nextPreOrderNodeVal = preorder[preOrderIndex++]; // preOrderIndex++;
-            TreeNode currRootNode = new TreeNode(nextPreOrderNodeVal);
+            int preorderNodeVal = preorder[nextPreorderIndex++]; // preOrderIndex++;
+            TreeNode currNode = new TreeNode(preorderNodeVal);
+
+            int inorderIndexForCurrNode = inOrderMap.get(preorderNodeVal); // lookup the index of the nextPreOrderNodeVal within the inorder map.
+            TreeNode leftNode = buildTree(leftIndex, inorderIndexForCurrNode - 1);  // Return left node
+            TreeNode rightNode = buildTree(inorderIndexForCurrNode + 1, rightIndex); // Return right node
     
-            // A/Left of +AB & B/Right of +AB
-            int inorderNodeInx = inOrderMap.get(nextPreOrderNodeVal); // lookup the index of the nextPreOrderNodeVal within the inorder map.
-            TreeNode leftNode = buildTree(leftIndex, inorderNodeInx - 1);  // Return left node
-            TreeNode rightNode = buildTree(inorderNodeInx + 1, rightIndex); // Return right node
-    
-            currRootNode.left = leftNode; // On your way back, add the returned node to the left of the current root node
-            currRootNode.right = rightNode; // On your way back, add the returned node to the right of the current root node
+            currNode.left = leftNode;   // On your way back, add the returned node to the left of the current root node
+            currNode.right = rightNode; // On your way back, add the returned node to the right of the current root node
     
             // Return the current node to be added to the left or the right side of the parent node.
-            return currRootNode;
+            return currNode;
         }
+        
+        class TreeNode{...}
         
     }
     
 ## 106. Construct Binary Tree from Inorder and Postorder Traversal
      
+     
+                                            16
+                      
+                                10                      22
+                      
+                          8          12           20           24
+                      
+                      6       9   11      13   19     21    23     25
+                      
+                 NULL     7   
+     
+                // postorder [7 6 9 8 11 13 12 10 19 20 23 25 24 22 16]
+                                                               <--- ^
+                // inorder   [6 7 8 9 10 11 12 13 16 19 20 21 22 23 24 25]
+                                                  ^
+     
      public class BinaryTree_ConstructFromPostOrderInOrder {
-        // ...
-
-        public void buildTree(BinaryTree_ConstructFromPostOrderInOrder tree) {
+        
+        private int[] postorder;
+        private int[] inorder;
+        private int nextPostorderIndex = 0;
+        private Map<Integer, Integer> inorderMap = new HashMap<>();
+        
+        public TreeNode buildTree(int[] inorder, int[] postorder) {
+            this.postorder = postorder;
+            this.inorder = inorder;
+    
             for(int i=0; i< inorder.length; i++){
                 inorderMap.put(inorder[i], i);
             }
-            currentPostOrderIndex = postorder.length - 1;
-            root2 = buildTree(0, inorder.length - 1);
-            print("", tree.root2);
+            nextPostorderIndex = postorder.length - 1;
+            return buildTree(0, inorder.length-1);
         }
-        
-        public TreeNode buildTree(int leftIndex, int rightIndex) {
     
-            if (leftIndex > rightIndex){
+        public TreeNode buildTree(int leftIndex, int rightIndex) {
+            if (leftIndex > rightIndex){ // or we could also say (rightIndex < leftIndex){
                 return null;
             }
     
-            int rootValue = postorder[currentPostOrderIndex--];
-            TreeNode rootNode = new TreeNode(rootValue);
-            int inorderIndexForRootValue = inorderMap.get(rootValue);
+            int postOrderNodeVal = postorder[nextPostorderIndex--];
+            TreeNode currNode = new TreeNode(postOrderNodeVal);
+            int inorderIndexForCurrNode = inorderMap.get(postOrderNodeVal);
     
-            rootNode.right = buildTree(inorderIndexForRootValue+1, rightIndex);
-            rootNode.left = buildTree(leftIndex, inorderIndexForRootValue - 1);
+            currNode.right = buildTree(inorderIndexForCurrNode+1, rightIndex);
+            currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);
     
             //TreeNode right = buildTree(inorderIndexForRootValue+1, rightIndex);
             //TreeNode left = buildTree(leftIndex, inorderIndexForRootValue - 1);
             //rootNode.right = right;
             //rootNode.left = left;
     
-            return rootNode;
+            return currNode;
         }
+        
+        class TreeNode{...}
     }    

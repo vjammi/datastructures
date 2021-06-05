@@ -30,7 +30,7 @@ public class BinaryTree_ConstructFromPreOrderInOrder {
     }
 
 
-    private int preOrderIndex = 0;
+    private int nextPreorderIndex = 0;
     private int[] preorder;
     private int[] inorder;
     private Map<Integer, Integer> inOrderMap = new HashMap<>();
@@ -69,34 +69,36 @@ public class BinaryTree_ConstructFromPreOrderInOrder {
     * */
     private TreeNode buildTree(int leftIndex, int rightIndex) {
 
-        // Break the recursion by returning null [when right index crosses the left index. The same condition holds good, while traversing both the left and right side of an element in the InOrder array].
-        // This is similar to a return, while building a tree, when we encounter node == null while traversing either the left or the right nodes
-        if (rightIndex < leftIndex){
-            // At some point when we hit the root of the leftmost child - with its null left and right pointers.
-            //      Left index will continue to be 0 but right pointer will now become 0-1 = -1.
-            //      This is when we return. Right index (0-1) becomes smaller than the left index (0).
-            // Similarly, at some point when we hit the root of the rightmost child - with null left and right pointers.
-            //      Left and right index point the same node. Left index will continue to be incremented by 1,
-            //      thereby crossing the length of the array. However, the right index will continue to be at n-1.
-            //      This is when we return again. Right index (n-1) becomes smaller than the left index (currentInd + 1 = n)
-            // Eitehr ways in both cases right index becomes smaller than the left index, causing the return.
+        // Break the recursion by returning null [when right index crosses the left index.
+        // The same condition holds good, while traversing both the left and right side of an element in the InOrder array].
+        // This is similar to a return, while building a tree, when we encounter node == null,
+        // traversing either the left or the right nodes
+        // At some point when we hit the root of the leftmost child - with its null left and right pointers.
+        //      Left index will continue to be 0 but right pointer will now become 0-1 = -1.
+        //      This is when we return. Right index (0-1) becomes smaller than the left index (0).
+        // Similarly, at some point when we hit the root of the rightmost child - with null left and right pointers.
+        //      Left and right index point the same node. Left index will continue to be incremented by 1,
+        //      thereby crossing the length of the array. However, the right index will continue to be at n-1.
+        //      This is when we return again. Right index (n-1) becomes smaller than the left index (currentInd + 1 = n)
+        // Either ways in both cases right index becomes smaller than the left index, causing the return.
+        if (leftIndex > rightIndex){ // or we could also say (rightIndex < leftIndex){
             return null;
         }
 
         // Select the next preorder node as the current root and increment it preorder index
-        int nextPreOrderNodeVal = preorder[preOrderIndex++]; // preOrderIndex++;
-        TreeNode currRootNode = new TreeNode(nextPreOrderNodeVal);
+        int preorderNodeVal = preorder[nextPreorderIndex++]; // preOrderIndex++;
+        TreeNode currNode = new TreeNode(preorderNodeVal);
 
         // A/Left of +AB & B/Right of +AB
-        int inorderNodeInx = inOrderMap.get(nextPreOrderNodeVal); // lookup the index of the nextPreOrderNodeVal within the inorder map.
-        TreeNode leftNode = buildTree(leftIndex, inorderNodeInx - 1);  // Return left node
-        TreeNode rightNode = buildTree(inorderNodeInx + 1, rightIndex); // Return right node
+        int inorderIndexForCurrNode = inOrderMap.get(preorderNodeVal); // lookup the index of the nextPreOrderNodeVal within the inorder map.
+        TreeNode leftNode = buildTree(leftIndex, inorderIndexForCurrNode - 1);  // Return left node
+        TreeNode rightNode = buildTree(inorderIndexForCurrNode + 1, rightIndex); // Return right node
 
-        currRootNode.left = leftNode; // On your way back, add the returned node to the left of the current root node
-        currRootNode.right = rightNode; // On your way back, add the returned node to the right of the current root node
+        currNode.left = leftNode;   // On your way back, add the returned node to the left of the current root node
+        currNode.right = rightNode; // On your way back, add the returned node to the right of the current root node
 
         // Return the current node to be added to the left or the right side of the parent node.
-        return currRootNode;
+        return currNode;
     }
 
     public static void main(String[] args) {
