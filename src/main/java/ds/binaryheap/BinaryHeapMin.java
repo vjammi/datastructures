@@ -2,8 +2,8 @@ package ds.binaryheap;
 
 public class BinaryHeapMin {
 
-    private int N;
-    private int[] pq;
+    private int[] pq;        // number of items on heap
+    private int n;          // store items at indices 1 to n
 
     public BinaryHeapMin(int capacity) {
         pq = new int[capacity+1];
@@ -16,10 +16,10 @@ public class BinaryHeapMin {
      */
     private void insert(int num) {
         // increment counter and insert to the end of the heap
-        pq[++N] = num;
+        pq[++n] = num;
 
         // Swim until heap order is restored
-        swim(N);
+        swim(n);
     }
 
     private void swim(int k) {
@@ -38,10 +38,10 @@ public class BinaryHeapMin {
      */
     private int delMin() {
         int min = pq[1];
-        pq[1] = pq[N];
-        N--;
+        pq[1] = pq[n];
+        n--;
         sink(1);
-        pq[N + 1] = 0;
+        pq[n + 1] = 0;
         return min;
     }
 
@@ -50,10 +50,10 @@ public class BinaryHeapMin {
         int l = 2*k;
         int m = 2*k+1;
 
-        while(l<=N || m<=N){
-            if (m <= N)
+        while(l<= n || m<= n){
+            if (m <= n)
                 minChild = pq[l] < pq[m] ? l : m;
-            else if (l <= N)
+            else if (l <= n)
                 minChild = l;
 
             if (pq[minChild] < pq[k])
@@ -67,6 +67,44 @@ public class BinaryHeapMin {
         }
     }
 
+    private void sink_minheap(int k) {
+        while (2*k <= n) {
+            int j = 2*k;
+            if (j < n && greater(j, j+1)) j++;
+            if (!greater(k, j)) break;
+            exch(k, j);
+            k = j;
+        }
+    }
+
+    private void sink_maxheap(int k) {
+        while (2*k <= n) {
+            int j = 2*k;
+            if (j < n && less(j, j+1)) j++;
+            if (!less(k, j)) break;
+            exch(k, j);
+            k = j;
+        }
+    }
+
+    // is subtree of pq[1..n] rooted at k a min heap?
+    private boolean isMinHeapOrdered(int k) {
+        if (k > n) return true;
+        int left = 2*k;
+        int right = 2*k + 1;
+        if (left  <= n && greater(k, left))  return false;
+        if (right <= n && greater(k, right)) return false;
+        return isMinHeapOrdered(left) && isMinHeapOrdered(right);
+    }
+
+    private boolean greater(int i, int j) {
+        return pq[i] > pq[j];
+    }
+
+    private boolean less(int i, int j) {
+        return pq[i] < pq[j];
+    }
+
     private void exch(int i, int j) {
         int tmp = pq[i];
         pq[i] = pq[j];
@@ -74,26 +112,28 @@ public class BinaryHeapMin {
     }
 
     public int size(){
-        return N;
+        return n;
     }
 
     public static void main(String[] args) {
         BinaryHeapMin heap = new BinaryHeapMin(9);
-        heap.loadData();
+        heap.testMinHeap();
     }
 
-    private void loadData(){
+    private void testMinHeap(){
         int[] nums = new int[]{13,20,15,10,9,8,7,4,3};
         for (int num: nums){
             insert(num);
             printArray(num);
         }
+        System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(2));
         delMin(); printArray(pq[1]);
         delMin(); printArray(pq[1]);
         delMin(); printArray(pq[1]);
         delMin(); printArray(pq[1]);
         delMin(); printArray(pq[1]);
         delMin(); printArray(pq[1]);
+        System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(2));
     }
 
     private void printArray(int num) {
