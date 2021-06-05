@@ -11,6 +11,7 @@ Exchange with the last element and sink it until heap order is restored.
 - Exchange the last element of the tree/heap with the root and decrement the size of the heap by 1 element.
 - The element which went from bottom to top will most likely violate the heap order, so recursively exchange that node with the *min* of its two children (sink operation), until the heep order is restored
 
+Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
 
         public class BinaryHeapMin {
         
@@ -146,6 +147,8 @@ Exchange with the last element and sink it until heap order is restored.
 - The element which went from bottom to top will most likely violate the heap order. 
 - Exchange that node with the *max* element of its two children (sink operation), 
 - Recursively repeat until the heep order is restored.
+
+Reference: https://algs4.cs.princeton.edu/24pq/MaxPQ.java.html
 
 ## Other resources
 https://www.geeksforgeeks.org/why-is-binary-heap-preferred-over-bst-for-priority-queue/
