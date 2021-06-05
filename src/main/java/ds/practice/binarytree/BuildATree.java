@@ -1,8 +1,5 @@
 package ds.practice.binarytree;
 
-import ds.binarytree.BinaryTree_ConstructFromPreOrderInOrder;
-import sun.awt.windows.WPrinterJob;
-
 import java.util.HashMap;
 import java.util.Map;
 
