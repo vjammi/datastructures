@@ -251,22 +251,28 @@ The only new nodes we are creating are the 2 new dummy nodes.
 
 
 ## Linked List Cycle II
-Cycle Detection
-    Basically what we are looking is a loop in the list. We also want to know where the cycle starts.            
+This basically is a Cycle Detection Problem, we are looking to see if there is a loop in the list. We also want to know where the cycle starts.            
+
+Solution                
+Option 1: An easy solution would be to use an HashSet to store the nodes. If we come to a node that is already in the HashSet 
+then we have a cycle.     
+
+Option 2: Since it s a Linked list problem, we can try to solve it using pointers. 
+          We solve it using the Floyd's cycle finding algorithm. 
 
                     4
         1   2   3       5
                     6
         ^^
         SF
-        The slow pointer and fast pointer start out at the begining
+        The slow pointer and fast pointer start out at the dummy node at the begining
         
                     4
         1   2   3       5
                     6
             ^   ^
             S   F                   
-        At each step, the slow pointer moves 1 step ahead, fast pointer moves 2 step ahead.
+        *** Now, at each step the slow pointer moves 1 step ahead, while the fast pointer moves 2 steps ahead.
         
                     4
         1   2   3       5
@@ -288,7 +294,61 @@ Cycle Detection
                ^^
                SF
         Now they both meet at 3
-                
-    An easy solution would be to use an HashSet to store the nodes. If a come to a node that is already in the HashSet then we have a cycle. 
-    Since it s a Linked list problem we can try to solve it using pointers.    
-    There is an algo called Floyd's cycle finding algo. 
+        
+Why does this work?
+
+                        K   
+                    /   4    \
+                  /  /     \    
+        1 -  3  -   3   N   5  |  
+        |    m    |   \     /   
+                        6
+            Distance travelled by fast pointer = M + N*Cf + K
+            Distance travelled by slow pointer = M + N*Cs + K
+            Since Fast pointer is 2X of slow pointer X
+                        X = N (Cf - Cs) 
+                        6 =  
+Implementation
+
+        public ListNode detectCycle(ListNode head) {
+    
+            if (head == null)
+                return head;
+            if (head.next == null)
+                return null;
+            if (head.next.next==null)
+                return null;
+    
+            ListNode dummy = new ListNode(0);
+            dummy.next = head;
+    
+            ListNode walker = dummy;
+            ListNode runner = dummy;
+    
+            // Detect if there is a cycle
+            boolean cyle = false;
+            while(runner !=null && walker != null){
+                walker = walker.next;
+                if (runner.next==null) // ***
+                    return null;
+                else
+                    runner = runner.next.next;
+                if (walker == runner){
+                    cyle = true;
+                    break;
+                }
+            }
+    
+            // If there is a cycle then find the node where there is a cycle using floyd's cycle detection algorithm
+            if (cyle){
+                walker = dummy;
+                // runner stays where it was last
+                while(walker != runner)    {
+                    walker = walker.next;
+                    runner = runner.next;
+                }
+                return walker;
+            }else{
+                return null;
+            }
+        }

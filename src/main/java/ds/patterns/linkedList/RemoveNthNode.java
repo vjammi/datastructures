@@ -1,6 +1,6 @@
 package ds.patterns.linkedList;
 
-public class RemoveNthNode_SingllyLinkedList {
+public class RemoveNthNode {
     ListNode head;
 
     public class ListNode{
@@ -115,7 +115,7 @@ public class RemoveNthNode_SingllyLinkedList {
         iterate();
     }
     public static void main(String[] agrs){
-        RemoveNthNode_SingllyLinkedList nthList = new RemoveNthNode_SingllyLinkedList();
+        RemoveNthNode nthList = new RemoveNthNode();
 
         int index = 0;
         int n = 5;
