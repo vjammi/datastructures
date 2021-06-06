@@ -192,14 +192,63 @@ Implementation
                 0 4 3 5 null   
         
         Output: [1,2,2,4,3,5]
-                 
-      We will create 2 new linked lists.
-      One of them will hold all the elements less than x and the other will hold all the elements >= x
-      We iterate thru the original linked list and at each node we compare the node with x and move* the node to the 
-      corresponding list. At the end we take the list with the bigger numbers and attach it to end of the smaller list with smaller numbers
-      
-      ***Very space effecient. Note that we are moving the nodes to the newer lists, not copying the nodes. 
-      The only new nodes we are creating are the 2 new dummy nodes.
+Solution           
+We will create 2 new linked lists.
+One of them will hold all the elements less than x and the other will hold all the elements >= x
+We iterate thru the original linked list and at each node we compare the node with x and move* the node to the 
+corresponding list. At the end we take the list with the bigger numbers and attach it to end of the smaller list with smaller numbers
+***Space efficient. Note that we are moving the nodes to the newer lists, not copying the nodes. 
+The only new nodes we are creating are the 2 new dummy nodes.
+
+
+        public ListNode partition(ListNode head, int x) {
+    
+            if (head == null)
+                return head;
+    
+            ListNode dummy = new ListNode(0);
+            dummy.next = head;
+    
+            ListNode dummy1 = new ListNode(0);
+            ListNode dummy2 = new ListNode(0);
+    
+            ListNode walker = dummy;
+            ListNode runner = dummy;
+    
+            ListNode runner1 = dummy1;
+            ListNode runner2 = dummy2;
+    
+            int counter = 0;
+            while(runner!=null && counter < 2){
+                runner = runner.next;
+                counter++;
+            }
+    
+            // Iterate thru the original list splitting the partitioning the list into 2
+            while(walker.next!=null){
+    
+                // Freeup the node from the list
+                ListNode next = walker.next;
+                walker.next = runner; // remove walkers next element from the list
+                next.next = null;     // dis-associate the node from the list by setting up the next to null
+    
+                if (next.val < x){
+                    runner1.next = next;
+                    runner1 = runner1.next;
+                }else{ // >= x
+                    runner2.next = next;
+                    runner2 = runner2.next;
+                }
+    
+                if(runner!=null) {
+                    runner = runner.next; // Advance runner by 1 step
+                }
+    
+            }
+            runner1.next=dummy2.next;
+            return dummy1.next;
+        }
+
 
 ## Linked List Cycle II
 Cycle Detection
