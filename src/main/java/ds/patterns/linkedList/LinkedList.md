@@ -29,7 +29,9 @@ At a certain point, the runner will reach the end (r==null), and the walker will
                          w   4 > null r         
                                
 Note: Deleting the nth node will require the walker to the n+1 nodes behind the runner.
-                         
+       
+Iterative Solution                         
+
         public ListNode removeNthFromEnd(ListNode head, int n) {
             
             if (head == null)
@@ -63,7 +65,39 @@ Note: Deleting the nth node will require the walker to the n+1 nodes behind the 
             
              // return dummy.next
             return dummy.next;
-        }                         
+        }
+        
+Recursive Solution
+
+        public ListNode removeNthFromEnd_recursively(ListNode head, int n) {
+            if (head == null)
+                return head;
+    
+            // Setup the dummy node to point to the head of the list
+            ListNode dummy = new ListNode(0) ;
+            dummy.next = head;
+    
+            removeNthNode(dummy, n);
+    
+            return dummy.next;
+        }
+    
+        private int removeNthNode(ListNode node, int n) {
+            if (node == null)
+                return 0;
+    
+            int level = removeNthNode(node.next, n) + 1;
+            if (level == n+1){
+                System.out.println("*** Node Value " +node.val+ " Level "+level);
+                // Note the same iterative delete logic - deleting Nth node from the end.
+                ListNode next = node.next; // Save the next node temporarily so that its next could be set to null
+                node.next = node.next.next;
+                next.next = null;
+            }
+    
+            return level;
+        }        
+                                 
                          
         
 

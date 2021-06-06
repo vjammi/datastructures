@@ -2,24 +2,24 @@ package ds.patterns.linkedList;
 
 public class RemoveNthNode {
     ListNode head;
+    ListNode tail;
 
     public class ListNode{
-        int value;
+        int val;
         ListNode next;
+
         ListNode(int x){
-            value = x;
+            val = x;
+            next = null;
         }
     }
 
-    public void removeNthFromEnd(int index) {
-        head = removeNthFromEnd(head, index);
-    }
 
     /**
      Given linked list: 1->2->3->4->5, and n = 2.
      After removing the second node from the end, the linked list becomes 1->2->3->5.
      */
-    public ListNode removeNthFromEnd(ListNode head, int n) {
+    public ListNode removeNthFromEnd_iteratively(ListNode head, int n) {
         if (head == null)
             return head;
 
@@ -53,100 +53,77 @@ public class RemoveNthNode {
         return dummy.next;
     }
 
-    public ListNode removeNthFromEnd_previous(ListNode head, int n) {
-        if (head != null && head.next == null) {
-            head = null;
+    public ListNode removeNthFromEnd_recursively(ListNode head, int n) {
+        if (head == null)
             return head;
-        }
 
-        ListNode current = head;
-        while (current != null) {
-            ListNode forward = current;
+        // Setup the dummy node to point to the head of the list
+        ListNode dummy = new ListNode(0) ;
+        dummy.next = head;
 
-            int i = n;
-            while (i != 0 && forward.next != null) {
-                forward = forward.next;
-                i--;
-            }
+        removeNthNode(dummy, n);
 
-            if (i == 1 && current == head && forward.next == null) {
-                head = current.next;
-                current.next = null;
-                break;
-            }
-
-            if (i == 0 && forward.next == null) {
-                current.next = current.next.next ; // = forward;
-                break;
-            }else {
-                current = current.next;
-            }
-        }
-
-        return head;
+        return dummy.next;
     }
 
-    private void add(int[] arr) {
-        ListNode last = null;
-        for(int i=0; i<arr.length; i++){
-            if (head == null){
-                last = new ListNode(arr[i]);
-                head = last;
-            }else{
-                ListNode oldLast = last;
-                last = new ListNode(arr[i]);
-                oldLast.next = last;
-            }
+    private int removeNthNode(ListNode node, int n) {
+        if (node == null)
+            return 0;
+
+        int level = removeNthNode(node.next, n) + 1;
+        if (level == n+1){
+            System.out.println("*** Node Value " +node.val+ " Level "+level);
+            // Note the same iterative delete logic - deleting Nth node from the end.
+            ListNode next = node.next; // Save the next node temporarily so that its next could be set to null
+            node.next = node.next.next;
+            next.next = null;
         }
-        System.out.println("\n-----------------");
-        iterate();
+
+        return level;
     }
 
-    public void iterate() {
-        ListNode node = head;
+    public static void main(String[] agrs){
+        RemoveNthNode obj = new RemoveNthNode();
+
+        int[] arr = {1,2,3,4,5};
+        for (int i = 0; i <arr.length; i++){
+            obj.insert(arr[i]);
+        }
+        obj.iterate(obj.head);
+
+        ListNode head1 = obj.removeNthFromEnd_iteratively(obj.head, 2);
+        obj.iterate(head1);
+
+        ListNode head2 = obj.removeNthFromEnd_recursively(obj.head, 2);
+        obj.iterate(head2);
+    }
+
+    private void insert(int x) {
+        if (head == null){
+            ListNode node = new ListNode(x);
+            tail = node;
+            head = tail;
+        }else{
+            ListNode last = tail;
+            ListNode node = new ListNode(x);
+            last.next = node;
+            tail = node;
+        }
+    }
+
+    public void iterate(ListNode node) {
+        System.out.print("Printing Nodes: ");
         while (node != null) {
-            System.out.print(" " +node.value);
+            System.out.print(" " +node.val);
             node = node.next;
         }
-        if (node != null)  System.out.println(" " +node.value);
+        System.out.println(" ");
     }
+
     public void iterate(int index) {
         System.out.println("\n Index: " +index);
-        iterate();
+        iterate(head);
     }
-    public static void main(String[] agrs){
-        RemoveNthNode nthList = new RemoveNthNode();
 
-        int index = 0;
-        int n = 5;
-        int[] arr = {1,2,3,4,5}; index = 1;
-        for (int i = 0; i <arr.length; i++){
-            nthList.head = null;
-            nthList.add(arr);
-            nthList.removeNthFromEnd(n);
-            nthList.iterate(n);
-            n = n - 1;
-        }
-
-        nthList.head = null;
-        int[] arr1 = {1, 2}; index = 1;
-        nthList.add(arr1);
-        nthList.removeNthFromEnd(index);
-        nthList.iterate(index);
-
-        nthList.head = null;
-        int[] arr2 = {1, 2}; index = 2;
-        nthList.add(arr2);
-        nthList.removeNthFromEnd(index);
-        nthList.iterate(index);
-
-        nthList.head = null;
-        int[] arr3 = {1}; index = 1;
-        nthList.add(arr3);
-        nthList.removeNthFromEnd(index);
-        nthList.iterate(index);
-
-
-    }
 }
 
