@@ -1,17 +1,19 @@
 package ds.patterns.linkedList;
 
 public class SwapNodesInPairs {
-    ListNode head;
+
+    private ListNode head;
+    private ListNode tail;
 
     public class ListNode{
-        int value;
+        int val;
         ListNode next;
         ListNode(int x){
-            value = x;
+            val = x;
         }
     }
 
-    public ListNode swapPairs(ListNode head) {
+    public ListNode swapPairs_iteratively(ListNode head) {
         if (head == null)
             return head;
 
@@ -58,6 +60,88 @@ public class SwapNodesInPairs {
         }
 
         return dummy.next;
+    }
+
+
+    public ListNode swapPairs_recursively(ListNode head) {
+            if (head == null || head.next == null)
+                return head;
+
+            // Setup the dummy node to point to the head of the list
+            ListNode dummy = new ListNode(0);
+            dummy.next = head;
+
+            swap(dummy);
+            return dummy.next;
+        }
+
+        private void swap(ListNode node) {
+            if (node == null || node.next == null || node.next.next == null) // takes care of odd input such as [1,2,3]
+                return;
+
+            ListNode walker = node;
+            ListNode runner = node;
+
+            // Advance runner 2 steps not n+1/2+1 steps because n+1 would become null at the end
+            // The current node here is the node before the nodes that are to ve swapped.
+            //             node     >       1       >      2       >    3
+            //                1     >       3       >      4       >    null
+            //      dummy/walker        walkerNext       runner      runnerNext
+            int steps = 0;
+            for(int i=0; i<2; i++){
+                runner = runner.next;
+                steps++;
+            }
+
+            // Swap nodes
+            ListNode walkerNext = walker.next;
+            ListNode runnerNext = runner.next;
+            walkerNext.next = runnerNext;
+            runner.next = walkerNext;
+            node.next = runner;
+            node = node.next;
+
+
+            swap(node.next);
+
+        }
+
+    public static void main(String[] agrs){
+        SwapNodesInPairs obj = new SwapNodesInPairs();
+
+        int[] arr = {1,2,3,4};
+        for (int i = 0; i <arr.length; i++){
+            obj.insert(arr[i]);
+        }
+        obj.iterate(obj.head);
+
+        //ListNode head1 = obj.swapPairs_iteratively(obj.head);
+        //obj.iterate(head1);
+
+        ListNode head2 = obj.swapPairs_recursively(obj.head);
+        obj.iterate(head2);
+    }
+
+    private void insert(int x) {
+        if (head == null){
+            ListNode node = new ListNode(x);
+            tail = node;
+            head = tail;
+        }else{
+            ListNode last = tail;
+            ListNode node = new ListNode(x);
+            last.next = node;
+            tail = node;
+        }
+    }
+
+    public void iterate(ListNode node) {
+        System.out.print("Nodes: ");
+        while (node != null) {
+            System.out.print(" " +node.val);
+            node = node.next;
+        }
+        System.out.println(" ");
     }
 
 }

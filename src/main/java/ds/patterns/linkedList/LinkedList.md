@@ -98,9 +98,6 @@ Recursive Solution
     
             return level;
         }        
-                                 
-                         
-        
 
 ##  LC24 Swap Nodes in Pairs
     Need 3 swaps to swap each pair and to maintain the LinkedList structure.
@@ -139,7 +136,7 @@ Summary of pointer movements
                 ^        ^
     dummy   2   1    4   3   5   6  NULL
                          ^       ^
-Implementation
+Iterative Solution
                      
     public ListNode swapPairs(ListNode head) {
         if (head == null)
@@ -190,6 +187,50 @@ Implementation
         return dummy.next;        
     }
 
+Recursive Solution
+
+    public ListNode swapPairs(ListNode head) {
+            if (head == null || head.next == null)
+                return head;
+
+            // Setup the dummy node to point to the head of the list
+            ListNode dummy = new ListNode(0);
+            dummy.next = head;
+
+            swap(dummy);
+            return dummy.next;
+        }
+
+        private void swap(ListNode node) {
+            if (node == null || node.next == null || node.next.next == null) // takes care of odd input such as [1,2,3]
+                return;
+
+            ListNode walker = node;
+            ListNode runner = node;
+
+            // Advance runner 2 steps not n+1/2+1 steps because n+1 would become null at the end
+            // The current node here is the node before the nodes that are to ve swapped.
+            //             node     >       1       >      2       >    3
+            //                1     >       3       >      4       >    null
+            //      dummy/walker        walkerNext       runner      runnerNext
+            int steps = 0;
+            for(int i=0; i<2; i++){
+                runner = runner.next;
+                steps++;
+            }
+
+            // Swap nodes
+            ListNode walkerNext = walker.next;
+            ListNode runnerNext = runner.next;
+            walkerNext.next = runnerNext;
+            runner.next = walkerNext;
+            node.next = runner;
+            node = node.next;
+
+
+            swap(node.next);
+
+        }
 
 #### 2.1 Reverse a Linked List
 #### 2.2 Middle of a LinkedList

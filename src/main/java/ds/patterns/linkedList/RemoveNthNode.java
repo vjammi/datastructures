@@ -1,8 +1,8 @@
 package ds.patterns.linkedList;
 
 public class RemoveNthNode {
-    ListNode head;
-    ListNode tail;
+    private ListNode head;
+    private ListNode tail;
 
     public class ListNode{
         int val;
