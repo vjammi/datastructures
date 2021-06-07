@@ -112,17 +112,12 @@ public class RemoveNthNode {
     }
 
     public void iterate(ListNode node) {
-        System.out.print("Printing Nodes: ");
+        System.out.print("Nodes: ");
         while (node != null) {
             System.out.print(" " +node.val);
             node = node.next;
         }
         System.out.println(" ");
-    }
-
-    public void iterate(int index) {
-        System.out.println("\n Index: " +index);
-        iterate(head);
     }
 
 }
