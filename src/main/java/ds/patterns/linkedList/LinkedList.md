@@ -87,8 +87,9 @@ Recursive Solution
                 return 0;
     
             int level = removeNthNode(node.next, n) + 1;
-            if (level == n+1){
-                System.out.println("*** Node Value " +node.val+ " Level "+level);
+            
+            // Nth node from the end - Determined on the way back of the recurssion stack.         
+            if (level == n+1){                
                 // Note the same iterative delete logic - deleting Nth node from the end.
                 ListNode next = node.next; // Save the next node temporarily so that its next could be set to null
                 node.next = node.next.next;
