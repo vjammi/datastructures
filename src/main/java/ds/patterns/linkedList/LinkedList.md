@@ -233,6 +233,29 @@ Recursive Solution
         }
 
 #### 2.1 Reverse a Linked List
+Iterative Solution
+
+        public ListNode reverseList(ListNode head) {
+            if (head == null || head.next == null)
+                return head;
+    
+            ListNode previous = null;
+            ListNode current = head;
+            while(current!=null){
+                // previous - already set
+                // current  - already set
+                ListNode next = current.next;
+    
+                current.next = previous;
+    
+                previous = current;
+                current = next;
+            }
+            return previous;
+        }
+
+Recursive Solution
+
 #### 2.2 Middle of a LinkedList
     
 ## Partition List
