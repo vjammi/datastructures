@@ -188,7 +188,7 @@ Iterative Solution
     }
 
 Recursive Solution
-
+```
     public ListNode swapPairs(ListNode head) {
             if (head == null || head.next == null)
                 return head;
@@ -227,36 +227,61 @@ Recursive Solution
             node.next = runner;
             node = node.next;
 
-
             swap(node.next);
 
         }
-
-#### 2.1 Reverse a Linked List
+```
+## 2.1 Reverse a Linked List
 Iterative Solution
+```
+    public ListNode reverseList_iterative(ListNode head) {
+        if (head == null || head.next == null)
+            return head;
 
-        public ListNode reverseList(ListNode head) {
-            if (head == null || head.next == null)
-                return head;
-    
-            ListNode previous = null;
-            ListNode current = head;
-            while(current!=null){
-                // previous - already set
-                // current  - already set
-                ListNode next = current.next;
-    
-                current.next = previous;
-    
-                previous = current;
-                current = next;
-            }
-            return previous;
+        ListNode previous = null; // Important for the first node, that needs to be turned to last
+        ListNode current = head;
+        while(current!=null){
+            // previous
+            // current
+            ListNode next = current.next;
+
+            current.next = previous; // Turning the direction of next
+
+            previous = current;
+            current = next;
         }
+        this.head = previous;   // Set head to the previous 
+        return previous;        // Why return previous but not current? Because the current becomes null
+    }
+```
+Recursive Solution        
+```        
+        /*
+            #    node    previous   next
+            --------------------------------
+            4    5                  null
+            3    4    <  5
+            2    3    <  4          null
+            1    2      3           null
+            0    1      2           null
+            return 1
+         */
+        private ListNode reverse(ListNode node) {
+            if (node.next == null) {
+                head = node;
+                return node;
+            }
+            ListNode next = node.next; // Same as the below previous node
+    
+            ListNode previous = reverse(node.next);
+            previous.next = node;
+            node.next = null; // The effect of this might not be visible except on the last node [the first turned to last].
+    
+            return node;
+        }
+```
 
-Recursive Solution
-
-#### 2.2 Middle of a LinkedList
+## 2.2 Middle of a LinkedList
     
 ## Partition List
     Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes 

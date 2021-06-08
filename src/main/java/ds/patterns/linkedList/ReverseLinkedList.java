@@ -16,24 +16,51 @@ public class ReverseLinkedList {
         if (head == null || head.next == null)
             return head;
 
-        ListNode previous = null;
+        ListNode previous = null; // Important for the first node which will be tuned to last
         ListNode current = head;
         while(current!=null){
             // previous
             // current
             ListNode next = current.next;
 
-            current.next = previous;
+            current.next = previous; // Turning the direction of next
 
             previous = current;
             current = next;
         }
-
+        // Why return previous but not current ???
+        // Because
+        this.head = previous;
         return previous;
     }
 
     public ListNode reverseList_recursively(ListNode head) {
+        ListNode last = reverse(head);
         return head;
+    }
+
+    /*
+        #    node    previous   next
+        --------------------------------
+        4    5                  null
+        3    4    <  5
+        2    3    <  4          null
+        1    2      3           null
+        0    1      2           null
+        return 1
+     */
+    private ListNode reverse(ListNode node) {
+        if (node.next == null) {
+            head = node;
+            return node;
+        }
+        ListNode next = node.next; // Same as the below previous node
+
+        ListNode previous = reverse(node.next);
+        previous.next = node;
+        node.next = null; // The effect of this might not be visible except on the last node [the first turned to last].
+
+        return node;
     }
 
     public static void main(String[] agrs){
@@ -44,12 +71,12 @@ public class ReverseLinkedList {
             obj.insert(arr[i]);
         }
         obj.iterate(obj.head);
-
-        ListNode head1 = obj.reverseList_iterative(obj.head);
-        obj.iterate(head1);
-
-        //ListNode head2 = obj.reverseList_recursively(obj.head);
-        //obj.iterate(head2);
+        obj.reverseList_iterative(obj.head);
+        obj.iterate(obj.head);
+        System.out.println("");
+        obj.iterate(obj.head);
+        obj.reverseList_recursively(obj.head);
+        obj.iterate(obj.head);
     }
 
     private void insert(int x) {
