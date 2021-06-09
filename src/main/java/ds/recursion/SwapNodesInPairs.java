@@ -1,6 +1,4 @@
-package ds.recurssion;
-
-import java.util.List;
+package ds.recursion;
 
 public class SwapNodesInPairs {
 

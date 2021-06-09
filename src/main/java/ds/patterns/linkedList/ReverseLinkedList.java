@@ -16,7 +16,7 @@ public class ReverseLinkedList {
         if (head == null || head.next == null)
             return head;
 
-        ListNode previous = null; // Important for the first node which will be tuned to last
+        ListNode previous = null; // Important for the first node, that needs to be turned to last
         ListNode current = head;
         while(current!=null){
             // previous
@@ -28,10 +28,8 @@ public class ReverseLinkedList {
             previous = current;
             current = next;
         }
-        // Why return previous but not current ???
-        // Because
-        this.head = previous;
-        return previous;
+        this.head = previous;   // Set head to the previous
+        return previous;        // Why return previous but not current? Because the current becomes null
     }
 
     public ListNode reverseList_recursively(ListNode head) {

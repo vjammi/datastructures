@@ -1,4 +1,4 @@
-package ds.recurssion;
+package ds.recursion;
 
 public class SimpleRecurssions {
     // Consider the following code.

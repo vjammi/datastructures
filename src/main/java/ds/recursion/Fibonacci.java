@@ -1,4 +1,4 @@
-package ds.recurssion;
+package ds.recursion;
 
 import java.util.HashMap;
 

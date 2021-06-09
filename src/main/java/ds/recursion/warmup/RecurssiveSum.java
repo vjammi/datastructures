@@ -1,4 +1,4 @@
-package ds.recurssion.warmup;
+package ds.recursion.warmup;
 
 public class RecurssiveSum {
 
