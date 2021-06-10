@@ -1,17 +1,35 @@
 ## Min Heap
 
-[heap-representation](img/heap-representations.png)
+[heap-representation](img\heap-representations.png)
 
-MinHeap [ insert(x) at the end ]
+MinHeap [ insert(x) at the end ] UsesSwim Operation 
 Exchange with the parent and swim up until the heap order is restored
 - Insert a new element at the end of the heap and increment the size of the heap
 - If the newly inserted element is less than its parent, recursively exchange the element with its parent (swim operation) until the heap order is restored.
 
-MinHeap [ delMin() from the heap]
+MinHeap [ delMin() from the heap] Uses Sink Operation
 Exchange with the last element and sink it until heap order is restored. 
 - Save off the root of the heap/tree to a min variable
 - Exchange the last element of the tree/heap with the root and decrement the size of the heap by 1 element.
-- The element which went from bottom to top will most likely violate the heap order, so recursively exchange that node with the *min* of its two children (sink operation), until the heep order is restored
+- The element which went from bottom to top will most likely violate the heap order, 
+  so recursively exchange that node with the *min* of its two children, until the heep order is restored, also called the sink operation.
+  Note: Need to compare the 2 children first and then compare the min of the children with the parent. 
+
+    For Input: int[] nums = new int[]{15,14,13,20,15,10,9,8,7,4,3};
+    
+    i       0   1   2   3   4   5   6   7   8   9   10  11
+   a[i]     -   3   10  4   16  13  9   7   20  19  17  15
+                3
+                    10  4
+                            16  13  9   7 
+                                            20  19  17  15
+                                            
+                                3
+                        10             4
+                    16      13      9      7 
+                  20  19  17  15
+
+            1(3) 2(10) 4(16) 8(20) 9(19) 5(13) 10(17) 11(15) 3(4) 6(9) 12(18) 13(14) 7(7) 14(15) 15(8)
 
 Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
 
@@ -151,6 +169,65 @@ Exchange with the last element and sink it until heap order is restored.
 - Recursively repeat until the heep order is restored.
 
 Reference: https://algs4.cs.princeton.edu/24pq/MaxPQ.java.html
+
+
+## Is Heap Min Ordered?
+
+```
+   public boolean isHeapMinOrdered(){
+        if (pq.length < 1)
+            return false;
+        return isMinOrdered(1);
+    }
+
+    public boolean isMinOrdered(int k){
+        if (k > n) // We have looked at all the elements of the heap and have found them to the ordered, hence return true.
+            return true;
+
+        System.out.print(k  +"("+pq[k]+") ");
+
+        isMinOrdered(2*k);
+        isMinOrdered(2*k+1);
+
+        boolean leftSideHeapOrdered = false;
+        boolean rightSideHeapOrdered = false;
+
+        if ((2*k)+1 < n) {
+            if (pq[k] <= pq[2 * k])
+                leftSideHeapOrdered = true;
+            else
+                leftSideHeapOrdered = false;
+        }else{
+            leftSideHeapOrdered = true;
+        }
+
+        if ((2*k)+1 < n){
+            if (   pq[k]<= pq[(2*k)+1])
+                rightSideHeapOrdered = true;
+            else
+                rightSideHeapOrdered = false;
+        }else{
+            rightSideHeapOrdered = true;
+        }
+
+        if (leftSideHeapOrdered && rightSideHeapOrdered) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private boolean isMinHeapOrdered(int k) {
+        if (k > n) return true;
+        int left = 2*k;
+        int right = 2*k + 1;
+        if (left  <= n && greater(k, left))  return false;
+        if (right <= n && greater(k, right)) return false;
+        return isMinHeapOrdered(left) && isMinHeapOrdered(right);
+    }
+
+```
 
 ## Other resources
 https://www.geeksforgeeks.org/why-is-binary-heap-preferred-over-bst-for-priority-queue/

@@ -115,25 +115,70 @@ public class BinaryHeapMin {
         return n;
     }
 
-    public static void main(String[] args) {
-        BinaryHeapMin heap = new BinaryHeapMin(9);
-        heap.testMinHeap();
+    public boolean isHeapMinOrdered(){
+        if (pq.length < 1)
+            return false;
+        return isMinOrdered(1);
     }
 
-    private void testMinHeap(){
-        int[] nums = new int[]{13,20,15,10,9,8,7,4,3};
+    public boolean isMinOrdered(int k){
+        if (k > n) // We have looked at all the elements of the heap and have found them to the ordered, hence return true.
+            return true;
+
+        System.out.print(k  +"("+pq[k]+") ");
+
+        isMinOrdered(2*k);
+        isMinOrdered(2*k+1);
+
+        boolean leftSideHeapOrdered = false;
+        boolean rightSideHeapOrdered = false;
+
+        if ((2*k)+1 < n) {
+            if (pq[k] <= pq[2 * k])
+                leftSideHeapOrdered = true;
+            else
+                leftSideHeapOrdered = false;
+        }else{
+            leftSideHeapOrdered = true;
+        }
+
+        if ((2*k)+1 < n){
+            if (   pq[k]<= pq[(2*k)+1])
+                rightSideHeapOrdered = true;
+            else
+                rightSideHeapOrdered = false;
+        }else{
+            rightSideHeapOrdered = true;
+        }
+
+        if (leftSideHeapOrdered && rightSideHeapOrdered) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] nums = new int[]{19,18,17,16,15,14,13,20,15,10,9,8,7,4,3};
+        BinaryHeapMin heap = new BinaryHeapMin(nums.length);
+        heap.testMinHeap(nums);
+    }
+
+    private void testMinHeap(int[] nums){
         for (int num: nums){
             insert(num);
             printArray(num);
         }
         System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(2));
         delMin(); printArray(pq[1]);
-        delMin(); printArray(pq[1]);
-        delMin(); printArray(pq[1]);
-        delMin(); printArray(pq[1]);
-        delMin(); printArray(pq[1]);
-        delMin(); printArray(pq[1]);
         System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(2));
+        delMin(); printArray(pq[1]);
+
+        pq[1] = 9;
+        printArray(9);
+        System.out.println("isHeapMinOrdered: " +isHeapMinOrdered());
+        System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(1));
     }
 
     private void printArray(int num) {
@@ -144,3 +189,4 @@ public class BinaryHeapMin {
         System.out.print("]\n");
     }
 }
+
