@@ -1,4 +1,4 @@
-package ds.binaryheap;
+package ds.patterns.heap;
 
 public class BinaryHeapMin {
 
