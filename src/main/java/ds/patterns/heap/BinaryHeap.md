@@ -14,7 +14,7 @@ Exchange with the last element and sink it until heap order is restored.
 - The element which went from bottom to top will most likely violate the heap order, 
   so recursively exchange that node with the *min* of its two children, until the heep order is restored, also called the sink operation.
   Note: Need to compare the 2 children first and then compare the min of the children with the parent. 
-
+```
     For Input: int[] nums = new int[]{15,14,13,20,15,10,9,8,7,4,3};
     
     i       0   1   2   3   4   5   6   7   8   9   10  11
@@ -30,7 +30,7 @@ Exchange with the last element and sink it until heap order is restored.
                   20  19  17  15
 
             1(3) 2(10) 4(16) 8(20) 9(19) 5(13) 10(17) 11(15) 3(4) 6(9) 12(18) 13(14) 7(7) 14(15) 15(8)
-
+```
 Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
 
         public class BinaryHeapMin {
