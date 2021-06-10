@@ -160,7 +160,7 @@ public class BinaryHeapMin {
     }
 
     public static void main(String[] args) {
-        int[] nums = new int[]{19,18,17,16,15,14,13,20,15,10,9,8,7,4,3};
+        int[] nums = new int[]{15,14,13,20,15,10,9,8,7,4,3};
         BinaryHeapMin heap = new BinaryHeapMin(nums.length);
         heap.testMinHeap(nums);
     }
@@ -170,13 +170,13 @@ public class BinaryHeapMin {
             insert(num);
             printArray(num);
         }
-        System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(2));
-        delMin(); printArray(pq[1]);
-        System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(2));
-        delMin(); printArray(pq[1]);
+        //System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(2));
+        //delMin(); printArray(pq[1]);
+        //System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(2));
+        //delMin(); printArray(pq[1]);
 
-        pq[1] = 9;
-        printArray(9);
+        //pq[1] = 9;
+        //printArray(9);
         System.out.println("isHeapMinOrdered: " +isHeapMinOrdered());
         System.out.println("isMinHeapOrdered: "+isMinHeapOrdered(1));
     }
