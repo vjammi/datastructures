@@ -1,5 +1,7 @@
 ## Min Heap
 
+[heap-representation](img/heap-representations.png)
+
 MinHeap [ insert(x) at the end ]
 Exchange with the parent and swim up until the heap order is restored
 - Insert a new element at the end of the heap and increment the size of the heap
