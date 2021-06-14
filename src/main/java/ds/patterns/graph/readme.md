@@ -1,11 +1,11 @@
 ##Graph Problems
 Collection of vertices and edges. Unlike a Tree which uses a Node class, in a graph we usually care about the adjacent nodes here.
-    1. Directed & undirected edges
-    2. Connected Components
-    3. Cycle Detection
-    4. Topological Sort
-    5. Graph Coloring
-    6. Indegrees
+1. Directed & undirected edges
+2. Connected Components
+3. Cycle Detection
+4. Topological Sort
+5. Graph Coloring
+6. Indegrees
 
 Relationship between the edges. Neighbors of a node. We can usually represent a graph with an adjacency list or adjacency matrix.
 
