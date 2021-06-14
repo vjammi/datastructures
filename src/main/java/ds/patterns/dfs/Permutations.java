@@ -29,7 +29,7 @@ public class Permutations {
             if (!path.contains(nums[i])){
                 path.add(nums[i]);
                 dfs(nums, path, permutations);
-                path.remove(path.indexOf(nums[i]));
+                path.remove(path.indexOf(nums[i])); // *** Need to pass the index of the element, instead of the element itself
             }
         }
     }
