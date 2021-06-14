@@ -21,12 +21,13 @@ public class GenerateParenthesis {
             return;
         }
 
-        //  right>left takes care of right parenthesis problem          - )))(((
-        //  left > n ensures we do not add more than n left braces      - ((((
-        //  right>left ensures we do not add more than n right braces   - ((())))
+        //  right>left will prevent adding right parenthesis being added before the left  - )))(((
+        //  left > n will ensure we do not add more than n left braces      - ((((
+        //  right>left will ensure we do not add more than n right braces   - ((())))
         if( right>left || left > n || right >n ){
             return;
         }
+
         dfs(n, combinations, current.append("("), left+1, right);
         current.deleteCharAt(current.length()-1);   // Going downhill - we remove the parenthesis that was added uphill
         dfs(n, combinations, current.append(")"), left, right+1);

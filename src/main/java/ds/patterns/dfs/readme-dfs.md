@@ -74,16 +74,17 @@ Steps
 ```
 ### 22 Generate Parentheses
 ```    
+    // Valid Combination for n = 3 
+    // [((())) , (()()), (())(), ()(()), ()()()]
     public void dfs(int n, List<String> combinations, StringBuilder current, int left, int right){
         if( left == n && right == n ){
-            combinations.add(current.toString());
-            System.out.println("*** Valid Combination: " +current +"***");
+            combinations.add(current.toString());  System.out.println("*** Valid Combination: " +current +"***");
             return;
         }
 
-        //  right>left takes care of right parenthesis problem          - )))(((
-        //  left > n ensures we do not add more than n left braces      - ((((
-        //  right>left ensures we do not add more than n right braces   - ((())))
+        //  right>left will prevent adding right parenthesis being added before the left  - )))(((
+        //  left > n will ensure we do not add more than n left braces      - ((((
+        //  right>left will ensure we do not add more than n right braces   - ((())))
         if( right>left || left > n || right >n ){
             return;
         }
@@ -104,7 +105,7 @@ Steps
 ### 78	Subsets
 ### 90  Subsets II        
 
-## 2. Number of Islands
+## 2. Number of Islands.
     
 ### Number of Enclaves
 ### Supported Regions
