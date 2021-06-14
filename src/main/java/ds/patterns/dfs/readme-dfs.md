@@ -100,6 +100,53 @@ Steps
 ```
 
 ### 46 Permutations    
+
+```
+                 -  2  -  3
+               1    
+            /    -  3  -  2
+           /
+          /      -  1  -  3
+      dummy -  2    
+          \      -  3  -  1
+           \
+            \    -  1  -  2
+               3  
+                 -  2  -  1
+```
+  public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> permutations = new ArrayList<>();
+        if (nums.length ==  0)
+            return permutations;
+
+        // N DisConnected Components within the graph
+        for (int num: nums){
+            List<Integer> path = new ArrayList<>();
+            path.add(num);
+            dfs(nums, path, permutations);
+        }
+        return permutations;
+    }
+
+
+    public void dfs(int[] nums, List<Integer> path, List<List<Integer>> permutations){
+        if (path.size() == nums.length){
+            // *** Add a copy of the list(path) the result, not the path itself.
+            permutations.add(new ArrayList<>(path)); 
+            return;
+        }
+
+        for (int i=0;i<nums.length; i++){
+            if (!path.contains(nums[i])){
+                path.add(nums[i]);
+                dfs(nums, path, permutations);
+                path.remove(path.indexOf(nums[i]));
+            }
+        }
+    }
+```
+
+
 ### 39	Combination Sum
 ### 40	Combination Sum II
 ### 216	Combination Sum III
