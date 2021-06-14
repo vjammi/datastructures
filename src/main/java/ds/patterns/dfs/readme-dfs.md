@@ -113,8 +113,8 @@ Steps
             \    -  1  -  2
                3  
                  -  2  -  1
-```
-  public List<List<Integer>> permute(int[] nums) {
+
+    public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> permutations = new ArrayList<>();
         if (nums.length ==  0)
             return permutations;
@@ -127,7 +127,6 @@ Steps
         }
         return permutations;
     }
-
 
     public void dfs(int[] nums, List<Integer> path, List<List<Integer>> permutations){
         if (path.size() == nums.length){
