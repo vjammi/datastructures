@@ -36,6 +36,7 @@ Steps
     - We want whatever search algorithm we implement, we need to get to all the endpoints at the bottom  
 
 ```
+
     Map<String, String> map;
     List<String> result = new ArrayList<>();
 
@@ -46,7 +47,7 @@ Steps
         combinations(0, digits, new Stack<String>());
         return result;
     }
-    
+    // Graph DFS Implementation    
     private void combinations(int level, String digits, Stack<String> intermediaryResult) {
         if (level == digits.length()) { // 0>1>2  when level/2 == digits.length()/2 return and backtrack
            String res = "";
@@ -76,6 +77,7 @@ Steps
 ```    
     // Valid Combination for n = 3 
     // [((())) , (()()), (())(), ()(()), ()()()]
+    // Tree DFS Implementation
     public void dfs(int n, List<String> combinations, StringBuilder current, int left, int right){
         if( left == n && right == n ){
             combinations.add(current.toString());  System.out.println("*** Valid Combination: " +current +"***");
