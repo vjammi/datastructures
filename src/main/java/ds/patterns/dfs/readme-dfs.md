@@ -21,7 +21,7 @@ Tree Representation of digits to their letters
                a  -  e
             /     -  f
                   -  d
-         "" -  b  -  e
+         [] -  b  -  e
                   -  f
             \     -  d
                c  -  e
@@ -107,7 +107,7 @@ Steps
             /    -  3  -  2
            /
           /      -  1  -  3
-      dummy -  2    
+      []  -    2    
           \      -  3  -  1
            \
             \    -  1  -  2
@@ -119,32 +119,30 @@ Steps
         if (nums.length ==  0)
             return permutations;
 
-        // N DisConnected Components within the graph
-        for (int num: nums){
-            List<Integer> path = new ArrayList<>();
-            path.add(num);
-            dfs(nums, path, permutations);
-        }
+        boolean[] visited = new boolean[nums.length];
+        List<Integer> path = new ArrayList<>();
+        dfs(nums, path, permutations, visited);
         return permutations;
     }
 
-    public void dfs(int[] nums, List<Integer> path, List<List<Integer>> permutations){
-        if (path.size() == nums.length){
-            // *** Add a copy of the list(path) the result, not the path itself.
-            permutations.add(new ArrayList<>(path)); 
+    public void dfs(int[] nums, List<Integer> path, List<List<Integer>> permutations, boolean[] visited){
+        if (path.size() == nums.length){            
+            permutations.add(new ArrayList<>(path)); // *** Deep copy of the list 
             return;
         }
 
         for (int i=0;i<nums.length; i++){
-            if (!path.contains(nums[i])){
+            if (!visited[i]){     
                 path.add(nums[i]);
-                dfs(nums, path, permutations);
-                path.remove(path.indexOf(nums[i])); // *** Need to pass the index of the element, instead of the element itself
+                visited[i] = true;
+                dfs(nums, path, permutations, visited);
+                path.remove(path.size()-1); 
+                visited[i] = false;
             }
         }
     }
-```
 
+```
 
 ### 39	Combination Sum
 ### 40	Combination Sum II
