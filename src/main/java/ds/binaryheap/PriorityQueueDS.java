@@ -9,11 +9,11 @@ package ds.binaryheap;
  // min
  // size
  */
-public class PriorityQueue {
+public class PriorityQueueDS {
     int[] a;
     int N = 0;
 
-    public PriorityQueue(int capacity){
+    public PriorityQueueDS(int capacity){
         a = new int[capacity];
     }
 
@@ -34,7 +34,7 @@ public class PriorityQueue {
     }
 
     public static void main (String[] args){
-        PriorityQueue pq = new PriorityQueue(500);
+        PriorityQueueDS pq = new PriorityQueueDS(500);
         int M = 20;
         int i = 0;
         while(i < 100){
