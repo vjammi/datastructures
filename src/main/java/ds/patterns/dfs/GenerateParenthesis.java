@@ -30,6 +30,7 @@ public class GenerateParenthesis {
 
         dfs(n, combinations, current.append("("), left+1, right);
         current.deleteCharAt(current.length()-1);   // Going downhill - we remove the parenthesis that was added uphill
+
         dfs(n, combinations, current.append(")"), left, right+1);
         current.deleteCharAt(current.length()-1);   // Doing downhill - we remove the parenthesis that was added uphill
 
