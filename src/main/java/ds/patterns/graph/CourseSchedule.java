@@ -28,7 +28,7 @@ import java.util.Map;
 */
 
 public class CourseSchedule {
-
+    // int[][] prerequisites = {{0,1},{1,2}, {3,2}, {4,3}, {2,4}};
     public boolean canFinish(int numCourses, int[][] prerequisites) {
 
         if (numCourses == 0 || prerequisites == null || prerequisites.length ==0)

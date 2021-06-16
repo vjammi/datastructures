@@ -55,14 +55,14 @@ class DirectedGraph {
             visited[element] = true;
             System.out.print(element + " ");
 
-            int counter = 0;
+            int i = 0;
             List<Integer> vertices = adj[element];
             for (Integer vertex : vertices) {
                 if (!visited[vertex]) {
                     queue.add(vertex);
                     visited[vertex] = true;
-                    path[counter] = vertex;
-                    counter++;
+                    path[i] = vertex;
+                    i++;
                 }
             }
             queue.poll();

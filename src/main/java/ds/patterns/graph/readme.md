@@ -1,4 +1,4 @@
-##Graph Problems
+## Graph Problems
 Collection of vertices and edges. Unlike a Tree which uses a Node class, in a graph we usually care about the adjacent nodes here.
 1. Directed & undirected edges
 2. Connected Components
@@ -8,46 +8,46 @@ Collection of vertices and edges. Unlike a Tree which uses a Node class, in a gr
 6. Indegrees
 
 Relationship between the edges. Neighbors of a node. We can usually represent a graph with an adjacency list or adjacency matrix.
-
+```
               3
              / 
             2
            /  \
           1     4
-        
-####Adjacency list
-   An Adjacency List is usually a Hashmap, or a List of Lists
-   
-   
+```
+## Adjacency list
+An Adjacency List is usually a Hashmap, or a List of Lists
+```   
         Key Value
         1   [2]
         2   [1,3,4]
         3   [2]
         4   [2]
-
-####Adjacency Matrix - 2D array 
+```
+## Adjacency Matrix - 2D array 
 We mark all the spots where 2 nodes are connected and populate the matrix with all the edges. 
 It is east to lookup all the nods neighbors.
-
-        1   2   3   4
-    1       T
-    2   T       T   T
+```
+        0   1   2   3
+    0       T
+    1   T       T   T
+    2       T
     3       T
-    4       T
-
+```
 A big chunk of work within the graph problem is 
 1. Setting up the  Adjacency List or the Matrix.
 2. Visited Array 
 3. Once you do that, you just have to iterate thru the graph using DFS or BFS, and keep track of everything you have seen using some sort of a visited array. 
 
 
-
-#### 323. Number of Connected Components in an Undirected Graph
+## 323. Number of Connected Components in an Undirected Graph
 You have a graph of n nodes. You are given an integer n, and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
 Return the number of connected components in the graph.
-Input:     n = 5, 
-       edges = [[0,1],[1,2],[3,4]]
-Output: 2
+```
+    Input:     n = 5, 
+           edges = [[0,1],[1,2],[3,4]]
+    Output: 2
+```
 
 Solving the problem    
     First we will draw all the nodes as a graph from 0-N-1, so that we visually see what we are working with. 
@@ -79,7 +79,7 @@ Code
     Once all of them are visited. the DFS calls will stop automatically and you are done.
     Calling DFS in a graph is no different from trees. It involves some setup with adjuncy list and a visited array.
 
-#### 207. Course Schedule
+## 207. Course Schedule
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 Return true if you can finish all courses. Otherwise, return false.
@@ -113,18 +113,20 @@ Now anytime you come across a node that is already visited, you would know that 
 A cycle is only when you come across a node in the current traversal, not from the past traversal.
 
 This calls for a pattern to make the nodes as visited
+```
      0 = unvisited
     -1 = visiting
      1 = visited
-
+```
 While we are visiting, we mark them with -1. once done we change the -1s to 1s.
+```            
                 1         -1
                 1         3
               /   \    /    \ 
             0       2    -   4 -1
             1      -1
+```
 Note that we have a cycle within 2-3-4
-    
     
 Code
 Pretty much like the previous one.
@@ -146,8 +148,67 @@ For example, this one below is not a cycle.
         -1      -1
          0   -   1
 This can be identified by passing the parent node as a param to the next node you are visiting.
+
+```
+  public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if (numCourses == 0 || prerequisites == null || prerequisites.length ==0)
+            return true;
         
-#### 261. Graph Valid Tree
+        Map<Integer, ArrayList<Integer>> adjacencyList = new HashMap<>();        
+        // initialize the adjacencyList
+        for (int i=0; i<numCourses; i++) 
+            adjacencyList.put(i, new ArrayList<>());
+        
+        // populate the adjacencyList - directed graph one side only populated
+        for (int i=0; i<prerequisites.length; i++){
+            int[] prerequisite = prerequisites[i];
+            ArrayList<Integer> list = adjacencyList.get(prerequisite[1]);
+            list.add(prerequisite[0]);
+            adjacencyList.put(prerequisite[1], list);
+        }
+
+        // visited array where 0=not visited, 1= visited, -1= currently visiting
+        int[] visited =  new int[numCourses];
+        // iterate thru the
+        for (int i=0;i<numCourses; i++){
+            boolean cycle = dfs(adjacencyList, visited, i);
+            // if a cycle is found return false else continue;
+            if(!cycle)
+                return false;
+        }
+
+        // No cycle found. all courses can be finished
+        return true;
+    }
+
+    private boolean dfs(Map<Integer, ArrayList<Integer>> adjacencyList, int[] visited, int node){
+        // if we run into a node that visited in the current dfs traversal, then there is a cycle
+        if (visited[node] == -1 )
+            return false;
+
+        // if we run into a node that we have already seen in an previous dfs traversal
+        if (visited[node] == 1)
+            return true;
+
+        //Current node is not -1 or 1, it is 0. So mark the node as currently visiting before going uphill
+        visited[node]  = -1;
+        if (adjacencyList.containsKey(node)){
+            List<Integer> list = adjacencyList.get(node);
+            for (int neighbor: list){
+                boolean cycle = dfs(adjacencyList, visited, neighbor);
+                // if a cycle is found return false, which should bubble all the way up to return false, else continue
+                if(!cycle)
+                    return false;
+            }
+        }
+        // Once we have visit all the current nodes neighbors, we mark the node as fully visited during downhill
+        visited[node] = 1;
+        return true;
+    }
+
+```        
+
+## 261. Graph Valid Tree
 You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
 Return true if the edges of the given graph make up a valid tree, and false otherwise.
 
@@ -159,7 +220,7 @@ Example 2:
 Input: n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]
 Output: false
 
-#### Possible Bi-partition [Example of Graph coloring, also called bipartite graph]
+## Possible Bi-partition [Example of Graph coloring, also called bipartite graph]
 Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
 Each person may dislike some other people, and they should not go into the same group.
 Formally, if dislikes[i] = [a, b], it means it is not allowed to put the people numbered a and b into the same group.
@@ -197,7 +258,7 @@ Group Labeling
 If we run into a situation where two nodes share the same label, then the graph is not a bipartite.
                                  
                         
-#### 310. Minimum Height Trees
+## 310. Minimum Height Trees
 A tree is an undirected graph in which any two vertices are connected by exactly one path. 
 In other words, any connected graph without simple cycles is a tree.
 Given a tree of n nodes labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that 
@@ -217,6 +278,5 @@ Solution
     We will solve this using BFS.
     
 
-6. Other Problems 
-    Union Find, 
-    Bellman
+###  Union Find 
+###  Bellman
