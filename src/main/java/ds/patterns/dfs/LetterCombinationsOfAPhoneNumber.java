@@ -55,7 +55,6 @@ public class LetterCombinationsOfAPhoneNumber {
         // Get the letters that the current digit maps to, and loop through them
         char digit = digits.charAt(index);                  //  0>2       1>3
         String letters = mappedLetters.get(digit);          //  2>abc     3>def
-
         for (char letter: letters.toCharArray()) {          //  2/abc    3/def
             // Add the letter to our current path
             path.append(letter);                            //  a            ad             ae

@@ -59,9 +59,9 @@ Steps
             result.add(res);
             return;
         }
-        String digit = digits.charAt(level)+"";
-        char[] characters = map.get(digit).toCharArray();
-        for(char character: characters){
+        String digit = String.valueOf(digits.charAt(level));
+        String characters = map.get(digit);
+        for(char character: characters.toCharArray()){
             // 134 - a> d g h i  e g h i  f g h i  b d g h i  e g h i  f g h i  c >d g h i  eg h i f g h i
             //System.out.print(character +" "); //23 - a > d e f  b >d e f  c >d e f
             intermediaryResult.push(String.valueOf(character));
