@@ -50,7 +50,7 @@ Return the number of connected components in the graph.
 ```
 
 Solving the problem    
-    First we will draw all the nodes as a graph from 0-N-1, so that we visually see what we are working with. 
+    First we will draw all the nodes as a graph from 0 to N-1, so that we visually see what we are working with. 
     Then we can go thru the edges from the input and fill in the graph.
     These are undirected edges - 2 way streets.
     Once we draw we could see that there could be different clusters or islands of nodes.
@@ -58,26 +58,93 @@ Solving the problem
     We need to algorithmically count these connected components. 
     Similar to the number of islands problem in a graph instead of a matrix.
     We want to pick a node and see all the nodes connected to it the next node. 
-    Eventually we will visits all the nodes in that cluster, that would be 1 connected component. 
-    The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array] so that we do not visit them again.  
+    Eventually we will visit all the nodes in that cluster, that would be 1 connected component. 
+    The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array] 
+    so that we do not visit them again.  
      
 Code
     We setup an adjacency list or a matrix  so that we can easily lookup each nodes neighbors.  
-    you will get the edges in as a list of pairs. you want to go thru each of the edges and list which nodes are adjacent in the adjacency list.
+    *** you will get the edges in as a list of pairs. you want to go thru each of the edges and list which nodes are adjacent in the adjacency list.
     We can use a hashmap, or a list of lists for the adjacency list.
     We will set the key as the nodes name and the values a list of its edges.
-    We initially use a for loop to initialize all these lists to be empty then we iterate thru the input pairs and populate the 
-    adjacency list with edges.
+    We initially use a for-loop to initialize all these lists to be empty 
+    We then we iterate thru the input pairs and populate the adjacency list with edges.
     Since the graph is undirected, we need to add each edge twice, since a is b's neighbors. Then b is a's neighbor too.
-    After this we need to iterate thruy each node and explore all its neighbors. 
+    After this we need to iterate thru each node and explore all its neighbors. 
     As we encounter nodes we use this boolean visited array to make the nodes that we have seen.
-    As we finish exploring all the connected componets, we increment by 1.
-    Visited array precents us from double counting a cooected componet.
-    and the forloop prevents from missing one of the connected componet. 
-    Within the DFS, you mark the current node as visited and then you get the list of neighbors from the adjency list. 
-    We DFS into the once we have not seen. 
-    Once all of them are visited. the DFS calls will stop automatically and you are done.
-    Calling DFS in a graph is no different from trees. It involves some setup with adjuncy list and a visited array.
+    As we finish exploring all the connected components, we increment by 1.
+    Visited array prevents us from double counting a connected components and 
+    the forloop prevents from missing one of the connected component. 
+    Within the DFS, you mark the current node as visited and then you get the list of neighbors from the adjacency list. 
+    We DFS into the one we have not seen. 
+    Once all of them are visited. the DFS calls will automatically stop and then we are done.
+    Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
+
+Implementation
+```
+    public int countComponents(int n, int[][] edges) {
+        if(n==0)
+            return 0;
+
+        // Initialize adjList
+        Map<Integer, List<Integer>> adjList = new HashMap<>();
+        for (int i=0; i < n; i++){
+            adjList.put(i, new ArrayList<Integer>());
+        }
+
+        for (int i=0;i<edges.length; i++){
+            int[] edge = edges[i];
+
+            List<Integer> list1 = adjList.get(edge[0]);
+            list1.add(edge[1]);
+            adjList.put(edge[0], adjList.get(edge[0]));
+
+            List<Integer> list2 = adjList.get(edge[1]);
+            list2.add(edge[0]);
+            adjList.put(edge[1], list2);
+        }
+
+        int[] visited = new int[n];
+
+        int connectedComponents = 0;
+        for (int i=0; i<n; i++){
+            if (visited[i] == 0) {
+                dfs(i, adjList, visited);
+                connectedComponents++;
+            }
+        }
+
+        return connectedComponents;
+    }
+
+    private void dfs(int vertex, Map<Integer, List<Integer>> adjList, int[] visited) {
+        if (visited[vertex] == 1)
+            return;
+
+        visited[vertex] = 1;
+        List<Integer> neighbors = adjList.get(vertex);
+        for(Integer neighbor: neighbors){
+            if (visited[neighbor]==0) {
+                dfs(neighbor, adjList, visited);
+            }
+        }
+    }
+
+```
+
+Complexity Analysis\
+Here E = Number of edges, V = Number of vertices.
+
+Time complexity: O(E+V).\
+Building the adjacency list will take O(E) operations, as we iterate over the list of edges once, and insert each
+edge into two lists.
+During the DFS traversal, each vertex will only be visited once. This is because we mark each vertex as visited
+as soon as we see it, and then we only visit vertices that are not marked as visited. In addition, when we iterate
+over the edge list of each vertex, we look at each edge once. This has a total cost of O(E+V).
+
+Space complexity: O(E+V).\
+Building the adjacency list will take O(E) space. To keep track of visited vertices, an array of size O(V) is required.
+Also, the run-time stack for DFS will use O(V) space.
 
 ## 207. Course Schedule
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
