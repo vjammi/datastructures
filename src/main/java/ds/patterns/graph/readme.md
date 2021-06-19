@@ -338,13 +338,18 @@ Implementation
 
         for (int i=0; i<edges.length; i++){
             int[] edge = edges[i];
+            
             List<Integer> list = adjList.get(edge[0]);
             list.add(edge[1]);
             adjList.put(edge[0], list);
+            
             // *** To avoid going back to the parent use parent != child check  for the current node
             List<Integer> list2 = adjList.get(edge[1]);
             list2.add(edge[0]);
             adjList.put(edge[1], list2);
+
+            //adjacencyList.get(edge[0]).add(edge[1]);
+            //adjacencyList.get(edge[1]).add(edge[0]);
         }
 
         int[] visited  = new int[n]; // Mark the node visited
@@ -368,10 +373,9 @@ Implementation
 
         visited[current] = 1;
         List<Integer> children = adjList.get(current);
-        for (int child: children){
-            // *** This check prevents going back to parent node in a self loop (current = 1, parent of current = 0, child of current = 0)
-            if (parent != child) {
-                boolean validTree = isValidTree(child, adjList, visited, current);
+        for (int child: children){            
+            if (parent != child) { // *** check prevents going back to parent node in a self loop (current = 1, parent of current = 0, child of current = 0)
+                boolean validTree = isValidTree(child, adjList, visited, current); // add the current node as parent to the child node. 
                 if (!validTree) return false;
             }
         }
@@ -379,7 +383,6 @@ Implementation
     }
     
     public boolean bfs(int i, Map<Integer, List<Integer> > adjList, int[] visited){
-
         Queue<Integer> queue = new LinkedList<>();
         queue.add(i);
 
@@ -393,13 +396,14 @@ Implementation
             List<Integer> children = adjList.get(current);
             for (int child: children){
                 queue.add(child);
-                adjList.get(child).remove(current);
+                // Delete the opposite direction edges from the adjacency list. 
+                // In other words, when we follow an edge A → B, we lookup Bs adjacency list and delete A from it, 
+                // effectively removing the opposite edge of B → A.
+                adjList.get(child).remove(current); 
             }
         }
         return true;
     }
-
-
 ```
 
 ## Possible Bi-partition [Example of Graph coloring, also called bipartite graph]
