@@ -358,21 +358,24 @@ Implementation
         // if there is a cycle - an edge from child to parent, graph would not be a tree - return false        
         if (!validTree) return false; 
 
-        // if any un-visited nodes, not a tree - return false
+        //  G is fully not fully connected - if we are left with any un-visited nodes, not a tree - return false
         for (int visit: visited){ 
             if (visit == 0) return false; 
         }
+
+        //  G is a fully connected graph with all nodes visited and no cycles
         return true;
     }
 
     private boolean isValidTree(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
-        if (visited[current] == 1)
-            return false;        
+        if (visited[current] == 1) // Detects if there is a path that goes back to an already discovered node
+            return false;   
 
         visited[current] = 1;
         List<Integer> children = adjList.get(current);
         for (int child: children){
-            if (parent != child) { // *** Prevents going back to parent in a self loop (current = 1, parent of current = 0, child of current = 0)
+            // *** This check prevents going back to parent node in a self loop (current = 1, parent of current = 0, child of current = 0)
+            if (parent != child) {
                 boolean validTree = isValidTree(child, adjList, visited, current);
                 if (!validTree) return false;
             }
