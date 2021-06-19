@@ -216,6 +216,11 @@ For example, this one below is not a cycle.
          0   -   1
 This can be identified by passing the parent node as a param to the next node you are visiting.
 
+#####Intuition
+The problem could be modeled as yet another graph traversal problem, where each course can be represented as a vertex in a graph and the dependency between the courses can be modeled as a directed edge between two vertex.\
+And the problem to determine if one could build a valid schedule of courses that satisfies all the dependencies (i.e. constraints) would be equivalent to determine if the corresponding graph is a DAG (Directed Acyclic Graph), i.e. there is no cycle existed in the graph.\
+A typical strategy for graph traversal problems would be backtracking or simply DFS (depth-first search).\
+
 ```
   public boolean canFinish(int numCourses, int[][] prerequisites) {
         if (numCourses == 0 || prerequisites == null || prerequisites.length ==0)
@@ -274,6 +279,22 @@ This can be identified by passing the parent node as a param to the next node yo
     }
 
 ```        
+Complexity
+
+Time Complexity: O(∣E∣+∣V∣^2) where |E| is the number of dependencies, |V| is the number of courses and d is the maximum length of acyclic paths in the graph.\
+- First of all, it would take us |E| steps to build a graph in the first step.\
+- For a single round of backtracking, in the worst case where all the nodes chained up in a line, it would take us maximum |V| steps to terminate the backtracking.\ 
+- Again, follow the above worst scenario where all nodes are chained up in a line, it would take us in total \sum_{i=1}^{|V|}{i} = \frac{(1+|V|)\cdot|V|}{2}∑ i=1 i=2(1+∣V∣) steps to finish the check for all nodes.
+- As a result, the overall time complexity of the algorithm would be O(|E| + |V|^2) .
+
+Space Complexity: O(|E| + |V|), with the same denotation as in the above time complexity.
+- We built a graph data structure in the algorithm, which would consume |E| + |V| space.
+- In addition, during the backtracking process, we employed a sort of bitmap (path) to keep track of all visited nodes, which consumes |V| space.
+- Finally, since we implement the function in recursion, which would incur additional memory consumption on call stack. In the worst case where all nodes are chained up in a line, the recursion would pile up |V| times.
+- Hence, the overall space complexity of the algorithm would be O(|E| + 3.|V|) = O(|E| + |V|).
+
+
+
 
 ## 261. Graph Valid Tree
 You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
@@ -286,6 +307,79 @@ Output: true
 Example 2:
 Input: n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]
 Output: false
+
+Solution
+Approach 1: Graph Theory + Iterative Depth-First Search
+
+Intuition
+Note that this same approach also works with recursive depth-first search and iterative breadth-first search. We'll look at these briefly in the Algorithm section.
+Recall that a graph, G, is a tree iff the following two conditions are met:    
+G is fully connected. In other words, for every pair of nodes in G, there is a path between them.
+G contains no cycles. In other words, there is exactly one path between each pair of nodes in G.
+Depth-first search is a classic graph-traversal algorithm that can be used to check for both of these conditions:
+G is fully connected if, and only if, we started a depth-first search from a single source and discovered all nodes in G during it.
+G contains no cycles if, and only if, the depth-first search never goes back to an already discovered node. We need to be careful though not to count trivial cycles of the form A → B → A that occur with most implementations of undirected edges.
+Depth-first search requires being able to look up the adjacent (immediate neighbours) of a given node. Like many graph interview problems though, the input format we're given doesn't allow us to quickly get the neighbours of a node. Therefore, our first step is to convert the input into an adjacency list. Recall that an adjacency list is where we have a list of sub-lists, where each sub-list is the list of the immediate neighbours for the i'th node.
+
+*Complexity Analysis*
+Let EE be the number of edges, and NN be the number of nodes.
+Time Complexity : O(N + E)O(N+E).
+Creating the adjacency list requires initialising a list of length NN, with a cost of O(N)O(N), and then iterating over and inserting EE edges, for a cost of O(E)O(E). This gives us O(E) + O(N) = O(N + E)O(E)+O(N)=O(N+E).
+Each node is added to the data structure once. This means that the outer loop will run NN times. For each of the NN nodes, its adjacent edges is iterated over once. In total, this means that all EE edges are iterated over once by the inner loop. This, therefore, gives a total time complexity of O(N + E)O(N+E).
+Because both parts are the same, we get a final time complexity of O(N + E)O(N+E).
+Space Complexity : O(N + E)O(N+E).
+The adjacency list is a list of length NN, with inner lists with lengths that add to a total of EE. This gives a total of O(N + E)O(N+E) space.
+In the worst case, the stack/ queue will have all NN nodes on it at the same time, giving a total of O(N)O(N) space.
+In total, this gives us O(E + N)O(E+N) space.
+
+Implementation
+```
+    public boolean validTree(int n, int[][] edges) {
+        Map<Integer, List<Integer>> adjList = new HashMap<>();
+
+        for (int i=0; i<n; i++)
+            adjList.put(i, new ArrayList<Integer>());
+
+        for (int i=0; i<edges.length; i++){
+            int[] edge = edges[i];
+            List<Integer> list = adjList.get(edge[0]);
+            list.add(edge[1]);
+            adjList.put(edge[0], list);
+            // *** To avoid going back to the parent use parent != child check  for the current node
+            List<Integer> list2 = adjList.get(edge[1]);
+            list2.add(edge[0]);
+            adjList.put(edge[1], list2);
+        }
+
+        int[] visited  = new int[n];
+        boolean validTree = isValidTree(0, adjList, visited, -1);
+        
+        // if there is a cycle - an edge from child to parent, graph would not be a tree - return false        
+        if (!validTree) return false; 
+
+        // if any un-visited nodes, not a tree - return false
+        for (int visit: visited){ 
+            if (visit == 0) return false; 
+        }
+        return true;
+    }
+
+    private boolean isValidTree(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
+        if (visited[current] == 1)
+            return false;        
+
+        visited[current] = 1;
+        List<Integer> children = adjList.get(current);
+        for (int child: children){
+            if (parent != child) { // *** Prevents going back to parent in a self loop (current = 1, parent of current = 0, child of current = 0)
+                boolean validTree = isValidTree(child, adjList, visited, current);
+                if (!validTree) return false;
+            }
+        }
+        return true;
+    }
+
+```
 
 ## Possible Bi-partition [Example of Graph coloring, also called bipartite graph]
 Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
