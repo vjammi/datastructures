@@ -244,10 +244,8 @@ A typical strategy for graph traversal problems would be backtracking or simply 
         int[] visited =  new int[numCourses];
         // iterate thru the
         for (int i=0;i<numCourses; i++){
-            boolean cycle = dfs(adjacencyList, visited, i);
-            // if a cycle is found return false else continue;
-            if(!cycle)
-                return false;
+            boolean cycle = dfs(adjacencyList, visited, i);            
+            if(!cycle) return false; // if a cycle is found return false else continue;
         }
 
         // No cycle found. all courses can be finished
@@ -281,7 +279,6 @@ A typical strategy for graph traversal problems would be backtracking or simply 
 
 ```        
 ##### Complexity
-
 Time Complexity: O(∣E∣+∣V∣^2) where |E| is the number of dependencies, |V| is the number of courses and d is the maximum length of acyclic paths in the graph.\
 - First of all, it would take us |E| steps to build a graph in the first step.\
 - For a single round of backtracking, in the worst case where all the nodes chained up in a line, it would take us maximum |V| steps to terminate the backtracking.\ 
@@ -293,8 +290,6 @@ Space Complexity: O(|E| + |V|), with the same denotation as in the above time co
 - In addition, during the backtracking process, we employed a sort of bitmap (path) to keep track of all visited nodes, which consumes |V| space.
 - Finally, since we implement the function in recursion, which would incur additional memory consumption on call stack. In the worst case where all nodes are chained up in a line, the recursion would pile up |V| times.
 - Hence, the overall space complexity of the algorithm would be O(|E| + 3.|V|) = O(|E| + |V|).
-
-
 
 
 ## 261. Graph Valid Tree
@@ -313,7 +308,7 @@ Solution
 Approach 1: Graph Theory + Iterative Depth-First Search
 
 Intuition
-Note that this same approach also works with recursive depth-first search and iterative breadth-first search. We'll look at these briefly in the Algorithm section.
+Note that this same approach also works with recursive depth-first search and iterative breadth-first search. 
 Recall that a graph, G, is a tree iff the following two conditions are met:    
 G is fully connected. In other words, for every pair of nodes in G, there is a path between them.
 G contains no cycles. In other words, there is exactly one path between each pair of nodes in G.
@@ -352,7 +347,7 @@ Implementation
             adjList.put(edge[1], list2);
         }
 
-        int[] visited  = new int[n];
+        int[] visited  = new int[n]; // Mark the node visited
         boolean validTree = isValidTree(0, adjList, visited, -1);
         
         // if there is a cycle - an edge from child to parent, graph would not be a tree - return false        
@@ -382,6 +377,26 @@ Implementation
         }
         return true;
     }
+    
+    public boolean bfs(int i, Map<Integer, List<Integer> > adjList, int[] visited){
+
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(i);
+
+        while(!queue.isEmpty()){
+            Integer current = queue.poll();
+            if (visited[current] == 1)
+                return false;
+            visited[current] = 1;
+            List<Integer> children = adjList.get(current);
+            for (int child: children){
+                queue.add(child);
+                adjList.get(child).remove(current);
+            }
+        }
+        return true;
+    }
+
 
 ```
 

@@ -1,9 +1,6 @@
 package ds.patterns.graph;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
     You have a graph of n nodes labeled from 0 to n - 1.
@@ -66,7 +63,8 @@ public class GraphValidTree {
         }
 
         int[] visited  = new int[n];
-        boolean validTree = isValidTree(0, adjList, visited, -1);
+        //boolean validTree = dfs(0, adjList, visited, -1);
+        boolean validTree = bfs(0, adjList, visited);
         if (!validTree) return false; // if there is an edge from child to parent
 
         for (int visit: visited){
@@ -76,17 +74,16 @@ public class GraphValidTree {
         return true;
     }
 
-    private boolean isValidTree(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
+    private boolean dfs(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
         if (visited[current] == 1){
             System.out.println(current + " " + parent +" " +visited[current] +" < ");
             return false;
         }
-
-        visited[current] = 1;
+        visited[current] = 1; // Mark the node visited
         List<Integer> children = adjList.get(current);
         for (int child: children){
             if (parent != child) { // *** Prevents going back to parent in a self loop (current = 1, parent of current = 0, child of current = 0)
-                boolean validTree = isValidTree(child, adjList, visited, current);
+                boolean validTree = dfs(child, adjList, visited, current);
                 if (!validTree) return false;
             }
             else{
@@ -94,30 +91,26 @@ public class GraphValidTree {
                 System.out.println(child + " " + parent +" " +visited[child] +" ??? ");
             }
         }
-
         return true;
     }
 
-    private boolean isValidTree2(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
-        if (visited[current] == 1){
-            System.out.println(current + " " + parent +" " +visited[current] +" < ");
-            return false; // if there is an edge from child to parent
-        }
+    public boolean bfs(int i, Map<Integer, List<Integer> > adjList, int[] visited){
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(i);
 
-        if (visited[current] == -1) {
-            System.out.println(current + " " + parent +" " +visited[current] );
-            return true;
-        }
+        while(!queue.isEmpty()){
+            Integer current = queue.poll();
 
-        visited[current] = -1;
-        List<Integer> children = adjList.get(current);
-        for (int child: children){
-            boolean validTree = isValidTree(child, adjList, visited, current);
-            if (!validTree)
+            if (visited[current] == 1)
                 return false;
-        }
-        visited[current] = 1;
 
+            visited[current] = 1;
+            List<Integer> children = adjList.get(current);
+            for (int child: children){
+                queue.add(child);
+                adjList.get(child).remove(current);
+            }
+        }
         return true;
     }
 
@@ -125,10 +118,10 @@ public class GraphValidTree {
         GraphValidTree obj = new GraphValidTree();
 
         int n = 5;
-        int[][] edges = { {0,1}, {0,2}, {0,3}, {1,4}};
+        //int[][] edges = { {0,1}, {0,2}, {0,3}, {1,4}};
+        int[][] edges = { {0,1}, {1,2}, {2,3}, {1,3}, {1,4}};
         //int[][] edges = { {0,1}, {2,3}};
         //int[][] edges = { {1,0}};
-        //int[][] edges = { {0,1}, {1,2}, {2,3}, {1,3}, {1,4}};
         System.out.println(obj.validTree(n, edges));
     }
 
