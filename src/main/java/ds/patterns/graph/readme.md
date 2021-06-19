@@ -385,8 +385,10 @@ Implementation
 
         while(!queue.isEmpty()){
             Integer current = queue.poll();
+            
             if (visited[current] == 1)
                 return false;
+            
             visited[current] = 1;
             List<Integer> children = adjList.get(current);
             for (int child: children){
