@@ -152,34 +152,34 @@ For example, the pair [0, 1], indicates that to take course 0 you have to first 
 Return true if you can finish all courses. Otherwise, return false.
 
 Example 1:
-    Input: numCourses = 2, prerequisites = [[1,0]]
-        Output: true
-    Explanation: There are a total of 2 courses to take. 
-    To take course 1 you should have finished course 0. So it is possible.
-        Output: true
-    Explanation: There are a total of 2 courses to take. 
-    To take course 1 you should have finished course 0. So it is possible.
+Input: numCourses = 2, prerequisites = [[1,0]]
+    Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+    Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
 
 Example 2:        
 Input: numCourses = 5, 
 prerequisites = [[0,1], [1,2], [3,2], [4,3], [2,4]]
 
+Intuition 
 Similar to the above. But different in few ways. It's a cycle detection problem which kind of changes the way you traverse and label nodes.
 Apart from few minor differences that the graph is directed and visited array used diffeent labels to check for cycles. 
 This problem is very similar in structure to the previous one. 
 
 First we will draw all the nodes as a graph from 0-N-1, so that we visually see what we are working with. 
 Then we can go thru the edges from the input and fill in the graph.
-In this case these edges are directed edges - 1 way streets. we add arrows to the edges.
+In this case these edges are directed edges - one way streets. we add arrows to the edges.
 As you make up more examples you will notice that the components in the graph will not need to be connected. 
-Can have saperate connected components.
-only case you cannot complete all teh courses is when we have a cycle. This problem is all about finding cycle
+Can have separate connected components.
+only case you cannot complete all the courses is when we have a cycle. *This problem is all about finding cycle*
 Then how do you find cycles in a graph?
 The traversal part is the same, we pick and node and visit all its neighbors and mark them as visited in the visited graph.
-Now anytime you come across a node that is already visited, you would know that have a cycle. But there us an issue
-A cycle is only when you come across a node in the current traversal, not from the past traversal.
-
-This calls for a pattern to make the nodes as visited
+*Now anytime you come across a node that is already visited, you would know that have a cycle.* \
+But there is an issue. *A cycle is only when you come across a node in the current traversal, not from the past traversal.*\
+This calls for the below pattern - keeping track of visiting and visited nodes. 
 ```
      0 = unvisited
     -1 = visiting
@@ -194,10 +194,10 @@ While we are visiting, we mark them with -1. once done we change the -1s to 1s.
             1      -1
 ```
 Note that we have a cycle within 2-3-4
-    
-Code
+
+##### Intuition
 Pretty much like the previous one.
-The only difference is, since this is a directed graph we only need to add each edge once
+The only difference is, since this is a *directed graph* we only need to add each edge once
 For the visited array, instead of using a boolean array we are using an integer array.     
 then we run the DFS function. Note that not all the components may be connected.
 We are done if the cycle is found. 
@@ -215,12 +215,13 @@ For example, this one below is not a cycle.
         -1      -1
          0   -   1
 This can be identified by passing the parent node as a param to the next node you are visiting.
-
-#####Intuition
+   
+##### Intuition
 The problem could be modeled as yet another graph traversal problem, where each course can be represented as a vertex in a graph and the dependency between the courses can be modeled as a directed edge between two vertex.\
 And the problem to determine if one could build a valid schedule of courses that satisfies all the dependencies (i.e. constraints) would be equivalent to determine if the corresponding graph is a DAG (Directed Acyclic Graph), i.e. there is no cycle existed in the graph.\
 A typical strategy for graph traversal problems would be backtracking or simply DFS (depth-first search).\
 
+##### Implementation 
 ```
   public boolean canFinish(int numCourses, int[][] prerequisites) {
         if (numCourses == 0 || prerequisites == null || prerequisites.length ==0)
@@ -279,7 +280,7 @@ A typical strategy for graph traversal problems would be backtracking or simply 
     }
 
 ```        
-Complexity
+##### Complexity
 
 Time Complexity: O(∣E∣+∣V∣^2) where |E| is the number of dependencies, |V| is the number of courses and d is the maximum length of acyclic paths in the graph.\
 - First of all, it would take us |E| steps to build a graph in the first step.\
@@ -321,7 +322,7 @@ G is fully connected if, and only if, we started a depth-first search from a sin
 G contains no cycles if, and only if, the depth-first search never goes back to an already discovered node. We need to be careful though not to count trivial cycles of the form A → B → A that occur with most implementations of undirected edges.
 Depth-first search requires being able to look up the adjacent (immediate neighbours) of a given node. Like many graph interview problems though, the input format we're given doesn't allow us to quickly get the neighbours of a node. Therefore, our first step is to convert the input into an adjacency list. Recall that an adjacency list is where we have a list of sub-lists, where each sub-list is the list of the immediate neighbours for the i'th node.
 
-*Complexity Analysis*
+Complexity Analysis \
 Let EE be the number of edges, and NN be the number of nodes.
 Time Complexity : O(N + E)O(N+E).
 Creating the adjacency list requires initialising a list of length NN, with a cost of O(N)O(N), and then iterating over and inserting EE edges, for a cost of O(E)O(E). This gives us O(E) + O(N) = O(N + E)O(E)+O(N)=O(N+E).
