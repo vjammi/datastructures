@@ -404,9 +404,38 @@ Implementation
         }
         return true;
     }
+
+    public boolean bfs2(int i, Map<Integer, List<Integer> > adjList, int[] visited){
+        Map<Integer, Integer> parent = new HashMap<>();
+        parent.put(0, -1);
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(i);
+
+        while(!queue.isEmpty()){
+            Integer current = queue.poll();
+
+            if (visited[current] == 1)
+                return false;
+
+            visited[current] = 1;
+            List<Integer> children = adjList.get(current);
+            for (int child: children){
+                //*** For current 1, child  0 evaluates to false, so skips over
+                // However for current 1, child 4 evaluates to true 
+                if (parent.get(current) != child) {   
+                    queue.offer(child);
+                    // For current (say 0) we populate the children (1,2,3) in the map. 
+                    // So for current 0 and child 1,2,3 we have 1:0, 2:0, 3:0 within the map
+                    parent.put(child, current); 
+                }
+            }
+        }
+        return true;
+    }
+
 ```
 
-## Possible Bi-partition [Example of Graph coloring, also called bipartite graph]
+## 886. Possible Bipartition [Example of Graph coloring, also called bipartite graph]
 Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
 Each person may dislike some other people, and they should not go into the same group.
 Formally, if dislikes[i] = [a, b], it means it is not allowed to put the people numbered a and b into the same group.
