@@ -296,18 +296,24 @@ Space Complexity: O(|E| + |V|), with the same denotation as in the above time co
 You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
 Return true if the edges of the given graph make up a valid tree, and false otherwise.
 
+```
 Example 1:
 Input: n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]
 Output: true
-
+                0
+             /  |  \
+            1   2   3
+            |
+            4
 Example 2:
 Input: n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]
 Output: false
+                0 -  1 -  2
+                       \  |
+                     4    3
+```
 
-Solution
-Approach 1: Graph Theory + Iterative Depth-First Search
-
-Intuition
+Intuition - Graph Theory + Iterative Depth-First Search
 Note that this same approach also works with recursive depth-first search and iterative breadth-first search. 
 Recall that a graph, G, is a tree iff the following two conditions are met:    
 G is fully connected. In other words, for every pair of nodes in G, there is a path between them.
@@ -329,7 +335,7 @@ In the worst case, the stack/ queue will have all NN nodes on it at the same tim
 In total, this gives us O(E + N)O(E+N) space.
 
 Implementation
-```
+```        
     public boolean validTree(int n, int[][] edges) {
         Map<Integer, List<Integer>> adjList = new HashMap<>();
 
