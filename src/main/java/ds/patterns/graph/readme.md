@@ -353,7 +353,9 @@ Implementation
         }
 
         int[] visited  = new int[n]; // Mark the node visited
-        boolean validTree = isValidTree(0, adjList, visited, -1);
+        //boolean validTree = dfs(0, adjList, visited, -1);
+        //boolean validTree = bfs(0, adjList, visited);
+        boolean validTree = bfs2(0, adjList, visited);
         
         // if there is a cycle - an edge from child to parent, graph would not be a tree - return false        
         if (!validTree) return false; 
@@ -367,7 +369,7 @@ Implementation
         return true;
     }
 
-    private boolean isValidTree(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
+    private boolean dfs(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
         if (visited[current] == 1) // Detects if there is a path that goes back to an already discovered node
             return false;   
 
@@ -375,7 +377,7 @@ Implementation
         List<Integer> children = adjList.get(current);
         for (int child: children){            
             if (parent != child) { // *** check prevents going back to parent node in a self loop (current = 1, parent of current = 0, child of current = 0)
-                boolean validTree = isValidTree(child, adjList, visited, current); // add the current node as parent to the child node. 
+                boolean validTree = dfs(child, adjList, visited, current); // add the current node as parent to the child node. 
                 if (!validTree) return false;
             }
         }
