@@ -313,7 +313,7 @@ Output: false
                      4    3
 ```
 
-Intuition - Graph Theory + Iterative Depth-First Search
+Intuition - Graph Theory + Depth-First Search (recursive /iterative)
 Note that this same approach also works with recursive depth-first search and iterative breadth-first search. 
 Recall that a graph, G, is a tree iff the following two conditions are met:    
 G is fully connected. In other words, for every pair of nodes in G, there is a path between them.
@@ -449,37 +449,43 @@ Each person may dislike some other people, and they should not go into the same 
 Formally, if dislikes[i] = [a, b], it means it is not allowed to put the people numbered a and b into the same group.
 Return true if and only if it is possible to split everyone into two groups in this way.
 
+Example 1:
+Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[5,2]]
+Output: false
 Example 2:
 Input: n = 4, dislikes = [[1,2],[1,3],[2,4]]
 Output: true
 Explanation: group1 [1,4], group2 [2,3]
 
-Solution
-    Very similar to the LC 207 Course Schedule. 
-    The only difference is that this is an undirected graph. 
-    If DFS finds two neighboring nodes with the same grouping/coloring, then we return false - not a Bipartite graph
+Intuition \
+Very similar to the LC 207 Course Schedule. 
+* The only difference is that this is an undirected graph. * 
+* If DFS finds two neighboring nodes with the same grouping/coloring, then we return false, which would mean it is not a Bipartite graph.*
+If we run into a situation where two nodes share the same label, then the graph is not a bipartite.
 
-Example 1:
-    Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[5,2]]
-
+```
 Group Labeling
    0 = UnVisited
   -1 = Group A
    1 = Group B
-                   
+
+Example of a bipartite graph
+Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[5,2]]
+
                      3   1
              1     /   \
-             1 - 2      4 0     Example of a bipartite
+             1 - 2      4 0     
                  0 \   /
-                     1   1
-                    
+                     5   1
+
+Example of a non bipartite graph
+Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,2]]
                       3  1   
              1     /  | 
-             1 - 2    |         Example of not a bipartite
+             1 - 2    |         
                    \  | 
-                      1  1
-If we run into a situation where two nodes share the same label, then the graph is not a bipartite.
-                                 
+                      4  1
+```                                 
                         
 ## 310. Minimum Height Trees
 A tree is an undirected graph in which any two vertices are connected by exactly one path. 
