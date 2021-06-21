@@ -470,7 +470,7 @@ Group Labeling
    1 = Group B
 
 Example of a bipartite graph
-Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[5,2]]
+        n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[5,2]]
 
                      3   1
              1     /   \
@@ -479,14 +479,64 @@ Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,5],[5,2]]
                      5   1
 
 Example of a non bipartite graph
-Input: n = 5, dislikes = [[1,2],[2,3],[3,4],[4,2]]
-                      3  1   
-             1     /  | 
-             1 - 2    |         
-                   \  | 
-                      4  1
-```                                 
-                        
+        n = 5;      int[][] edges    = {{1,2},{3,4},{4,5},{3,5}};           
+
+                 -1      1   
+                 2 ----  3
+               /         | 
+          1  1           |         
+               \         | 
+                 5 ----  4
+                 1      -1           
+```
+Implementation
+```
+    public boolean possibleBipartition(int n, int[][] likes) {
+        Map<Integer, List<Integer>> adjList = new HashMap<>();
+        for(int i= 1; i< n+1; i++)
+            adjList.put(i, new ArrayList<Integer>());
+        for(int i=0; i< likes.length; i++){
+            int[] edge = likes[i];
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);
+        }
+
+        int[] visited = new int[n+1];                   // notice the length of the of the array n+1
+        for (int i=1; i<adjList.size()+1; i++){
+            // While cycling thru all the unprocessed nodes (1 thru N), 
+            // return false at the first occurrence of graph that is not bipartite
+            if (visited[i] == 0 && !dfs(i, adjList, visited, 1, -1)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean dfs(int node, Map<Integer, List<Integer>> adjList, int[] visited, int visit, int parent) {
+        if (visited[node] != 0 && visited[node] != visit)
+            return false;
+
+        if (visited[node] != 0 && visited[node] == visit){      // protects from re-processing of a node, when cycling thru all nodes of the adjList
+            return true;
+        }
+
+        visited[node] = visit;                                  // v[1]=1,  v[2]=-1,  v[4]:1
+        List<Integer> children = adjList.get(node);             // 1:[2,3], 2:[1,4],  4:[2]
+        for (int child: children){
+            // child  - child of index node
+            // parent - parent of index node, parent method argument
+            if (child != parent) {                              //(2 != 1) T,  (1 != 1) F,    (4 != 1)T,   (2 != 1)T
+                boolean canBePartitioned = dfs(child, adjList,
+                        visited, -visit,
+                        node);                                  //(2,-(1),1), x(1,-(-1),2), (4,-(-1),2)
+                if (!canBePartitioned)
+                    return false;
+            }
+        }
+        return true;
+    }
+```
+
 ## 310. Minimum Height Trees
 A tree is an undirected graph in which any two vertices are connected by exactly one path. 
 In other words, any connected graph without simple cycles is a tree.
