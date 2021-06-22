@@ -335,9 +335,9 @@ Creating the adjacency list requires
 - For each of the N nodes, its adjacent edges is iterated over once. 
 - In total, this means that all E edges are iterated over once by the inner loop. 
 - This, therefore, gives a total time complexity of O(N + E).
-- Because both parts are the same, we get a final time complexity of O(N + E).\
+- Because both parts are the same, we get a final time complexity of O(N + E).
 
-Space Complexity : O(N+E) \
+Space Complexity : O(N+E)
 - The adjacency list is a list of length N, with inner lists with lengths that add to a total of E. This gives a total of O(N + E) space.
 - In the worst case, the stack/queue will have all N nodes on it at the same time, giving a total of O(N) space.
 - In total, this gives us O(E + N) space.
