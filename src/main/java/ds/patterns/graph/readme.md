@@ -39,6 +39,38 @@ A big chunk of work within the graph problem is
 2. Visited Array 
 3. Once you do that, you just have to iterate thru the graph using DFS or BFS, and keep track of everything you have seen using some sort of a visited array. 
 
+## Complexity Analysis of Depth First Search
+#### Time Complexity
+The time complexity of DFS if the entire tree is traversed is O(V) where V is the number of nodes.
+If the graph is represented as adjacency list:
+Here, each node maintains a list of all its adjacent edges. Let’s assume that there are V number of nodes and E number of edges in the graph.
+For each node, we discover all its neighbors by traversing its adjacency list just once in linear time.
+For a directed graph, the sum of the sizes of the adjacency lists of all the nodes is E. So, the time complexity in this case is O(V) + O(E) = O(V + E).
+For an undirected graph, each edge appears twice. Once in the adjacency list of either end of the edge. The time complexity for this case will be O(V) + O (2E) ~ O(V + E).
+If the graph is represented as an adjacency matrix (a V x V array):
+For each node, we will have to traverse an entire row of length V in the matrix to discover all its outgoing edges.
+Note that each row in an adjacency matrix corresponds to a node in the graph, and that row stores information about edges emerging from the node. Hence, the time complexity of DFS in this case is O(V * V) = O(V2).
+The time complexity of DFS actually depends on the data structure being used to represent the graph.
+
+#### Space Complexity
+Since we are maintaining a stack to keep track of the last visited node, in worst case, the stack could take upto the size of the nodes(or vertices) in the graph. Hence, the space complexity is O(V).
+
+## Complexity Analysis of Breadth First Search
+
+#### Time Complexity
+The time complexity of BFS if the entire tree is traversed is O(V) where V is the number of nodes.
+*If the graph is represented as adjacency list:*
+Here, each node maintains a list of all its adjacent edges. Let’s assume that there are V number of nodes and E number of edges in the graph.
+For each node, we discover all its neighbors by traversing its adjacency list just once in linear time.
+For a directed graph, the sum of the sizes of the adjacency lists of all the nodes is E. So, the time complexity in this case is O(V) + O(E) = O(V + E).
+For an undirected graph, each edge appears twice. Once in the adjacency list of either end of the edge. The time complexity for this case will be O(V) + O (2E) ~ O(V + E).
+*If the graph is represented as an adjacency matrix (a V x V array):*
+For each node, we will have to traverse an entire row of length V in the matrix to discover all its outgoing edges.
+Note that each row in an adjacency matrix corresponds to a node in the graph, and that row stores information about edges emerging from the node. Hence, the time complexity of BFS in this case is O(V * V) = O(V2).
+The time complexity of BFS actually depends on the data structure being used to represent the graph.
+
+#### Space Complexity
+Since we are maintaining a priority queue (FIFO architecture) to keep track of the visited nodes, in worst case, the queue could take upto the size of the nodes(or vertices) in the graph. Hence, the space complexity is O(V).
 
 ## 323. Number of Connected Components in an Undirected Graph
 You have a graph of n nodes. You are given an integer n, and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
