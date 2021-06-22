@@ -28,13 +28,15 @@ class DirectedGraph {
     }
 
     // Graph Traversal
-    void dfsTraversal(int v)    {
+    void traverseGraphInDFS(int v)    {
         // Mark all the vertices as not visited (set as false by default in java)
         boolean visited[] = new boolean[numberOfVertices];
         // Call the recursive helper function to print DFS traversal
-        dfsTraversal(v, visited);
-
+        traverseGraphInDFS(v, visited);
         System.out.println("\n");
+    }
+
+    private void traverseGraphInBFS(int v) {
         int[] path = bfsTraversal(v);
         System.out.println("\n");
         for(int vertex: path){
@@ -71,7 +73,7 @@ class DirectedGraph {
     }
 
     // A function used by DFS
-    void dfsTraversal(int v, boolean visited[])    {
+    void traverseGraphInDFS(int v, boolean visited[])    {
         // Mark the current node as visited and print it
         visited[v] = true;  System.out.print(v + " ");
 
@@ -80,7 +82,7 @@ class DirectedGraph {
         while (iterator.hasNext())  {
             int n = iterator.next();
             if (!visited[n]) {
-                dfsTraversal(n, visited);
+                traverseGraphInDFS(n, visited);
             }
         }
     }
@@ -104,14 +106,22 @@ class DirectedGraph {
 
      */
     public static void main(String args[])    {
+
+        // Initialize the Graph of N Nodes or V Vertices - O(N) / O(V)
         DirectedGraph g = new DirectedGraph(11);
+
+        // Populate the E Edges - O(E)
         g.addEdge(0, 1);  g.addEdge(0, 2);  g.addEdge(0, 3);
         g.addEdge(1, 4);  g.addEdge(2, 5);  g.addEdge(3, 6);
         g.addEdge(4, 7);  g.addEdge(5, 8);  g.addEdge(6, 9);
         g.addEdge(7, 10); g.addEdge(8, 10); g.addEdge(9, 10);
 
-        System.out.println("Following is Depth First Traversal "+ "(starting from vertex 2)");
-        g.dfsTraversal(0);
+        System.out.println("Following is Depth First Traversal "+ "(starting from vertex 0)");
+        g.traverseGraphInDFS(0); // Traverse starting node 0
+
+        System.out.println("Following is Depth First Traversal "+ "(starting from vertex 0)");
+        g.traverseGraphInBFS(0); // Traverse starting node 0
+
     }
 }
 

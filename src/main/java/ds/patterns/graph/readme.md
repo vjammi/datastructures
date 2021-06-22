@@ -324,15 +324,25 @@ G contains no cycles if, and only if, the depth-first search never goes back to 
 Depth-first search requires being able to look up the adjacent (immediate neighbours) of a given node. Like many graph interview problems though, the input format we're given doesn't allow us to quickly get the neighbours of a node. Therefore, our first step is to convert the input into an adjacency list. Recall that an adjacency list is where we have a list of sub-lists, where each sub-list is the list of the immediate neighbours for the i'th node.
 
 Complexity Analysis \
-Let EE be the number of edges, and NN be the number of nodes.
-Time Complexity : O(N + E)O(N+E).
-Creating the adjacency list requires initialising a list of length NN, with a cost of O(N)O(N), and then iterating over and inserting EE edges, for a cost of O(E)O(E). This gives us O(E) + O(N) = O(N + E)O(E)+O(N)=O(N+E).
-Each node is added to the data structure once. This means that the outer loop will run NN times. For each of the NN nodes, its adjacent edges is iterated over once. In total, this means that all EE edges are iterated over once by the inner loop. This, therefore, gives a total time complexity of O(N + E)O(N+E).
-Because both parts are the same, we get a final time complexity of O(N + E)O(N+E).
-Space Complexity : O(N + E)O(N+E).
-The adjacency list is a list of length NN, with inner lists with lengths that add to a total of EE. This gives a total of O(N + E)O(N+E) space.
-In the worst case, the stack/ queue will have all NN nodes on it at the same time, giving a total of O(N)O(N) space.
-In total, this gives us O(E + N)O(E+N) space.
+Let E be the number of edges, and N be the number of nodes or vertices [V ???]
+
+Time Complexity : O(N+E) \
+Creating the adjacency list requires 
+- Initialising a list of length N, with a cost of O(N), and 
+- then iterating over and inserting E edges, for a cost of O(E). 
+- This gives us O(E) + O(N) = O(N + E).
+
+- This means that the outer loop will run N times (Each node is added to the data structure once). 
+- For each of the N nodes, its adjacent edges is iterated over once. 
+- In total, this means that all E edges are iterated over once by the inner loop. 
+- This, therefore, gives a total time complexity of O(N + E).
+
+- Because both parts are the same, we get a final time complexity of O(N + E).
+
+Space Complexity : O(N+E) \
+- The adjacency list is a list of length N, with inner lists with lengths that add to a total of E. This gives a total of O(N + E) space.
+- In the worst case, the stack/queue will have all N nodes on it at the same time, giving a total of O(N) space.
+- In total, this gives us O(E + N) space.
 
 Implementation
 ```        
@@ -536,6 +546,14 @@ Implementation
         return true;
     }
 ```
+Complexity \ 
+
+Time complexity \
+O(E+V) 
+
+Space complexity \
+O(E+V) - Adjacency list for our nodes and a visited array for storing the adjacent 
+
 
 ## 310. Minimum Height Trees
 A tree is an undirected graph in which any two vertices are connected by exactly one path. 
