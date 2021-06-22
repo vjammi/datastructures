@@ -331,13 +331,11 @@ Creating the adjacency list requires
 - Initialising a list of length N, with a cost of O(N), and 
 - then iterating over and inserting E edges, for a cost of O(E). 
 - This gives us O(E) + O(N) = O(N + E).
-
 - This means that the outer loop will run N times (Each node is added to the data structure once). 
 - For each of the N nodes, its adjacent edges is iterated over once. 
 - In total, this means that all E edges are iterated over once by the inner loop. 
 - This, therefore, gives a total time complexity of O(N + E).
-
-- Because both parts are the same, we get a final time complexity of O(N + E).
+- Because both parts are the same, we get a final time complexity of O(N + E).\
 
 Space Complexity : O(N+E) \
 - The adjacency list is a list of length N, with inner lists with lengths that add to a total of E. This gives a total of O(N + E) space.
