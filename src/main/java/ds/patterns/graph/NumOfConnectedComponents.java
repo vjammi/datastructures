@@ -32,7 +32,7 @@ import java.util.Map;
         Building the adjacency list will take O(E) space. To keep track of visited vertices, an array of size O(V) is required.
         Also, the run-time stack for DFS will use O(V) space.
 */
-public class ConnectedComponentsUnDirectedGraph {
+public class NumOfConnectedComponents {
 
     public int countComponents(int n, int[][] edges) {
         if(n==0)
@@ -83,7 +83,7 @@ public class ConnectedComponentsUnDirectedGraph {
     }
 
     public static void main(String[] args) {
-        ConnectedComponentsUnDirectedGraph obj = new ConnectedComponentsUnDirectedGraph();
+        NumOfConnectedComponents obj = new NumOfConnectedComponents();
         //int[][] edges = {{0,1},{1,2},{2,3},{3,4}};
         int[][] edges = {{0,1},{1,2},{3,4}};
         System.out.println(obj.countComponents(5, edges));
