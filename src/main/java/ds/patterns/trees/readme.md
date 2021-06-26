@@ -120,17 +120,19 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         stack.push(node);
 
         // Note that right child is pushed first so that left is processed first
+        // +AB (Node Left Right). 
         while (!stack.empty()) {
-            // Pop the top item from stack and print it
+
+            // Pop the top item from stack and add it to the list 
             TreeNode current = stack.pop();  //stack.peek();
-            preOrderedList.add(current.val);
+            preOrderedList.add(current.val); // +
 
             // Push right and left children of the popped node to stack
             if (current.right != null) {
-                stack.push(current.right);
+                stack.push(current.right);  // R
             }
             if (current.left != null) {
-                stack.push(current.left);
+                stack.push(current.left);   // L
             }
         }
         return preOrderedList;
@@ -141,16 +143,19 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         Stack<TreeNode> stack = new Stack();
         TreeNode current = root;
 
+        // A+B (Left Node Right)
         while (current != null || !stack.empty()) {
             // When current != null - Push current element into stack & update current pointer
+            // When the left of Node (A) is null, traverse the right Node.
+            // For the right node, traverse again its left side until null
+            // when left and right are null
             if (current != null) {
                 stack.push(current);
-                current = current.left;
-            } else {
-                // When current == null - Pop most current element from the stack & update current pointer
+                current = current.left;             // A
+            } else {  // When node.left is null - current == null - Pop most current element from the stack & update current pointer
                 TreeNode poppedNode = stack.pop();
-                inOrderedList.add(poppedNode.val);
-                current = poppedNode.right;
+                inOrderedList.add(poppedNode.val);  // +
+                current = poppedNode.right;         // B
             }
         }
         return inOrderedList;
@@ -165,18 +170,19 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);        
 
+        // AB+ (Left Right Node)
         while (!stack.isEmpty()) {
             // Pop an item from stack and add it to list at the 0th index
             TreeNode current = stack.pop();
 
             // Push left and right children of removed item to stack
             if (current.left != null)
-                stack.push(current.left);
+                stack.push(current.left);   // A
             if (current.right != null)
-                stack.push(current.right);
+                stack.push(current.right);  // B
 
             // Add the node/element to the 0th index of the array list. which will shift any existing elements to its right
-            postOrderList.add(0, current.val); // stack2.push(current); // or could add to a stack
+            postOrderList.add(0, current.val); // +
         }
         return postOrderList;
     }
