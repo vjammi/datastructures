@@ -1,5 +1,7 @@
 package ds.binarytree;
 
+import jdk.nashorn.internal.ir.CallNode;
+
 import java.util.*;
 
 public class BinaryTree_TraversalIterative {
@@ -13,54 +15,23 @@ public class BinaryTree_TraversalIterative {
         TreeNode(int key) {
             this.val = key;
         }
-
-        TreeNode(int key, TreeNode left, TreeNode right) {
-            this.val = key;
-            this.left = left;
-            this.right = right;
-        }
     }
 
-    public void print(String prefix, TreeNode node) {
-        if (node != null) {
-            print(prefix +"\t", node.right);
-            System.out.println ( prefix +(" \t |-") + node.val);
-            print( prefix + "\t", node.left);
+
+    private TreeNode getPreviouslyVisitedNode(Stack<TreeNode> stack) {
+        TreeNode previouslyVisitedNode = new TreeNode(500);
+        if (!stack.isEmpty()) {
+            previouslyVisitedNode = stack.peek();
         }
+        return previouslyVisitedNode;
     }
 
-    public void testPut(BinaryTree_TraversalIterative tree) {
-        int[] arr = {1,2,0,3,0,4,0,5};
-        //int[] arr = {16, 10, 22, 8, 12, 20, 24, 6, 9, 11, 13, 19, 21, 23, 25, 7};
-        //int[] arr = {4,9,2,1,3,6,10,5};
-        for(int i =0; i < arr.length; i++){
-            if(arr[i] == 0){
-                tree.put(arr[i], null);
-            }else{
-                tree.put(arr[i], String.valueOf(arr[i]));
-            }
+    /*
+    private boolean hasTheNodeAlreadyBeenVisited(Stack<TreeNode> stack, TreeNode node) {
+        if (stack.isEmpty()) {
+            return false;
         }
-    }
-
-    public void put(int key, String value){
-        root = put(root, key, value);
-    }
-
-    public TreeNode put(TreeNode x, int key, String value){
-        if (x == null){
-            //System.out.println("x == null [x.key: 0  New Key: "  + key);
-            return new TreeNode(key);
-        }
-        if (key < x.val){
-            // When it gets to the leaf node where (node == null), a new node is created, returned and assigned to x.left
-            x.left = put(x.left, key, value);
-        }else if(key > x.val){
-            // When it gets to the leaf node where (node == null), a new node is created, returned and assigned to x.right
-            x.right = put(x.right, key, value);
-        }else if (key == x.val){
-            //System.out.println("key == x.key [x.key: " + x.key + " New Key: "  + key +"]");
-        }
-        return x;
+        return stack.peek().equals(node);
     }
 
     public List<Integer> preorderTraversal(TreeNode root) {
@@ -69,7 +40,7 @@ public class BinaryTree_TraversalIterative {
         Stack<TreeNode> stack = new Stack<TreeNode>();
         queue.add(root);
 
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
 
             if (node != null) {
@@ -77,14 +48,14 @@ public class BinaryTree_TraversalIterative {
                 //System.out.print(", " +node.val);
 
                 // Add the right node into the stack to be processed after  reaching the leaf
-                if (node.right != null ) {
+                if (node.right != null) {
                     stack.add(node.right);
-                    System.out.print(", " +node.right.val);
+                    System.out.print(", " + node.right.val);
                 }
 
-                if (node.left != null ) {
+                if (node.left != null) {
                     queue.add(node.left);
-                }else{
+                } else {
                     // Add the last item added to the stack into the queue to the processed next,
                     // when there is not more left nodes [RLR] to traverse
                     if (!stack.isEmpty())
@@ -94,8 +65,130 @@ public class BinaryTree_TraversalIterative {
             }
 
         }
-        System.out.println("\n" +preOrderList.toString());
+        System.out.println("\n" + preOrderList.toString());
         return preOrderList;
+    }
+
+    public List<Integer> inorderTraversal1(TreeNode root) {
+
+        List<Integer> inOrderedList = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        Stack<TreeNode> visitedStack = new Stack<TreeNode>();
+
+        if (root == null) {
+            return inOrderedList;
+        }
+
+        stack.add(root);
+        while (!stack.isEmpty()) {
+
+            TreeNode currentNode = stack.peek();
+
+            if (currentNode.left != null && !hasTheNodeAlreadyBeenVisited(visitedStack, currentNode.left)) {
+                stack.add(currentNode.left);
+                visitedStack.add(currentNode.left);
+            } else {
+                if (hasTheNodeAlreadyBeenVisited(visitedStack, currentNode.left)) {
+                    visitedStack.pop();
+                }
+
+                TreeNode rightNode = currentNode.right;
+
+                TreeNode poppedLeftNode = stack.pop();
+                inOrderedList.add(poppedLeftNode.val);
+                System.out.print(", " + poppedLeftNode.val);
+
+                if (rightNode != null) {
+                    // Add the right node or subtree to the stack for further  exploration [next]
+                    stack.add(rightNode);
+                }
+
+            }
+
+        }
+        return inOrderedList;
+    }
+
+    */
+
+    public List<Integer> preorderTraversal(TreeNode node) {
+        List<Integer> preOrderedList = new ArrayList<>();
+
+        // Base Case
+        if (node == null) {
+            return preOrderedList;
+        }
+
+        // Create an empty stack and push root to it
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(node);
+
+        // Pop all items one by one. Do following for every popped item
+        // a) print it
+        // b) push its right child
+        // c) push its left child
+        // Note that right child is pushed first so that left is processed first
+        while (!stack.empty()) {
+            // Pop the top item from stack and print it
+            TreeNode current = stack.pop();  //stack.peek();
+            preOrderedList.add(current.val);
+
+            // Push right and left children of the popped node to stack
+            if (current.right != null) {
+                stack.push(current.right);
+            }
+            if (current.left != null) {
+                stack.push(current.left);
+            }
+        }
+
+        return preOrderedList;
+    }
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> inOrderedList = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack();
+        TreeNode current = root;
+
+        while (current != null || !stack.empty()) {
+            // When current != null - Push current element into stack & update current pointer
+            if (current != null) {
+                stack.push(current);
+                current = current.left;
+            } else {
+                // When current == null - Pop most current element from the stack & update current pointer
+                TreeNode poppedNode = stack.pop();
+                inOrderedList.add(poppedNode.val);
+                current = poppedNode.right;
+            }
+        }
+        return inOrderedList;
+    }
+
+    public List<Integer> postOrderTraversal(TreeNode root) {
+        List<Integer> postOrderList = new ArrayList<>();
+
+        if (root == null)
+            return postOrderList;
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+
+        while (!stack.isEmpty()) {
+            // Pop an item from stack and add it to list at the 0th index
+            TreeNode current = stack.pop();
+
+            // Push left and right children of removed item to stack
+            if (current.left != null)
+                stack.push(current.left);
+            if (current.right != null)
+                stack.push(current.right);
+
+            // Add the node/element to the 0th index of the array list. which will shift any existing elements to its right
+            postOrderList.add(0, current.val); // stack2.push(current); // or could add to a stack
+        }
+
+        return postOrderList;
     }
 
     public List<Integer> postorderTraversal(TreeNode root) {
@@ -104,12 +197,12 @@ public class BinaryTree_TraversalIterative {
         Stack<TreeNode> stack = new Stack<TreeNode>();
         Stack<TreeNode> resultStack = new Stack<TreeNode>();
 
-        if (root == null){
+        if (root == null) {
             return postOrderedList;
         }
 
         stack.add(root);
-        while(!stack.isEmpty()) {
+        while (!stack.isEmpty()) {
 
             TreeNode node = stack.peek();
 
@@ -145,57 +238,7 @@ public class BinaryTree_TraversalIterative {
             }
 
         }
-        System.out.println(postOrderedList.toString());
         return postOrderedList;
-    }
-
-    private TreeNode getPreviouslyVisitedNode(Stack<TreeNode> stack) {
-        TreeNode previouslyVisitedNode = new TreeNode(500);
-        if (!stack.isEmpty()) {
-            previouslyVisitedNode = stack.peek();
-        }
-        return previouslyVisitedNode;
-    }
-
-    public List<Integer> inorderTraversal(TreeNode root) {
-
-        List<Integer> inOrderedList = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        Stack<TreeNode> visitedStack = new Stack<TreeNode>();
-
-        if (root == null){
-            return inOrderedList;
-        }
-
-        stack.add(root);
-        while(!stack.isEmpty()) {
-
-            TreeNode currentNode = stack.peek();
-
-            if (currentNode.left != null && !hasTheNodeAlreadyBeenVisited(visitedStack, currentNode.left)){
-                stack.add(currentNode.left);
-                visitedStack.add(currentNode.left);
-            } else {
-                if (hasTheNodeAlreadyBeenVisited(visitedStack, currentNode.left)){
-                    visitedStack.pop();
-                }
-
-                TreeNode rightNode = currentNode.right;
-
-                TreeNode poppedLeftNode = stack.pop();
-                inOrderedList.add(poppedLeftNode.val);
-                System.out.print(", "+poppedLeftNode.val);
-
-                if (rightNode != null) {
-                    // Add the right node or subtree to the stack for further  exploration [next]
-                    stack.add(rightNode);
-                }
-
-            }
-
-        }
-        System.out.println(inOrderedList.toString());
-        return inOrderedList;
     }
 
     public List<List<Integer>> levelOrder(TreeNode root) {
@@ -209,16 +252,16 @@ public class BinaryTree_TraversalIterative {
 
         int level = 0;
         int nextLevelChildCount = 0;
-        if (current != null ) nextLevelChildCount++;
-        while (!queue.isEmpty()){
+        if (current != null) nextLevelChildCount++;
+        while (!queue.isEmpty()) {
 
-            List<Integer> children =  new LinkedList<>();
+            List<Integer> children = new LinkedList<>();
             int count = 0;
-            for (int i=0; i< nextLevelChildCount; i++){ //(int)Math.pow(2, level)
+            for (int i = 0; i < nextLevelChildCount; i++) { //(int)Math.pow(2, level)
                 TreeNode node = queue.remove();
                 if (node != null) {
                     children.add(node.val);
-                    if (node.left  != null) {
+                    if (node.left != null) {
                         queue.add(node.left);
                         count++;
                     }
@@ -230,7 +273,7 @@ public class BinaryTree_TraversalIterative {
             }
             nextLevelChildCount = count;
 
-            System.out.println(level +" - " +children.toString());
+            System.out.println(level + " - " + children.toString());
             levelOrderList.add(children);
             level++;
         }
@@ -267,16 +310,28 @@ public class BinaryTree_TraversalIterative {
         return ans;
     }
 
-    public void runSomething() {
-        System.out.println(Math.pow(2, 0));
-    }
+    /*
+                                 |-25
+                         |-24
+                             |-23
+                     |-22
+                             |-21
+                         |-20
+                             |-19
+                 |-16
+                             |-13
+                         |-12
+                             |-11
+                     |-10
+                             |-9
+                         |-8
+                                 |-7
+                             |-6
+            preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
+            inOrderTraversalList   [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]
+            postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
 
-    private boolean hasTheNodeAlreadyBeenVisited(Stack<TreeNode> stack, TreeNode node) {
-        if (stack.isEmpty()){
-            return false;
-        }
-        return stack.peek().equals(node);
-    }
+    * */
 
     public static void main(String[] args) {
         BinaryTree_TraversalIterative tree = new BinaryTree_TraversalIterative();
@@ -284,17 +339,58 @@ public class BinaryTree_TraversalIterative {
         tree.testPut(tree);
         tree.print("", tree.root);
 
-        //tree.preorderTraversal(tree.root);
-        //tree.print("", tree.root);
+        List<Integer> preorderTraversalList = tree.preorderTraversal(tree.root);
+        System.out.println("preorderTraversalList " + preorderTraversalList);
 
-        //tree.postorderTraversal(tree.root);
-        //tree.print("", tree.root);
+        List<Integer> inOrderTraversalList = tree.inorderTraversal(tree.root);
+        System.out.println("inOrderTraversalList " + inOrderTraversalList);
 
-        //tree.inorderTraversal(tree.root);
-        //tree.print("", tree.root);
+        List<Integer> postOrderTraversalList = tree.postOrderTraversal(tree.root);
+        System.out.println("postOrderTraversalList " + postOrderTraversalList);
 
-        tree.runSomething();
-        tree.levelOrder(tree.root);
+        //tree.runSomething();
+        //tree.levelOrder(tree.root);
     }
 
+    public void print(String prefix, TreeNode node) {
+        if (node != null) {
+            print(prefix + "\t", node.right);
+            System.out.println(prefix + (" \t |-") + node.val);
+            print(prefix + "\t", node.left);
+        }
+    }
+
+    public void testPut(BinaryTree_TraversalIterative tree) {
+        //int[] arr = {1,2,0,3,0,4,0,5};
+        //int[] arr = {4,9,2,1,3,6,10,5};
+        int[] arr = {16, 10, 22, 8, 12, 20, 24, 6, 9, 11, 13, 19, 21, 23, 25, 7};
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == 0) {
+                tree.put(arr[i], null);
+            } else {
+                tree.put(arr[i], String.valueOf(arr[i]));
+            }
+        }
+    }
+
+    public void put(int key, String value) {
+        root = put(root, key, value);
+    }
+
+    public TreeNode put(TreeNode x, int key, String value) {
+        if (x == null) {
+            //System.out.println("x == null [x.key: 0  New Key: "  + key);
+            return new TreeNode(key);
+        }
+        if (key < x.val) {
+            // When it gets to the leaf node where (node == null), a new node is created, returned and assigned to x.left
+            x.left = put(x.left, key, value);
+        } else if (key > x.val) {
+            // When it gets to the leaf node where (node == null), a new node is created, returned and assigned to x.right
+            x.right = put(x.right, key, value);
+        } else if (key == x.val) {
+            //System.out.println("key == x.key [x.key: " + x.key + " New Key: "  + key +"]");
+        }
+        return x;
+    }
 }
