@@ -98,11 +98,13 @@ For example, if we remove the node 5 from teh below tree, it becomes unbalanced.
                          |-8
                                  |-7
                              |-6
-            preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
-            inOrderTraversalList   [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]
-            postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
-
-```    
+```
+```
+preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
+inOrderTraversalList   [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]
+postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
+```
+   
 #### Binary Tree Iterative Traversal Implementation
 ```
     public List<Integer> preorderTraversal(TreeNode node) {
@@ -117,10 +119,6 @@ For example, if we remove the node 5 from teh below tree, it becomes unbalanced.
         Stack<TreeNode> stack = new Stack<>();
         stack.push(node);
 
-        // Pop all items one by one. Do following for every popped item
-        // a) print it
-        // b) push its right child
-        // c) push its left child
         // Note that right child is pushed first so that left is processed first
         while (!stack.empty()) {
             // Pop the top item from stack and print it
@@ -135,7 +133,6 @@ For example, if we remove the node 5 from teh below tree, it becomes unbalanced.
                 stack.push(current.left);
             }
         }
-
         return preOrderedList;
     }
 
@@ -181,7 +178,6 @@ For example, if we remove the node 5 from teh below tree, it becomes unbalanced.
             // Add the node/element to the 0th index of the array list. which will shift any existing elements to its right
             postOrderList.add(0, current.val); // stack2.push(current); // or could add to a stack
         }
-
         return postOrderList;
     }
 
