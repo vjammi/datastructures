@@ -82,7 +82,7 @@ For example, if we remove the node 5 from teh below tree, it becomes unbalanced.
    
 #### Binary Tree Traversals
 ```
-                                 |-25
+                             |-25
                          |-24
                              |-23
                      |-22
@@ -98,6 +98,7 @@ For example, if we remove the node 5 from teh below tree, it becomes unbalanced.
                          |-8
                                  |-7
                              |-6
+                                 |-N
 ```
 ```
 preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
