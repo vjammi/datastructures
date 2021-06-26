@@ -110,7 +110,6 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
     public List<Integer> preorderTraversal(TreeNode node) {
         List<Integer> preOrderedList = new ArrayList<>();
 
-        // Base Case
         if (node == null) {
             return preOrderedList;
         }
