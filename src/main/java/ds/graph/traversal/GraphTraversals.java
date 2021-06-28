@@ -1,7 +1,5 @@
 package ds.graph.traversal;
 
-// BFS algorithm in Java
-
 import java.util.*;
 
 public class GraphTraversals {
