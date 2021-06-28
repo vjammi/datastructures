@@ -32,8 +32,8 @@ public class DijkstraShortestPathWeightedGraph {
         int[] distance = new int[noOfVertices];
         Arrays.fill(distance,-1); // Initialize distance array
 
-        distance[startVertex]=0;        // Making distance for start vertex 0
-        path[startVertex]=startVertex;  // Updating path for start vertex to itself
+        distance[startVertex] = 0;        // Making distance for start vertex 0
+        path[startVertex] = startVertex;  // Updating path for start vertex to itself
 
         PriorityQueue<Pair<Integer,Integer>> priorityQueue = new PriorityQueue<>((a, b) -> a.getValue()-b.getValue());
         priorityQueue.add(new Pair<>(startVertex,0));
