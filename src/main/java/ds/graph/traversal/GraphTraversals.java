@@ -10,15 +10,6 @@ public class GraphTraversals {
     private List<Integer>[] adj;
     private boolean[] visited;
 
-    //    // Create a graph
-    //    GraphTraversals(int v) {
-    //        V = v;
-    //        adj = new LinkedList[v];
-    //        for (int i = 0; i < v; ++i)
-    //            adj[i] = new LinkedList();
-    //    }
-
-    // Graph creation
     GraphTraversals(int vertices) {
         if (vertices < 0)
             throw new IllegalArgumentException("Vertices need to be >= 0");
