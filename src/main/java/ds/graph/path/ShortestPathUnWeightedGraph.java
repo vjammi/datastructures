@@ -49,6 +49,7 @@ public class ShortestPathUnWeightedGraph {
 
             while(size > 0){
                 int vertex = queue.remove();
+
                 List<Integer> neighbors = adjList.get(vertex);
                 for(Integer neighbor: neighbors){
                     if(distance[neighbor] == -1){
@@ -66,6 +67,9 @@ public class ShortestPathUnWeightedGraph {
                 System.out.println(" from path "+(char)(path[i]+'A'));
             }
         }
+
+        System.out.println("Path: " +path);
+        System.out.println("Distance: " +distance);
     }
 
     public static void main(String[] args) {
