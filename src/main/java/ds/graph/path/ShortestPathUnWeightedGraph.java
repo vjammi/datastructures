@@ -1,45 +1,37 @@
 package ds.graph.path;
 
-import javafx.util.Pair;
 import java.util.*;
 
-public class ShortestPathUnweightedGraph {
+public class ShortestPathUnWeightedGraph {
 
-    private List<Integer>[] adj;
+    private Map<Integer, List<Integer>> adjList;
 
-    public ShortestPathUnweightedGraph(int noOfVertices) {
-        adj = new ArrayList[noOfVertices];
+    public ShortestPathUnWeightedGraph(int noOfVertices) {
+        adjList = new HashMap<>();
+        for (int i=0; i<noOfVertices; i++){
+            adjList.put(i, new ArrayList<Integer>());
+        }
 
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(3);
-        adj[0]=list;
+        adjList.get(0).add(1);
+        adjList.get(0).add(3) ;
 
-        list=new ArrayList<>();
-        list.add(3);
-        list.add(4);
-        adj[1]=list;
+        adjList.get(1).add(3);
+        adjList.get(1).add(4) ;
 
-        list=new ArrayList<>();
-        list.add(0);
-        list.add(5);
-        adj[2]=list;
+        adjList.get(2).add(0);
+        adjList.get(2).add(5) ;
 
-        list=new ArrayList<>();
-        list.add(5);
-        list.add(6);
-        adj[3]=list;
+        adjList.get(3).add(5);
+        adjList.get(3).add(6) ;
 
-        list=new ArrayList<>();
-        list.add(6);
-        adj[4]=list;
+        adjList.get(4).add(6);
+        adjList.get(4).add(4) ;
 
-        adj[5]=new ArrayList<>();
+        //adjList.get(5);
 
-        list=new ArrayList<>();
-        list.add(5);
-        adj[6]=list;
-    }
+        adjList.get(6).add(5);
+
+   }
 
     public void bfs(int startVertex, int noOfVertices) {
         int[] path = new int[noOfVertices];
@@ -56,10 +48,8 @@ public class ShortestPathUnweightedGraph {
             int size = queue.size();
 
             while(size > 0){
-                int vertex=queue.remove();
-
-                List<Integer> neighbors = adj[vertex];
-
+                int vertex = queue.remove();
+                List<Integer> neighbors = adjList.get(vertex);
                 for(Integer neighbor: neighbors){
                     if(distance[neighbor] == -1){
                         distance[neighbor] = distance[vertex] + 1;
@@ -79,7 +69,7 @@ public class ShortestPathUnweightedGraph {
     }
 
     public static void main(String[] args) {
-        ShortestPathUnweightedGraph obj = new ShortestPathUnweightedGraph(7);
+        ShortestPathUnWeightedGraph obj = new ShortestPathUnWeightedGraph(7);
         obj.bfs(2, 7);
     }
 
