@@ -6,9 +6,9 @@ import java.util.*;
 
 public class GraphTraversals {
 
-    private int V;
-    private LinkedList<Integer>[] adj;
-    private boolean visited[];
+    private int vertices;
+    private List<Integer>[] adj;
+    private boolean[] visited;
 
     //    // Create a graph
     //    GraphTraversals(int v) {
@@ -20,13 +20,16 @@ public class GraphTraversals {
 
     // Graph creation
     GraphTraversals(int vertices) {
-        V = vertices;
+        if (vertices < 0)
+            throw new IllegalArgumentException("Vertices need to be >= 0");
+
+        this.vertices = vertices;
 
         adj = new LinkedList[vertices];
         visited = new boolean[vertices];
 
         for (int i = 0; i < vertices; i++)
-            adj[i] = new LinkedList<Integer>();
+            adj[i] = new LinkedList<>();
     }
 
 
@@ -36,15 +39,16 @@ public class GraphTraversals {
     }
 
     // BFS algorithm
-    void bfs(int s) {
-        boolean visited[] = new boolean[V];
-        LinkedList<Integer> queue = new LinkedList();
-        visited[s] = true;
-        queue.add(s);
+    void bfs(int vertex) {
+        boolean[] visited = new boolean[vertices];
+        Queue<Integer> queue = new LinkedList<>();
+        visited[vertex] = true;
+        queue.add(vertex);
         while (queue.size() != 0) {
-            s = queue.poll();
-            System.out.print(s + " ");
-            Iterator<Integer> i = adj[s].listIterator();
+
+            vertex = queue.poll();
+            System.out.print(vertex + " ");
+            Iterator<Integer> i = adj[vertex].listIterator();
             while (i.hasNext()) {
                 int n = i.next();
                 if (!visited[n]) {
@@ -52,6 +56,7 @@ public class GraphTraversals {
                     queue.add(n);
                 }
             }
+
         }
     }
 
@@ -60,15 +65,15 @@ public class GraphTraversals {
         visited[vertex] = true;
         System.out.print(vertex + " ");
 
-        Iterator<Integer> ite = adj[vertex].listIterator();
-        while (ite.hasNext()) {
-            int adj = ite.next();
+        Iterator<Integer> iterator = adj[vertex].listIterator();
+        while (iterator.hasNext()) {
+            int adj = iterator.next();
             if (!visited[adj])
                 dfs(adj);
         }
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         GraphTraversals g = new GraphTraversals(4);
 
         g.addEdge(0, 1);
