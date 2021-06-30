@@ -69,6 +69,22 @@ public class DijkstraShortestPathWeightedGraph {
 
     }
 
+    /*
+        Distance from A
+            Distance to A is 0 from path A
+            Distance to B is 3 from path C
+            Distance to C is 1 from path A
+            Distance to D is 5 from path C
+            Distance to E is 7 from path B
+
+            A --4-- B
+            |      /  \  4
+            1    2     E
+            |  /      /  4
+            C --4-- D
+
+    */
+
     public static void main(String[] args) {
         DijkstraShortestPathWeightedGraph obj = new DijkstraShortestPathWeightedGraph(5);
         obj.dijkstra(0,5);
