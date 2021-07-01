@@ -75,9 +75,15 @@ Steps
 ```
 ### 22 Generate Parentheses
 ```    
-    // Valid Combination for n = 3 
-    // [((())) , (()()), (())(), ()(()), ()()()]
-    // Tree DFS Implementation
+
+    // Valid Combination for n = 3  [((())) , (()()), (())(), ()(()), ()()()] 
+    public List<String> generateParenthesis(int n) {
+        List<String> combinations = new ArrayList<String>();
+        if (n==0) return combinations;
+        dfs(n, combinations, new StringBuilder(""), 0, 0);
+        return combinations;        
+    }  
+
     public void dfs(int n, List<String> combinations, StringBuilder current, int left, int right){
         if( left == n && right == n ){
             combinations.add(current.toString());  System.out.println("*** Valid Combination: " +current +"***");
@@ -103,6 +109,9 @@ Steps
 ### 46 Permutations    
 
 ```
+    Input: nums = [1,2,3]
+    Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+
                  -  2  -  3
                1    
             /    -  3  -  2
@@ -153,6 +162,60 @@ Steps
 ### 90  Subsets II        
 
 ## 2. Number of Islands.
+
+```
+    Input: grid = [["1","1","0","0","0"],
+                   ["1","1","0","0","0"],
+                   ["0","0","1","0","0"],
+                   ["0","0","0","1","1"] ]
+    Output: 3
+
+    int[] directionInX = new int[]{ 0,-1, 0, 1}; // W, N, E, S
+    int[] directionInY = new int[]{-1, 0, 1, 0}; // W, N, E, S
+    int[][] visitedGrid;
+
+    private class Cell {
+        int x; int y;
+        public Cell(int x, int y) {this.x = x; this.y = y; }
+    }
+
+    public int numIslands(char[][] grid) {
+        Queue<Cell> queue = new LinkedList<>();
+        visitedGrid = new int[grid.length][grid[0].length];
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid[0].length; j++){
+                if (grid[i][j] == '1' ){
+                    queue.add(new Cell(i, j));
+                    visitedGrid[i][j] = 1;
+                    System.out.println(grid[i][j] +" at location " +i +"," +j);
+                }
+            }
+        }
+
+        int numberOfIslands = 0;
+        Queue<Cell> queue2 = new LinkedList<>();
+        while(!queue.isEmpty()){
+            Cell cell = queue.poll();
+            if (grid[cell.x][cell.y] == '1' && visitedGrid[cell.x][cell.y] == 1) {                
+                queue2.add(cell);
+                while(!queue2.isEmpty()) {
+                    Cell cell2 = queue2.poll();
+                    if (grid[cell2.x][cell2.y] == '1' && visitedGrid[cell2.x][cell2.y] == 1) {
+                        for (int i = 0; i < directionInX.length; i++) {
+                            int row = cell2.x + directionInX[i];
+                            int col = cell2.y + directionInY[i];
+                            if (row >= 0 && row < grid.length && col >= 0 && col < grid[0].length && grid[row][col] != '0')
+                                queue2.add(new Cell(row, col));
+                        }
+                        visitedGrid[cell2.x][cell2.y] = 9;
+                    }
+                }
+                numberOfIslands++;                
+            }else{ System.out.println(" > Skipping val " + grid[cell.x][cell.y] +" at location "  +cell.x +"," +cell.y); }
+        }
+        return numberOfIslands;
+    }
+```    
     
 ### Number of Enclaves
 ### Supported Regions
