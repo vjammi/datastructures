@@ -23,8 +23,7 @@ import java.util.Queue;
                     ]
         Output: 1
 
-        Example 2:
-                    Input: grid = [
+        Example 2:  Input: grid = [
                       ["1","1","0","0","0"],
                       ["1","1","0","0","0"],
                       ["0","0","1","0","0"],
