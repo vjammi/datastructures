@@ -126,11 +126,13 @@ Implementation
 
         for (int i=0;i<edges.length; i++){
             int[] edge = edges[i];
+            //adjacencyList.get(edge[0]).add(edge[1]);
+            //adjacencyList.get(edge[1]).add(edge[0]);
 
             List<Integer> list1 = adjList.get(edge[0]);
             list1.add(edge[1]);
             adjList.put(edge[0], adjList.get(edge[0]));
-
+            
             List<Integer> list2 = adjList.get(edge[1]);
             list2.add(edge[0]);
             adjList.put(edge[1], list2);
@@ -384,18 +386,16 @@ Implementation
 
         for (int i=0; i<edges.length; i++){
             int[] edge = edges[i];
+            //adjacencyList.get(edge[0]).add(edge[1]);
+            //adjacencyList.get(edge[1]).add(edge[0]);
             
             List<Integer> list = adjList.get(edge[0]);
             list.add(edge[1]);
             adjList.put(edge[0], list);
-            
-            // *** To avoid going back to the parent use parent != child check  for the current node
+
             List<Integer> list2 = adjList.get(edge[1]);
             list2.add(edge[0]);
             adjList.put(edge[1], list2);
-
-            //adjacencyList.get(edge[0]).add(edge[1]);
-            //adjacencyList.get(edge[1]).add(edge[0]);
         }
 
         int[] visited  = new int[n]; // Mark the node visited
