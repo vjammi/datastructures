@@ -231,6 +231,36 @@ Exchange with the last element and sink it until heap order is restored.
 
 Reference: https://algs4.cs.princeton.edu/24pq/MaxPQ.java.html
 
-## Other resources
+## Other references
 https://www.geeksforgeeks.org/why-is-binary-heap-preferred-over-bst-for-priority-queue/
 https://www.geeksforgeeks.org/priority-queue-class-in-java-2/
+
+## Priority Queue
+Runtime: Add and remove O(logN)
+
+Java PriorityQueue
+PriorityQueue<Integer> heap = new PriorityQueue<>(...);
+
+#### Top K Frequent Elements
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+Input: nums = [1,1,1,2,2,3], k = 2
+Output: [1,2]
+Flow of 
+1. Setup - Initialize the PQ with a custom compareator
+2. Add all data to te PQ. It will order the elements. 
+3. We remove the elements as we need them
+
+#### K-Closest Points to Origin
+
+#### Merge K Sorted Lists
+
+#### Find median from Data Stream
+Median is the number that is in the middle of an ordered list. If there are two medians, then it is the average value of the two.
+2,3,5 -   Median = 3
+2,3,4,5 - Median = (3+4)/2 = 3.5
+
+#### Meeting Rooms II
+#### Task Scheduler
+#### Find K Pairs with Smallest Sum
+
+
