@@ -1,4 +1,4 @@
-package ds.graph;
+package ds.graph.representation;
 
 /******************************************************************************
  *  Compilation:  javac Graph.java

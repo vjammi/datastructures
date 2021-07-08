@@ -1,6 +1,6 @@
 package ds.graph.applications.foo;
 
-import ds.graph.UndirectedGraph;
+import ds.graph.representation.UndirectedGraph;
 
 public class AllPaths2 {
     /**

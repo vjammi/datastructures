@@ -1,6 +1,6 @@
 package ds.graph.applications;
 
-import ds.graph.UndirectedGraph;
+import ds.graph.representation.UndirectedGraph;
 
 import java.io.IOException;
 

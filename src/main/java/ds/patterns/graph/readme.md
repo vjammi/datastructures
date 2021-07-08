@@ -24,6 +24,36 @@ An Adjacency List is usually a Hashmap, or a List of Lists
         3   [2]
         4   [2]
 ```
+
+Adjacency List Representation - Option 1
+```
+    someGraph(int n, int[][] edges) {
+        LinkedList<Integer>[] adj; // Array of lists for Adjacency List Representation
+        ...        
+        adj = new LinkedList[v];
+        for (int i = 0; i < v; ++i) {
+            adj[i] = new LinkedList();
+        }
+        ...
+        adj[v].add(w); // Add w to v's list.
+     }
+```
+Adjacency List Representation - Option 2
+```
+    someGraph(int n, int[][] edges) {
+        Map<Integer, List<Integer>> adjList = new HashMap<>();
+        for (int i=0; i<n; i++)
+            adjList.put(i, new ArrayList<Integer>());
+        ...
+        for (int i=0; i<edges.length; i++){
+            int[] edge = edges[i];
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);            
+        }
+        ...
+    }
+```
+
 ## Adjacency Matrix - 2D array 
 We mark all the spots where 2 nodes are connected and populate the matrix with all the edges. 
 It is east to lookup all the nods neighbors.
@@ -34,6 +64,27 @@ It is east to lookup all the nods neighbors.
     2       T
     3       T
 ```
+Adjacency Matrix Representation
+```
+    // Initialize the matrix
+    public GraphAdjacencyMatrix(int numVertices) {
+        this.numVertices = numVertices;
+        adjMatrix = new boolean[numVertices][numVertices];
+    }
+
+    // Add edges
+    public void addEdge(int i, int j) {
+        adjMatrix[i][j] = true;
+        adjMatrix[j][i] = true;
+    }
+
+    // Remove edges
+    public void removeEdge(int i, int j) {
+        adjMatrix[i][j] = false;
+        adjMatrix[j][i] = false;
+    }
+```
+
 A big chunk of work within the graph problem is 
 1. Setting up the  Adjacency List or the Matrix.
 2. Visited Array 
