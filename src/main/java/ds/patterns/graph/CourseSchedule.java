@@ -43,9 +43,8 @@ public class CourseSchedule {
         // populate the adjacencyList - directed graph one side only populated
         for (int i=0; i<prerequisites.length; i++){
             int[] prerequisite = prerequisites[i];
-            ArrayList<Integer> list = adjacencyList.get(prerequisite[1]);
-            list.add(prerequisite[0]);
-            adjacencyList.put(prerequisite[1], list);
+            adjacencyList.get(prerequisite[0]).add(prerequisite[1]);    // intutive
+            //adjacencyList.get(prerequisite[1]).add(prerequisite[0]);  // Not intutive
         }
 
         // visited array where 0=not visited, 1= visited, -1= currently visiting

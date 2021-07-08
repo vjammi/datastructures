@@ -72,7 +72,7 @@ The time complexity of BFS actually depends on the data structure being used to 
 #### Space Complexity
 Since we are maintaining a priority queue (FIFO architecture) to keep track of the visited nodes, in worst case, the queue could take upto the size of the nodes(or vertices) in the graph. Hence, the space complexity is O(V).
 
-## 323. Number of Connected Components in an Undirected Graph
+## 323. Number of Connected Components in an Undirected Graph [Connected Components]
 You have a graph of n nodes. You are given an integer n, and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
 Return the number of connected components in the graph.
 ```
@@ -180,7 +180,7 @@ Space complexity: O(E+V).\
 Building the adjacency list will take O(E) space. To keep track of visited vertices, an array of size O(V) is required.
 Also, the run-time stack for DFS will use O(V) space.
 
-## 207. Course Schedule
+## 207. Course Schedule [Cycle Detection]
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 Return true if you can finish all courses. Otherwise, return false.
@@ -227,7 +227,7 @@ While we are visiting, we mark them with -1. once done we change the -1s to 1s.
             0       2    -   4 -1
             1      -1
 ```
-Note that we have a cycle within 2-3-4
+Note that we have a cycle within 2-3-4 [2-4-3-2]
 
 ##### Intuition
 Pretty much like the previous one.
@@ -269,9 +269,8 @@ A typical strategy for graph traversal problems would be backtracking or simply 
         // populate the adjacencyList - directed graph one side only populated
         for (int i=0; i<prerequisites.length; i++){
             int[] prerequisite = prerequisites[i];
-            ArrayList<Integer> list = adjacencyList.get(prerequisite[1]);
-            list.add(prerequisite[0]);
-            adjacencyList.put(prerequisite[1], list);
+            adjacencyList.get(prerequisite[0]).add(prerequisite[1]);    // intutive     [0-1-2-4-3-2]
+            //adjacencyList.get(prerequisite[1]).add(prerequisite[0]);  // Not intutive 
         }
 
         // visited array where 0=not visited, 1= visited, -1= currently visiting
