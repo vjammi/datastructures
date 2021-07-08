@@ -377,8 +377,8 @@ Implementation
 
         for (int i=0; i<edges.length; i++){
             int[] edge = edges[i];
-            adjacencyList.get(edge[0]).add(edge[1]);
-            adjacencyList.get(edge[1]).add(edge[0]);            
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);            
         }
 
         int[] visited  = new int[n]; // Mark the node visited
@@ -466,7 +466,7 @@ Implementation
 
 ```
 
-## 886. Possible Bipartition [Example of Graph coloring, also called bipartite graph]
+## 886. Possible Bipartition [UnDirected Graph + Graph Coloring (1 & -1 Group A & B) ) ]
 Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
 Each person may dislike some other people, and they should not go into the same group.
 Formally, if dislikes[i] = [a, b], it means it is not allowed to put the people numbered a and b into the same group.
