@@ -51,15 +51,9 @@ public class GraphValidTree {
 
         for (int i=0; i<edges.length; i++){
             int[] edge = edges[i];
-
-            List<Integer> list = adjList.get(edge[0]);
-            list.add(edge[1]);
-            adjList.put(edge[0], list);
-
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);
             // *** To avoid going back to the parent use parent != child check  for the current node
-            List<Integer> list2 = adjList.get(edge[1]);
-            list2.add(edge[0]);
-            adjList.put(edge[1], list2);
         }
 
         int[] visited  = new int[n];

@@ -1,6 +1,6 @@
 ## Graph Problems
 Collection of vertices and edges. Unlike a Tree which uses a Node class, in a graph we usually care about the adjacent nodes here.
-1. Directed & undirected edges
+1. Directed & Undirected edges
 2. Connected Components
 3. Cycle Detection
 4. Topological Sort
@@ -72,7 +72,7 @@ The time complexity of BFS actually depends on the data structure being used to 
 #### Space Complexity
 Since we are maintaining a priority queue (FIFO architecture) to keep track of the visited nodes, in worst case, the queue could take upto the size of the nodes(or vertices) in the graph. Hence, the space complexity is O(V).
 
-## 323. Number of Connected Components in an Undirected Graph [Connected Components]
+## 323. Number of Connected Components in an Undirected Graph [Undirected Graph, Connected Components]
 You have a graph of n nodes. You are given an integer n, and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
 Return the number of connected components in the graph.
 ```
@@ -126,16 +126,8 @@ Implementation
 
         for (int i=0;i<edges.length; i++){
             int[] edge = edges[i];
-            //adjacencyList.get(edge[0]).add(edge[1]);
-            //adjacencyList.get(edge[1]).add(edge[0]);
-
-            List<Integer> list1 = adjList.get(edge[0]);
-            list1.add(edge[1]);
-            adjList.put(edge[0], adjList.get(edge[0]));
-            
-            List<Integer> list2 = adjList.get(edge[1]);
-            list2.add(edge[0]);
-            adjList.put(edge[1], list2);
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);
         }
 
         int[] visited = new int[n];
@@ -180,7 +172,7 @@ Space complexity: O(E+V).\
 Building the adjacency list will take O(E) space. To keep track of visited vertices, an array of size O(V) is required.
 Also, the run-time stack for DFS will use O(V) space.
 
-## 207. Course Schedule [Cycle Detection]
+## 207. Course Schedule  - Directed Graph + Cycle Detection (0 -1 1)
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 Return true if you can finish all courses. Otherwise, return false.
@@ -200,7 +192,7 @@ prerequisites = [[0,1], [1,2], [3,2], [4,3], [2,4]]
 
 Intuition 
 Similar to the above. But different in few ways. It's a cycle detection problem which kind of changes the way you traverse and label nodes.
-Apart from few minor differences that the graph is directed and visited array used diffeent labels to check for cycles. 
+Apart from few minor differences that the graph is directed and visited array used different labels to check for cycles. 
 This problem is very similar in structure to the previous one. 
 
 First we will draw all the nodes as a graph from 0-N-1, so that we visually see what we are working with. 
@@ -325,7 +317,7 @@ Space Complexity: O(|E| + |V|), with the same denotation as in the above time co
 - Hence, the overall space complexity of the algorithm would be O(|E| + 3.|V|) = O(|E| + |V|).
 
 
-## 261. Graph Valid Tree
+## 261. Graph Valid Tree [Fully Connected Graph + No Cycles (parent current child)] 
 You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
 Return true if the edges of the given graph make up a valid tree, and false otherwise.
 
@@ -385,16 +377,8 @@ Implementation
 
         for (int i=0; i<edges.length; i++){
             int[] edge = edges[i];
-            //adjacencyList.get(edge[0]).add(edge[1]);
-            //adjacencyList.get(edge[1]).add(edge[0]);
-            
-            List<Integer> list = adjList.get(edge[0]);
-            list.add(edge[1]);
-            adjList.put(edge[0], list);
-
-            List<Integer> list2 = adjList.get(edge[1]);
-            list2.add(edge[0]);
-            adjList.put(edge[1], list2);
+            adjacencyList.get(edge[0]).add(edge[1]);
+            adjacencyList.get(edge[1]).add(edge[0]);            
         }
 
         int[] visited  = new int[n]; // Mark the node visited
