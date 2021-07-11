@@ -57,6 +57,28 @@ public class LongestSubstringWithoutRepeatingCharacters {
         return longestSoFar;
     }
 
+    public int lengthOfLongestSubstringFirstAfterGap_PraiseTheLord(String s) {
+
+        Set<Character> set = new HashSet<>();
+        int longest=0;
+        int j=0;
+        for(int i=0; i<s.length(); i++){
+            if (!set.contains(s.charAt(i))) {
+                longest = Math.max(longest, (i-j)+1);
+                set.add(s.charAt(i));
+            }else{
+                while( set.contains(s.charAt(i)) && j<=i && j<s.length() ){
+                    set.remove(s.charAt(j));
+                    j++;
+                }
+                longest = Math.max(longest, (i-j)+1);
+                set.add(s.charAt(i));
+            }
+            System.out.println(j +" - " +i +" - "+longest);
+        }
+        return longest;
+    }
+
     public static void main(String[] args) {
         String s1 = "abcabcbb";
         String s2 = "adacbbcbb";
