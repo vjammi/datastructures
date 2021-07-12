@@ -1,36 +1,35 @@
 ## Binary Trees
 A tree where each parent node can have at most 2 children either 0,1,2 children only
-each node is either a leaft node with no children or is a node with 2 children
+each node is either a leaf node with no children or is a node with 2 children
 if a node is a leaf node its left and right children are null
 
-A binary tree can be classfified into 3 types 
+A binary tree can be classified into 3 types
 1. Strict
-Each node has striclty has 2 child nodes or none
-```
-              1
-          2       3
-                4   5   
-              6   7
-```
-2. Full/Perfert 
-Each node has exactly 2 childen and all leaf nodes are exactly at the same level. They are full or completely filled trees.
-```
-              1
-          2       3
-        4   5   6   7
-```
+    Each node strictly has 2 child nodes or none
+    ```
+                  1
+              2       3
+                    4   5
+                  6   7
+    ```
+2. Full/Perfect
+    Each node has exactly 2 children and all leaf nodes are exactly at the same level. They are full or completely filled trees.
+    ```
+                  1
+              2       3
+            4   5   6   7
+    ```
 3. Complete
-Every level except the last level is completely filled and all the nodes within the last level nodes filled from left to right
-```
-              1
-          2       3
-        4   5   6   7
-      8   9  
-       
-```
-Level
+    Every level except the last level is completely filled and all the nodes within the last level nodes filled from left to right
+    ```
+                  1
+              2       3
+            4   5   6   7
+          8   9
 
-Maximum number of nodes in a Binary Tree?
+    ```
+
+#### Level - Maximum number of nodes in a Binary Tree?
     Level 0     2^0 = 1                     1
     Level 1     2^1 = 2             2               3
     Level 2     2^2 = 3         4       5       6       7
@@ -38,7 +37,7 @@ Maximum number of nodes in a Binary Tree?
 = 2^0  2^1  2^2  2^3  2^4 ....  2^N = (2^ (height+1))-1
 = (2^2+1)-1 = (2^3)-1 = 8-1 = 7 
 
-How can we calculate the height of a tree, when given the number of nodes?
+#### Height How can we calculate the height of a tree, when given the number of nodes?
 If it a full binary tree, we can use the earlier equation
     (2^(h+1)) - 1 = n (Number of Nodes)
     (2^(h+1))     = n + 1
@@ -52,17 +51,20 @@ If it a full binary tree, we can use the earlier equation
         2 = h
     (2^ (height+1))-1
     
-We would like to keep the height of the tree low,      
-If it's a perfect binary tree then the max rumtime to reach a node will be the heigh of the binary tree.
-Greater the height grater the time needed. 
-We try to keep a tree balanced.
+Note
+- We would like to keep the height of the tree low,
+- If it's a perfect binary tree then the max runtime to reach a node will be the height of the binary tree.
+- Greater the height, grater the time needed.
+- We try to keep a tree balanced.
 
-Balanced  Binary Tree
+#### Balanced  Binary Tree
 Difference between the left and right subtree is not more than k 
         | leftHeight - rightHeight | = 1
-The absolute difference between the height of the left and right subtree must not more than K. in the case of a balanced Binary Tree it 1. K in this case is 1, in a balanced binary tree ???
+The absolute difference between the height of the left and right subtree must not more than K.
+In the case of a balanced Binary Tree it is 1.
+K in this case is 1, in a balanced binary tree
 
-For example, if we remove the node 5 from teh below tree, it becomes unbalanced.
+For example, if we remove the node 5 from the below tree, it becomes unbalanced.
 ```
               1
           2       3
