@@ -84,23 +84,16 @@ For example, if we remove the node 5 from the below tree, it becomes unbalanced.
    
 #### Binary Tree Traversals
 ```
-                             |-25
-                         |-24
-                             |-23
-                     |-22
-                             |-21
-                         |-20
-                             |-19
-                 |-16
-                             |-13
-                         |-12
-                             |-11
-                     |-10
-                             |-9
-                         |-8
-                                 |-7
-                             |-6
-                                 |-N
+                                 16
+
+                     10                      22
+
+                8         12            20         24
+
+             6     9   11    13     19     21   23    25
+
+           N   7
+
 ```
 ```
 preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
