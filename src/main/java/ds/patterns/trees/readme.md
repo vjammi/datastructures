@@ -107,8 +107,9 @@ preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 
 inOrderTraversalList   [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]
 postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
 ```
-   
+
 #### Binary Tree Iterative Traversal Implementation
+##### PreorderTraversal
 ```
     public List<Integer> preorderTraversal(TreeNode node) {
         List<Integer> preOrderedList = new ArrayList<>();
@@ -122,14 +123,14 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         stack.push(node);
 
         // Note that right child is pushed first so that left is processed first
-        // +AB (Node Left Right). 
+        // +AB (Node Left Right)
         while (!stack.empty()) {
 
             // Pop the top item from stack and add it to the list 
             TreeNode current = stack.pop();  //stack.peek();
             preOrderedList.add(current.val); // +
 
-            // Push right and left children of the popped node to stack
+            // *** [+AB] Push right and left children of the popped node to stack
             if (current.right != null) {
                 stack.push(current.right);  // R
             }
@@ -139,36 +140,44 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         }
         return preOrderedList;
     }
-
+```
+##### InorderTraversal
+```
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> inOrderedList = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack();
-        TreeNode current = root;
+        Stack<TreeNode> stack = new Stack(); // We are not adding the node to the stack, since we need to traverse to the leftmost node first
+        TreeNode current = root; // *** We add the node to the current to traverse to the leftmost node before printing the node.
 
         // A+B (Left Node Right)
         while (current != null || !stack.empty()) {
             // When current != null - Push current element into stack & update current pointer
-            // When the left of Node (A) is null, traverse the right Node.
-            // For the right node, traverse again its left side until null
-            // when left and right are null
+            // When the left of Node (L/A) is null, traverse the right Node.
+            // For the right node, traverse again its left side until its left is null
+            // When left and right are null then ???
             if (current != null) {
                 stack.push(current);
                 current = current.left;             // A
-            } else {  // When node.left is null - current == null - Pop most current element from the stack & update current pointer
+            } else { // When node.left is null, then current would be null, we enter into the else block
+                // At this point, we pop the top most element from the stack,
                 TreeNode poppedNode = stack.pop();
+                // and Print it
                 inOrderedList.add(poppedNode.val);  // +
+                // and then assign its right node to the current, to traverse its left subtree
                 current = poppedNode.right;         // B
             }
         }
         return inOrderedList;
     }
-
+```
+##### PostorderTraversal
+```
     public List<Integer> postOrderTraversal(TreeNode root) {
         List<Integer> postOrderList = new ArrayList<>();
 
         if (root == null)
             return postOrderList;
-        
+
+        // Create an empty stack and push root to it
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);        
 
@@ -177,14 +186,14 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
             // Pop an item from stack and add it to list at the 0th index
             TreeNode current = stack.pop();
 
-            // Push left and right children of removed item to stack
+            // Push left and right children of current popped item to stack
             if (current.left != null)
                 stack.push(current.left);   // A
             if (current.right != null)
                 stack.push(current.right);  // B
 
-            // Add the node/element to the 0th index of the array list. which will shift any existing elements to its right
-            postOrderList.add(0, current.val); // +
+            // *** Add the popped element to the 0th index of the resultant list. Adding to the 0th index/position will first shift any existing elements to its right
+            postOrderList.add(0, current.val); // + ***
         }
         return postOrderList;
     }
