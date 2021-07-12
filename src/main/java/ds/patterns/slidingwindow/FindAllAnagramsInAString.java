@@ -23,6 +23,10 @@ import java.util.List;
  * The substring with start index = 2 is "ab", which is an anagram of "ab".
  */
 
+//  Complexity Analysis
+//  Time complexity: O(N_cr+ N_cm) since it's one pass along both strings.
+//  Space complexity: O(1), because the arrays charRef and charMatches both contain 26 elements each.
+
 public class FindAllAnagramsInAString {
 
     // Window size changes overtime
@@ -110,6 +114,8 @@ public class FindAllAnagramsInAString {
                 charMatchCount++;
             }
             if(current.length() == p.length()){
+
+                // Easier way is to compare the 2 arrays - Arrays.equals(charRef, charMatches)
                 if (charMatchCount == p.length() && isAnagram(s.substring(j, i+1))){ // *** i+1
                     indices.add(j);
                 }
