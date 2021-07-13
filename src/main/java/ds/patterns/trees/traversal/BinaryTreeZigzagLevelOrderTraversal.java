@@ -106,8 +106,6 @@ public class BinaryTreeZigzagLevelOrderTraversal {
         }
 }
 
-
-
 class BinaryTreeZigzagLevelOrderTraversalSolutionBorrowed {
 
     class TreeNode {

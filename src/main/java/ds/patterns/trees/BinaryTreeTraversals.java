@@ -77,38 +77,80 @@ public class BinaryTreeTraversals {
         return postOrderList;
     }
 
+
     List<Integer> postOrderList = new ArrayList<>();
     private void postOrderTraversalRecursive(TreeNode node) {
         if (node == null)
             return;
-
         postOrderTraversalRecursive(node.left);
         postOrderTraversalRecursive(node.right);
         postOrderList.add(node.val);
     }
 
-    /**
-                             |-25
-                         |-24
-                             |-23
-                     |-22
-                             |-21
-                         |-20
-                             |-19
-                 |-16
-                             |-13
-                         |-12
-                             |-11
-                     |-10
-                             |-9
-                         |-8
-                                 |-7
-                             |-6
-            preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
-            inOrderTraversalList   [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]
-            postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
+    private List<List<Integer>> levelOrderTraversalIterative(TreeNode root) {
 
-    * */
+        List<List<Integer>> levelOrderTraversalLists = new ArrayList();
+        List<Integer> levelList = null;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int level = 0;
+        while(!queue.isEmpty()){
+
+            int size = queue.size();
+            levelList = new ArrayList();
+            System.out.println("Processing level " +level +" of size " +size);
+
+            while(size > 0){
+                TreeNode node = queue.poll();
+                levelList.add(node.val);
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+                size--;
+            }
+            levelOrderTraversalLists.add(levelList);
+            level++;
+        }
+        return levelOrderTraversalLists;
+    }
+
+    List<List<Integer>> levelOrderTraversalRecursiveList =  new ArrayList<>();
+    private void levelOrderTraversalRecursive(TreeNode node, int level) {
+        if (node == null)
+            return;
+
+        if (levelOrderTraversalRecursiveList.size() == level) { // Ugly way of checking a list for that level has already been created
+            List<Integer> list = new ArrayList<>();
+            list.add(node.val);
+            levelOrderTraversalRecursiveList.add(list); // Note: list.get(level).add(node.val) will throw IndexOutOfBoundsException: Index: 0, Size: 0
+        }else {
+            // if a list for that level has already been created, then just retrieve the list by level and add the node value to the list
+            levelOrderTraversalRecursiveList.get(level).add(node.val);
+        }
+        levelOrderTraversalRecursive(node.left, level+1);
+        levelOrderTraversalRecursive(node.right, level+1);
+    }
+
+    /**
+                                 16
+
+                     10                      22
+
+                8         12            20         24
+
+             6     9   11    13     19     21   23    25
+
+           N   7
+
+        preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
+        inOrderTraversalList   [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]
+        postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
+
+    */
 
     public static void main(String[] args) {
         BinaryTreeTraversals tree = new BinaryTreeTraversals();
@@ -128,6 +170,12 @@ public class BinaryTreeTraversals {
         tree.postOrderTraversalRecursive(tree.root);
         System.out.println("postOrderTraversalListRecursive " + tree.postOrderList);
 
+        List<List<Integer>>  levelOrderTraversalList = tree.levelOrderTraversalIterative(tree.root);
+        // Iterative levelOrderTraversal [[16], [10, 22], [8, 12, 20, 24], [6, 9, 11, 13, 19, 21, 23, 25], [7]]
+        System.out.println("Iterative levelOrderTraversal " + levelOrderTraversalList);
+        tree.levelOrderTraversalRecursive(tree.root, 0);
+        //tree.levelOrderTraversalRecursive2(tree.root, 0);
+        System.out.println("levelOrderTraversalRecursiveList " +tree.levelOrderTraversalRecursiveList);
     }
 
     public void testPut(BinaryTreeTraversals tree) {
