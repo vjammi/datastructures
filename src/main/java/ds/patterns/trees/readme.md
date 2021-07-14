@@ -148,7 +148,7 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
             if (current != null) {
                 stack.push(current);
                 current = current.left;             // A
-            } else { // When node.left is null, then current would be null, we enter into the else block
+            } else { // When iterating to the left of a node, when current becomes null, we process the topmost element in the stack.
                 // At this point, we pop the top most element from the stack,
                 TreeNode poppedNode = stack.pop();
                 // and Print it
@@ -181,7 +181,8 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
             if (current.right != null)
                 stack.push(current.right);  // B
 
-            // *** Add the popped element to the 0th index of the resultant list. Adding to the 0th index/position will first shift any existing elements to its right
+            // *** Add the current popped element to the 0th index of the list (could use a stack alternatively)
+            // Adding to the 0th index/position of the list, shifts any existing elements to its right
             postOrderList.add(0, current.val); // + ***
         }
         return postOrderList;
