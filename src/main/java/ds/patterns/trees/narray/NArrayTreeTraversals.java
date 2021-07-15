@@ -1,8 +1,6 @@
 package ds.patterns.trees.narray;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 public class NArrayTreeTraversals {
     class Node {
@@ -76,5 +74,36 @@ public class NArrayTreeTraversals {
 
         System.out.println(postorderList);
         return postorderList;
+    }
+
+    public List<List<Integer>> levelOrder(Node root) {
+        List<List<Integer>> levelOrderList = new ArrayList<>();
+        if (root == null)
+            return levelOrderList;
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            int size = queue.size();
+
+            List<Integer> list = new ArrayList<>();
+            while(size > 0){
+                Node node = queue.poll();
+                if(node != null){
+                    list.add(node.val);
+                    List<Node> children = node.children;
+                    for (Node child: children){
+                        if (child!=null) queue.offer(child);
+                    }
+                }
+                size--;
+            }
+            levelOrderList.add(list);
+
+        }
+
+        System.out.println(levelOrderList);
+        return levelOrderList;
     }
 }
