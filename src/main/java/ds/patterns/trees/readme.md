@@ -1,35 +1,77 @@
-## Binary Trees
+## Binary Tree
 A tree where each parent node can have at most 2 children either 0,1,2 children only
 each node is either a leaf node with no children or is a node with 2 children
 if a node is a leaf node its left and right children are null
 
-A binary tree can be classified into 3 types
-1. Strict
-    Each node strictly has 2 child nodes or none
-    ```
-                  1
-              2       3
-                    4   5
-                  6   7
-    ```
-2. Full/Perfect
-    Each node has exactly 2 children and all leaf nodes are exactly at the same level. They are full or completely filled trees.
-    ```
-                  1
-              2       3
-            4   5   6   7
-    ```
-3. Complete
-    Every level except the last level is completely filled and all the nodes within the last level nodes filled from left to right
-    ```
-                  1
-              2       3
-            4   5   6   7
-          8   9
+A binary tree is made up of a finite set of elements called nodes. This set either is empty or consists of a node called the root together with two binary trees,
+called the left and right subtrees, which are disjoint from each other and from the root. (Disjoint means that they have no nodes in common.)
+The roots of these subtrees are children of the root. There is an edge from a node to each of its children, and a node is said to be the parent of its children.
 
-    ```
+If n1,n2,...,nk is a sequence of nodes in the tree such that ni is the parent of ni+1 for 1≤i<k, then this sequence is called a path from n1 to nk.
+The length of the path is k−1. If there is a path from node R to node M, then R is an ancestor of M, and M is a descendant of R.
+Thus, all nodes in the tree are descendants of the root of the tree, while the root is the ancestor of all nodes. The depth of a node M in the tree is the length of
+the path from the root of the tree to M. The height of a tree is the depth of the deepest node in the tree. All nodes of depth d are at level d in the tree.
+The root is the only node at level 0, and its depth is 0. A leaf node is any node that has two empty children. An internal node is any node that has at least one non-empty child.
+Reference: https://opendsa-server.cs.vt.edu/ODSA/Books/CS3/html/BinaryTree.html
 
-#### Level - Maximum number of nodes in a Binary Tree?
+### Depth, Height, Level in a Binary Tree
+- The depth of a node M in the tree is the length of the path from the root of the tree to M.
+- The height of a tree is the depth of the deepest node in the tree.
+- All nodes of depth d are at level d in the tree.
+- The root is the only node at level 0, and its depth is 0.
+- A leaf node is any node that has two empty children.
+- An internal node is any node that has at least one non-empty child.
+
+### Binary Tree Classifications
+1. Full Binary Tree
+Each node in a full binary tree is either
+(1) an internal node with exactly two non-empty children or
+(2) a leaf.
+```
+             1
+       2          3
+    4     5
+       6     7
+```
+2. Complete Binary Tree
+A complete binary tree has a restricted shape obtained by starting at the root and filling the tree by levels from left to right.
+In the complete binary tree of height d, all levels except possibly level d are completely full.
+The bottom level has its nodes filled in from the left side.
+In other words every level except the bottom level is completely full and all the nodes within the bottom level nodes are filled from left to right.
+
+```
+                    1
+            2               3
+        4       5       6       7
+      8   9   10  11  12
+```
+3. Perfect Binary Tree
+A Binary tree is a Perfect Binary Tree in which all the internal nodes have two children and all leaf nodes are at the same level.
+```
+               18
+           /       \
+         15         30
+        /  \        /  \
+      40    50    100   40
+
+               18
+           /       \
+         15         30
+```
+
+### Differences between full and complete binary trees
+There is no particular relationship between these two tree shapes; that is, the tree of Figure (a) is full but not complete while the tree of Figure (b) is complete but not full.
+- The heap data structure is an example of a complete binary tree.
+- while, the Huffman coding tree is an example of a full binary tree.
+
+While these definitions for full and complete binary tree are the ones most commonly used, they are not universal.
+Because the common meaning of the words "full" and "complete" are quite similar, there is little that you can do to distinguish between them other than to memorize the definitions.
+
+Note: Here is a memory aid that you might find useful:
+"Complete" is a wider word than "full", and complete binary trees tend to be wider than full binary trees because each level of a complete binary tree is as wide as possible.
+
+
+### Level - Maximum number of nodes in a Binary Tree?
     Level 0     2^0 = 1                     1
     Level 1     2^1 = 2             2               3
     Level 2     2^2 = 3         4       5       6       7
@@ -37,7 +79,7 @@ A binary tree can be classified into 3 types
 = 2^0  2^1  2^2  2^3  2^4 ....  2^N = (2^ (height+1))-1
 = (2^2+1)-1 = (2^3)-1 = 8-1 = 7 
 
-#### Height How can we calculate the height of a tree, when given the number of nodes?
+### Height How can we calculate the height of a tree, when given the number of nodes?
 If it a full binary tree, we can use the earlier equation
     (2^(h+1)) - 1 = n (Number of Nodes)
     (2^(h+1))     = n + 1
@@ -57,7 +99,7 @@ Note
 - Greater the height, grater the time needed.
 - We try to keep a tree balanced.
 
-#### Balanced  Binary Tree
+### Balanced  Binary Tree
 Difference between the left and right subtree is not more than k 
         | leftHeight - rightHeight | = 1
 The absolute difference between the height of the left and right subtree must not more than K.
@@ -77,12 +119,12 @@ For example, if we remove the node 5 from the below tree, it becomes unbalanced.
       8   9  
 ```
      
-#### Properties of a Binary Tree
+### Properties of a Binary Tree
 1. Number of nodes in a full/perfect binary tree 2^(n+1) -1
 2. Number of nodes in a complete binary tree are between 2^(n) and 2^(n+1)-1
 3. Min height of a binary tree is log2 (n+1)-1 or floor( (log2 (n+1) )
    
-#### Binary Tree Traversals
+## Binary Tree Traversals
 ```
                                  16
 
@@ -101,8 +143,7 @@ inOrderTraversalList   [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 
 postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
 ```
 
-#### Binary Tree Iterative and Recursive Traversals
-##### Preorder Traversal
+### Preorder Traversal
 ```
     public List<Integer> preorderTraversal(TreeNode node) {
         List<Integer> preOrderedList = new ArrayList<>();
@@ -132,7 +173,7 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         return preOrderedList;
     }
 ```
-##### Inorder Traversal
+### Inorder Traversal
 ```
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> inOrderedList = new ArrayList<>();
@@ -160,7 +201,7 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         return inOrderedList;
     }
 ```
-##### Postorder Traversal
+### Postorder Traversal
 ```
     public List<Integer> postOrderTraversal(TreeNode root) {
         List<Integer> postOrderList = new ArrayList<>();
@@ -188,7 +229,7 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         return postOrderList;
     }
 ```
-##### Level Order Traversal
+### Level Order Traversal
 ```
     private List<List<Integer>> levelOrderTraversalIterative(TreeNode root) {
         List<List<Integer>> levelOrderTraversalLists = new ArrayList();
@@ -234,4 +275,6 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         levelOrderTraversalRecursive(node.right, level+1);
     }
 ```
+
+
 
