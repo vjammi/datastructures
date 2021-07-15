@@ -87,6 +87,54 @@ public class BinaryTreeMaximumPathSum {
         return returnVal;
     }
 
+    public int maxPathSumPractice(TreeNode root) {
+        if (root == null)
+            return 0;
+        if (root.left == null && root.right == null)
+            return root.val;
+        maxPath(root);
+        return maxPathSum;
+    }
+
+    /**
+         Input: root = [-10,9,20,null,null,15,7]
+         Output: 42
+         Node:9   LeftSum:9  RightSum:9  maxPathSum: 9
+         Node:15  LeftSum:15 RightSum:15 maxPathSum: 15
+         Node:7   LeftSum:7  RightSum:7  maxPathSum: 15
+         Node:20  LeftSum:35 RightSum:27 maxPathSum: 42
+         Node:-10 LeftSum:0  RightSum:25 maxPathSum: 42
+
+         Input: root = [-10,9,20,null,null,-15,-7]
+         Output: 20
+         Node:9   LeftSum:9  RightSum:9  maxPathSum: 9
+         Node:-15 LeftSum:0  RightSum:0  maxPathSum: 9
+         Node:-7  LeftSum:0  RightSum:0  maxPathSum: 9
+         Node:20  LeftSum:20 RightSum:20 maxPathSum: 20
+         Node:-10 LeftSum:0  RightSum:10 maxPathSum: 20
+     */
+    int maxPathSum = -2147483648;
+    private int maxPath(TreeNode node) {
+        if (node == null)
+            return 0;
+
+        int left = maxPath(node.left);
+        int right = maxPath(node.right);
+
+        // Return only a positive or zero sum from left and right sides of the subtree. If a side evalutes to negative, return 0 instead.
+        int leftSideSum =  Math.max(0, (node.val + left) );  // NOT node.val + Math.max(0, left);
+        int rightSideSum = Math.max(0, (node.val + right) ); // NOT node.val + Math.max(0, right);
+
+        // Evaluate the maxPathSum at each node for the current node + its left + its right child.
+        // Update the global maxPathSum, if the current node's maxPathSum is greater than the global maxPathSum.
+        maxPathSum = Math.max(maxPathSum, (left + node.val + right));
+        System.out.println("Node:" +node.val +" LeftSum:" +leftSideSum + " RightSum:" +rightSideSum +" maxPathSum: " +maxPathSum);
+
+        // Return the max of left or right side of the subtree to the higer nodes for possible maxSumPath calculations.
+        return Math.max(leftSideSum, rightSideSum);
+    }
+
+
     /**
                     10
                  9      20
