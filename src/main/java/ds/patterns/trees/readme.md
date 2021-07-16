@@ -75,31 +75,39 @@ Note: Here is a memory aid that you might find useful:
 
 ### Relationship between Level, Height & Number of Nodes in a Binary Tree
 
-#### How can we calculate the maximum number of nodes in a Binary Tree, when the height of a tree is given?
+#### How can we calculate the min and max number of nodes in a Binary Tree, when the height of a tree is given?
     Level 0     2^0 = 1                     1
     Level 1     2^1 = 2             2               3
     Level 2     2^2 = 4         4       5       6       7
 
-    =  2^0 + 2^1 + 2^2 + 2^3 + 2^4 ... 2^N = (2^(height+1)) - 1
-    =  (2^2+1)-1 = (2^3)-1 = 8-1 = 7
-Therefore, the number of nodes for a binary tree when given the height is
-    Number of nodes = (2^ (height+1))-1
+    =  2^0 + 2^1 + 2^2 + 2^3 + 2^4 ... 2^h = (2^(h+1))-1
+Therefore, the min and max number of nodes for a binary tree for a given height is
+    Min number of nodes = h + 1         [For a skewed Binary Tree]
+    Max number of nodes = (2^ (h+1))-1  [For a complete and full Binary Tree]
 
-#### How can we calculate the height of a tree, when given the number of nodes?
-If it a full binary tree, we can use the earlier equation
-    (2^(h+1)) - 1  = n (Number of Nodes)
-    (2^(h+1))      = n + 1
-    log(2^(h+1))   = log(n + 1)
-    log2 (n+1)-1   = h
+    For example, when h = 2
+        (2^2+1)-1 = (2^3)-1 = 8-1 = 7
 
-    log2 (7+1) - 1 = h
-    log2 (8) - 1   = h
-    log2 (8) - 1   = h
-        3 - 1 = h
-        2 = h
+#### How can we calculate the min and max height of a tree for a given number of nodes?
+If it a full binary tree
+    (2^(h+1)) - 1 = n (Number of Nodes)
+    (2^(h+1))     = n + 1
+    log(2^(h+1))  = log(n + 1)
+    log2(n+1)-1   = h
 
 Therefore, the height of a binary tree, when given the number of nodes is
-    Height = log2 (n+1)-1
+        Height = log2(n+1)-1
+    Min Height = Floor(log2(n))
+    Max height = n-1
+
+    For example, when n = 7
+        h = log2 (7+1) - 1
+            log2 (8) - 1
+            log2 (8) - 1
+            3 - 1
+        h = 2
+
+Reference: https://www.geeksforgeeks.org/relationship-number-nodes-height-binary-tree/
 
 #### Takeaway
 - We like to keep the height of the tree as mimimal as we can
