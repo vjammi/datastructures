@@ -32,6 +32,7 @@ Each node in a full binary tree is either
        2          3
     4     5
        6     7
+Figure (a)
 ```
 2. Complete Binary Tree
 A complete binary tree has a restricted shape obtained by starting at the root and filling the tree by levels from left to right.
@@ -44,6 +45,7 @@ In other words every level except the bottom level is completely full and all th
             2               3
         4       5       6       7
       8   9   10  11  12
+Figure (b)
 ```
 3. Perfect Binary Tree
 A Binary tree is a Perfect Binary Tree in which all the internal nodes have two children and all leaf nodes are at the same level.
@@ -57,6 +59,7 @@ A Binary tree is a Perfect Binary Tree in which all the internal nodes have two 
                18
            /       \
          15         30
+Figure (c)
 ```
 
 ### Differences between full and complete binary trees
