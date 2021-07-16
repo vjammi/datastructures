@@ -109,6 +109,8 @@ Therefore, the height of a binary tree, when given the number of nodes is
 
 Reference: https://www.geeksforgeeks.org/relationship-number-nodes-height-binary-tree/
 
+Note: Height of a binary tree is the max depth of a tree or the longest path to the left node.
+
 #### Takeaway
 - We like to keep the height of the tree as mimimal as we can
 - If it is a perfect binary tree then the runtime to reach a node will be the height of the binary tree.
