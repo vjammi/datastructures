@@ -73,7 +73,7 @@ Because the common meaning of the words "full" and "complete" are quite similar,
 Note: Here is a memory aid that you might find useful:
 "Complete" is a wider word than "full", and complete binary trees tend to be wider than full binary trees because each level of a complete binary tree is as wide as possible.
 
-### Relationship between Level, Height & Number of Nodes in a Binary Tree
+## Relationship between Level, Height & Nodes in a Binary Tree
 
 #### How can we calculate the min and max number of nodes in a Binary Tree, when the height of a tree is given?
     Level 0     2^0 = 1                     1
