@@ -73,43 +73,44 @@ Because the common meaning of the words "full" and "complete" are quite similar,
 Note: Here is a memory aid that you might find useful:
 "Complete" is a wider word than "full", and complete binary trees tend to be wider than full binary trees because each level of a complete binary tree is as wide as possible.
 
+### Relationship between Level, Height & Number of Nodes in a Binary Tree
 
-### Level - Maximum number of nodes in a Binary Tree?
+#### How can we calculate the maximum number of nodes in a Binary Tree, when the height of a tree is given?
     Level 0     2^0 = 1                     1
     Level 1     2^1 = 2             2               3
-    Level 2     2^2 = 3         4       5       6       7
+    Level 2     2^2 = 4         4       5       6       7
 
-= 2^0  2^1  2^2  2^3  2^4 ....  2^N = (2^ (height+1))-1
-= (2^2+1)-1 = (2^3)-1 = 8-1 = 7 
+    =  2^0 + 2^1 + 2^2 + 2^3 + 2^4 ... 2^N = (2^(height+1)) - 1
+    =  (2^2+1)-1 = (2^3)-1 = 8-1 = 7
+Therefore, the number of nodes for a binary tree when given the height is
+    Number of nodes = (2^ (height+1))-1
 
-### Height How can we calculate the height of a tree, when given the number of nodes?
+#### How can we calculate the height of a tree, when given the number of nodes?
 If it a full binary tree, we can use the earlier equation
-    (2^(h+1)) - 1 = n (Number of Nodes)
-    (2^(h+1))     = n + 1
-    log(2^(h+1))     = log(n + 1)
-    
-    log2 (n+1) - 1   = h
-    log2 (7+1) - 1   = h
+    (2^(h+1)) - 1  = n (Number of Nodes)
+    (2^(h+1))      = n + 1
+    log(2^(h+1))   = log(n + 1)
+    log2 (n+1)-1   = h
+
+    log2 (7+1) - 1 = h
     log2 (8) - 1   = h
-    log2 (8)  - 1   = h
+    log2 (8) - 1   = h
         3 - 1 = h
         2 = h
-    (2^ (height+1))-1
-    
-Note
-- We would like to keep the height of the tree low,
-- If it's a perfect binary tree then the max runtime to reach a node will be the height of the binary tree.
-- Greater the height, grater the time needed.
-- We try to keep a tree balanced.
 
-### Balanced  Binary Tree
-Difference between the left and right subtree is not more than k 
+Therefore, the height of a binary tree, when given the number of nodes is
+    Height = log2 (n+1)-1
+
+#### Takeaway
+- We like to keep the height of the tree as mimimal as we can
+- If it is a perfect binary tree then the runtime to reach a node will be the height of the binary tree.
+- Greater the height, greater the time needed. So we try to keep a tree balanced so that the height stays minimal
+
+## Balanced  Binary Tree
+Difference between the left and right subtree is not more than k.
         | leftHeight - rightHeight | = 1
 The absolute difference between the height of the left and right subtree must not more than K.
-In the case of a balanced Binary Tree it is 1.
-K in this case is 1, in a balanced binary tree
-
-For example, if we remove the node 5 from the below tree, it becomes unbalanced.
+K in this case of a balanced binary tree is 1. For example, if we remove the node 5 from the below tree, it becomes unbalanced.
 ```
               1
           2       3
@@ -123,10 +124,11 @@ For example, if we remove the node 5 from the below tree, it becomes unbalanced.
 ```
      
 ### Properties of a Binary Tree
-1. Number of nodes in a full/perfect binary tree 2^(n+1) -1
-2. Number of nodes in a complete binary tree are between 2^(n) and 2^(n+1)-1
-3. Min height of a binary tree is log2 (n+1)-1 or floor( (log2 (n+1) )
+1. Number of nodes in a full/perfect binary tree 2^(h+1)-1
+2. Number of nodes in a complete binary tree is between 2^(h) and 2^(h+1)-1
+3. Min height of a binary tree is log2(n+1)-1 or floor( (log2(n+1) )
    
+
 ## Binary Tree Traversals
 ```
                                  16
