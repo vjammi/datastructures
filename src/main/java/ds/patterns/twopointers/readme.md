@@ -41,6 +41,7 @@ We move left pointer i when the sum of arr[i] and arr[j] is less than target. We
     // arr[] = {3, 5, 9, 2, 8, 10, 11}; target = 17
     //          ^                   ^
     public boolean isPairSum_twoPointers(int arr[], int target) {
+        Arrays.sort(arr);
         int n = arr.length;
         int i = 0;          // represents first pointer
         int j = n-1;        // represents second pointer
