@@ -58,5 +58,10 @@ We move left pointer i when the sum of arr[i] and arr[j] is less than target. We
         return false;
     }
 ```
+### Two Pointers Vs Sliding Window
+In sliding window typically we use all of the elements within the window for the problem (for eg - sum of all elements in the window).
+In a two pointer technique we compare the value at the both pointers instead of taking the elements between the pointers.
+Also, there is a variation of two pointers called the fast and slow and pointer.
+
 
 
