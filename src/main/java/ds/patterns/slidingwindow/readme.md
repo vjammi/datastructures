@@ -45,6 +45,9 @@ Notice how we get maximum sum by adding sub-array {4, 2, 10, 23} of size 4.
 ```
 
 ### Solution using Sliding Window - O(n)
+The time complexity of this solution is O(n) because each element is visited at most twice.
+In the worst case scenario, all elements will be visited once by the start pointer and another time by the end pointer.
+The space complexity would be O(1) because the solution does not create new data structures.
 ```
     // Return maximum sum in a sub-array of size k.
     //    int arr[] = {1, 4, 2, 10, 2, 3, 1, 0, 20}, n = 9, k = 4
