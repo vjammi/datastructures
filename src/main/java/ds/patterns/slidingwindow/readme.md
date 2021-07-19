@@ -84,3 +84,8 @@ The space complexity would be O(1) because the solution does not create new data
 In sliding window typically we use all of the elements within the window for the problem (for eg - sum of all elements in the window).
 In a two pointer technique we compare the value at the both pointers instead of taking the elements between the pointers.
 Also, there is a variation of two pointers called the fast and slow and pointer.
+
+References:
+https://zengruiwang.medium.com/sliding-window-technique-360d840d5740
+https://www.geeksforgeeks.org/two-pointers-technique/
+https://stackoverflow.com/questions/64078162/is-two-pointer-problem-same-as-sliding-window

@@ -83,18 +83,6 @@ public class FindAllAnagramsInAString {
         return true;
     }
 
-    // Window size changes overtime
-    // Create a static window of size 3 and move it across s
-    //            s = "cbaebabacd"
-    //            i =          ^
-    //            j =        ^
-    // current      =        bac
-    //            p = "abc"
-    // charRef      = [1,1,1,0...]
-    // charMatches[]= [0,1,0,0,0,0,0...]
-    //charMatchCount= 3
-    // charRefCount = 3
-
     int[] charRef = new int[26];       int charRefCount = 0;
     int[] charMatches = new int[26];   int charMatchCount = 0;
     public List<Integer> findAnagrams(String s, String p) {

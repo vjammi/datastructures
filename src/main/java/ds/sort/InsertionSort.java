@@ -2,28 +2,20 @@ package ds.sort;
 
 public class InsertionSort {
 
-    int[] a = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
-
-    private void sort() {
-        int N = a.length;
-        printArray();
-        // Move index i from left to right
-        // In the ith iteration, we swap a[i] with each larger entry to its left
-        // assumption is everything to the left of i is in ascending sorted order. to the right we have not seen yet.
-
-        for (int i=0; i < N ; i++){
-            // we increment i
-            for (int j=i; j>0 ; j--){
-                //System.out.print(a[j] +", ");
-                if (a[j-1] > a[j]){
-                    exch(a,j-1, j);
-                }else{
-                    break;
-                }
-            }
+    // Sort in ascending order
+    // Move index i from left to right. In the ith iteration, swap a[i] with each larger entry to its left
+    // Assumption is everything to the left of i is in ascending sorted order and everything to the right we have not seen yet.
+    private void sort(int[] arr) {
+        int n = arr.length;
+        for (int i=0; i < n ; i++){
             printArray();
+            for (int j=i; j>0 ; j--){ // Note j > 0 because we compare j and j-1
+                if (arr[j-1] > arr[j])
+                    exch(arr,j-1, j);
+                else
+                    break; // Optimization
+            }
         }
-        printArray();
     }
 
     private void exch(int[] a, int k, int j) {
@@ -39,8 +31,8 @@ public class InsertionSort {
         }
     }
     public static void main(String[] args){
-
-        InsertionSort insSort = new InsertionSort();
-        insSort.sort();
+        InsertionSort obj = new InsertionSort();
+        int[] arr = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+        obj.sort(arr);
     }
 }
