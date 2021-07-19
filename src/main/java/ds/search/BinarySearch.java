@@ -8,7 +8,7 @@ public class BinarySearch {
     public BinarySearch(){
     }
 
-    private int search(int[] a, int key, int low, int high) {
+    private int search_iteratively(int[] a, int key, int low, int high) {
         while (low <= high) {
             int mid = (low + high)/2;
             if (a[mid] == key) {
@@ -23,33 +23,33 @@ public class BinarySearch {
         return -1; // or low???
     }
 
-    private void search_recurssively_print_keyindex(int[] a, int key, int low, int high) {
+    private void search_recursively(int[] a, int key, int low, int high) {
         if (low > high) {
             return;
         }
         int mid = (low + high)/2;
         if (key < a[mid]) {
             high = mid - 1;
-            search_recurssively_print_keyindex(a, key, low, high);
+            search_recursively(a, key, low, high);
         } else if (key > a[mid]) {
             low = mid + 1;
-            search_recurssively_print_keyindex(a, key, low, high);
+            search_recursively(a, key, low, high);
         }else{
             System.out.println(">>> Key ["+key +"] Found at mid [" + mid +"] Low [" +low +"] High [" +high +"]");
         }
     }
 
-    private int search_recurssively_return_keyindex(int[] a, int key, int low, int high) {
+    private int search_recursively_return_keyindex(int[] a, int key, int low, int high) {
         if (low > high) {
             return -1;
         }
         int mid = (low + high)/2;
         if (key < a[mid]) {
             high = mid - 1;
-            return search_recurssively_return_keyindex(a, key, low, high);
+            return search_recursively_return_keyindex(a, key, low, high);
         } else if (key > a[mid]) {
             low = mid + 1;
-            return search_recurssively_return_keyindex(a, key, low, high);
+            return search_recursively_return_keyindex(a, key, low, high);
         }else{
             System.out.println(">>> Key ["+key +"] Found at mid [" + mid +"] Low [" +low +"] High [" +high +"]");
             return mid;
@@ -81,7 +81,7 @@ public class BinarySearch {
 
     public int getIndex(int[] a, int key, int low, int high){
         if (a.length == 0)  return -1;
-        return  search(a, key, low, high);
+        return  search_iteratively(a, key, low, high);
     }
 
     public static void main(String[] args){
@@ -92,16 +92,18 @@ public class BinarySearch {
         int high = a.length - 1;
 
         for (int i = 0; i < a.length ; i++) {
-             search.search_recurssively_print_keyindex(a, a[i], low, high);
+            search.search_iteratively(a, a[i], low, high);
         }
 
         for (int i = 0; i < a.length ; i++) {
-            int index = search.search_recurssively_return_keyindex(a, a[i], low, high);
+            search.search_recursively(a, a[i], low, high);
         }
 
+        /*
         for (int i = 0; i < a.length ; i++) {
-            int returnedIndex = search.getIndex(a, a[i], low, high);
+            int index = search.search_recursively_return_keyindex(a, a[i], low, high);
         }
+        */
   }
 
 }
