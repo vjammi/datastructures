@@ -81,10 +81,10 @@ Merge Sort Implementation
 
     private static void sort(int[] arr, int[] aux, int lo, int hi){
         if (hi <= lo)
-            return;            // checks if there is something to do first
+            return;                      // checks if there is something to do first
         int mid = lo + (hi-lo) / 2;      // computes the mid point
         sort(arr, aux, lo, mid);         // sort the left/first half
-        sort(arr, aux, mid+1, hi);    // sort the right/second half
+        sort(arr, aux, mid+1, hi);       // sort the right/second half
         merge(arr, aux, lo, mid, hi);    // merge the two halves together
     }
 
@@ -97,15 +97,14 @@ Merge Sort Implementation
         // Sort
         int i = lo; int j = mid+1;
         for (int k = lo; k <= hi; k++){
-            // When all elements from one of the either halves of the au array have been merged into the original arr,
-            // then copy the other sorted half of the au array into the original array, as it is.
+            // When all elements from one of the either halves of the array have been merged into the original arr, then copy
+            // the remainder sorted half of the other half of the array into the original array.
             if      (i>mid)                     arr[k] = aux[j++];
             else if (j>hi)                      arr[k] = aux[i++];
             // Normal Path
             else if (aux[j]<aux[i])             arr[k] = aux[j++];
             else                                arr[k] = aux[i++];
         }
-        printArray(arr, "m");
     }
 ```
 
