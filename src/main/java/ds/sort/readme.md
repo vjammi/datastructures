@@ -40,7 +40,7 @@ Insertion Sort Implementation
     // Sort in ascending order
     // Move index i from left to right. In the ith iteration, swap a[i] with each larger entry to its left
     // Assumption is everything to the left of i is in ascending sorted order and everything to the right we have not seen yet.
-    private void sort(int[] arr) {
+    private void insertionSort(int[] arr) {
         int n = arr.length;
         for (int i=0; i < n ; i++){
             printArray(arr);
@@ -59,21 +59,26 @@ Insertion Sort Implementation
     }
 ```
 ## Merge Sort
-The idea of merge sort is based on the idea of merging.  to understand how merging works, we can think of an abstract inplace merge. So we have an array a[], whose first half is sorted and its second half is sorted and the computation we need to perform is to merge those two sorted sub halves, sorting the two subarrays into one.
-So given two sorted subarrays a[lo] to a[mid] and a[mid+1] to a[hi], we will replace the two sorted subarrays with one sorted subarray from a[lo] to a[hi]
+The idea of merge sort is based on the idea of merging. To understand how merging works, we can think of an abstract inplace merge.
+So we have an array a[], whose first half is sorted and its second half is sorted and the computation we need to perform is to merge those two sorted sub halves, sorting the two sub-arrays into one.
+So given two sorted sub-arrays a[lo] to a[mid] and a[mid+1] to a[hi], we will replace the two sorted sub-arrays with one sorted sub-array from a[lo] to a[hi]
 
 Merge Design
-The method we will use is based on using an auxiliary array to hold the data. First thing we will do is to copy everything to the auxiliary array. Once that is done we will copy back to the original array in sorted order.
+First thing we will do is to copy everything to the auxiliary array.
+Once that is done we will copy back to the original array in sorted order.
+
 To do this we will have to maintain 3 indices
 i - entry in the left half of the aux array
 j - entry in the right half of the aux array
 k - entry in the sorted results.
 
-We will compare the min values between i and j and copy the smallest into the original array. In whichever half is the element taken, we increment the pointer in that half. We also increment the value of k. So we either increment i and k or j and k. Once one of the sub-arrays are exhausted, we then take the remaining elements from the other sub half and move them into the original array. Note that the Merge Sort does the recursion before it does the work.
+We will compare the min values between i and j and copy the smallest into the original array. In whichever half is the element taken, we increment the pointer in that half. We also increment the value of k. So we either increment i and k or j and k.
+Once one of the sub-arrays are exhausted, we then take the remaining elements from the other sub half and move them into the original array.
+Note that the Merge Sort does the recursion before it does the work.
 
 Merge Sort Implementation
 ```
-    public static void sort(int[] arr){
+    public static void mergeSort(int[] arr){
         int low = 0; int high = arr.length-1;
         int[] aux = new int[arr.length];
         sort(arr, aux, low, high);
@@ -94,14 +99,13 @@ Merge Sort Implementation
             aux[k] = arr[k];
         }
 
-        // Sort
+        // Sort - Once that is done we will copy back to the original array in sorted order.
         int i = lo; int j = mid+1;
         for (int k = lo; k <= hi; k++){
-            // When all elements from one of the either halves of the array have been merged into the original arr, then copy
-            // the remainder sorted half of the other half of the array into the original array.
+            // Once one of the sub-arrays are exhausted, we take the remaining elements from the other sub half and move them into the original array.
             if      (i>mid)                     arr[k] = aux[j++];
             else if (j>hi)                      arr[k] = aux[i++];
-            // Normal Path
+            // Normal Path - compare the min values between i and j and copy the smallest into the original array.
             else if (aux[j]<aux[i])             arr[k] = aux[j++];
             else                                arr[k] = aux[i++];
         }
@@ -126,11 +130,11 @@ Most of the work during heapsort is done during the second phase, where we remov
     public static void sort(Comparable[] pq) {
         int n = pq.length;
 
-        // heapify phase
+        // heapify phase - heap construction phase. reorganize the original array into a heap.
         for (int k = n/2; k >= 1; k--)
             sink(pq, k, n);
 
-        // sortdown phase
+        // sortdown phase - we pull the items out of the heap in decreasing order to build the sorted result
         int k = n;
         while (k > 1) {
             exch(pq, 1, k--);
