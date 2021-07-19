@@ -108,3 +108,59 @@ Merge Sort Implementation
         printArray(arr, "m");
     }
 ```
+
+## Heap Sort
+We can use any priority queue to develop a sorting method. We insert all the keys to be sorted into a minimum-oriented priority queue,
+then repeatedly use remove the minimum to remove them all in order. When using a heap for the priority queue, we obtain heapsort.
+To sort, we use swim() and sink() functions. Doing so allows us to sort an array without needing any extra space, by maintaining the
+heap within the array to be sorted.
+
+Heapsort breaks into two phases:
+1. Heap construction - heap construction, where we reorganize the original array into a heap, and
+We can accomplish this task in time proportional to n lg n,by proceeding from left to right through the array, using swim() to ensure that the entries to the left of the scanning pointer make up a heap-ordered complete tree, like successive priority queue insertions. A clever method that is much more efficient is to proceed from right to left, using sink() to make subheaps as we go. Every position in the array is the root of a small subheap; sink() works or such subheaps, as well. If the two children of a node are heaps, then calling sink() on that node makes the subtree rooted there a heap.
+2. Sortdown - the sortdown, where we pull the items out of the heap in decreasing order to build the sorted result.
+Most of the work during heapsort is done during the second phase, where we remove the largest remaining items from the heap and put it into the array position vacated as the heap shrinks.
+
+##### Heap Sort Implementation
+```
+    // Rearranges the array in ascending order, using the natural order.
+    public static void sort(Comparable[] pq) {
+        int n = pq.length;
+
+        // heapify phase
+        for (int k = n/2; k >= 1; k--)
+            sink(pq, k, n);
+
+        // sortdown phase
+        int k = n;
+        while (k > 1) {
+            exch(pq, 1, k--);
+            sink(pq, 1, k);
+        }
+    }
+
+    private static void sink(Comparable[] pq, int k, int n) {
+        while (2*k <= n) {
+            int j = 2*k;
+            if (j < n && less(pq, j, j+1)) j++;
+            if (!less(pq, k, j)) break;
+            exch(pq, k, j);
+            k = j;
+        }
+    }
+
+    // Indices are "off-by-one" to support 1-based indexing.
+    private static boolean less(Comparable[] pq, int i, int j) {
+        return pq[i-1].compareTo(pq[j-1]) < 0;
+    }
+    private static void exch(Object[] pq, int i, int j) {
+        Object swap = pq[i-1];
+        pq[i-1] = pq[j-1];
+        pq[j-1] = swap;
+    }
+
+    public static void main(String[] args) {
+        String[] a = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+        Heap.sort(a);
+    }
+```
