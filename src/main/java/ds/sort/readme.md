@@ -116,9 +116,9 @@ To sort, we use swim() and sink() functions. Doing so allows us to sort an array
 heap within the array to be sorted.
 
 Heapsort breaks into two phases:
-1. Heap construction - heap construction, where we reorganize the original array into a heap.
+1. Heap construction - Within the heap construction phase, we reorganize the original array into a heap.
 We can accomplish this task in time proportional to n lg n,by proceeding from left to right through the array, using swim() to ensure that the entries to the left of the scanning pointer make up a heap-ordered complete tree, like successive priority queue insertions. A clever method that is much more efficient is to proceed from right to left, using sink() to make subheaps as we go. Every position in the array is the root of a small subheap; sink() works or such subheaps, as well. If the two children of a node are heaps, then calling sink() on that node makes the subtree rooted there a heap.
-2. Sortdown - the sortdown, where we pull the items out of the heap in decreasing order to build the sorted result.
+2. Sortdown: Within the sortdown phase we pull the items out of the heap in decreasing order to build the sorted result.
 Most of the work during heapsort is done during the second phase, where we remove the largest remaining items from the heap and put it into the array position vacated as the heap shrinks.
 
 ##### Heap Sort Implementation
