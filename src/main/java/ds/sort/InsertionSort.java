@@ -8,7 +8,7 @@ public class InsertionSort {
     private void sort(int[] arr) {
         int n = arr.length;
         for (int i=0; i < n ; i++){
-            printArray();
+            printArray(arr);
             for (int j=i; j>0 ; j--){ // Note j > 0 because we compare j and j-1
                 if (arr[j-1] > arr[j])
                     exch(arr,j-1, j);
@@ -24,10 +24,10 @@ public class InsertionSort {
         a[j] = swap;
     }
 
-    private void printArray() {
+    private void printArray(int[] arr) {
         System.out.println();
-        for (int k=0; k<a.length; k++){
-            System.out.print(a[k]+", ");
+        for (int k=0; k<arr.length; k++){
+            System.out.print(arr[k]+", ");
         }
     }
     public static void main(String[] args){
