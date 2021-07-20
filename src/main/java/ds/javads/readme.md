@@ -34,10 +34,6 @@ The class itself must implements the java.lang.Comparable interface to compare i
             System.out.println(sportsTeam.getName() + " " +sportsTeam.getRating() + " " + sportsTeam.getYear());
     ```
 
-
-
-
-
 ### Comparator
 Unlike Comparable, Comparator is external to the element type we are comparing. It’s a separate class. We create multiple separate classes (that implement Comparator) to compare by different members.
 Collections class has a second sort() method and it takes Comparator. The sort() method invokes the compare() to sort objects.
@@ -57,7 +53,7 @@ Sorting using a Comparator
         list.add(new SportsTeam("Team 4", 4, 1983));
     ```
     (2) Create an object of CompareByRating
-     ```
+    ```
          class CompareByRating implements Comparator<SportsTeam> {
              public int compare(SportsTeam m1, SportsTeam m2) {
                  if (m1.getRating() < m2.getRating()) return -1;
@@ -65,6 +61,21 @@ Sorting using a Comparator
                  else return 0;
              }
          }
+    ```
+    ```
+        class CompareByStringValue implements Comparator<String> {
+            public int compare(String str1, String str2) {
+                return str1.compareTo(str2);
+            }
+        }
+
+        class CompareByStringValueAt implements Comparator<String> {
+            public int compare(String str1, String str2) {
+                if (str1.charAt(5) < str2.charAt(5)) return -1;
+                else if (str1.charAt(5) > str2.charAt(5)) return 1;
+                else return 0;
+            }
+        }
     ```
     (3) Call the sort(...) method of the Collections passing the list to be sorted and the associated comparator.
         ```Collections.sort(list, compareByRating);```
