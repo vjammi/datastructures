@@ -1,6 +1,6 @@
 ## Java Collections
 
-### Class Implementing Comparable Interface
+### Using Comparable Interface
 A comparable object is capable of comparing itself with another object.
 The class itself must implements the java.lang.Comparable interface to compare its instances.
 (1) Build a list of SportsTeam
@@ -27,14 +27,16 @@ The class itself must implements the java.lang.Comparable interface to compare i
     }
 ```
 (3) Call the sort(...) method of the Collections passing the list to be sorted.
-    ```Collections.sort(list);```
+```
+    Collections.sort(list);
+```
 (4) You now have a sorted list based on the comparator that was passed.
 ```
      for (SportsTeam sportsTeam : list)
         System.out.println(sportsTeam.getName() + " " +sportsTeam.getRating() + " " + sportsTeam.getYear());
 ```
 
-### Comparator
+###  Using Comparator Interface
 Unlike Comparable, Comparator is external to the element type we are comparing. It’s a separate class. We create multiple separate classes (that implement Comparator) to compare by different members.
 Collections class has a second sort() method and it takes Comparator. The sort() method invokes the compare() to sort objects.
 To compare movies by Rating, we need to do 3 things :
@@ -56,7 +58,7 @@ Sorting using a Comparator
 ```
      class CompareByRating implements Comparator<SportsTeam> {
          public int compare(SportsTeam m1, SportsTeam m2) {
-             if (m1.getRating() < m2.getRating()) return -1;
+             if (m1.getRating() < m2.getRating()) return -1;        // Lesser values take precedence here
              if (m1.getRating() > m2.getRating()) return 1;
              else return 0;
          }
@@ -65,20 +67,22 @@ Sorting using a Comparator
 ```
     class CompareByStringValue implements Comparator<String> {
         public int compare(String str1, String str2) {
-            return str1.compareTo(str2);
+            return str1.compareTo(str2);                            // Natural sort order - asc
         }
     }
 
-    class CompareByStringValueAt implements Comparator<String> {
+    class CompareBySomeLogic implements Comparator<String> {
         public int compare(String str1, String str2) {
-            if (str1.charAt(5) < str2.charAt(5)) return -1;
+            if (str1.charAt(5) < str2.charAt(5)) return -1;         // -1 Causes to take precedence asc or desc, here asc
             else if (str1.charAt(5) > str2.charAt(5)) return 1;
             else return 0;
         }
     }
 ```
 (3) Call the sort(...) method of the Collections passing the list to be sorted and the associated comparator.
-    ```Collections.sort(list, compareByRating);```
+```
+    Collections.sort(list, compareByRating);
+```
 (4) You now have a sorted list based on the comparator that was passed.
 ```
      for (SportsTeam sportsTeam : list)
