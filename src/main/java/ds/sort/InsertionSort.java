@@ -7,28 +7,28 @@ public class InsertionSort {
     // Assumption is everything to the left of i is in ascending sorted order and everything to the right we have not seen yet.
     private void sort(int[] arr) {
         int n = arr.length;
-        for (int i=0; i < n ; i++){
-            printArray(arr);
-            for (int j=i; j>0 ; j--){ // Note j > 0 because we compare j and j-1
-                if (arr[j-1] > arr[j])
-                    exch(arr,j-1, j);
+        for (int i=1; i<n; i++){
+            for (int j=i; j>0 ; j--){ // Note *** j > 0 because we compare j and j-1
+                if (arr[j] < arr[j-1])
+                    exch(arr,j, j-1);
                 else
                     break; // Optimization
             }
+            print(arr);
         }
     }
 
-    private void exch(int[] a, int k, int j) {
+    private void exch(int[] a, int j, int k) {
         int swap = a[k];
         a[k] = a[j];
         a[j] = swap;
     }
 
-    private void printArray(int[] arr) {
-        System.out.println();
+    private void print(int[] arr) {
         for (int k=0; k<arr.length; k++){
-            System.out.print(arr[k]+", ");
+            System.out.print(arr[k]+" ");
         }
+        System.out.println();
     }
     public static void main(String[] args){
         InsertionSort obj = new InsertionSort();

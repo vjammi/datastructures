@@ -8,19 +8,44 @@ public class InsertionSortComparator {
     private InsertionSortComparator() { }
 
     /**
+     * Reads in a sequence of strings from standard input; insertion sorts them;
+     * and prints them to standard output in ascending order.
+     *
+     * @param args the command-line arguments
+     */
+    public static void main(String[] args) {
+        String[] a = { "efg", "ghi", "abc", "cde", "mno", "opq", "ijk", "klm"};
+        InsertionSortComparator.sort(a); // Gold
+    }
+
+    /**
      * Rearranges the array in ascending order, using the natural order.
      * @param a the array to be sorted
      */
-    public static void sort(Comparable[] a) {
+    public static void sort(Comparable[] a) { // Gold
         int n = a.length;
         for (int i = 1; i < n; i++) {
             for (int j = i; j > 0 && less(a[j], a[j-1]); j--) {
                 exch(a, j, j-1);
             }
             assert isSorted(a, 0, i);
+            show(a);
         }
         assert isSorted(a);
     }
+
+    // is v < w ?
+    private static boolean less(Comparable v, Comparable w) {
+        return v.compareTo(w) < 0;
+    }
+
+    // exchange a[i] and a[j]
+    private static void exch(Object[] a, int i, int j) {
+        Object swap = a[i];
+        a[i] = a[j];
+        a[j] = swap;
+    }
+
 
     /**
      * Rearranges the subarray a[lo..hi) in ascending order, using the natural order.
@@ -33,6 +58,7 @@ public class InsertionSortComparator {
             for (int j = i; j > lo && less(a[j], a[j-1]); j--) {
                 exch(a, j, j-1);
             }
+            show(a);
         }
         assert isSorted(a, lo, hi);
     }
@@ -94,22 +120,13 @@ public class InsertionSortComparator {
      *  Helper sorting functions.
      ***************************************************************************/
 
-    // is v < w ?
-    private static boolean less(Comparable v, Comparable w) {
-        return v.compareTo(w) < 0;
-    }
+
 
     // is v < w ?
     private static boolean less(Object v, Object w, Comparator comparator) {
         return comparator.compare(v, w) < 0;
     }
 
-    // exchange a[i] and a[j]
-    private static void exch(Object[] a, int i, int j) {
-        Object swap = a[i];
-        a[i] = a[j];
-        a[j] = swap;
-    }
 
     // exchange a[i] and a[j]  (for indirect sort)
     private static void exch(int[] a, int i, int j) {
@@ -146,19 +163,8 @@ public class InsertionSortComparator {
     // print array to standard output
     private static void show(Comparable[] a) {
         for (int i = 0; i < a.length; i++) {
-            System.out.println(a[i]);
+            System.out.print(a[i] +" ");
         }
-    }
-
-    /**
-     * Reads in a sequence of strings from standard input; insertion sorts them;
-     * and prints them to standard output in ascending order.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-        String[] a = { "efg", "ghi", "abc", "cde", "mno", "opq", "ijk", "klm"};
-        InsertionSortComparator.sort(a);
-        show(a);
+        System.out.println();
     }
 }

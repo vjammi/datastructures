@@ -1,4 +1,4 @@
-package ds.javads;
+package ds.java;
 
 import java.util.ArrayList;
 import java.util.Collections;
