@@ -326,11 +326,19 @@ You may return the answer in any order. The answer is guaranteed to be unique (e
 
 Euclidean distance Calculations
 ```
+    public static void main(String[] args) {
+        KClosestPointsToOrigin obj = new KClosestPointsToOrigin();
+        int k = 2;
+        int[][] points = {{3,3},{5,-1},{-2,4}};
+        obj.kClosest(points, k);
+    }
+
     // Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2)
     // Euclidean distance for [1,3]  from origin [0,0] would be sqrt((1-0)^2 + (3-0)^2))
     // Euclidean distance for [-2,2] from origin [0,0] would be sqrt((-2-0)^2 + (2-0)^2))
     public int[][] kClosest(int[][] points, int k) {
         // ...
+        return kClosestPoints;
     }
 ```
 Create a Map of dist to points[][] - O(N)
@@ -345,8 +353,8 @@ Create a Map of dist to points[][] - O(N)
                 this.y = y;
                 this.dist = dist;
             }
-        }
-    ...
+    }
+...
 
     Map<Coordinate, Double> map = new HashMap<>();
     for(int i=0; i<points.length; i++){
@@ -395,14 +403,7 @@ Return the top k min distance - k log K ???
     }
 
     return kClosestPoints;
-    ```
-
-    public static void main(String[] args) {
-        KClosestPointsToOrigin obj = new KClosestPointsToOrigin();
-        int k = 2;
-        int[][] points = {{3,3},{5,-1},{-2,4}};
-        obj.kClosest(points, k);
-    }
+```
 
 ### Merge K Sorted Lists
 
