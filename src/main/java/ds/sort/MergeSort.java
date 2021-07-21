@@ -10,7 +10,7 @@ public class MergeSort {
 
     private static void sort(int[] arr, int[] aux, int lo, int hi){
         if (hi <= lo)
-            return;            // checks if there is something to do first
+            return;                      // checks if there is something to do first
         int mid = lo + (hi-lo) / 2;      // computes the mid point
         sort(arr, aux, lo, mid);         // sort the left/first half
         sort(arr, aux, mid+1, hi);    // sort the right/second half
