@@ -5,10 +5,20 @@ import java.util.*;
 /**
 347. Top K Frequent Elements
     Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
-    Input: nums = [1,1,1,2,2,3], k = 2
-    Output: [1,2]
-    Input: nums = [1], k = 1
-    Output: [1]
+    Input: nums = {11,11,11,22,22,22,33,33,44,55,55,55,55,55,55}; int k = 2;
+    Solution
+         charToFreqMap =  size = 5
+             33 -> 2
+             22 -> 3
+             55 -> 6    <
+             11 -> 3    <
+             44 -> 1
+         heap =  size = 2
+             0 = 11
+             1 = 55
+         topKFrequentElements
+             0 = 55
+             1 = 11
 
 Next challenges:
     Word Frequency
@@ -38,7 +48,6 @@ public class TopKFrequentElements {
 
         // init heap 'the less frequent element first'
         Queue<Integer> heap = new PriorityQueue<>(new FrequencyComparator());
-
         // 2. keep k top frequent elements in the heap - O(N log k) < O(N log N) time
         for (int key: charToFreqMap.keySet()) {
             heap.add(key);
