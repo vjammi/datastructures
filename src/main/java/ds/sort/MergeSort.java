@@ -23,14 +23,13 @@ public class MergeSort {
             aux[k] = arr[k];
         }
 
-        // Sort
+        // Sort - Once that is done we will copy back to the original array in sorted order.
         int i = lo; int j = mid+1;
         for (int k = lo; k <= hi; k++){
-            // When all elements from one of the either halves of the au array have been merged into the original arr,
-            // then copy the other sorted half of the au array into the original array, as it is.
+            // Once one of the sub-arrays are exhausted, we take the remaining elements from the other sub half and move them into the original array.
             if      (i>mid)                     arr[k] = aux[j++];
             else if (j>hi)                      arr[k] = aux[i++];
-            // Normal Path
+            // Normal Path - compare the min values between i and j and copy the smallest into the original array.
             else if (aux[j]<aux[i])             arr[k] = aux[j++];
             else                                arr[k] = aux[i++];
         }
