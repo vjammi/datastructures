@@ -1,5 +1,17 @@
 ## Java Collections
 
+## Comparable Vs Comparator
+Comparable is meant for objects with natural ordering which means the object itself must know how it is to be ordered. For example a Date class.
+Whereas, Comparator interface sorting is done through a separate class.
+- Comparable interface compares “this” reference with the object specified and
+- Comparator in Java compares two different class objects provided.
+If any class implements Comparable interface in Java then
+- Collection of that object either List or Array can be sorted automatically by using Collections.sort() or Arrays.sort() method and
+- Objects will be sorted based on their natural order defined by CompareTo method.
+Usage
+- If sorting of objects needs to be based on natural order then we use Comparable Interface
+- Whereas, if sorting needs to be done on attributes of different objects, then we use Comparator in Java.
+
 ### Using Comparable Interface
 Sort using a type’s natural order. In other words Sort using natural order.
 Implements a method called ```compareTo(...)```.
@@ -94,3 +106,8 @@ Sorting using a Comparator
      for (SportsTeam sportsTeam : list)
         System.out.println(sportsTeam.getName() + " " +sportsTeam.getRating() + " " + sportsTeam.getYear());
 ```
+
+
+REFERENCES
+https://algs4.cs.princeton.edu/
+https://www.geeksforgeeks.org/
