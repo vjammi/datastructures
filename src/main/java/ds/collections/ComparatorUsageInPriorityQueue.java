@@ -1,4 +1,4 @@
-package ds.java;
+package ds.collections;
 
 import java.util.Comparator;
 import java.util.Iterator;

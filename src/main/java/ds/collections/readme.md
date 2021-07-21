@@ -1,8 +1,11 @@
 ## Java Collections
 
 ### Using Comparable Interface
+Sort using a type’s natural order. In other words Sort using natural order.
+Implements a method called ```compareTo(...)```.
 A comparable object is capable of comparing itself with another object.
-The class itself must implements the java.lang.Comparable interface to compare its instances.
+The class itself must implement the java.lang.Comparable interface to compare its instances with other instances
+
 (1) Build a list of SportsTeam
 ```
     ArrayList<SportsTeam> list = new ArrayList<SportsTeam>();
@@ -37,6 +40,9 @@ The class itself must implements the java.lang.Comparable interface to compare i
 ```
 
 ###  Using Comparator Interface
+Sorting using alternate order.
+Implements a method called ```compare(Key k1, Key k2) - Compares k1 and k2```. We are sorting based on different ordering.
+
 Unlike Comparable, Comparator is external to the element type we are comparing. It’s a separate class. We create multiple separate classes (that implement Comparator) to compare by different members.
 Collections class has a second sort() method and it takes Comparator. The sort() method invokes the compare() to sort objects.
 To compare movies by Rating, we need to do 3 things :

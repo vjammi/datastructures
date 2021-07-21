@@ -1,4 +1,4 @@
-package ds.java;
+package ds.collections;
 
 import java.util.*;
 import java.util.Map.Entry;

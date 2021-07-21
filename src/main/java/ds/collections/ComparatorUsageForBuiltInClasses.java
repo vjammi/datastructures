@@ -1,4 +1,4 @@
-package ds.java;
+package ds.collections;
 
 import java.text.Collator;
 import java.util.*;
