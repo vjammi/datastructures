@@ -23,7 +23,7 @@ import java.util.Comparator;
  *
  */
 
-public class ClassImplementsComparator {
+public class ComparatorUsageInJavaObjects {
 
    // A class 'SportsTeam' that implements Comparable
     class SportsTeam implements Comparable<SportsTeam> {
@@ -139,7 +139,7 @@ public class ClassImplementsComparator {
     }
 
     public static void main(String[] args) {
-        ClassImplementsComparator obj = new ClassImplementsComparator();
+        ComparatorUsageInJavaObjects obj = new ComparatorUsageInJavaObjects();
         obj.testComparatorSportsTeam();
         obj.testComparatorJavaString();
     }

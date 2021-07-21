@@ -9,21 +9,25 @@ import java.util.Collections;
 */
 
 class SportsTeam implements Comparable<SportsTeam> {
+
     private String name;
     private int rating;
     private int year;
 
-    // Used to sort SportsTeam by year or by rating
-    public int compareTo(SportsTeam m) {
-        //return this.year - m.year;
-        return this.rating - m.rating;
-    }
-
-    // Constructor
     public SportsTeam(String nm, int rt, int yr) {
         this.name = nm;
         this.rating = rt;
         this.year = yr;
+    }
+
+    // Used to sort SportsTeam by year or by rating
+    public int compareTo(SportsTeam m) {
+        return this.rating - m.rating;
+    }
+
+    // Used to sort SportsTeam by year or by year
+    public int compareTo2(SportsTeam m) {
+        return this.year - m.year;
     }
 
     // Getter methods for accessing private data
@@ -53,4 +57,5 @@ class SportsTeam implements Comparable<SportsTeam> {
             System.out.println(sportsTeam.getName() + " " + sportsTeam.getRating() + " " + sportsTeam.getYear());
         }
     }
+
 }

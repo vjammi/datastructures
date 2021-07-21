@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 
-public class PriorityQueueImplementsComparator {
+public class ComparatorUsageInPriorityQueue {
 
     class MinIntegerComparator implements Comparator<Integer>{
         public int compare(Integer x, Integer y){
@@ -50,7 +50,7 @@ public class PriorityQueueImplementsComparator {
 
     public static void main(String[] args) {
         int[] nums = new int[]{15,14,13,20,15,10,9,8,7,4,3};
-        PriorityQueueImplementsComparator pq = new PriorityQueueImplementsComparator();
+        ComparatorUsageInPriorityQueue pq = new ComparatorUsageInPriorityQueue();
         pq.testPriorityQueueComparator(nums);
     }
 }
