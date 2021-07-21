@@ -1,5 +1,6 @@
-## Min Heap
+# Heaps
 
+## Min Heap
 [heap-representation](img\heap-representations.png)
 
 MinHeap [ insert(x) at the end ] UsesSwim Operation 
@@ -156,7 +157,6 @@ Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
         }
 
 ## Is Heap Min Ordered?
-
 ```
    public boolean isHeapMinOrdered(){
         if (pq.length < 1)
@@ -169,7 +169,6 @@ Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
             return true;
 
         System.out.print(k  +"("+pq[k]+") ");
-
         isMinOrdered(2*k);
         isMinOrdered(2*k+1);
 
@@ -214,7 +213,6 @@ Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
 ```
 
 ## Max Heap
-
 MaxHeap [ insert(x) at the end ]
 Exchange with the parent and swim up until the heap order is restored
 - Insert a new element at the end of the heap and increment the size of the heap
@@ -229,38 +227,106 @@ Exchange with the last element and sink it until heap order is restored.
 - Exchange that node with the *max* element of its two children (sink operation), 
 - Recursively repeat until the heep order is restored.
 
-Reference: https://algs4.cs.princeton.edu/24pq/MaxPQ.java.html
+## Priority Queue Runtime
+    Add and Remove - O(logN)
+    Build a Sorted Heap - nlog(n)
 
-## Other references
-https://www.geeksforgeeks.org/why-is-binary-heap-preferred-over-bst-for-priority-queue/
-https://www.geeksforgeeks.org/priority-queue-class-in-java-2/
+### Java PriorityQueue Usage
 
-## Priority Queue
-Runtime: Add and remove O(logN)
+#### Implement your Comparator
+```
+    class MinIntegerComparator implements Comparator<Integer>{
+        public int compare(Integer x, Integer y){
+            return x - y;
+        }
+    }
+    class MaxIntegerComparator implements Comparator<Integer>{
+        public int compare(Integer x, Integer y){
+            return y - x;
+        }
+    }
+```
+#### Initialize your Priority Queue with the Comparator
+```
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>(nums.length+1, new MinIntegerComparator()); // Default - MinIntegerComparator
+    PriorityQueue<Integer> maxHeap = new PriorityQueue<>(nums.length+1, new MaxIntegerComparator()); // MaxIntegerComparator
 
-Java PriorityQueue
-PriorityQueue<Integer> heap = new PriorityQueue<>(...);
+    Queue<Integer> minHeap = new PriorityQueue<>(nums.length+1, new MinIntegerComparator()); // Default - MinIntegerComparator
+    Queue<Integer> maxHeap = new PriorityQueue<>(nums.length+1, new MaxIntegerComparator()); // MaxIntegerComparator
+```
+#### Load elements into the Priority Queue
+```
+    for(int i = 1; i< nums.length; i++){
+        minHeap.add(nums[i]);
+    }
+```
+#### Iterate/Poll the elements from the Priority Queue
+```
+    Iterator<Integer> heapIterator0 = minHeap.iterator();
+    while (heapIterator0.hasNext()) {
+        System.out.print(heapIterator0.next() + " ");
+    }
+```
 
-#### Top K Frequent Elements
+### Top K Frequent Elements
 Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
 Input: nums = [1,1,1,2,2,3], k = 2
 Output: [1,2]
-Flow of 
-1. Setup - Initialize the PQ with a custom compareator
-2. Add all data to te PQ. It will order the elements. 
-3. We remove the elements as we need them
+Solution
+1. Setup the PQ with the custom comparator to order the elements based on the highest frequencies [descending order of the frequencies]
+```
+    class FrequencyComparator implements Comparator<Integer>{
+        public int compare(Integer n1, Integer n2) {
+            return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));  // descending
+        }
+    }
+```
+2. Build the HashMap
+```
+    // build hash map character and its frequency - O(N) time
+    charToFreqMap = new HashMap();
+    for (int num: nums) {
+        if (charToFreqMap.containsKey(num)) charToFreqMap.put(num, charToFreqMap.get(num)+1);
+        else charToFreqMap.put(num, 1);
+    }
+```
+3. Add all frequencies from the HaspMap into the PQ.
+   PQ will order the elements based on the comparator logic [charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2))]
+   Poll the elements from PQ, when the size of the PQ grows beyond k elements[??? can keep all the frequencies and return only the top k elements]
+```
+   // Init the heap the less frequent element first
+   Queue<Integer> heap = new PriorityQueue<>(new FrequencyComparator());
+   // keep k top frequent elements in the heap - O(N log k) < O(N log N) time
+   for (int key: charToFreqMap.keySet()) {
+       heap.add(key);
+       if (heap.size() > k) heap.poll();
+   }
+```
+4. Return the top k elements. Poll the elements from the PQ and copy them into an array to return.
+```
+        // build an output array - O(k log k) time. k = number of items to store in the pq
+        int[] topKFrequentElements = new int[k];
+        for (int i=k-1; i>=0; i--){
+            topKFrequentElements[i] = heap.poll();
+        }
+        return topKFrequentElements;
+```
 
-#### K-Closest Points to Origin
+### K-Closest Points to Origin
 
-#### Merge K Sorted Lists
+### Merge K Sorted Lists
 
-#### Find median from Data Stream
+### Find median from Data Stream
 Median is the number that is in the middle of an ordered list. If there are two medians, then it is the average value of the two.
 2,3,5 -   Median = 3
 2,3,4,5 - Median = (3+4)/2 = 3.5
 
-#### Meeting Rooms II
-#### Task Scheduler
-#### Find K Pairs with Smallest Sum
+### Meeting Rooms II
+### Task Scheduler
+### Find K Pairs with Smallest Sum
 
 
+## references
+https://algs4.cs.princeton.edu/24pq/MaxPQ.java.html
+https://www.geeksforgeeks.org/why-is-binary-heap-preferred-over-bst-for-priority-queue/
+https://www.geeksforgeeks.org/priority-queue-class-in-java-2/
