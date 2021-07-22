@@ -5,13 +5,20 @@ public class HeapSort {
     // Rearranges the array in ascending order, using the natural order.
     public static void sort(Comparable[] pq) {
         int n = pq.length;
-
-        System.out.println("heapify phase - heap construction phase. reorganize the original array into a heap.");
+        // Original Array - 1,22,3,44,5,66,7,88,8,9,10,15,14,13,12,11
+        // Heapify Phase  - 88 44 66 22 10 15 13 11 8 9 5 3 14 7 12 1
+        //                           88
+        //                        44    66
+        //                      22 10  15 13
+        //                    11 8 9 5 3 14 7 12
+        //                    1
+        System.out.println("heapify Phase - heap construction phase. reorganize the original array into a heap.");
         // heapify phase - heap construction phase. reorganize the original array into a heap.
         for (int k = n/2; k >= 1; k--)
             sink(pq, k, n);
         print(pq);
 
+        // 1 3 5 7 8 9 10 11 12 13 14 15 22 44 66 88
         // sortdown phase - we pull the items out of the heap in decreasing order to build the sorted result
         System.out.println("sortdown phase - we pull the items out of the heap in decreasing order to build the sorted result");
         int k = n;
@@ -52,7 +59,7 @@ public class HeapSort {
 
 
     public static void main(String[] args) {
-        Integer[] a = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+        Integer[] a = {1,22,3,44,5,66,7,88,8,9,10,15,14,13,12,11};
         HeapSort.sort(a);
     }
 

@@ -48,7 +48,7 @@ public class TopKFrequentElements {
 
         // init heap 'the less frequent element first'
         Queue<Integer> heap = new PriorityQueue<>(new FrequencyComparator());
-        // 2. keep k top frequent elements in the heap - O(N log k) < O(N log N) time
+        // 2. keep k top frequent elements in the heap - O(N log k) < O(N log N) time [iterate over all elements N but keep only K elements]
         for (int key: charToFreqMap.keySet()) {
             heap.add(key);
             if (heap.size() > k) heap.poll();

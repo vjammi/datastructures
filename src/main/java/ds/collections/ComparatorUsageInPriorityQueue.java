@@ -19,7 +19,7 @@ public class ComparatorUsageInPriorityQueue {
     }
 
     public void testPriorityQueueComparator(int[] nums) {
-        PriorityQueue<Integer> minHeap0 = new PriorityQueue<>(nums.length); // Default - MinIntegerComparator
+        PriorityQueue<Integer> minHeap0 = new PriorityQueue<>(nums.length);                                          // Default - MinIntegerComparator
         PriorityQueue<Integer> minHeap1 = new PriorityQueue<>(nums.length+1, new MinIntegerComparator()); // Default - MinIntegerComparator
         PriorityQueue<Integer> maxHeap2 = new PriorityQueue<>(nums.length+1, new MaxIntegerComparator()); // MaxIntegerComparator
 

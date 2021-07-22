@@ -405,9 +405,50 @@ Return the top k min distance - k log K ???
     return kClosestPoints;
 ```
 
-### Merge K Sorted Lists
+### 23 Merge k Sorted Lists
+You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+Merge all the linked-lists into one sorted linked-list and return it.
+Input: lists = [[1,4,5],[1,3,4],[2,6]]
+Output: [1,1,2,3,4,4,5,6]
+Explanation: The linked-lists are:
+    [
+      1->4->5,
+      1->3->4,
+      2->6
+    ]
+merging them into one sorted list:
+    1->1->2->3->4->4->5->6
 
-### Find median from Data Stream
+### 295. Find Median from Data Stream
+The Median is the "middle" of a sorted list of numbers.
+The median is the middle value in an ordered integer list.
+    Odd List: [3, 5, 7, 12, 13, 14, 21, 23, 23, 23, 23, 29, 39, 40, 56]
+    Median:   23
+The median value of this set of numbers is 23.
+If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
+    Even List: [3, 5, 7, 12, 13, 14, 21, 23, 23, 23, 23, 29, 40, 56]
+    Median:     21 + 23 = 44, then 44/2 = 22
+For example,
+- arr = [2,3,4], the median is 3.
+- arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+Implement the MedianFinder class:
+- MedianFinder() initializes the MedianFinder object.
+- void addNum(int num) adds the integer num from the data stream to the data structure.
+- double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
+Example 1
+Input
+["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+[[], [1], [2], [], [3], []]
+Output
+[null, null, null, 1.5, null, 2.0]
+Explanation
+MedianFinder medianFinder = new MedianFinder();
+medianFinder.addNum(1);    // arr = [1]
+medianFinder.addNum(2);    // arr = [1, 2]
+medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+medianFinder.addNum(3);    // arr[1, 2, 3]
+medianFinder.findMedian(); // return 2.0
+
 Median is the number that is in the middle of an ordered list. If there are two medians, then it is the average value of the two.
 2,3,5 -   Median = 3
 2,3,4,5 - Median = (3+4)/2 = 3.5

@@ -163,7 +163,7 @@ Most of the work during heapsort is done during the second phase, where we remov
     }
 
     public static void main(String[] args) {
-        String[] a = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
+        Integer[] a = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
         Heap.sort(a);
     }
 ```
