@@ -69,7 +69,6 @@ public class MedianFinder {
 
         Queue<Integer> maxHeap;
         Queue<Integer> minHeap;
-        int count;
 
         class MinElementComparator implements Comparator<Integer> {
             public int compare(Integer int1, Integer int2){
@@ -84,7 +83,6 @@ public class MedianFinder {
         }
 
         public MedianFinderApproach2() {
-            this.count = 0;
             maxHeap = new PriorityQueue<>(new MaxElementComparator());
             minHeap = new PriorityQueue<>(new MinElementComparator());
         }
@@ -103,7 +101,6 @@ public class MedianFinder {
             }else if (num >= minHeapMinValue){
                 minHeap.add(num);
             }
-            count++;
 
             int maxHeapSize = maxHeap.size();
             int minHeapSize = minHeap.size();
@@ -115,7 +112,6 @@ public class MedianFinder {
             if (minHeapSize > maxHeapSize){
                 maxHeap.add(minHeap.poll());
             }
-            //System.out.println("Add - Count: "+count + " num "+num);
         }
 
         public double findMedian() {
@@ -126,11 +122,11 @@ public class MedianFinder {
                 int num1 = maxHeap.peek();
                 int num2 = minHeap.peek();
                 double sum = num1 + num2;
-                System.out.println("Find - Even Count: "+count + " "+sum/2);
+                System.out.println("Find - Even: "+ " "+sum/2);
                 return sum/2;
             }else { //if (maxHeapSize == minHeapSize+1){
                 int num1 = maxHeap.peek();
-                System.out.println("Find - Odd Count: "+count + " "+num1);
+                System.out.println("Find - Odd: "+ " "+num1);
                 return num1;
             }
         }
