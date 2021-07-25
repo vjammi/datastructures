@@ -7,7 +7,7 @@ import java.util.*;
  * https://youtu.be/D6ptfiKVMYQ?t=528
  * https://iitd-plos.github.io/col100/lec/exhaustive_search.html
  * */
-public class BacktrackingProblems {
+public class Backtracking101 {
 
     int calls = 0;
 
@@ -278,7 +278,7 @@ public class BacktrackingProblems {
     }
 
     public static void main(String[] args) {
-        BacktrackingProblems obj = new BacktrackingProblems();
+        Backtracking101 obj = new Backtracking101();
         //int[] nums = {1,2,3};
         //System.out.println(obj.subsets(nums));
 
