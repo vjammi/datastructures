@@ -2,9 +2,11 @@
 DFS search is a way to search thru all the nodes ofg a tree or a graph by searching all the way down one path before coming back to search other paths.
 
 ## 1. LC 17 Letter Combinations of a Phone Number
-Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. 
-Return the answer in any order. A mapping of digit to letters (just like on the telephone buttons) is given below. 
-Note that 1 does not map to any letters.
+Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
+Return the answer in any order. A mapping of digit to letters (just like on the telephone buttons) is given below.
+Notice that level 0 does not map to any digits/letters.
+
+Note: A better problem statement - Find all permutations of letters formed from digits
 
 Input: digits = "23"
             2 = abc
@@ -154,13 +156,71 @@ Steps
     }
 
 ```
+### 77  Combinations            https://leetcode.com/problems/combinations/
+### 39	Combination Sum         https://leetcode.com/problems/combination-sum/
+### 40	Combination Sum II      https://leetcode.com/problems/combination-sum-ii/
+### 216	Combination Sum III     https://leetcode.com/problems/combination-sum-iii/
+### 377	Combination Sum IV      https://leetcode.com/problems/combination-sum-iv/
 
-### 39	Combination Sum
-### 40	Combination Sum II
-### 216	Combination Sum III
-### 377	Combination Sum IV
-### 78	Subsets
-### 90  Subsets II        
+### 46 Permutations             https://leetcode.com/problems/permutations/
+### 47 Permutations II          https://leetcode.com/problems/permutations-ii/
+
+### 131 Palindrome Partition    https://leetcode.com/problems/palindrome-partitioning/
+
+### 78	Subsets                 https://leetcode.com/problems/subsets/
+### 90. Subsets II              https://leetcode.com/problems/subsets-ii/
+```
+    private void constructSubset(String input, String chosen, List<String> chosenList, int index, int n) {
+        String indent = get_indent(n);
+        if(index >= input.length()) {
+            chosenList.add(chosen); System.out.println(indent +" Result \"" +chosen +"\"");
+            return;
+        }
+        System.out.println(indent +" -(L:" +input.charAt(index) +") "+chosen);
+        constructSubset(input, chosen, chosenList, index + 1, n+1);
+        chosen = chosen + input.charAt(index);
+        System.out.println(indent +" +(R:" +input.charAt(index) +") "+chosen);
+        constructSubset(input, chosen, chosenList, index + 1, n+1);
+    }
+```
+
+
+```
+-----------------------
+A    B    C    BaseCase
+0    1    2    3
+------------------------
+> -(L:A)
+>    > -(L:B)
+>    >    > -(L:C)
+>    >    >    >  Result ""
+>    >    > +(R:C) C
+>    >    >    >  Result "C"
+>    > +(R:B) B
+>    >    >  -(L:C) B
+>    >    >    >  Result "B"
+>    >    >  +(R:C) BC
+>    >    >    >  Result "BC"
+>  +(R:A) A
+>    >  -(L:B) A
+>    >    >  -(L:C) A
+>    >    >    >  Result "A"
+>    >    >  +(R:C) AC
+>    >    >    >  Result "AC"
+>    >  +(R:B) AB
+>    >    >  -(L:C) AB
+>    >    >    >  Result "AB"
+>    >    >  +(R:C) ABC
+>    >    >    >  Result "ABC"
+[, C, B, BC, A, AC, AB, ABC]
+
+```
+
+
+
+### 90  Subsets II
+
+
 
 ## 2. Number of Islands.
 
@@ -314,3 +374,25 @@ In general, our solution looks like ```8^(s−1) = 8^s ∗ 8^−1```. Since ```8
 2. func(2,8); ```// 2^8 = 256```
 3. func(3,8); ```// 3^8 = 6,561```
 4. func(4,8); ```// 4^8 = 65,536```
+
+
+
+## Permutations & Combinations
+
+### Permutations - How many ways can we award a 1st, 2nd and 3rd place prize among eight contestants? (Gold / Silver / Bronze)?
+We use permutations since the order we need to hand out these medals matters.
+To order 3 people out of 8, we start with all options (8) then take away one at a time (7, then 6) until we run out of medals.
+
+If we have n items and want to find the number of ways k items can be ordered
+    P(n,k)                   = n!/(n-k)!
+    Permute(8,3) = 8!/(8-3)! = 8*7*6
+
+Reference: https://betterexplained.com/articles/easy-permutations-and-combinations/
+
+### Combinations - How many ways can I give 3 tin cans to 8 people or How many ways can we rearrange 3 people?
+Well, in this case, the order we pick people doesn’t matter.
+We have 3 choices for the first person, 2 for the second, and only 1 for the last.
+So we have 3*2*1 ways to re-arrange 3 people.
+If you have N people and you want to know how many arrangements there are for all of them, it’s just N factorial or N!
+
+

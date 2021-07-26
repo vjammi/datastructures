@@ -197,6 +197,7 @@ public class SlidingWindowMedian {
 ```
 
 References:
+https://medium.com/outco/how-to-solve-sliding-window-problems-28d67601a66
 https://zengruiwang.medium.com/sliding-window-technique-360d840d5740
 https://www.geeksforgeeks.org/two-pointers-technique/
 https://stackoverflow.com/questions/64078162/is-two-pointer-problem-same-as-sliding-window
