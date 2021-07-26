@@ -11,8 +11,13 @@ public class Backtracking101 {
 
     int calls = 0;
 
+    public void printAllBinary(int digits){
+        //printAllBinaryBacktrack(digits, "");
+        //printAllBinaryBacktrack(digits, new ArrayList<String>());
+        printAllBinaryHelper(digits, "");
+    }
     /**
-     Typically we have 1 recursive calls at each level. But notice the multiple recursive calls at each level - for 0 and 1. similar to left and right for tree
+     Typically we have 1 recursive call at each level. But notice the multiple recursive calls at each level - for 0 and 1. similar to left and right for tree
      This is because we are exploring all of the options. Here we are going to choose 0 first and then 1. We are going to exhaustively search the space of binary numbers.
      If we want to exhaistively explore a space, your function call will often make multiple successor calls - one for eeach possible choice it could make.
      The predecessor function call does some work, and pass the output to the current function call.
@@ -30,11 +35,6 @@ public class Backtracking101 {
         output.add("1");                    // Make a selection and later backtrack
         printAllBinaryBacktrack(digits-1, output);
         output.remove(output.size()-1); // Notice the backtracking
-    }
-    public void printAllBinary(int digits){
-        //printAllBinaryBacktrack(digits, "");
-        //printAllBinaryBacktrack(digits, new ArrayList<String>());
-        printAllBinaryHelper(digits, "");
     }
     public void printAllBinaryBacktrack(int digits, String output){
         // The recursive call enters into one of the blocks at anytime - if + return or the implicit else block we stop the recursive call from going beyond the if block here by using a return
