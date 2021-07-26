@@ -89,6 +89,7 @@ Therefore, the min and max number of nodes for a binary tree for a given height 
         (2^2+1)-1 = (2^3)-1 = 8-1 = 7
 
 #### How can we calculate the min and max height of a tree for a given number of nodes?
+Height of a binary tree is the max depth of a tree or the longest path to the left node.
 If it a full binary tree
     (2^(h+1)) - 1 = n (Number of Nodes)
     (2^(h+1))     = n + 1
@@ -107,9 +108,9 @@ Therefore, the height of a binary tree, when given the number of nodes is
             3 - 1
         h = 2
 
-Reference: https://www.geeksforgeeks.org/relationship-number-nodes-height-binary-tree/
-
-Note: Height of a binary tree is the max depth of a tree or the longest path to the left node.
+Note: To find
+    log2(8), think of 2^? = 8  [2^3 = 8]
+    log3(9), think of 3^? = 9  [3^2 = 9]
 
 #### Takeaway
 - We like to keep the height of the tree as mimimal as we can
@@ -293,3 +294,5 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
 
 
 
+References
+https://www.geeksforgeeks.org/relationship-number-nodes-height-binary-tree/
