@@ -168,7 +168,6 @@ Steps
 ### 131 Palindrome Partition    https://leetcode.com/problems/palindrome-partitioning/
 
 ### 78	Subsets                 https://leetcode.com/problems/subsets/
-### 90. Subsets II              https://leetcode.com/problems/subsets-ii/
 ```
     private void constructSubset(String input, String chosen, List<String> chosenList, int index, int n) {
         String indent = get_indent(n);
@@ -183,8 +182,6 @@ Steps
         constructSubset(input, chosen, chosenList, index + 1, n+1);
     }
 ```
-
-
 ```
 -----------------------
 A    B    C    BaseCase
@@ -215,15 +212,9 @@ A    B    C    BaseCase
 [, C, B, BC, A, AC, AB, ABC]
 
 ```
-
-
-
-### 90  Subsets II
-
-
+### 90. Subsets II              https://leetcode.com/problems/subsets-ii/
 
 ## 2. Number of Islands.
-
 ```
 Input: grid = [["1","1","0","0","0"],
                ["1","1","0","0","0"],
@@ -305,13 +296,12 @@ BFS
         return numberOfIslands;
     }
 ```    
-    
 ### Number of Enclaves
 ### Supported Regions
 ### Work Search 
 ### Smallest Rectangle
 ### Enclosing Black Pixels
- 
+
 ## 3. N-Queens
 ### Valid Sudoku
 
