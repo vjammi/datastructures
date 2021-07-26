@@ -244,7 +244,7 @@ Solution
     }
     
 ## 106. Construct Binary Tree from Inorder and Postorder Traversal
-     
+```
      
                                             16
                       
@@ -259,8 +259,9 @@ Solution
                 // postorder [7 6 9 8 11 13 12 10 19 20 23 25 24 22 16]
                                                                <--- ^
                 // inorder   [6 7 8 9 10 11 12 13 16 19 20 21 22 23 24 25]
-                                                  ^
-     
+```                                                  ^
+Implementation
+```
      public class BinaryTree_ConstructFromPostOrderInOrder {
         
         private int[] postorder;
@@ -300,4 +301,16 @@ Solution
         }
         
         class TreeNode{...}
-    }    
+    }
+```
+
+## 105. Construct Binary Tree from Preorder and Inorder Traversal       https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+## 285. Inorder Successor in BST                                        https://leetcode.com/problems/inorder-successor-in-bst/
+## 1676. Lowest Common Ancestor of a Binary Tree IV                     https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iv/
+## 314. Binary Tree Vertical Order Traversal                            https://leetcode.com/problems/binary-tree-vertical-order-traversal/
+## 431. Encode N-ary Tree to Binary Tree                                https://leetcode.com/problems/encode-n-ary-tree-to-binary-tree/
+## 108. Convert Sorted Array to Binary Search Tree                      https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+## 109. Convert Sorted List to Binary Search Tree                       https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
+## 98. Validate Binary Search Tree                                      https://leetcode.com/problems/validate-binary-search-tree/
+
+
