@@ -80,7 +80,8 @@ Note: Here is a memory aid that you might find useful:
     Level 1     2^1 = 2             2               3
     Level 2     2^2 = 4         4       5       6       7
 
-    =  2^0 + 2^1 + 2^2 + 2^3 + 2^4 ... 2^h = (2^(h+1))-1
+```Number of Nodes =  2^0 + 2^1 + 2^2 + 2^3 + 2^4 ... 2^h = (2^(h+1))-1```
+
 Therefore, the min and max number of nodes for a binary tree for a given height is
     Min number of nodes = h + 1         [For a skewed Binary Tree]
     Max number of nodes = (2^ (h+1))-1  [For a complete and full Binary Tree]
@@ -91,22 +92,22 @@ Therefore, the min and max number of nodes for a binary tree for a given height 
 #### How can we calculate the min and max height of a tree for a given number of nodes?
 Height of a binary tree is the max depth of a tree or the longest path to the left node.
 If it a full binary tree
-    (2^(h+1)) - 1 = n (Number of Nodes)
-    (2^(h+1))     = n + 1
-    log(2^(h+1))  = log(n + 1)
-    log2(n+1)-1   = h
+```(2^(h+1)) - 1 = n (Number of Nodes)```
+(2^(h+1))     = n + 1
+log(2^(h+1))  = log(n + 1)
+log2(n+1)-1   = h
 
 Therefore, the height of a binary tree, when given the number of nodes is
-        Height = log2(n+1)-1
-    Min Height = Floor(log2(n))
-    Max height = n-1
+```Height = log2(n+1)-1```
+```Min Height = Floor(log2(n))```
+```Max height = n-1```
 
-    For example, when n = 7
-        h = log2 (7+1) - 1
-            log2 (8) - 1
-            log2 (8) - 1
-            3 - 1
-        h = 2
+For example, when n = 7
+    h = log2 (7+1) - 1
+        log2 (8) - 1
+        log2 (8) - 1
+        3 - 1
+    h = 2
 
 Note: To find
     log2(8), think of 2^? = 8  [2^3 = 8]
