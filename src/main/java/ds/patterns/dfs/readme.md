@@ -1,10 +1,10 @@
-# Depth First Search
-DFS search is a way to search thru all the nodes of a tree or a graph by searching all the way down one path before coming back to search other paths.
+# Depth First Search - Exhaustive Search and backtracking
+DFS search is a way to exhaustively search thru all the nodes of a tree or a graph by searching all the way down one path before coming back to search other paths.
 
 ## Print all Binary
 Typically we have 1 recursive call at each level. But notice the multiple recursive calls at each level - for 0 and 1. Similar to left and right for tree.
 This is because we are exploring all of the options. Here we are going to choose 0 first and then 1. We are going to exhaustively search the space of binary numbers.
-If we want to exhaistively explore a space, your function call will often make multiple successor calls - one for eeach possible choice it could make.
+If we want to exhaustive explore a space, your function call will often make multiple successor calls - one for eeach possible choice it could make.
 The predecessor function call does some work, and pass the output to the current function call.
 ```
     public void printAllBinary(int digits){
