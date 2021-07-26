@@ -1,7 +1,137 @@
 # Depth First Search
 DFS search is a way to search thru all the nodes ofg a tree or a graph by searching all the way down one path before coming back to search other paths.
 
-## 1. LC 17 Letter Combinations of a Phone Number
+
+## Print all Binary
+```
+    public void printAllBinary(int digits){
+        //printAllBinaryBacktrack(digits, "");
+        //printAllBinaryBacktrack(digits, new ArrayList<String>());
+        printAllBinaryHelper(digits, "");
+    }
+    /**
+     Typically we have 1 recursive call at each level. But notice the multiple recursive calls at each level - for 0 and 1. similar to left and right for tree
+     This is because we are exploring all of the options. Here we are going to choose 0 first and then 1. We are going to exhaustively search the space of binary numbers.
+     If we want to exhaistively explore a space, your function call will often make multiple successor calls - one for eeach possible choice it could make.
+     The predecessor function call does some work, and pass the output to the current function call.
+     */
+    public void printAllBinaryBacktrack(int digits, List<String> output){
+        // The recursive call enters into one of the blocks at anytime - if + return or the implicit else block we stop the recursive call from going beyond the if block here by using a return
+        if (digits == 0){
+            System.out.println(output);
+            return;
+        }
+        output.add("0");                      // Make a selection and later backtrack
+        printAllBinaryBacktrack(digits-1, output);
+        output.remove(output.size()-1); // Notice the backtracking
+
+        output.add("1");                    // Make a selection and later backtrack
+        printAllBinaryBacktrack(digits-1, output);
+        output.remove(output.size()-1); // Notice the backtracking
+    }
+    public void printAllBinaryBacktrack(int digits, String output){
+        // The recursive call enters into one of the blocks at anytime - if + return or the implicit else block we stop the recursive call from going beyond the if block here by using a return
+        if (digits == 0){
+            System.out.println(output);
+            return;
+        }
+
+        printAllBinaryBacktrack(digits-1, output +"0");
+        printAllBinaryBacktrack(digits-1, output +"1");
+    }
+    public void backtrackAlternateRepresentation(int digits, List<String> output){
+        // The recursive call enters into one of the blocks at anytime - if or else [explicit]
+        if (digits == 0){
+            System.out.println(output);
+            //return; //no more needed because of if/else blocks
+        }else {
+            output.add("0");                      // Make a selection and later backtrack
+            backtrackAlternateRepresentation(digits - 1, output);
+            output.remove(output.size() - 1); // Notice the backtracking
+
+            output.add("1");                    // Make a selection and later backtrack
+            backtrackAlternateRepresentation(digits - 1, output);
+            output.remove(output.size() - 1); // Notice the backtracking
+        }
+    }
+    public void printAllBinaryHelper(int digits, String soFar) {
+        if (digits == 0) {
+            System.out.println(soFar); // cout << soFar << endl;
+            return;
+        }
+
+        soFar = soFar + "0";
+        printAllBinaryHelper(digits - 1, soFar);
+        soFar = soFar.substring(0, soFar.length() - 1);
+
+        soFar = soFar + "1";
+        printAllBinaryHelper(digits - 1, soFar);
+        soFar = soFar.substring(0, soFar.length() - 1);
+    }
+```
+
+## Print all Decimal
+```
+    /**
+     Observation: when the set of digit choices available is large, using a loop to enumerate, results in shorter code (this is okay!)
+     Note: loop over choices, not decisions.
+     If the number of choices is variable, will need to use a loop, e.g., chess game.
+     */
+    public void printAllDecimal(int digits){
+        printAllDecimal(digits, new ArrayList<Integer>() );
+        printAllDecimalHelper(digits,"");
+    }
+    public void printAllDecimal(int digits, ArrayList<Integer> output){
+        if (digits == 0){
+            System.out.println(output);
+            return;
+        }
+        for (int i=0; i<10; i++){
+            output.add(i);
+            printAllDecimal(digits-1, output);
+            output.remove(output.size()-1);
+        }
+    }
+    public void  printAllDecimalHelper(int digits, String soFar) {
+        if (digits == 0) {
+            System.out.println(soFar); //cout << soFar << endl;
+            return;
+        }
+
+        for (int i = 0; i < 10; i++) {
+            printAllDecimalHelper(digits - 1, soFar + i);
+        }
+    }
+```
+## Dice Roll Sum
+```
+    public void diceRollSum(int dice, int desiredSum){
+        diceRollSum(dice, desiredSum, new ArrayList<Integer>());
+        System.out.println(calls);
+    }
+    public void diceRollSum(int dice, int desiredSum, ArrayList<Integer> chosen){
+        calls++;
+        // 4 base case
+        if (dice == 0){
+            if (desiredSum == 0)
+                System.out.println(chosen);
+            return;
+        }
+
+        if (desiredSum >=dice*1 && desiredSum <=dice*6) {//???
+            for (int i = 1; i <= 6; i++) {
+                // 1 choose
+                chosen.add(i);
+                // 2 explore
+                diceRollSum(dice - 1, desiredSum - i, chosen);
+                // 3 un-choose backtrack
+                chosen.remove(chosen.size() - 1);
+            }
+        }
+    }
+```
+
+## 17 Letter Combinations of a Phone Number
 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
 Return the answer in any order. A mapping of digit to letters (just like on the telephone buttons) is given below.
 Notice that level 0 does not map to any digits/letters.
@@ -157,6 +287,37 @@ Steps
 ```
 ### Permutations of abcd
 Permuting 4 elements is - Picking 1 and permuting the other 3
+
+Permutations of [a, b, c, d]
+```
+[a, b, c, d]
+[a, b, d, c]
+[a, c, b, d]
+[a, c, d, b]
+[a, d, b, c]
+[a, d, c, b]
+
+[b, a, c, d]
+[b, a, d, c]
+[b, c, a, d]
+[b, c, d, a]
+[b, d, a, c]
+[b, d, c, a]
+
+[c, a, b, d]
+[c, a, d, b]
+[c, b, a, d]
+[c, b, d, a]
+[c, d, a, b]
+[c, d, b, a]
+
+[d, a, b, c]
+[d, a, c, b]
+[d, b, a, c]
+[d, b, c, a]
+[d, c, a, b]
+[d, c, b, a]
+```
 ```
     public void permute(List<String> input){
         ArrayList<String> chosen = new ArrayList<>();
