@@ -154,8 +154,50 @@ Steps
             }
         }
     }
-
 ```
+### Permutations of abcd
+Permuting 4 elements is - Picking 1 and permuting the other 3
+```
+    public void permute(List<String> input){
+        ArrayList<String> chosen = new ArrayList<>();
+        permute(input, chosen);
+    }
+
+    public void permute(List<String> input, List<String> chosen){
+        // 4. Base Case
+        //    The chosenList is full and the inputList is empty??? that is how we know we are done choosing elements. So the input list being empty would be the base case.
+        if (input.isEmpty()){
+            System.out.println(chosen);
+            return;
+        }
+
+        // For each choice out of a list of choices
+        //     say {a,b,c,d}, we need to try all of the them as first, then we need to try all of them as second, then third and so on...
+        for (int i=0;i<input.size();i++) {
+
+            //  1.  choose
+            //  When we choose, put our choice into the chosen list and pull/remove the chosen element out of the input list [of choices???].
+            String s = input.get(i);    //      a
+            chosen.add(s);              //      { }->{a}
+            input.remove(i);            //      {a,b,c,d}->{  b,c,d}
+
+            //  2.  explore
+            //  The permute recursive function call is going to lead to a tree of calls and all the sub calls are going to come back at later point.
+            permute(input, chosen);
+
+            //  3.  un-choose
+            //  Undo the choose when the sub calls come back, after they  have finished processing. say the first letter "a"
+            //  This would mean I have finished processing all the letters that might possibly have started with the first letter "a", the second and so on...???
+            //  At this point I un-choose the letter "a", by removing the letter I have put in the chosen list, so that I can advance by choosing the the next set of letters - b, c, d - the one which is next.
+            //  Note:
+            //  Oftentimes un-choose is the mirror code of choose and we are undoing something
+            chosen.remove(chosen.size()-1); // Remove the last last element that was added
+            input.add(i, s); // Add/Put the earlier chosen element back into the input list.
+        }
+    }
+```
+
+
 ### 77  Combinations            https://leetcode.com/problems/combinations/
 ### 39	Combination Sum         https://leetcode.com/problems/combination-sum/
 ### 40	Combination Sum II      https://leetcode.com/problems/combination-sum-ii/
@@ -168,6 +210,62 @@ Steps
 ### 131 Palindrome Partition    https://leetcode.com/problems/palindrome-partitioning/
 
 ### 78	Subsets                 https://leetcode.com/problems/subsets/
+Option 1
+```
+    private void subsets1(List<Integer> input,  List<Integer> chosen, List<List<Integer>> result, int n){
+        String indent = get_indent(n);
+        if (input.isEmpty()){
+            // 4. base case
+            result.add(new ArrayList(chosen));
+            System.out.println(indent +" Result " +input +chosen);
+            return;
+        }
+
+        //  Note:
+        //  For a backtracking problem it could be tricky to figure what the choices are?
+        //  What unit of work each function call is going to need to take care ?
+        // Recursive case - for each possible choice we need to [for each element in the input list]
+        Integer s = input.get(0);
+        //  1. Choose  2. Explore
+        //System.out.println(indent +" " +input +" " +s +" " +chosen);     // input add the first element from the input
+        input.remove(0); System.out.println(indent +" - " +s +" "+input +chosen);      // Exclude the first element from the input
+        subsets1(input, chosen, result, n+1);
+
+        //  3. Choose again & 4. Further Explore
+        chosen.add(s); System.out.println(indent +" + " +s +" "+input +chosen);             // Include the first element from the input
+        subsets1(input, chosen, result,  n+1);
+
+        //  3. UnChoose
+        input.add(0, s);
+        System.out.println(indent +" " +input +chosen);                  // input add the first element from the input
+        chosen.remove(chosen.size()-1);
+    }
+```
+Option 2
+```
+    private void subsets2(List<Integer> input, List<List<Integer>> result, int n){
+        String indent = get_indent(n);
+        if (input.isEmpty()){
+            result.add(new ArrayList<Integer>());
+            System.out.println(indent +" Input " +input +" Result "+result);
+            return;
+        }
+
+        Integer s = input.get(0);
+        input.remove(0);
+
+        subsets2(input, result, n);
+        int size = result.size();
+        for (int i=0; i<size; i++){ // We only want to iterate thru the initial size the result
+            List<Integer> list = new ArrayList<Integer>(result.get(i));
+            list.add(s);
+            result.add(list);
+        }
+        input.add(0, s);
+        System.out.println(indent +" Input: " +input +" s: " +s + " Result: "+result);
+    }
+```
+Option 3
 ```
     private void constructSubset(String input, String chosen, List<String> chosenList, int index, int n) {
         String indent = get_indent(n);
