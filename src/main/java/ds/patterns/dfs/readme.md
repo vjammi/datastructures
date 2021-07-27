@@ -68,7 +68,7 @@ The predecessor function call does some work, and pass the output to the current
 ```
 
 ## Print all Decimal
-Observation: when the set of digit choices available is large, using a loop to enumerate, results in shorter code (this is okay!)
+Observation: When the set of digit choices available is large, using a loop to enumerate, results in shorter code (this is okay!)
 Note: loop over choices, not decisions.
 If the number of choices is variable, will need to use a loop, e.g., chess game.
 ```
@@ -280,79 +280,103 @@ Steps
         }
     }
 ```
-### Permutations of abcd
+##  BackTracking
+### Permutations of ABC
 Permuting 4 elements is - Picking 1 and permuting the other 3
 
-Permutations of [a, b, c, d]
+Permutations of [A B C]
 ```
-[a, b, c, d]
-[a, b, d, c]
-[a, c, b, d]
-[a, c, d, b]
-[a, d, b, c]
-[a, d, c, b]
+	ABC	BC	ABC
+			ACB
+		AC	BAC
+			BCA
+		AB  CAB
+			CBA
 
-[b, a, c, d]
-[b, a, d, c]
-[b, c, a, d]
-[b, c, d, a]
-[b, d, a, c]
-[b, d, c, a]
+     A B C
+     0 1 2
+           0(A) > [A, B, C] L(0-A) []
+                   > [B, C] L(0-B) [A]
+                   >    > [C] L(0-C) [A, B]
+                   >    >    > [] OUT  [A, B, C]
+                   > [B, C] L(1-C) [A]
+                   >    > [B] L(0-B) [A, C]
+                   >    >    > [] OUT  [A, C, B]
 
-[c, a, b, d]
-[c, a, d, b]
-[c, b, a, d]
-[c, b, d, a]
-[c, d, a, b]
-[c, d, b, a]
+           1(B) > [A, B, C] L(1-B) []
+                   > [A, C] L(0-A) [B]
+                   >    > [C] L(0-C) [B, A]
+                   >    >    > [] OUT  [B, A, C]
+                   > [A, C] L(1-C) [B]
+                   >    > [A] L(0-A) [B, C]
+                   >    >    > [] OUT  [B, C, A]
 
-[d, a, b, c]
-[d, a, c, b]
-[d, b, a, c]
-[d, b, c, a]
-[d, c, a, b]
-[d, c, b, a]
+            2(B) > [A, B, C] L(2-C) []
+                   > [A, B] L(0-A) [C]
+                   >    > [B] L(0-B) [C, A]
+                   >    >    > [] OUT  [C, A, B]
+                   > [A, B] L(1-B) [C]
+                   >    > [A] L(0-A) [C, B]
+                   >    >    > [] OUT  [C, B, A]
 ```
+Implementation
 ```
-    public void permute(List<String> input){
-        ArrayList<String> chosen = new ArrayList<>();
-        permute(input, chosen);
-    }
-
-    public void permute(List<String> input, List<String> chosen){
-        // 4. Base Case
-        //    The chosenList is full and the inputList is empty??? that is how we know we are done choosing elements. So the input list being empty would be the base case.
-        if (input.isEmpty()){
-            System.out.println(chosen);
-            return;
+        public void permute(List<String> input){
+            List<List<String>> result = new ArrayList<>();
+            Stack<String> chosen = new Stack<>();
+            permute(input, chosen, result, 0);
+            System.out.println(result);
         }
+        // Permuting 4 elements is - Picking 1 and permuting the other 3
+        public void permute(List<String> input, Stack<String> chosen, List<List<String>> result, int n){
+            String indent = get_indent(n);
+            // 4. Base Case
+            //    The chosenList is full and the inputList is empty??? that is how we know we are done choosing elements. So the input list being empty would be the base case.
+            if (input.isEmpty()){
+                //System.out.println(chosen);
+                System.out.println(indent +input +" OUT " +" " +chosen);
+                result.add(new ArrayList<>(chosen));
+                return;
+            }
 
-        // For each choice out of a list of choices
-        //     say {a,b,c,d}, we need to try all of the them as first, then we need to try all of them as second, then third and so on...
-        for (int i=0;i<input.size();i++) {
+            // For each choice out of a list of choices
+            //     say {A,B,C}, we need to try all of the them as first, then we need to try all of them as second, then third and so on...
+            //          0 1 2
+            for (int i=0;i<input.size();i++) {
 
-            //  1.  choose
-            //  When we choose, put our choice into the chosen list and pull/remove the chosen element out of the input list [of choices???].
-            String s = input.get(i);    //      a
-            chosen.add(s);              //      { }->{a}
-            input.remove(i);            //      {a,b,c,d}->{  b,c,d}
+                //  1.  choose
+                //  When we choose, put our choice into the chosen list and pull/remove the chosen element out of the input list [of choices???].
+                String s = input.get(i);//       0-A                                 1-B             2-C
+                System.out.println(indent +input +" L(" +i +"-"+s+") " +chosen);
+                //     i=3          0             1       2     3 (BaseCase)
+                //                                    - {A,C}   - {A,C,B}
+                chosen.push(s);   // { }     --  {A}
+                //                                    - {A,B}   - {A,B,C}
 
-            //  2.  explore
-            //  The permute recursive function call is going to lead to a tree of calls and all the sub calls are going to come back at later point.
-            permute(input, chosen);
+                //                                    - 1 {B}{AC} - {}{A,C,B}
+                input.remove(i); // {A,B,C} --  {B,C}      0        Empty
+                //                   0 1 2       0 1
+                //                                    - 0 {C}{AB} - {}{A,B,C}
+                //                                         0        Empty
 
-            //  3.  un-choose
-            //  Undo the choose when the sub calls come back, after they  have finished processing. say the first letter "a"
-            //  This would mean I have finished processing all the letters that might possibly have started with the first letter "a", the second and so on...???
-            //  At this point I un-choose the letter "a", by removing the letter I have put in the chosen list, so that I can advance by choosing the the next set of letters - b, c, d - the one which is next.
-            //  Note:
-            //  Oftentimes un-choose is the mirror code of choose and we are undoing something
-            chosen.remove(chosen.size()-1); // Remove the last last element that was added
-            input.add(i, s); // Add/Put the earlier chosen element back into the input list.
+                //  2.  explore
+                //  The permute recursive function call is going to lead to a tree of calls and all the sub calls are going to come back at later point.
+                permute(input, chosen, result, n+1);
+
+                //  3.  un-choose
+                //  Undo the choose when the sub calls come back, after they  have finished processing. say the first letter "a"
+                //  This would mean I have finished processing all the letters that might possibly have started with the first letter "a", the second and so on...???
+                //  At this point I un-choose the letter "a", by removing the letter I have put in the chosen list, so that I can advance by choosing the the next set of letters - b, c, d - the one which is next.
+                //  Note:
+                //  Oftentimes un-choose is the mirror code of choose and we are undoing something
+                System.out.println(indent +input +" UC(" +i +"-"+s+") " +chosen);
+                //chosen.remove(chosen.size()-1); // Remove the last last element that was added
+                chosen.pop(); // Remove the last last element that was added
+                input.add(i, s); // Add/Put the earlier chosen element back into the input list.
+                System.out.println(indent +input +" UC(" +i +"-"+s+") " +chosen);
+            }
         }
-    }
 ```
-
 
 ### 77  Combinations            https://leetcode.com/problems/combinations/
 ### 39	Combination Sum         https://leetcode.com/problems/combination-sum/
@@ -549,9 +573,10 @@ BFS
         }
         return numberOfIslands;
     }
-```    
-### Number of Enclaves
-### Supported Regions
+```
+### 200 Number of Islands
+### 1020 Number of Enclaves     https://leetcode.com/problems/number-of-enclaves/
+### 130 Surrounded Regions
 ### Work Search 
 ### Smallest Rectangle
 ### Enclosing Black Pixels
