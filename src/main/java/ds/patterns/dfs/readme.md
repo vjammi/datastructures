@@ -283,7 +283,6 @@ Steps
 ##  BackTracking
 ### Permutations of ABC
 Permuting 4 elements is - Picking 1 and permuting the other 3
-
 Permutations of [A B C]
 ```
 	ABC	BC	ABC
@@ -369,16 +368,86 @@ Implementation
                 //  At this point I un-choose the letter "a", by removing the letter I have put in the chosen list, so that I can advance by choosing the the next set of letters - b, c, d - the one which is next.
                 //  Note:
                 //  Oftentimes un-choose is the mirror code of choose and we are undoing something
-                System.out.println(indent +input +" UC(" +i +"-"+s+") " +chosen);
                 //chosen.remove(chosen.size()-1); // Remove the last last element that was added
                 chosen.pop(); // Remove the last last element that was added
                 input.add(i, s); // Add/Put the earlier chosen element back into the input list.
-                System.out.println(indent +input +" UC(" +i +"-"+s+") " +chosen);
             }
         }
 ```
+## Combinations of Input = ABC, k = 2
+```
+        > [A, B, C] L(0-A) []
+        >    > [A, B, C] L(1-B) []
+        >    >    > [A, B, C] L(2-C) []
+        >    >    >    > [A, B, C] X(3) []
+        >    >    > [A, B, C] R(2-C) []
+        >    >    >    > [A, B, C] X(3) [C]
+        >    > [A, B, C] R(1-B) []
+        >    >    > [A, B, C] L(2-C) [B]
+        >    >    >    > [A, B, C] X(3) [B]
+        >    >    > [A, B, C] R(2-C) [B]
+        >    >    >    > [A, B, C] OUT(3) [B, C]
+        > [A, B, C] R(0-A) []
+        >    > [A, B, C] L(1-B) [A]
+        >    >    > [A, B, C] L(2-C) [A]
+        >    >    >    > [A, B, C] X(3) [A]
+        >    >    > [A, B, C] R(2-C) [A]
+        >    >    >    > [A, B, C] OUT(3) [A, C]
+        >    > [A, B, C] R(1-B) [A]
+        >    >    > [A, B, C] L(2-C) [A, B]
+        >    >    >    > [A, B, C] OUT(3) [A, B]
+        >    >    > [A, B, C] R(2-C) [A, B]
+        >    >    >    > [A, B, C] X(3) [A, B, C]
+        [[B, C], [A, C], [A, B]]
+```
+```
+    public List<List<String>> combination(List<String> input, int k) {
+        List<List<String>> result = new ArrayList<>();
+        Stack<String> chosen = new Stack<>();
+        combination(input, chosen, result, 0, k, 1);
+        System.out.println(result);
+        return result;
+    }
+    private void combination(List<String> input, Stack<String> chosen, List<List<String>> result, int index, int k, int indentCount) {
+        String indent = get_indent(indentCount);
+        if(index == input.size()) {
+            if (chosen.size() == k){
+                result.add(new ArrayList(chosen)); System.out.println(indent +input +" OUT(" +index +")" +" " +chosen);
+            }else{ System.out.println(indent +input +" X(" +index +")" +" " +chosen);  }
+            return;
+        }
 
+        System.out.println(indent +input +" L(" +index +"-"+input.get(index)+") " +chosen);
+        combination(input, chosen, result, index+1, k, indentCount +1);
+
+        System.out.println(indent +input +" R(" +index +"-"+input.get(index)+") " +chosen);
+        chosen.push(input.get(index));
+        combination(input, chosen, result, index+1, k, indentCount +1);
+        chosen.pop();
+    }
+```
 ### 77  Combinations            https://leetcode.com/problems/combinations/
+```
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> result = new ArrayList<>();
+        Stack<Integer> chosen = new Stack();
+        List<Integer> input = new ArrayList();
+        dfs(1, chosen, result, n, k);
+        return result;
+    }
+    private void dfs(int input, Stack<Integer> chosen, List<List<Integer>> result, int n, int k){
+         if (input == n+1){
+             if (chosen.size() == k)
+                 result.add(new ArrayList(chosen));
+             return;
+         }
+
+         dfs(input+1, chosen, result, n, k);
+         chosen.push(input);
+         dfs(input+1, chosen, result, n, k);
+         chosen.pop();
+    }
+```
 ### 39	Combination Sum         https://leetcode.com/problems/combination-sum/
 ### 40	Combination Sum II      https://leetcode.com/problems/combination-sum-ii/
 ### 216	Combination Sum III     https://leetcode.com/problems/combination-sum-iii/
