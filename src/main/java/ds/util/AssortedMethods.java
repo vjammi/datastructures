@@ -1,4 +1,4 @@
-package ds.tbd;
+package ds.util;
 
 import ds.binarytree.TreeNode;
 import ds.linkedlist.LinkedListNode;

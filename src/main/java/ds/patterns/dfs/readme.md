@@ -140,8 +140,7 @@ Output: ["ad","ae","af",
          "bd","be","bf",
          "cd","ce","cf"]
 
-Tree Representation of digits to their letters
-```
+Tree Representation of digits [23] to their letters
                2       3
           -------------- 
                   -  d
@@ -154,6 +153,20 @@ Tree Representation of digits to their letters
                c  -  e
                   -  f
 ```
+Alternate Tree Representation of digits [234] to their letters
+```
+                                                 []
+
+            level0              a               b             c               2=abc
+                                0               1             2
+            level1          d   e   f       d   e   f     d     e   f         3=def
+                            0   1   2
+            level2         ghi ghi ghi     ghi ghi ghi   ghi   ghi ghi        4=ghi
+                           012
+
+    BaseCase  level3    [adg adh adi aeg aeh aei ....                       ]
+
+```
 Steps          
     - Starting with the first digit, we list all the possible letters it can represent. 
     - Then for each of letters for the first digit, we list out all possible letters of the next digit  
@@ -163,40 +176,30 @@ Steps
     - We want whatever search algorithm we implement, we need to get to all the endpoints at the bottom  
 
 ```
-
-    Map<String, String> map;
-    List<String> result = new ArrayList<>();
-
     public List<String> letterCombinations(String digits) {
         if (digits ==null || digits.length() == 0)
             return new ArrayList<String>();
-        map = pupulateNumToCharsMap();
-        combinations(0, digits, new Stack<String>());
+        Map<String, String> map = buildNumToCharsMap();
+        List<String> result = new ArrayList<>();
+        combinations(digits, map, new Stack<String>(), result, 0);
         return result;
     }
-    // Graph DFS Implementation    
-    private void combinations(int level, String digits, Stack<String> intermediaryResult) {
-        if (level == digits.length()) { // 0>1>2  when level/2 == digits.length()/2 return and backtrack
-           String res = "";
-            Object[] charArr = new Object[intermediaryResult.size()];
-            intermediaryResult.copyInto(charArr);
-            for(int i=charArr.length-1; i>=0; i--){
-               res =  (String)charArr[i] + res;
-            }
-            result.add(res);
+
+    private void combinations(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
+        String indent = get_indent(level);
+        if (level == input.length()) { // 0>1>2  when level/2 == digits.length()/2 return and backtrack
+            result.add(new String(chosen.toString()));
+            System.out.println(indent +input +" OUT(" +level +")" +chosen);
             return;
         }
-        String digit = String.valueOf(digits.charAt(level));
+        String digit = String.valueOf(input.charAt(level));
         String characters = map.get(digit);
         for(char character: characters.toCharArray()){
-            // 134 - a> d g h i  e g h i  f g h i  b d g h i  e g h i  f g h i  c >d g h i  eg h i f g h i
-            //System.out.print(character +" "); //23 - a > d e f  b >d e f  c >d e f
-            intermediaryResult.push(String.valueOf(character));
-            combinations(level+1, digits, intermediaryResult);
-            if (!intermediaryResult.isEmpty())
-                intermediaryResult.pop();
+            System.out.println(indent +input +" L(" +level +"-"+character+") " +chosen);
+            chosen.push(String.valueOf(character));
+            combinations(input, map, chosen, result,level+1);
+            chosen.pop();
         }
-        return;
     }
 
 ```

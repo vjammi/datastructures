@@ -1,7 +1,9 @@
 package ds.patterns.dfs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 /**
      78. Subsets    https://leetcode.com/problems/subsets/
@@ -28,8 +30,8 @@ public class Subsets {
             input.add(nums[i]);
 
         List<List<Integer>> result = new ArrayList();
-        subsets1(input, chosen, result, 0);
-        //subsets2(input, result, 0);
+        //subsets1(input, chosen, result, 0);
+        subsets2(input, result, 0);
         System.out.println(result);
         return result;
     }
@@ -88,11 +90,10 @@ public class Subsets {
     public List<String> powerSet(String input) {
         List<String> result = new ArrayList<>();
         String chosen = "";
-        constructSubset(input, chosen, result, 0, 1);
+        powerset(input, chosen, result, 0, 1);
         System.out.println(result);
         return result;
     }
-
     /**
      -(L) A
      >  -(L) B
@@ -118,24 +119,76 @@ public class Subsets {
      >    >    >  Result "ABC"
      [, C, B, BC, A, AC, AB, ABC]
      */
-    private void constructSubset(String input, String chosen, List<String> result, int index, int n) {
+    private void powerset(String input, String chosen, List<String> result, int index, int n) {
         String indent = get_indent(n);
         if(index >= input.length()) {
             result.add(chosen); System.out.println(indent +" Result \"" +chosen +"\"");
             return;
         }
         System.out.println(indent +" -(L:" +input.charAt(index) +") "+chosen);
-        constructSubset(input, chosen, result, index + 1, n+1);
+        powerset(input, chosen, result, index + 1, n+1);
         chosen = chosen + input.charAt(index);
         System.out.println(indent +" +(R:" +input.charAt(index) +") "+chosen);
-        constructSubset(input, chosen, result, index + 1, n+1);
+        powerset(input, chosen, result, index + 1, n+1);
     }
+
+
+    /**
+           Combinations: n = 3 k = 2
+
+             > [A, B, C] L(0-A) []
+             >    > [A, B, C] L(1-B) []
+             >    >    > [A, B, C] L(2-C) []
+             >    >    > [A, B, C] R(2-C) []
+             >    > [A, B, C] R(1-B) []
+             >    >    > [A, B, C] L(2-C) [B]
+             >    >    > [A, B, C] R(2-C) [B]
+             >    >    >    > [A, B, C] OUT  [B, C]
+             > [A, B, C] R(0-A) []
+             >    > [A, B, C] L(1-B) [A]
+             >    >    > [A, B, C] L(2-C) [A]
+             >    >    > [A, B, C] R(2-C) [A]
+             >    >    >    > [A, B, C] OUT  [A, C]
+             >    > [A, B, C] R(1-B) [A]
+             >    >    > [A, B, C] L(2-C) [A, B]
+             >    >    >    > [A, B, C] OUT  [A, B]
+             >    >    > [A, B, C] R(2-C) [A, B]
+             [[B, C], [A, C], [A, B]]
+    * */
+    public List<List<String>> combination(List<String> input, int k) {
+        List<List<String>> result = new ArrayList<>();
+        Stack<String> chosen = new Stack<>();
+        combination(input, chosen, result, 0, k, 1);
+        System.out.println(result);
+        return result;
+    }
+    private void combination(List<String> input, Stack<String> chosen, List<List<String>> result, int index, int k, int indentCount) {
+        String indent = get_indent(indentCount);
+        if(index == input.size()) {
+            if (chosen.size() == k){
+                result.add(new ArrayList(chosen)); System.out.println(indent +input +" OUT(" +index +")" +" " +chosen);
+            }else{ System.out.println(indent +input +" X(" +index +")" +" " +chosen);  }
+            return;
+        }
+
+        System.out.println(indent +input +" L(" +index +"-"+input.get(index)+") " +chosen);
+        combination(input, chosen, result, index+1, k, indentCount +1);
+
+        System.out.println(indent +input +" R(" +index +"-"+input.get(index)+") " +chosen);
+        chosen.push(input.get(index));
+        combination(input, chosen, result, index+1, k, indentCount +1);
+        chosen.pop();
+    }
+
 
     public static void main(String[] args) {
         Subsets obj = new Subsets();
-        int[] nums = {1,2,3};
+
+        //int[] nums = {1,2,3};
         //obj.subsets(nums);
         //obj.powerSet("123");
-        obj.powerSet("ABC");
+
+        List<String> list = Arrays.asList("A", "B", "C");
+        obj.combination(list, 2);
     }
 }

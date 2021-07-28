@@ -27,43 +27,45 @@ import java.util.*;
  *                  c
  */
 public class LetterCombinations {
-    Map<String, String> map;
-    List<String> result = new ArrayList<>();
 
     public List<String> letterCombinations(String digits) {
         if (digits ==null || digits.length() == 0)
             return new ArrayList<String>();
-        map = pupulateNumToCharsMap();
-        combinations(0, digits, new Stack<String>());
+        Map<String, String> map = buildNumToCharsMap();
+        List<String> result = new ArrayList<>();
+        combinations(digits, map, new Stack<String>(), result, 0);
         return result;
     }
 
-    private void combinations(int level, String digits, Stack<String> intermediaryResult) {
-        if (level == digits.length()) { // 0>1>2  when level/2 == digits.length()/2 return and backtrack
-           String res = "";
-            Object[] charArr = new Object[intermediaryResult.size()];
-            intermediaryResult.copyInto(charArr);
-            for(int i=charArr.length-1; i>=0; i--){
-               res =  (String)charArr[i] + res;
-            }
-            result.add(res);
+    private void combinations(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
+        String indent = get_indent(level);
+        if (level == input.length()) { // 0>1>2  when level/2 == digits.length()/2 return and backtrack
+//            String chosenStr = new String(chosen.toString());
+//            while(!chosen.isEmpty()){
+//                res =  (String)chosen.pop() + res;
+//            }
+//           String res = "";
+//            Object[] charArr = new Object[chosen.size()];
+//            chosen.copyInto(charArr);
+//            for(int i=charArr.length-1; i>=0; i--){
+//               res =  (String)charArr[i] + res;
+//            }
+            result.add(new String(chosen.toString()));
+            System.out.println(indent +input +" OUT(" +level +")" +chosen);
             return;
         }
-        String digit = String.valueOf(digits.charAt(level));
+        String digit = String.valueOf(input.charAt(level));
         String characters = map.get(digit);
         for(char character: characters.toCharArray()){
-            // 134 - a> d g h i  e g h i  f g h i  b> d g h i  e g h i  f g h i  c> d g h i  eg h i f g h i
-            //System.out.print(character +" "); //23 - a > d e f  b >d e f  c >d e f
-            intermediaryResult.push(String.valueOf(character));
-            combinations(level+1, digits, intermediaryResult);
-            if (!intermediaryResult.isEmpty())
-                intermediaryResult.pop();
+            System.out.println(indent +input +" L(" +level +"-"+character+") " +chosen);
+            chosen.push(String.valueOf(character));
+            combinations(input, map, chosen, result,level+1);
+            chosen.pop();
         }
-        return;
     }
 
-    private Map<String, String> pupulateNumToCharsMap() {
-        map = new HashMap<>();
+    private Map<String, String> buildNumToCharsMap() {
+        HashMap map = new HashMap<>();
         map.put("2", "abc");
         map.put("3", "def");
         map.put("4", "ghi");
@@ -80,5 +82,10 @@ public class LetterCombinations {
         System.out.println(obj.letterCombinations("234"));
     }
 
-
+    public String get_indent(int N) {
+        String S = new String("");
+        for (int i = 0; i < N; i++)
+            S = S + "   > ";
+        return S;
+    }
 }
