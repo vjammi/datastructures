@@ -1,8 +1,8 @@
-package ds.patterns.dfs;
+package ds.patterns.dfs.arc;
 
 // Ref: https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
 // Java program to print all combination of size r in an array of size n
-class Combination {
+class PrintCombinations {
 
     // The main function that prints all combinations of size r
     // in arr[] of size n. This function mainly uses combinationUtil()

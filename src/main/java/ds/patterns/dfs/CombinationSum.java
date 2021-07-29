@@ -1,5 +1,7 @@
 package ds.patterns.dfs;
 
+import ds.util.IndentUtil;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -145,13 +147,15 @@ public class CombinationSum {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         Stack<Integer> chosen = new Stack();
         List<List<Integer>> result = new ArrayList();
-        dfs(candidates, asList(candidates), chosen, target, result, 0, 0);
-        System.out.println(result);
+        dfs(candidates, asList(candidates), chosen, target, result, 0, 0, 0);
+        System.out.println(totalCalls +" " + callsThatMadeIt + " "+ result);
         return result;
     }
-
-    void dfs(int[] candidates, List<Integer> input, Stack<Integer> chosen, int target, List<List<Integer>> result, int sum, int index){
-        String indent = get_indent(index);
+    int totalCalls;
+    int callsThatMadeIt;
+    void dfs(int[] candidates, List<Integer> input, Stack<Integer> chosen, int target, List<List<Integer>> result, int sum, int index, int n){
+        totalCalls++;
+        String indent = get_indent(n);
         if (sum == target ){ // ||
             result.add(new ArrayList(chosen));
             //System.out.println("Sum == target, Chosen " +chosen);
@@ -160,27 +164,52 @@ public class CombinationSum {
         }else if (sum > target ){
             System.out.println(indent + input +" X>T " +" " +chosen);
             return;
-        } else if (index == candidates.length){  // We do not want the sum of elements greater than the input size - [2, 3, 6, 7] X>T  [2, 2, 2, 2]
+        } else
+            if (index == candidates.length){  // We do not want the sum of elements greater than the input size - [2, 3, 6, 7] X>T  [2, 2, 2, 2]
             System.out.println(indent + input +" X=L " +" " +chosen);
             return;
-      }
+        }
+        callsThatMadeIt++;
 
-        //System.out.println("Sum < target. Adding " +candidates[index]);
-        System.out.println(indent +input +" L(" +index +"-"+candidates[index]+") " +chosen);
+        /** Works
+        IndentUtil.showLeftI(indent, input, index, candidates[index], chosen);
         chosen.push(candidates[index]);        // 2  2  2 | 2  2  3
-        dfs(candidates, input, chosen, target, result, sum+candidates[index], index);
+        dfs(candidates, input, chosen, target, result, sum+candidates[index], index, n+1);
         chosen.pop();                          // 2  2
+        IndentUtil.showRightI(indent, input, index, candidates[index], chosen);
+        dfs(candidates, input, chosen, target, result, sum, index+1, n+1);
+        */
 
-        System.out.println(indent +input +" R(" +index +"-"+candidates[index]+") " +chosen);
-        dfs(candidates, input, chosen, target, result, sum, index+1);
-
-        /*
         for (int i = index; i < candidates.length; ++i) {
+            IndentUtil.showLeftI(indent, input, index, candidates[index], chosen);
             chosen.push(candidates[i]);
-            dfs(candidates, chosen, target, result, sum+candidates[i], index);
+            dfs(candidates, input, chosen, target, result, sum + candidates[i], index, n+1);
             chosen.pop();
         }
-        */
+
+    }
+
+    public List<List<Integer>> combinationSum2(int[] nums, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+        ArrayList<Integer> chosen = new ArrayList<>();
+        Arrays.sort(nums);
+        IndentUtil.showRoot(IndentUtil.getIndent(0), nums, 0, "R", chosen);
+        dfs2(nums, target, 0, chosen, result);
+        return result;
+    }
+    private void dfs2(int[] input, int remain, int start, List<Integer> chosen, List<List<Integer>> result){
+        String indent = IndentUtil.getIndent(start);
+        if(remain < 0) return;
+        else if(remain == 0) result.add(new ArrayList<>(chosen));
+        else{
+            for(int i = start; i < input.length; i++){
+                IndentUtil.showLeft(indent, input, start, input[i], chosen);
+                chosen.add(input[i]);
+                dfs2(input, remain - input[i], i, chosen, result); // not i + 1 because we can reuse same elements
+                chosen.remove(chosen.size() - 1);
+                //IndentUtil.showRight(indent, input, start, input[i], chosen);
+            }
+        }
     }
 
     private List<Integer>  asList(int[] candidates) {
@@ -195,6 +224,8 @@ public class CombinationSum {
         CombinationSum obj = new CombinationSum();
         int[] nums = {2,3,6,7};
         obj.combinationSum(nums, 7);
+        System.out.println();
+        //obj.combinationSum2(nums, 7);
     }
 
     public String get_indent(int N) {
