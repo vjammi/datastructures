@@ -45,14 +45,15 @@ public class PermutationsII {
 
     // Solution using a set of Lists.
     public List<List<Integer>> permuteUnique2(int[] nums) {
-        List<Integer> input = new ArrayList();
-        for (Integer num: nums) input.add(num);
         Set<List<Integer>> result = new HashSet();
+        List<List<Integer>> result2 = new ArrayList();
+        List<Integer> input = new ArrayList();
+
+        for (Integer num: nums) input.add(num);
         List<Integer> chosen = new ArrayList<>();
         permuteHelper(input, chosen, result, 0);
-        System.out.println(result);
-        List<List<Integer>> result2 = new ArrayList();
         result2.addAll(result);
+
         return result2;
     }
     // Permuting 4 elements is - Picking 1 and permuting the other 3
