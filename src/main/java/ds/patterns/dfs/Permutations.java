@@ -1,9 +1,7 @@
 package ds.patterns.dfs;
 
 import ds.util.IndentUtil;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,6 +12,8 @@ import java.util.List;
     Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
  */
 public class Permutations {
+    int totalCalls;
+    int madeItThrough;
 
     // Permuting using recursion/dfs - no for loops
     public List<List<String>> permute1(List<String> input){
@@ -21,10 +21,12 @@ public class Permutations {
         List<String> chosen = new ArrayList<>();
         permuteHelper(input, chosen, result, 0);
         System.out.println(result);
+        System.out.println(totalCalls +" "+madeItThrough);
         return result;
     }
     // Permuting 4 elements is - Picking 1 and permuting the other 3
     public void permuteHelper(List<String> input, List<String> chosen, List<List<String>> result, int n){
+        totalCalls++;
         String indent = IndentUtil.getIndent(n);
         // 4. Base Case
         //    The chosenList is full and the inputList is empty??? that is how we know we are done choosing elements. So the input list being empty would be the base case.
@@ -57,6 +59,7 @@ public class Permutations {
             //  Oftentimes un-choose is the mirror code of choose and we are undoing something
             chosen.remove(chosen.size()-1); // Remove the last last element that was added
             input.add(i, choice); // Add/Put the earlier chosen element back into the input list.
+            madeItThrough++;
         }
     }
 
@@ -188,10 +191,10 @@ public class Permutations {
         String[] strArray = {"1", "2", "3"};
         obj.permute1(obj.asList(strArray));
 
-        obj.permute2(new int[]{1, 2, 3});
+        //obj.permute2(new int[]{1, 2, 3});
 
-        char[] array = {'1', '2', '3'};
-        List<String> resultList = obj.permute5(array);
+        //char[] array = {'1', '2', '3'};
+        //List<String> resultList = obj.permute5(array);
 
 
         // ABC, ACB, BAC, BCA, CBA, CAB
