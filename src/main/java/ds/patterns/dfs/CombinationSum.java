@@ -158,7 +158,6 @@ public class CombinationSum {
         String indent = get_indent(n);
         if (sum == target ){ // ||
             result.add(new ArrayList(chosen));
-            //System.out.println("Sum == target, Chosen " +chosen);
             System.out.println(indent + input +" OUT " +" " +chosen);
             return;
         }else if (sum > target ){
@@ -171,21 +170,20 @@ public class CombinationSum {
         }
         callsThatMadeIt++;
 
-        /** Works
         IndentUtil.showLeftI(indent, input, index, candidates[index], chosen);
         chosen.push(candidates[index]);        // 2  2  2 | 2  2  3
         dfs(candidates, input, chosen, target, result, sum+candidates[index], index, n+1);
         chosen.pop();                          // 2  2
         IndentUtil.showRightI(indent, input, index, candidates[index], chosen);
         dfs(candidates, input, chosen, target, result, sum, index+1, n+1);
-        */
+        IndentUtil.showRightI(indent, input, index, candidates[index], chosen);
 
-        for (int i = index; i < candidates.length; ++i) {
-            IndentUtil.showLeftI(indent, input, index, candidates[index], chosen);
-            chosen.push(candidates[i]);
-            dfs(candidates, input, chosen, target, result, sum + candidates[i], index, n+1);
-            chosen.pop();
-        }
+        //    for (int i = index; i < candidates.length; ++i) {
+        //        IndentUtil.showLeftI(indent, input, index, candidates[index], chosen);
+        //        chosen.push(candidates[i]);
+        //        dfs(candidates, input, chosen, target, result, sum + candidates[i], index, n+1);
+        //        chosen.pop();
+        //    }
 
     }
 

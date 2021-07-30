@@ -1,7 +1,7 @@
-A general approach to backtracking questions in Java (Subsets, Permutations, Combination Sum, Palindrome Partioning)
-Reference: https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning) 
-
-This structure might apply to many other backtracking questions, but here I am just going to demonstrate Subsets, Permutations, and Combination Sum.
+Reference: 
+https://medium.com/algorithms-and-leetcode/backtracking-e001561b9f28
+https://leetcode.com/problems/permutations/discuss/18239/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partioning)
+https://leetcode.com/problems/permutations/discuss/18284/Backtrack-Summary:-General-Solution-for-10-Questions!!!!!!!!-Python-(Combination-Sum-Subsets-Permutation-Palindrome)
 
 ## Subsets : https://leetcode.com/problems/subsets/
 ```

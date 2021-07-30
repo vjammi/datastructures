@@ -129,10 +129,7 @@ If the number of choices is variable, will need to use a loop, e.g., chess game.
 ## 17 Letter Combinations of a Phone Number
 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
 Return the answer in any order. A mapping of digit to letters (just like on the telephone buttons) is given below.
-Notice that level 0 does not map to any digits/letters.
-
-Note: A better problem statement - Find all permutations of letters formed from digits
-
+Notice that level 0 does not map to any digits/letters. Can also be said as find all permutations of letters formed from digits
 Input: digits = "23"
             2 = abc
             3 = def 
@@ -173,9 +170,13 @@ Steps
     - We continue until we have considered all the digits in out input. 
     - Each of the possible paths is a possible combination we will want in our solution set
     - Now if we start an empty string on the top, note that our solution space now looks like a tree.
-    - We want whatever search algorithm we implement, we need to get to all the endpoints at the bottom  
+    - We want whatever search algorithm we implement, we need to get to all the endpoints at the bottom
 
+Implementation
 ```
+    // Time complexity be O(3^n), which came from O(3+3²+3³+…+3^n)
+    // Space Complexity: O(2x3^N)
+
     public List<String> letterCombinations(String digits) {
         if (digits ==null || digits.length() == 0)
             return new ArrayList<String>();
@@ -283,6 +284,24 @@ Steps
         }
     }
 ```
+### 47. Permutations II
+```
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        Set<List<Integer>> result = new HashSet();
+        List<List<Integer>> result2 = new ArrayList();
+        List<Integer> input = new ArrayList();
+
+        for (Integer num: nums) input.add(num);
+        List<Integer> chosen = new ArrayList<>();
+        permuteHelper(input, chosen, result, 0);
+        result2.addAll(result);
+
+        return result2;
+    }
+
+```
+
+
 ##  BackTracking
 ### Permutations of ABC
 Permuting 4 elements is - Picking 1 and permuting the other 3
@@ -377,6 +396,38 @@ Implementation
             }
         }
 ```
+Analyzing the Time Complexity of Permutations
+```
+    1. void perm(String str){
+    2.    perm(str, "");
+    3.  }
+    4.
+    5. void perm(String str, String prefix){
+    6.     if(str.length() == 0){
+    7.         System.out.println(prefix);
+    8.     }
+    9.     for(int i = 0; i < str.length(); i++){
+    10.        String rem = str.substring(0, i) + str.substring(i + 1);
+    11.        perm(rem, prefix + str.charAt(i));
+    12.    }
+    13. }
+```
+https://media.geeksforgeeks.org/wp-content/uploads/recInPermutation_1-3.jpg
+
+1. How many times does function perm get called in its base case?
+As we can understand from the recursion explained above that for a string of length 3 it is printing 6 permutations which is actually 3!. This is because if it needs to generate permutation, it is needed to pick characters for each slot. If there are 3 characters in our string, in the first slot, there are 3 choices, 2 choices for the next slot (for each of 3 choices earlier, i.e multiplication and not addition) and so on. This tells that there are n! permutations being printed in the base case which is what is shown in the image.
+
+2. How many times does function perm get called before its base case?
+Consider that lines 9 through 12 are hit n number of times. Therefore, there will be no more than (n * n!) function calls.
+
+3. How long does each function call take?
+Since, each character of string prefix needs to be printed, thus executing line 7 will take O(n) time. Line 10 and line 11 will also take O(n) time combined due to string concatenation, as sum of rem, prefix and str.charAt(i) will always be n. Each function call therefore corresponds to O(n) work.
+
+4. What is the total runtime?
+Calling perm O(n * n!) times (as an upper bound) and each call takes O(n) time, the total runtime will not exceed O(n^2 * n!).
+Source: Geek for Geeks and CTCI by Gayle Laakmann McDowell
+
+
 ## Combinations of Input = ABC, k = 2
 ```
         > [A, B, C] L(0-A) []
@@ -464,6 +515,8 @@ Implementation
 ### 78	Subsets                 https://leetcode.com/problems/subsets/
 Option 1
 ```
+    // Time complexity is O(n*2^n) ???
+    // Space complexity is O(2^n). ???
     private void subsets1(List<Integer> input,  List<Integer> chosen, List<List<Integer>> result, int n){
         String indent = get_indent(n);
         if (input.isEmpty()){
@@ -728,12 +781,24 @@ If we have n items and want to find the number of ways k items can be ordered
     P(n,k)                   = n!/(n-k)!
     Permute(8,3) = 8!/(8-3)! = 8*7*6
 
-Reference: https://betterexplained.com/articles/easy-permutations-and-combinations/
-
 ### Combinations - How many ways can I give 3 tin cans to 8 people or How many ways can we rearrange 3 people?
 Well, in this case, the order we pick people doesn’t matter.
 We have 3 choices for the first person, 2 for the second, and only 1 for the last.
 So we have 3*2*1 ways to re-arrange 3 people.
 If you have N people and you want to know how many arrangements there are for all of them, it’s just N factorial or N!
+
+
+
+References
+BackTracking
+https://youtu.be/wiBPsaJs2yQ
+https://iitd-plos.github.io/col100/lec/exhaustive_search.html
+http://web.stanford.edu/class/cs106b/
+https://medium.com/algorithms-and-leetcode/backtracking-e001561b9f28
+https://www.geeksforgeeks.org/time-complexity-permutations-string/
+
+Permutations & Combinations
+https://betterexplained.com/articles/easy-permutations-and-combinations/
+https://youtu.be/TBnPkKxXPu8
 
 
