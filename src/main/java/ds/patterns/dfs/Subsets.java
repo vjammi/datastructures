@@ -64,6 +64,7 @@ public class Subsets {
         chosen.remove(chosen.size()-1);
     }
 
+    // Representing the problem space as a graph and using enumeration
     public List<List<Integer>> subsets2(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         Arrays.sort(nums);
@@ -72,6 +73,35 @@ public class Subsets {
         System.out.println(result);
         return result;
     }
+    /**
+         [1, 2, 3] OUT() []
+
+         [1, 2, 3] L(0-1) [1]
+         > [1, 2, 3] OUT() [1]
+         > [1, 2, 3] L(1-2) [1, 2]
+         >    > [1, 2, 3] OUT() [1, 2]
+         >    > [1, 2, 3] L(2-3) [1, 2, 3]
+         >    >    > [1, 2, 3] OUT() [1, 2, 3]
+         >    > [1, 2, 3] R(2-3) [1, 2, 3]
+         > [1, 2, 3] R(1-2) [1, 2]
+         > [1, 2, 3] L(2-3) [1, 3]
+         >    > [1, 2, 3] OUT() [1, 3]
+         > [1, 2, 3] R(2-3) [1, 3]
+         [1, 2, 3] R(0-1) [1]
+
+         [1, 2, 3] L(1-2) [2]
+         > [1, 2, 3] OUT() [2]
+         > [1, 2, 3] L(2-3) [2, 3]
+         >    > [1, 2, 3] OUT() [2, 3]
+         > [1, 2, 3] R(2-3) [2, 3]
+         [1, 2, 3] R(1-2) [2]
+
+         [1, 2, 3] L(2-3) [3]
+         > [1, 2, 3] OUT() [3]
+         [1, 2, 3] R(2-3) [3]
+
+         [[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]
+     * */
     private void backtrack(int[] input, int startIndex, List<Integer> chosen, List<List<Integer>> result, int n){
         String indent = IndentUtil.getIndent(n);
         result.add(new ArrayList<>(chosen));
