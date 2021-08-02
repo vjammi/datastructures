@@ -338,11 +338,13 @@ public class CombinationSumIII {
         List<List<Integer>> result = new ArrayList<>();
         Stack<Integer> chosen = new Stack<>();
         int[] visited = new int[9];
-        backtrack(1, k, n, 0, chosen, result, visited, 0);
+        //backtrack(1, k, n, 0, chosen, result, visited, 0);
+        backtrack2(1, k, n, 0, chosen, result, visited, 0);
         System.out.println(result);
         return result;
     }
     int[] validInput = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    // With Enumeration
     private void backtrack(int index, int k, int n, int sum, Stack<Integer> chosen, List<List<Integer>> result, int[] visited, int nn){
         String indent = IndentUtil.getIndent(nn);
         if (sum == n && chosen.size() == k){
@@ -365,9 +367,117 @@ public class CombinationSumIII {
         }
     }
 
+    // without the enumeration
+    private void backtrack2(int index, int k, int n, int sum, Stack<Integer> chosen, List<List<Integer>> result, int[] visited, int nn){
+        String indent = IndentUtil.getIndent(nn);
+        if (sum == n && chosen.size() == k){
+            for(int choice: chosen){
+                if (choice <1 || choice >9)
+                    return;
+            }
+            result.add(new ArrayList(chosen));
+            IndentUtil.showReturn(indent, validInput, chosen);
+            return;
+        }else if(sum > n){      //  1   3   6   10
+            IndentUtil.showReturn(indent, validInput, chosen);
+            return;             //              RET
+        }
+
+            //for (int i=index; i<=9; i++){   //  1   2   3
+            //    chosen.push(index);         //  1   2   3   4
+            //    IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            //    sum = sum + index;          //  1   3   6
+            //    backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            //    IndentUtil.showRight(indent, validInput, index, index, chosen);
+            //    sum = sum - index;          //  1   3
+            //    chosen.pop();               //  1   2
+            //}
+
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();               //  1   2
+
+            index = index + 1;
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();           //  1   2                       //visited[j-1] = 0;
+
+            index = index + 1;
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();           //  1   2                       //visited[j-1] = 0;
+
+            index = index + 1;
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();           //  1   2                       //visited[j-1] = 0;
+
+            index = index + 1;
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();           //  1   2                       //visited[j-1] = 0;
+
+            index = index + 1;
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();           //  1   2                       //visited[j-1] = 0;
+
+            index = index + 1;
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();           //  1   2                       //visited[j-1] = 0;
+
+            index = index + 1;
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();           //  1   2                       //visited[j-1] = 0;
+
+            index = index + 1;
+            chosen.push(index);         //  1   2   3   4
+            IndentUtil.showLeft(indent, validInput, index, index, chosen);
+            sum = sum + index;          //  1   3   6
+            backtrack2(index+1, k, n, sum, chosen, result, visited, nn+1); //  1   2   3
+            IndentUtil.showRight(indent, validInput, index, index, chosen);
+            sum = sum - index;          //  1   3
+            chosen.pop();           //  1   2                       //visited[j-1] = 0;
+    }
+
     public static void main(String[] args) {
         CombinationSumIII obj = new CombinationSumIII();
-        obj.combinationSum3(3,7);
+        //obj.combinationSum3(3,7);
+        obj.combinationSum3(2,18);
     }
 
 }

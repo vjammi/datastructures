@@ -109,7 +109,7 @@ public class Subsets {
 
         for(int i = startIndex; i < input.length; i++){
             if(i > startIndex && input[i] == input[i-1]) {
-                System.out.println(indent +" "+input +" " +i +" " +input[i] +" " +chosen +"Duplicate Skipping..");
+                System.out.println(indent +" "+input +" " +i +" " +input[i] +" " +chosen +" Duplicate Skipping..");
                 continue; // skip duplicates
             }
             chosen.add(input[i]);

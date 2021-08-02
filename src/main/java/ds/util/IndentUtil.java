@@ -31,17 +31,31 @@ public class IndentUtil {
     public static void showChosen(String indent, int[] input, List<Integer> chosen){
         System.out.println(indent +asList(input) +" OUT(" +") " +chosen);
     }
-
+    public static void showReturn(String indent, int[] input, List<Integer> chosen){
+        System.out.println(indent +asList(input) +" RET(" +") " +chosen);
+    }
 
     // List<Integer>
+    public static void showBeforeLeftI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
+        System.out.println(indent +input +" BL(" +index +"-"+choice+") " +chosen);
+    }
     public static void showLeftI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
         System.out.println(indent +input +" L(" +index +"-"+choice+") " +chosen);
+    }
+    public static void showAfterLeftI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
+        System.out.println(indent +input +" AL(" +index +"-"+choice+") " +chosen);
     }
     public static void showI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
         System.out.println(indent +input +" N(" +index +"-"+choice+") " +chosen);
     }
+    public static void showBeforeRightI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
+        System.out.println(indent +input +" BR(" +index +"-"+choice+") " +chosen);
+    }
     public static void showRightI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
         System.out.println(indent +input +" R(" +index +"-"+choice+") " +chosen);
+    }
+    public static void showAfterRightI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
+        System.out.println(indent +input +" AR(" +index +"-"+choice+") " +chosen);
     }
     public static void showChosenI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
         System.out.println(indent +input +" OUT(" +index +") " +chosen);

@@ -63,27 +63,30 @@ public class Permutations {
         }
     }
 
-    // Backtracking using for loop within the helper
+    // Hard to reason about. Only works because of the check within the for loop - Representing the problem space as a graph and using enumeration
     public List<List<Integer>> permute2(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
         backtrack(nums, new ArrayList<>(), result, 0);
         System.out.println(result);
         return result;
     }
-    private void backtrack(int[] nums, List<Integer> chosen, List<List<Integer>> result, int n){
+    private void backtrack(int[] input, List<Integer> chosen, List<List<Integer>> result, int n){
         String indent = IndentUtil.getIndent(n);
-        if(chosen.size() == nums.length){
+        if(chosen.size() == input.length){
             result.add(new ArrayList<>(chosen));
-            IndentUtil.showChosen(indent, nums, chosen);
+            IndentUtil.showChosen(indent, input, chosen);
         }
 
-        for(int i = 0; i < nums.length; i++){
-            IndentUtil.showLeft(indent, nums, i, nums[i], chosen);
-            if(chosen.contains(nums[i])) continue; // element already exists, skip
-            IndentUtil.show(indent, nums, i, nums[i], chosen);
+        for(int i = 0; i < input.length; i++){
+            if(chosen.contains(input[i])) {
+                //System.out.println(indent +" "+IndentUtil.asList(input) +" " +i +" " +input[i] +" " +chosen +" Skipping Duplicate...");
+                //continue; // element already exists, skip
+            }
 
-            chosen.add(nums[i]);
-            backtrack(nums, chosen, result, n+1);
+            chosen.add(input[i]);
+            IndentUtil.showLeft(indent, input, i, input[i], chosen);
+            backtrack(input, chosen, result, n+1);
+            IndentUtil.showRight(indent, input, i, input[i], chosen);
             chosen.remove(chosen.size() - 1);
         }
 
@@ -187,18 +190,11 @@ public class Permutations {
 
     public static void main(String[] args) {
         Permutations obj = new Permutations();
-
-        String[] strArray = {"1", "2", "3"};
-        obj.permute1(obj.asList(strArray));
-
-        //obj.permute2(new int[]{1, 2, 3});
-
+        //String[] strArray = {"1", "2", "3"};
+        //obj.permute1(obj.asList(strArray));
+        obj.permute2(new int[]{1, 2, 3});
         //char[] array = {'1', '2', '3'};
         //List<String> resultList = obj.permute5(array);
-
-
-        // ABC, ACB, BAC, BCA, CBA, CAB
-
     }
 
     public List<String> asList(String[] array) {
