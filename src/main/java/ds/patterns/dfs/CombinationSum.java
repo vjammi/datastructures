@@ -14,13 +14,13 @@ import java.util.Stack;
      The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the frequency of at least one of the chosen numbers is different.
      It is guaranteed that the number of unique combinations that sum up to target is less than 150 combinations for the given input.
 
-         Example 1:
-         Input: candidates = [2,3,6,7], target = 7
-         Output: [[2,2,3],[7]]
-         Explanation:
-         2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
-         7 is a candidate, and 7 = 7.
-         These are the only two combinations.
+     Example 1:
+     Input: candidates = [2,3,6,7], target = 7
+     Output: [[2,2,3],[7]]
+     Explanation:
+     2 and 3 are candidates, and 2 + 2 + 3 = 7. Note that 2 can be used multiple times.
+     7 is a candidate, and 7 = 7.
+     These are the only two combinations.
 
      Approach 1: Backtracking
      Intuition
@@ -45,6 +45,8 @@ import java.util.Stack;
 
  */
 public class CombinationSum {
+    int totalCalls;
+    int callsThatMadeIt;
 
     /**
                             input/chosen
@@ -59,101 +61,125 @@ public class CombinationSum {
              x[2222] x[2223] x[2226] x[2227]
                      1                                    2
 
-             [2, 3, 6, 7] L(0-2) []
-             [2, 3, 6, 7] L(0-2) [2]
-             [2, 3, 6, 7] L(0-2) [2, 2]
-             [2, 3, 6, 7] L(0-2) [2, 2, 2]
-             [2, 3, 6, 7] X>T  [2, 2, 2, 2]
-             [2, 3, 6, 7] R(0-2) [2, 2, 2]
-             > [2, 3, 6, 7] L(1-3) [2, 2, 2]
-             > [2, 3, 6, 7] X>T  [2, 2, 2, 3]
-             > [2, 3, 6, 7] R(1-3) [2, 2, 2]
-             >    > [2, 3, 6, 7] L(2-6) [2, 2, 2]
-             >    > [2, 3, 6, 7] X>T  [2, 2, 2, 6]
-             >    > [2, 3, 6, 7] R(2-6) [2, 2, 2]
-             >    >    > [2, 3, 6, 7] L(3-7) [2, 2, 2]
-             >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 7]
-             >    >    > [2, 3, 6, 7] R(3-7) [2, 2, 2]
-             >    >    >    > [2, 3, 6, 7] X=L  [2, 2, 2]
-             [2, 3, 6, 7] R(0-2) [2, 2]
-             > [2, 3, 6, 7] L(1-3) [2, 2]
-             > [2, 3, 6, 7] OUT  [2, 2, 3]
-             > [2, 3, 6, 7] R(1-3) [2, 2]
-             >    > [2, 3, 6, 7] L(2-6) [2, 2]
-             >    > [2, 3, 6, 7] X>T  [2, 2, 6]
-             >    > [2, 3, 6, 7] R(2-6) [2, 2]
-             >    >    > [2, 3, 6, 7] L(3-7) [2, 2]
-             >    >    > [2, 3, 6, 7] X>T  [2, 2, 7]
-             >    >    > [2, 3, 6, 7] R(3-7) [2, 2]
-             >    >    >    > [2, 3, 6, 7] X=L  [2, 2]
-             [2, 3, 6, 7] R(0-2) [2]
-             > [2, 3, 6, 7] L(1-3) [2]
-             > [2, 3, 6, 7] L(1-3) [2, 3]
-             > [2, 3, 6, 7] X>T  [2, 3, 3]
-             > [2, 3, 6, 7] R(1-3) [2, 3]
-             >    > [2, 3, 6, 7] L(2-6) [2, 3]
-             >    > [2, 3, 6, 7] X>T  [2, 3, 6]
-             >    > [2, 3, 6, 7] R(2-6) [2, 3]
-             >    >    > [2, 3, 6, 7] L(3-7) [2, 3]
-             >    >    > [2, 3, 6, 7] X>T  [2, 3, 7]
-             >    >    > [2, 3, 6, 7] R(3-7) [2, 3]
-             >    >    >    > [2, 3, 6, 7] X=L  [2, 3]
-             > [2, 3, 6, 7] R(1-3) [2]
-             >    > [2, 3, 6, 7] L(2-6) [2]
-             >    > [2, 3, 6, 7] X>T  [2, 6]
-             >    > [2, 3, 6, 7] R(2-6) [2]
-             >    >    > [2, 3, 6, 7] L(3-7) [2]
-             >    >    > [2, 3, 6, 7] X>T  [2, 7]
-             >    >    > [2, 3, 6, 7] R(3-7) [2]
-             >    >    >    > [2, 3, 6, 7] X=L  [2]
-             [2, 3, 6, 7] R(0-2) []
-             > [2, 3, 6, 7] L(1-3) []
-             > [2, 3, 6, 7] L(1-3) [3]
-             > [2, 3, 6, 7] L(1-3) [3, 3]
-             > [2, 3, 6, 7] X>T  [3, 3, 3]
-             > [2, 3, 6, 7] R(1-3) [3, 3]
-             >    > [2, 3, 6, 7] L(2-6) [3, 3]
-             >    > [2, 3, 6, 7] X>T  [3, 3, 6]
-             >    > [2, 3, 6, 7] R(2-6) [3, 3]
-             >    >    > [2, 3, 6, 7] L(3-7) [3, 3]
-             >    >    > [2, 3, 6, 7] X>T  [3, 3, 7]
-             >    >    > [2, 3, 6, 7] R(3-7) [3, 3]
-             >    >    >    > [2, 3, 6, 7] X=L  [3, 3]
-             > [2, 3, 6, 7] R(1-3) [3]
-             >    > [2, 3, 6, 7] L(2-6) [3]
-             >    > [2, 3, 6, 7] X>T  [3, 6]
-             >    > [2, 3, 6, 7] R(2-6) [3]
-             >    >    > [2, 3, 6, 7] L(3-7) [3]
-             >    >    > [2, 3, 6, 7] X>T  [3, 7]
-             >    >    > [2, 3, 6, 7] R(3-7) [3]
-             >    >    >    > [2, 3, 6, 7] X=L  [3]
-             > [2, 3, 6, 7] R(1-3) []
-             >    > [2, 3, 6, 7] L(2-6) []
-             >    > [2, 3, 6, 7] L(2-6) [6]
-             >    > [2, 3, 6, 7] X>T  [6, 6]
-             >    > [2, 3, 6, 7] R(2-6) [6]
-             >    >    > [2, 3, 6, 7] L(3-7) [6]
-             >    >    > [2, 3, 6, 7] X>T  [6, 7]
-             >    >    > [2, 3, 6, 7] R(3-7) [6]
-             >    >    >    > [2, 3, 6, 7] X=L  [6]
-             >    > [2, 3, 6, 7] R(2-6) []
-             >    >    > [2, 3, 6, 7] L(3-7) []
-             >    >    > [2, 3, 6, 7] OUT  [7]
-             >    >    > [2, 3, 6, 7] R(3-7) []
+             [2, 3, 6, 7] BL(0-2) [2]
+             > [2, 3, 6, 7] BL(0-2) [2, 2]
+             >    > [2, 3, 6, 7] BL(0-2) [2, 2, 2]
+             >    >    > [2, 3, 6, 7] BL(0-2) [2, 2, 2, 2]
+             >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 2]
+             >    >    > [2, 3, 6, 7] N(0-2) [2, 2, 2]
+             >    >    >    > [2, 3, 6, 7] BL(1-3) [2, 2, 2, 3]
+             >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 3]
+             >    >    >    > [2, 3, 6, 7] N(1-3) [2, 2, 2]
+             >    >    >    >    > [2, 3, 6, 7] BL(2-6) [2, 2, 2, 6]
+             >    >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 6]
+             >    >    >    >    > [2, 3, 6, 7] N(2-6) [2, 2, 2]
+             >    >    >    >    >    > [2, 3, 6, 7] BL(3-7) [2, 2, 2, 7]
+             >    >    >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 7]
+             >    >    >    >    >    > [2, 3, 6, 7] N(3-7) [2, 2, 2]
+             >    >    >    >    >    >    > [2, 3, 6, 7] X=L  [2, 2, 2]
+             >    >    >    >    >    > [2, 3, 6, 7] AR(3-7) [2, 2, 2]
+             >    >    >    >    > [2, 3, 6, 7] AR(2-6) [2, 2, 2]
+             >    >    >    > [2, 3, 6, 7] AR(1-3) [2, 2, 2]
+             >    >    > [2, 3, 6, 7] AR(0-2) [2, 2, 2]
+             >    > [2, 3, 6, 7] N(0-2) [2, 2]
+             >    >    > [2, 3, 6, 7] BL(1-3) [2, 2, 3]
+             >    >    >    > [2, 3, 6, 7] OUT  [2, 2, 3]
+             >    >    > [2, 3, 6, 7] N(1-3) [2, 2]
+             >    >    >    > [2, 3, 6, 7] BL(2-6) [2, 2, 6]
+             >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 6]
+             >    >    >    > [2, 3, 6, 7] N(2-6) [2, 2]
+             >    >    >    >    > [2, 3, 6, 7] BL(3-7) [2, 2, 7]
+             >    >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 7]
+             >    >    >    >    > [2, 3, 6, 7] N(3-7) [2, 2]
+             >    >    >    >    >    > [2, 3, 6, 7] X=L  [2, 2]
+             >    >    >    >    > [2, 3, 6, 7] AR(3-7) [2, 2]
+             >    >    >    > [2, 3, 6, 7] AR(2-6) [2, 2]
+             >    >    > [2, 3, 6, 7] AR(1-3) [2, 2]
+             >    > [2, 3, 6, 7] AR(0-2) [2, 2]
+             > [2, 3, 6, 7] N(0-2) [2]
+             >    > [2, 3, 6, 7] BL(1-3) [2, 3]
+             >    >    > [2, 3, 6, 7] BL(1-3) [2, 3, 3]
+             >    >    >    > [2, 3, 6, 7] X>T  [2, 3, 3]
+             >    >    > [2, 3, 6, 7] N(1-3) [2, 3]
+             >    >    >    > [2, 3, 6, 7] BL(2-6) [2, 3, 6]
+             >    >    >    >    > [2, 3, 6, 7] X>T  [2, 3, 6]
+             >    >    >    > [2, 3, 6, 7] N(2-6) [2, 3]
+             >    >    >    >    > [2, 3, 6, 7] BL(3-7) [2, 3, 7]
+             >    >    >    >    >    > [2, 3, 6, 7] X>T  [2, 3, 7]
+             >    >    >    >    > [2, 3, 6, 7] N(3-7) [2, 3]
+             >    >    >    >    >    > [2, 3, 6, 7] X=L  [2, 3]
+             >    >    >    >    > [2, 3, 6, 7] AR(3-7) [2, 3]
+             >    >    >    > [2, 3, 6, 7] AR(2-6) [2, 3]
+             >    >    > [2, 3, 6, 7] AR(1-3) [2, 3]
+             >    > [2, 3, 6, 7] N(1-3) [2]
+             >    >    > [2, 3, 6, 7] BL(2-6) [2, 6]
+             >    >    >    > [2, 3, 6, 7] X>T  [2, 6]
+             >    >    > [2, 3, 6, 7] N(2-6) [2]
+             >    >    >    > [2, 3, 6, 7] BL(3-7) [2, 7]
+             >    >    >    >    > [2, 3, 6, 7] X>T  [2, 7]
+             >    >    >    > [2, 3, 6, 7] N(3-7) [2]
+             >    >    >    >    > [2, 3, 6, 7] X=L  [2]
+             >    >    >    > [2, 3, 6, 7] AR(3-7) [2]
+             >    >    > [2, 3, 6, 7] AR(2-6) [2]
+             >    > [2, 3, 6, 7] AR(1-3) [2]
+             > [2, 3, 6, 7] AR(0-2) [2]
+             [2, 3, 6, 7] N(0-2) []
+             > [2, 3, 6, 7] BL(1-3) [3]
+             >    > [2, 3, 6, 7] BL(1-3) [3, 3]
+             >    >    > [2, 3, 6, 7] BL(1-3) [3, 3, 3]
+             >    >    >    > [2, 3, 6, 7] X>T  [3, 3, 3]
+             >    >    > [2, 3, 6, 7] N(1-3) [3, 3]
+             >    >    >    > [2, 3, 6, 7] BL(2-6) [3, 3, 6]
+             >    >    >    >    > [2, 3, 6, 7] X>T  [3, 3, 6]
+             >    >    >    > [2, 3, 6, 7] N(2-6) [3, 3]
+             >    >    >    >    > [2, 3, 6, 7] BL(3-7) [3, 3, 7]
+             >    >    >    >    >    > [2, 3, 6, 7] X>T  [3, 3, 7]
+             >    >    >    >    > [2, 3, 6, 7] N(3-7) [3, 3]
+             >    >    >    >    >    > [2, 3, 6, 7] X=L  [3, 3]
+             >    >    >    >    > [2, 3, 6, 7] AR(3-7) [3, 3]
+             >    >    >    > [2, 3, 6, 7] AR(2-6) [3, 3]
+             >    >    > [2, 3, 6, 7] AR(1-3) [3, 3]
+             >    > [2, 3, 6, 7] N(1-3) [3]
+             >    >    > [2, 3, 6, 7] BL(2-6) [3, 6]
+             >    >    >    > [2, 3, 6, 7] X>T  [3, 6]
+             >    >    > [2, 3, 6, 7] N(2-6) [3]
+             >    >    >    > [2, 3, 6, 7] BL(3-7) [3, 7]
+             >    >    >    >    > [2, 3, 6, 7] X>T  [3, 7]
+             >    >    >    > [2, 3, 6, 7] N(3-7) [3]
+             >    >    >    >    > [2, 3, 6, 7] X=L  [3]
+             >    >    >    > [2, 3, 6, 7] AR(3-7) [3]
+             >    >    > [2, 3, 6, 7] AR(2-6) [3]
+             >    > [2, 3, 6, 7] AR(1-3) [3]
+             > [2, 3, 6, 7] N(1-3) []
+             >    > [2, 3, 6, 7] BL(2-6) [6]
+             >    >    > [2, 3, 6, 7] BL(2-6) [6, 6]
+             >    >    >    > [2, 3, 6, 7] X>T  [6, 6]
+             >    >    > [2, 3, 6, 7] N(2-6) [6]
+             >    >    >    > [2, 3, 6, 7] BL(3-7) [6, 7]
+             >    >    >    >    > [2, 3, 6, 7] X>T  [6, 7]
+             >    >    >    > [2, 3, 6, 7] N(3-7) [6]
+             >    >    >    >    > [2, 3, 6, 7] X=L  [6]
+             >    >    >    > [2, 3, 6, 7] AR(3-7) [6]
+             >    >    > [2, 3, 6, 7] AR(2-6) [6]
+             >    > [2, 3, 6, 7] N(2-6) []
+             >    >    > [2, 3, 6, 7] BL(3-7) [7]
+             >    >    >    > [2, 3, 6, 7] OUT  [7]
+             >    >    > [2, 3, 6, 7] N(3-7) []
              >    >    >    > [2, 3, 6, 7] X=L  []
+             >    >    > [2, 3, 6, 7] AR(3-7) []
+             >    > [2, 3, 6, 7] AR(2-6) []
+             > [2, 3, 6, 7] AR(1-3) []
+             [2, 3, 6, 7] AR(0-2) []
              [[2, 2, 3], [7]]
     */
-
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+    public List<List<Integer>> combinationSumApproach1(int[] candidates, int target) {
         Stack<Integer> chosen = new Stack();
         List<List<Integer>> result = new ArrayList();
-        dfs(candidates, asList(candidates), chosen, target, result, 0, 0, 0);
-        System.out.println(totalCalls +" " + callsThatMadeIt + " "+ result);
+        backtrackApproach1(candidates, asList(candidates), chosen, target, result, 0, 0, 0);
+        System.out.println(result);
         return result;
     }
-    int totalCalls;
-    int callsThatMadeIt;
-    void dfs(int[] candidates, List<Integer> input, Stack<Integer> chosen, int target, List<List<Integer>> result, int sum, int index, int n){
+    void backtrackApproach1(int[] candidates, List<Integer> input, Stack<Integer> chosen, int target, List<List<Integer>> result, int sum, int index, int n){
         totalCalls++;
         String indent = get_indent(n);
         if (sum == target ){ // ||
@@ -170,13 +196,26 @@ public class CombinationSum {
         }
         callsThatMadeIt++;
 
-        IndentUtil.showLeftI(indent, input, index, candidates[index], chosen);
-        chosen.push(candidates[index]);        // 2  2  2 | 2  2  3
-        dfs(candidates, input, chosen, target, result, sum+candidates[index], index, n+1);
-        chosen.pop();                          // 2  2
-        IndentUtil.showRightI(indent, input, index, candidates[index], chosen);
-        dfs(candidates, input, chosen, target, result, sum, index+1, n+1);
-        IndentUtil.showRightI(indent, input, index, candidates[index], chosen);
+        //   > [2, 3, 6, 7] BL(0-2) [2, 2]                      // We make an initial choice
+        //   >    > [2, 3, 6, 7] BL(0-2) [2, 2, 2]              // We make the same choice again until the base case passes/fails
+        //   >    >    > [2, 3, 6, 7] BL(0-2) [2, 2, 2, 2]      // We make the same choice again until the base case passes/fails
+        //   >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 2]    // Base case fails. We now backtrack
+        //   >    >    > [2, 3, 6, 7] N(0-2) [2, 2, 2]          // Backtrack by popping out the element
+        //   >    >    >    > [2, 3, 6, 7] BL(1-3) [2, 2, 2, 3] // We make the next choice by incrementing the index
+
+        // We add the same choice over and over until the base case is reached - either sum is > or == target
+        chosen.push(candidates[index]);         // 2  2  2 | 2  2  3
+        IndentUtil.showBeforeLeftI(indent, input, index, candidates[index], chosen);
+        // We make an initial choice, update the sum. We then make the same choice again and update the sumuntil the base case passes/fails
+        sum = sum + candidates[index];
+        backtrackApproach1(candidates, input, chosen, target, result, sum, index, n+1);
+        chosen.pop();                           // 2  2
+        sum = sum - candidates[index];
+        IndentUtil.showI(indent, input, index, candidates[index], chosen);
+
+        //Finally when are done trying all variations of the same choice, we can now increment the index and make the next choice
+        backtrackApproach1(candidates, input, chosen, target, result, sum, index+1, n+1); // We make the next choice by incrementing the index
+        IndentUtil.showAfterRightI(indent, input, index, candidates[index], chosen);
 
         //    for (int i = index; i < candidates.length; ++i) {
         //        IndentUtil.showLeftI(indent, input, index, candidates[index], chosen);
@@ -184,29 +223,114 @@ public class CombinationSum {
         //        dfs(candidates, input, chosen, target, result, sum + candidates[i], index, n+1);
         //        chosen.pop();
         //    }
-
     }
 
-    public List<List<Integer>> combinationSum2(int[] nums, int target) {
+    /**
+         [2, 3, 6, 7] L(0-R) []
+         [2, 3, 6, 7] L(0-2) [2]
+         > [2, 3, 6, 7] L(0-2) [2, 2]
+         >    > [2, 3, 6, 7] L(0-2) [2, 2, 2]
+         >    >    > [2, 3, 6, 7] L(0-2) [2, 2, 2, 2]
+         >    >    >    > [2, 3, 6, 7] RET() [2, 2, 2, 2]
+         >    >    > [2, 3, 6, 7] R(0-2) [2, 2, 2, 2]
+         >    >    > [2, 3, 6, 7] L(0-3) [2, 2, 2, 3]
+         >    >    >    > [2, 3, 6, 7] RET() [2, 2, 2, 3]
+         >    >    > [2, 3, 6, 7] R(0-3) [2, 2, 2, 3]
+         >    >    > [2, 3, 6, 7] L(0-6) [2, 2, 2, 6]
+         >    >    >    > [2, 3, 6, 7] RET() [2, 2, 2, 6]
+         >    >    > [2, 3, 6, 7] R(0-6) [2, 2, 2, 6]
+         >    >    > [2, 3, 6, 7] L(0-7) [2, 2, 2, 7]
+         >    >    >    > [2, 3, 6, 7] RET() [2, 2, 2, 7]
+         >    >    > [2, 3, 6, 7] R(0-7) [2, 2, 2, 7]
+         >    > [2, 3, 6, 7] R(0-2) [2, 2, 2]
+         >    > [2, 3, 6, 7] L(0-3) [2, 2, 3]
+         >    >    > [2, 3, 6, 7] OUT() [2, 2, 3]
+         >    > [2, 3, 6, 7] R(0-3) [2, 2, 3]
+         >    > [2, 3, 6, 7] L(0-6) [2, 2, 6]
+         >    >    > [2, 3, 6, 7] RET() [2, 2, 6]
+         >    > [2, 3, 6, 7] R(0-6) [2, 2, 6]
+         >    > [2, 3, 6, 7] L(0-7) [2, 2, 7]
+         >    >    > [2, 3, 6, 7] RET() [2, 2, 7]
+         >    > [2, 3, 6, 7] R(0-7) [2, 2, 7]
+         > [2, 3, 6, 7] R(0-2) [2, 2]
+         > [2, 3, 6, 7] L(0-3) [2, 3]
+         >    > [2, 3, 6, 7] L(1-3) [2, 3, 3]
+         >    >    > [2, 3, 6, 7] RET() [2, 3, 3]
+         >    > [2, 3, 6, 7] R(1-3) [2, 3, 3]
+         >    > [2, 3, 6, 7] L(1-6) [2, 3, 6]
+         >    >    > [2, 3, 6, 7] RET() [2, 3, 6]
+         >    > [2, 3, 6, 7] R(1-6) [2, 3, 6]
+         >    > [2, 3, 6, 7] L(1-7) [2, 3, 7]
+         >    >    > [2, 3, 6, 7] RET() [2, 3, 7]
+         >    > [2, 3, 6, 7] R(1-7) [2, 3, 7]
+         > [2, 3, 6, 7] R(0-3) [2, 3]
+         > [2, 3, 6, 7] L(0-6) [2, 6]
+         >    > [2, 3, 6, 7] RET() [2, 6]
+         > [2, 3, 6, 7] R(0-6) [2, 6]
+         > [2, 3, 6, 7] L(0-7) [2, 7]
+         >    > [2, 3, 6, 7] RET() [2, 7]
+         > [2, 3, 6, 7] R(0-7) [2, 7]
+         [2, 3, 6, 7] R(0-2) [2]
+         [2, 3, 6, 7] L(0-3) [3]
+         > [2, 3, 6, 7] L(1-3) [3, 3]
+         >    > [2, 3, 6, 7] L(1-3) [3, 3, 3]
+         >    >    > [2, 3, 6, 7] RET() [3, 3, 3]
+         >    > [2, 3, 6, 7] R(1-3) [3, 3, 3]
+         >    > [2, 3, 6, 7] L(1-6) [3, 3, 6]
+         >    >    > [2, 3, 6, 7] RET() [3, 3, 6]
+         >    > [2, 3, 6, 7] R(1-6) [3, 3, 6]
+         >    > [2, 3, 6, 7] L(1-7) [3, 3, 7]
+         >    >    > [2, 3, 6, 7] RET() [3, 3, 7]
+         >    > [2, 3, 6, 7] R(1-7) [3, 3, 7]
+         > [2, 3, 6, 7] R(1-3) [3, 3]
+         > [2, 3, 6, 7] L(1-6) [3, 6]
+         >    > [2, 3, 6, 7] RET() [3, 6]
+         > [2, 3, 6, 7] R(1-6) [3, 6]
+         > [2, 3, 6, 7] L(1-7) [3, 7]
+         >    > [2, 3, 6, 7] RET() [3, 7]
+         > [2, 3, 6, 7] R(1-7) [3, 7]
+         [2, 3, 6, 7] R(0-3) [3]
+         [2, 3, 6, 7] L(0-6) [6]
+         > [2, 3, 6, 7] L(2-6) [6, 6]
+         >    > [2, 3, 6, 7] RET() [6, 6]
+         > [2, 3, 6, 7] R(2-6) [6, 6]
+         > [2, 3, 6, 7] L(2-7) [6, 7]
+         >    > [2, 3, 6, 7] RET() [6, 7]
+         > [2, 3, 6, 7] R(2-7) [6, 7]
+         [2, 3, 6, 7] R(0-6) [6]
+         [2, 3, 6, 7] L(0-7) [7]
+         > [2, 3, 6, 7] OUT() [7]
+         [2, 3, 6, 7] R(0-7) [7]
+         [[2, 2, 3], [7]]
+     */
+    public List<List<Integer>> combinationSumApproach2(int[] nums, int target) {
         List<List<Integer>> result = new ArrayList<>();
         ArrayList<Integer> chosen = new ArrayList<>();
         Arrays.sort(nums);
-        IndentUtil.showRoot(IndentUtil.getIndent(0), nums, 0, "R", chosen);
-        dfs2(nums, target, 0, chosen, result);
+        IndentUtil.showRoot(IndentUtil.getIndent(0), nums, 0, "", chosen);
+        backtrackApproach2(nums, target, 0, chosen, result, 0);
+        System.out.println(result);
         return result;
     }
-    private void dfs2(int[] input, int remain, int start, List<Integer> chosen, List<List<Integer>> result){
-        String indent = IndentUtil.getIndent(start);
-        if(remain < 0) return;
-        else if(remain == 0) result.add(new ArrayList<>(chosen));
-        else{
-            for(int i = start; i < input.length; i++){
-                IndentUtil.showLeft(indent, input, start, input[i], chosen);
-                chosen.add(input[i]);
-                dfs2(input, remain - input[i], i, chosen, result); // not i + 1 because we can reuse same elements
-                chosen.remove(chosen.size() - 1);
-                //IndentUtil.showRight(indent, input, start, input[i], chosen);
-            }
+    private void backtrackApproach2(int[] input, int sum, int index, List<Integer> chosen, List<List<Integer>> result, int n){
+        String indent = IndentUtil.getIndent(n);
+        if(sum < 0) {
+            IndentUtil.showReturn(indent, input, chosen);
+            return;
+        }else if(sum == 0) {
+            result.add(new ArrayList<>(chosen));
+            IndentUtil.showChosen(indent, input, chosen);
+            return;
+        }
+
+        for(int i = index; i < input.length; i++){
+            chosen.add(input[i]);
+            IndentUtil.showLeft(indent, input, index, input[i], chosen);
+            sum = sum - input[i];
+            backtrackApproach2(input, sum, i, chosen, result, n+1); // not i + 1 because we can reuse same elements
+            IndentUtil.showRight(indent, input, index, input[i], chosen);
+            sum = sum + input[i];
+            chosen.remove(chosen.size() - 1);
         }
     }
 
@@ -221,9 +345,9 @@ public class CombinationSum {
     public static void main(String[] args) {
         CombinationSum obj = new CombinationSum();
         int[] nums = {2,3,6,7};
-        obj.combinationSum(nums, 7);
+        obj.combinationSumApproach1(nums, 7);
         System.out.println();
-        //obj.combinationSum2(nums, 7);
+        obj.combinationSumApproach2(nums, 7);
     }
 
     public String get_indent(int N) {
