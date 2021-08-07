@@ -2,119 +2,102 @@ package ds.recursion;
 
 public class SwapNodesInPairs {
 
-    private ListNode head;
-    private ListNode tail;
-
     public class ListNode {
-
-        int val;
-        ListNode next;
-
-        public ListNode() {
-        }
-
-        ListNode(int val) {
-            this.val = val;
-        }
-
-        ListNode(int val, ListNode next) {
-            this.val = val; this.next = next;
-        }
+      int val;
+      ListNode next;
+      ListNode() {}
+      ListNode(int val) { this.val = val; }
+      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
     }
 
-    public SwapNodesInPairs() {
-    }
+    public ListNode swapPairs_iterative(ListNode head) {
+        if (head == null)
+            return head;
 
-    private void buildList(int[] nodes) {
-        for (int nodeVal: nodes){
-            if (head == null){
-                head = new ListNode(nodeVal);
-                tail = head;
-            }else{
-                ListNode newNode = new ListNode(nodeVal);
-                tail.next = newNode;
-                tail = newNode;
+        // Setup the dummy node to point to the head of the list
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
+        // Setup the walker and runner to start at the dummy node
+        ListNode walker = dummy;
+        ListNode runner = dummy;
+
+        // // Advance the runner so that the runner is 2 steps ahead of walker
+        int i = 0;
+        while(runner!=null && i < 2){
+            runner = runner.next;
+            i++;
+        }
+
+        // Now the main logic to swap the nodes
+        // After swapping the nodes
+        // Advance the runner one step
+        // Now advance the runner and walker 2 steps for processing the next pair
+        while(runner!=null){
+            // walker
+            ListNode next = walker.next;
+            // runner
+
+            // Swap the Nodes
+            next.next = runner.next; // 1 Point the next to runners next
+            walker.next = runner;    // 2 Point the walker's next to runner
+            runner.next = next;      // 3 Point the runner's next to next
+
+
+            // Advance the runner 1 step to point to the last element of the current pair
+            runner =  runner.next;
+
+            // Now advance the runner and walker 2 steps for processing the next pair
+            walker = runner;               // To advance the walker to take the runner's position
+            int j = 0;
+            while(runner!=null && j < 2){  // Advance the runner 2 steps ahead
+                runner = runner.next;
+                j++;
             }
         }
-    }
 
-    public void swapPairs() {
-        printList(head);
-        head = swapPairs(head);
-        printList(head);
-    }
-
-    private void printList(ListNode head) {
-        ListNode current = head;
-        while(current!=null) {
-            System.out.print(current.val + " ");
-            current = current.next;
-        }
-        System.out.println(" ");
+        return dummy.next;
     }
 
     public ListNode swapPairs(ListNode head) {
-        if (head == null)
-            return null;
+        if (head == null || head.next == null)
+            return head;
 
-        ListNode aux =  new ListNode(0, head);
+        // Setup the dummy node to point to the head of the list
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
 
-        //aux = swapUphill(aux, head);
-        //return aux.next;
-
-        aux = swapDownhill(aux);
-        return aux.next;
+        swap(dummy);
+        return dummy.next;
     }
 
-    public ListNode swapUphill(ListNode previousNode, ListNode currentNode) {
-        if (currentNode == null)
-            return null;
+    private void swap(ListNode node) {
+        if (node == null || node.next == null || node.next.next == null) // takes care of odd input such as [1,2,3]
+            return;
 
-        ListNode nextNode = currentNode.next;
-        if (nextNode != null) {
-            System.out.println(previousNode.val +" " +currentNode.val +" " + nextNode.val);
-            ListNode nextToNextNode = nextNode.next;
-            previousNode.next = nextNode;
-            nextNode.next = currentNode;
-            currentNode.next = nextToNextNode;
-        }
-        swapUphill(currentNode, currentNode.next);
-        return previousNode;
-    }
+        ListNode walker = node;
+        ListNode runner = node;
 
-    public ListNode swapDownhill_borrowed(ListNode currentNode) {
-        if (currentNode == null || currentNode.next == null)
-            return currentNode;
-
-        ListNode nextNode = currentNode.next;
-        currentNode.next = swapDownhill(currentNode.next.next);
-        nextNode.next = nextNode;
-        return nextNode;
-    }
-
-    public ListNode swapDownhill(ListNode currentNode) {
-        if (currentNode.next == null || currentNode.next.next == null){ //currentNode == null ||
-            System.out.println("Recurssion Base Case reached " +currentNode.val);
-            return currentNode;
+        // Advance runner 2 steps not n+1/2+1 steps because n+1 would become null at the end
+        // The current node here is the node before the nodes that are to ve swapped.
+        //             node     >       1       >      2       >    3
+        //                1     >       3       >      4       >    null
+        //      dummy/walker        walkerNext       runner      runnerNext
+        int steps = 0;
+        for(int i=0; i<2; i++){
+            runner = runner.next;
+            steps++;
         }
 
-        ListNode nextNode = currentNode.next; //equivalent to returning a node out from the next call
-        nextNode.next = swapDownhill(currentNode.next.next);
+        // Swap nodes
+        ListNode walkerNext = walker.next;
+        ListNode runnerNext = runner.next;
+        walkerNext.next = runnerNext;
+        runner.next = walkerNext;
+        node.next = runner;
+        node = node.next;
 
-        ListNode nextToNextNode = nextNode.next;
-        System.out.println(currentNode.val +" " +nextNode.val +" " + nextToNextNode.val);
-
-        currentNode.next    =  nextToNextNode;     // 1
-        nextNode.next       = nextToNextNode.next;    // 2 ???
-        nextToNextNode.next = nextNode;         // 3
-
-        return currentNode;
+        swap(node.next);
     }
 
-    public static void main(String[] args) {
-        int[] nodes = {1,2,3,4,5,6,7,8};
-        SwapNodesInPairs list = new SwapNodesInPairs();
-        list.buildList(nodes);
-        list.swapPairs();
-    }
 }
