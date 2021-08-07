@@ -1,6 +1,7 @@
 package ds.patterns.dfs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -21,8 +22,60 @@ import java.util.Stack;
     [1,4],
     ]
 */
-
 public class Combinations {
+
+    /**
+     Combinations: n = 3 k = 2
+
+     > [A, B, C] L(0-A) []
+     >    > [A, B, C] L(1-B) []
+     >    >    > [A, B, C] L(2-C) []
+     >    >    > [A, B, C] R(2-C) []
+     >    > [A, B, C] R(1-B) []
+     >    >    > [A, B, C] L(2-C) [B]
+     >    >    > [A, B, C] R(2-C) [B]
+     >    >    >    > [A, B, C] OUT  [B, C]
+     > [A, B, C] R(0-A) []
+     >    > [A, B, C] L(1-B) [A]
+     >    >    > [A, B, C] L(2-C) [A]
+     >    >    > [A, B, C] R(2-C) [A]
+     >    >    >    > [A, B, C] OUT  [A, C]
+     >    > [A, B, C] R(1-B) [A]
+     >    >    > [A, B, C] L(2-C) [A, B]
+     >    >    >    > [A, B, C] OUT  [A, B]
+     >    >    > [A, B, C] R(2-C) [A, B]
+     [[B, C], [A, C], [A, B]]
+     * */
+    public List<List<String>> combination(List<String> input, int k) {
+        List<List<String>> result = new ArrayList<>();
+        Stack<String> chosen = new Stack<>();
+        combination(input, k, 0, chosen, result, 1);
+        System.out.println(result);
+        return result;
+    }
+    private void combination(List<String> input, int k, int index, Stack<String> chosen, List<List<String>> result, int indentCount) {
+        String indent = get_indent(indentCount);
+        if(index == input.size()) {
+            if (chosen.size() == k){
+                result.add(new ArrayList(chosen)); System.out.println(indent +input +" OUT(" +index +")" +" " +chosen);
+            }else{ System.out.println(indent +input +" X(" +index +")" +" " +chosen);  }
+            return;
+        }
+        // *** This impl is consistent with the Subsets tree view - No removing and adding back of chars from the input
+        String choice = input.get(index);
+
+        // Explore without the choice, by incrementing the index
+        System.out.println(indent +input +" L(" +index +"-"+ choice +") " +chosen);
+        combination(input, k, index+1, chosen, result, indentCount +1);
+
+        // Explore with the choice, incrementing the index and later un-choose
+        System.out.println(indent +input +" R(" +index +"-"+ choice +") " +chosen);
+        chosen.push(choice);
+        combination(input, k, index+1, chosen, result, indentCount +1);
+        chosen.pop();
+    }
+
+
 
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> result = new ArrayList<>();
@@ -84,10 +137,20 @@ public class Combinations {
         chosen.pop();
     }
 
+    public String get_indent(int N) {
+        String S = new String("");
+        for (int i = 0; i < N; i++)
+            S = S + "   > ";
+        return S;
+    }
 
 
     public static void main(String[] args) {
         Combinations obj = new Combinations();
+
+        List<String> list = Arrays.asList("A", "B", "C");
+        obj.combination(list, 2);
+
         int[] nums = {1,2,3};
         obj.combine(4,2);
     }

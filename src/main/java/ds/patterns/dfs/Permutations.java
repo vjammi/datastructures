@@ -38,14 +38,17 @@ public class Permutations {
 
         // For each choice out of a list of choices
         //     say {a,b,c,d}, we need to try all of the them as first, then we need to try all of them as second, then third and so on...
-        for (int i=0;i<input.size();i++) {
+        for (int i=0; i<input.size(); i++) {
+            // Because we remove the 0th element, we start the loop from 0.
+            // If not we would use a startIndex, by pass the startIndex+1 from the permuteHelper
 
             //  1.  choose
             //  When we choose, put our choice into the chosen list and pull/remove the chosen element out of the input list [of choices???].
             String choice = input.get(i);       //      a
+
             IndentUtil.showLeft(indent, input, i, choice, chosen);
-            chosen.add(choice);                 //      { }->{a}
             input.remove(i);                    //      {a,b,c,d}->{  b,c,d}
+            chosen.add(choice);                 //      { }->{a}
 
             //  2.  explore
             //  The permute recursive function call is going to lead to a tree of calls and all the sub calls are going to come back at later point.
@@ -190,9 +193,9 @@ public class Permutations {
 
     public static void main(String[] args) {
         Permutations obj = new Permutations();
-        //String[] strArray = {"1", "2", "3"};
-        //obj.permute1(obj.asList(strArray));
-        obj.permute2(new int[]{1, 2, 3});
+        String[] arr = {"1", "2", "3"};
+        obj.permute1(obj.asList(arr));
+        //obj.permute2(new int[]{1, 2, 3});
         //char[] array = {'1', '2', '3'};
         //List<String> resultList = obj.permute5(array);
     }

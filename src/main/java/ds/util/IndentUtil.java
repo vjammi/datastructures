@@ -60,6 +60,9 @@ public class IndentUtil {
     public static void showChosenI(String indent, List<Integer> input, int index, int choice, List<Integer> chosen){
         System.out.println(indent +input +" OUT(" +index +") " +chosen);
     }
+    public static void showChosenI(String indent, List<Integer> input, List<Integer> chosen){
+        System.out.println(indent +input +" OUT(" +") " +chosen);
+    }
 
 
     // List<String>

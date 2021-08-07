@@ -2,7 +2,6 @@ package ds.patterns.dfs;
 
 import ds.util.IndentUtil;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,14 +17,6 @@ import java.util.Stack;
  */
 public class Subsets {
 
-    // Method to generate a string of 2N blanks
-    public String get_indent(int N) {
-        String S = new String("");
-        for (int i = 0; i < N; i++)
-            S = S + "   > ";
-        return S;
-    }
-
     public List<List<Integer>> subsets1(int[] nums){
         List<Integer> chosen = new ArrayList<>();
         List<Integer> input = new ArrayList<>();
@@ -33,36 +24,41 @@ public class Subsets {
             input.add(nums[i]);
 
         List<List<Integer>> result = new ArrayList();
-        subsets1(input, chosen, result, 0);
+        subsets1(input, 0, chosen, result, 0);
         System.out.println(result);
         return result;
     }
-    private void subsets1(List<Integer> input,  List<Integer> chosen, List<List<Integer>> result, int n){
+    // Consistent with the Subsets tree view - No removing chars from the input
+    private void subsets1(List<Integer> input, int i, List<Integer> chosen, List<List<Integer>> result, int n){
         String indent = get_indent(n);
-        if (input.isEmpty()){
+        //if (input.isEmpty()){
+        if (i == input.size()){
             // 4. base case
             result.add(new ArrayList(chosen));
             System.out.println(indent +" Result " +input +chosen);
+            //IndentUtil.showChosenI(indent, input,chosen);
             return;
         }
         //  For a backtracking problem it could be tricky to figure what the choices are?
         //  What unit of work each function call is going to need to take care ?
         //  Recursive case - for each possible choice we need to [for each element in the input list]
-        Integer s = input.get(0);
-        //  1. Choose  2. Explore
-        //System.out.println(indent +" " +input +" " +s +" " +chosen);     // input add the first element from the input
-        input.remove(0); System.out.println(indent +" - " +s +" "+input +chosen);      // Exclude the first element from the input
-        subsets1(input, chosen, result, n+1);
+        Integer choice = input.get(i);
 
-        //  3. Choose again & 4. Further Explore
-        chosen.add(s); System.out.println(indent +" + " +s +" "+input +chosen);             // Include the first element from the input
-        subsets1(input, chosen, result,  n+1);
+        //  1. Choose to exclude and explore -
+        //     Explore without the choice, by incrementing the index
+        //input.remove(0); // No longer needed to remove - to be consistent with the subsets tree view
+        System.out.println(indent +" - " +choice +" "+input +chosen);      // Exclude the first element from the input
+        subsets1(input, i+1, chosen, result, n+1);
 
-        //  3. UnChoose
-        input.add(0, s);
-        System.out.println(indent +" " +input +chosen);                  // input add the first element from the input
+        //  3. Choose to include and further explore & UnChoose -
+        //     Explore with the choice, incrementing the index and later un-choose
+        chosen.add(choice);
+        System.out.println(indent +" + " +choice +" "+input +chosen);             // Include the first element from the input
+        subsets1(input, i+1, chosen, result,  n+1);
         chosen.remove(chosen.size()-1);
-    }
+        //input.add(0, s); // No longer needed to add back - to be consistent with the subsets tree view
+        System.out.println(indent +" " +input +chosen);                  // input add the first element from the input
+    } // [[], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3]]
 
     // Representing the problem space as a graph and using enumeration
     public List<List<Integer>> subsets2(int[] nums) {
@@ -123,7 +119,7 @@ public class Subsets {
     public List<String> powerSet(String input) {
         List<String> result = new ArrayList<>();
         String chosen = "";
-        powerset(input, chosen, result, 0, 1);
+        powerset(input, 0, chosen, result, 1);
         System.out.println(result);
         return result;
     }
@@ -152,76 +148,38 @@ public class Subsets {
      >    >    >  Result "ABC"
      [, C, B, BC, A, AC, AB, ABC]
      */
-    private void powerset(String input, String chosen, List<String> result, int index, int n) {
+    private void powerset(String input, int i, String chosen, List<String> result, int n) {
         String indent = get_indent(n);
-        if(index >= input.length()) {
-            result.add(chosen); System.out.println(indent +" Result \"" +chosen +"\"");
+        if(i >= input.length()) {
+            result.add(chosen);
+            System.out.println(indent +"["+input +"] RET \"" +chosen +"\"");
             return;
         }
-
-        System.out.println(indent +" -(L:" +input.charAt(index) +") "+chosen);
-        powerset(input, chosen, result, index + 1, n+1);
-
-        chosen = chosen + input.charAt(index);   System.out.println(indent +" +(R:" +input.charAt(index) +") "+chosen);
-        powerset(input, chosen, result, index + 1, n+1);
+        char c = input.charAt(i);
+        //input = input.substring(i+1, input.length()-1);
+        System.out.println(indent +"["+input +"] -(L:" +c +") ["+chosen+"]");
+        powerset(input, i + 1, chosen, result, n+1);
+        chosen = chosen + c;
+        System.out.println(indent +"["+input +"] +(R:" +c +") ["+chosen+"]");
+        powerset(input, i + 1, chosen, result, n+1);
+        chosen = chosen.substring(0, chosen.length()-1); //
+        //input = c + input;
+        System.out.println(indent +"["+input +"] -(R:" +c +") ["+chosen+"]");
 
     }
 
-
-    /**
-           Combinations: n = 3 k = 2
-
-             > [A, B, C] L(0-A) []
-             >    > [A, B, C] L(1-B) []
-             >    >    > [A, B, C] L(2-C) []
-             >    >    > [A, B, C] R(2-C) []
-             >    > [A, B, C] R(1-B) []
-             >    >    > [A, B, C] L(2-C) [B]
-             >    >    > [A, B, C] R(2-C) [B]
-             >    >    >    > [A, B, C] OUT  [B, C]
-             > [A, B, C] R(0-A) []
-             >    > [A, B, C] L(1-B) [A]
-             >    >    > [A, B, C] L(2-C) [A]
-             >    >    > [A, B, C] R(2-C) [A]
-             >    >    >    > [A, B, C] OUT  [A, C]
-             >    > [A, B, C] R(1-B) [A]
-             >    >    > [A, B, C] L(2-C) [A, B]
-             >    >    >    > [A, B, C] OUT  [A, B]
-             >    >    > [A, B, C] R(2-C) [A, B]
-             [[B, C], [A, C], [A, B]]
-    * */
-    public List<List<String>> combination(List<String> input, int k) {
-        List<List<String>> result = new ArrayList<>();
-        Stack<String> chosen = new Stack<>();
-        combination(input, chosen, result, 0, k, 1);
-        System.out.println(result);
-        return result;
-    }
-    private void combination(List<String> input, Stack<String> chosen, List<List<String>> result, int index, int k, int indentCount) {
-        String indent = get_indent(indentCount);
-        if(index == input.size()) {
-            if (chosen.size() == k){
-                result.add(new ArrayList(chosen)); System.out.println(indent +input +" OUT(" +index +")" +" " +chosen);
-            }else{ System.out.println(indent +input +" X(" +index +")" +" " +chosen);  }
-            return;
-        }
-
-        System.out.println(indent +input +" L(" +index +"-"+input.get(index)+") " +chosen);
-        combination(input, chosen, result, index+1, k, indentCount +1);
-
-        System.out.println(indent +input +" R(" +index +"-"+input.get(index)+") " +chosen);
-        chosen.push(input.get(index));
-        combination(input, chosen, result, index+1, k, indentCount +1);
-        chosen.pop();
+    public String get_indent(int N) {
+        String S = new String("");
+        for (int i = 0; i < N; i++)
+            S = S + "   > ";
+        return S;
     }
 
     public static void main(String[] args) {
         Subsets obj = new Subsets();
-        int[] nums = {1,2,3};
-        //obj.subsets(nums);
-        obj.subsets2(nums);
-        //obj.powerSet("123");
-        //List<String> list = Arrays.asList("A", "B", "C");
-        //obj.combination(list, 2);
+        int[] nums = {1,1,2};
+        obj.subsets1(nums);
+        //obj.subsets2(nums);
+        //obj.powerSet("abc");
     }
 }
