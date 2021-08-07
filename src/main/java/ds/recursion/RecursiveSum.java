@@ -1,6 +1,6 @@
-package ds.recursion.warmup;
+package ds.recursion;
 
-public class RecurssiveSum {
+public class RecursiveSum {
 
     public int sum1(int n){
         if (n<=0)
@@ -15,7 +15,7 @@ public class RecurssiveSum {
     }
 
     public static void main(String[] args) {
-        RecurssiveSum obj = new RecurssiveSum();
+        RecursiveSum obj = new RecursiveSum();
 
         int sum1 = obj.sum1(4);
         System.out.println("Sum1 "+sum1);
