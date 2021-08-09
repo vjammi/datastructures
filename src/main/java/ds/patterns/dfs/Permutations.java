@@ -19,12 +19,13 @@ public class Permutations {
     public List<List<String>> permute1(List<String> input){
         List<List<String>> result = new ArrayList<>();
         List<String> chosen = new ArrayList<>();
-        permuteHelper(input, chosen, result, 0);
+        //permuteHelper(input, chosen, result, 0);
+        permuteHelper2(input, 0);
         System.out.println(result);
         System.out.println(totalCalls +" "+madeItThrough);
         return result;
     }
-    // Permuting 4 elements is - Picking 1 and permuting the other 3
+    // Option 1 Permuting 4 elements is - Picking 1 and permuting the other 3
     public void permuteHelper(List<String> input, List<String> chosen, List<List<String>> result, int n){
         totalCalls++;
         String indent = IndentUtil.getIndent(n);
@@ -64,6 +65,33 @@ public class Permutations {
             input.add(i, choice); // Add/Put the earlier chosen element back into the input list.
             madeItThrough++;
         }
+    }
+
+    // Option 2 - more intitutive
+    public List<List<String>> permuteHelper2(List<String> input, int n){
+        String indent = IndentUtil.getIndent(n);
+        if (input.isEmpty()){
+            List<List<String>> result = new ArrayList<>();
+            //IndentUtil.showChosen(indent, input, chosen);
+            //result.add(new ArrayList(chosen));
+            return result;
+        }
+        //List<String> chosen, List<List<String>> result
+        String choice = input.get(0);                  //      a
+        input.remove(0);                          //      {a,b,c,d}->{  b,c,d}
+        //chosen.add(choice);                            //      { }->{a}
+        List<List<String>> inputWithoutChoice = permuteHelper2(input, n+1);
+        //chosen.remove(chosen.size()-1);           // Remove the last last element that was added
+        //List<String> list = new ArrayList<>();
+        for (int i=0; i<inputWithoutChoice.size(); i++) {
+            List<String> list2 = inputWithoutChoice.get(i);
+            list2.add(i, choice);
+            System.out.println(list2); //IndentUtil.showLeft(indent, input, i, choice, chosen);
+            inputWithoutChoice.add(list2);
+        }
+        input.add(0, choice);                     // Add/Put the earlier chosen element back into the input list.
+
+        return inputWithoutChoice;
     }
 
     // Hard to reason about. Only works because of the check within the for loop - Representing the problem space as a graph and using enumeration
@@ -193,7 +221,7 @@ public class Permutations {
 
     public static void main(String[] args) {
         Permutations obj = new Permutations();
-        String[] arr = {"1", "2", "3"};
+        String[] arr = {"a", "b", "c"};
         obj.permute1(obj.asList(arr));
         //obj.permute2(new int[]{1, 2, 3});
         //char[] array = {'1', '2', '3'};
