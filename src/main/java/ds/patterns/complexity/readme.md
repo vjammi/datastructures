@@ -1,4 +1,4 @@
-## 7 Common Complexity Classes
+## Common Complexity classes
 
 ### 1. Constant
 
