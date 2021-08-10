@@ -105,7 +105,7 @@ Recursive Solution
 ##  LC24 Swap Nodes in Pairs
     Need 3 swaps to swap each pair and to maintain the LinkedList structure.
     Reference: https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&t=747
-        
+```
             1   2    3   4   5   6  NULL
     dummy   1   2    3   4   5   6  NULL
                                    
@@ -130,17 +130,18 @@ Recursive Solution
                          ^   5 < 6  
                              ---->  NULL
                              ^
-
+```
 Summary of pointer movements
-
+```
     dummy   1   2    3   4   5   6  NULL
     ^           ^
     dummy   2   1    3   4   5   6  NULL
                 ^        ^
     dummy   2   1    4   3   5   6  NULL
                          ^       ^
+```
 Iterative Solution
-                     
+
     public ListNode swapPairs(ListNode head) {
         if (head == null)
             return head;
@@ -173,12 +174,11 @@ Iterative Solution
             next.next = runner.next; // 1 Point the next to runners next
             walker.next = runner;    // 2 Point the walker's next to runner
             runner.next = next;      // 3 Point the runner's next to next
-            
-            
-            // Advance the runner 1 step to point to the last element of the current pair
+
+            // After the swap of the nodes, advance the runner 1 step to point to the end of the current pair
             runner =  runner.next;
             
-            // Now advance the runner and walker 2 steps for processing the next pair            
+            // For processing the next pair, advance the runner and walker 2 steps
             walker = runner;               // To advance the walker to take the runner's position            
             int j = 0;
             while(runner!=null && j < 2){  // Advance the runner 2 steps ahead
