@@ -11,7 +11,12 @@ public class ReverseLinkedList {
             val = x;
         }
     }
-
+    //                         head
+    //              dummy   >   1   >   2   >   3   >   4   >   5   >   null
+    //                ^         ^       ^
+    // 1-reverse     prev <(1) curr    next
+    // 2-increment             prev    curr    next
+    //                                                        prev/head curr
     public ListNode reverseList_iterative(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -29,7 +34,7 @@ public class ReverseLinkedList {
             current = next;
         }
         this.head = previous;   // Set head to the previous
-        return previous;        // Why return previous but not current? Because the current becomes null
+        return previous;        // Why return previous but not current? Because the current becomes null and no longer go inside while
     }
 
     public ListNode reverseList_recursively(ListNode head) {
@@ -46,6 +51,19 @@ public class ReverseLinkedList {
         1    2      3           null
         0    1      2           null
         return 1
+
+  head  1  currNode
+        |  ^
+        2  prev
+        |  ^
+        3
+        |  ^
+        4  currNode
+        |  ^
+        5  head / prev   -- when node.next == null, point node to head && return node as prev
+        |
+        Null
+
      */
     private ListNode reverse(ListNode node) {
         if (node.next == null) {

@@ -5,10 +5,11 @@ public class SwapNodesInPairs {
     private ListNode head;
     private ListNode tail;
 
-    public class ListNode{
+    public class ListNode {
         int val;
         ListNode next;
-        ListNode(int x){
+
+        ListNode(int x) {
             val = x;
         }
     }
@@ -27,7 +28,7 @@ public class SwapNodesInPairs {
 
         // Advance the runner so that the runner is 2 steps ahead of walker
         int i = 0;
-        while(runner!=null && i < 2){
+        while (runner != null && i < 2) {
             runner = runner.next;
             i++;
         }
@@ -36,7 +37,7 @@ public class SwapNodesInPairs {
         //    Swap the nodes
         //    Advance the runner one step
         //    Advance the runner and walker 2 steps for processing the next pair
-        while(runner!=null){
+        while (runner != null) {
             // walker
             ListNode next = walker.next;
             // runner
@@ -45,15 +46,13 @@ public class SwapNodesInPairs {
             next.next = runner.next; // 1 Point the next to runners next
             walker.next = runner;    // 2 Point the walker's next to runner
             runner.next = next;      // 3 Point the runner's next to next
-
-
             // Advance the runner 1 step to point to the last element of the current pair
-            runner =  runner.next;
+            runner = runner.next;
 
-            // Now advance the runner and walker 2 steps for processing the next pair
-            walker = runner;               // To advance the walker to take the runner's position
+            // For swapping the next pair, advance the runner and walker 2 steps
+            walker = runner;               // Advance the walker to take the runner's position
             int j = 0;
-            while(runner!=null && j < 2){  // Advance the runner 2 steps ahead
+            while (runner != null && j < 2) {  // Advance the runner 2 steps ahead
                 runner = runner.next;
                 j++;
             }
@@ -64,53 +63,50 @@ public class SwapNodesInPairs {
 
 
     public ListNode swapPairs_recursively(ListNode head) {
-            if (head == null || head.next == null)
-                return head;
+        if (head == null || head.next == null)
+            return head;
 
-            // Setup the dummy node to point to the head of the list
-            ListNode dummy = new ListNode(0);
-            dummy.next = head;
+        // Setup the dummy node to point to the head of the list
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
 
-            swap(dummy);
-            return dummy.next;
-        }
+        swap(dummy);
+        return dummy.next;
+    }
 
-        private void swap(ListNode node) {
-            if (node == null || node.next == null || node.next.next == null) // takes care of odd input such as [1,2,3]
-                return;
+    private void swap(ListNode node) {
+        if (node == null || node.next == null || node.next.next == null) // takes care of odd input such as [1,2,3]
+            return;
 
-            ListNode walker = node;
-            ListNode runner = node;
+        ListNode walker = node;
+        ListNode runner = node;
 
-            // Advance runner 2 steps not n+1/2+1 steps because n+1 would become null at the end
-            // The current node here is the node before the nodes that are to ve swapped.
-            //             node     >       1       >      2       >    3
-            //                1     >       3       >      4       >    null
-            //      dummy/walker        walkerNext       runner      runnerNext
-            int steps = 0;
-            for(int i=0; i<2; i++){
-                runner = runner.next;
-                steps++;
-            }
+        // Advance runner 2 steps not n+1/2+1 steps because n+1 would become null at the end
+        // The current node here is the node before the nodes that are to be swapped.
+        //       dummy/node     >       1       >      2       >    3
+        //                1     >       3       >      4       >    null
+        //       node/walker        walkerNext       runner      runnerNext
+        for (int i = 0; i < 2; i++)
+            runner = runner.next;
 
-            // Swap nodes
-            ListNode walkerNext = walker.next;
-            ListNode runnerNext = runner.next;
-            walkerNext.next = runnerNext;
-            runner.next = walkerNext;
-            node.next = runner;
-            node = node.next;
+        // Swap nodes
+        ListNode walkerNext = walker.next;
+        ListNode runnerNext = runner.next;
+        walkerNext.next = runnerNext;
+        runner.next = walkerNext;
+        node.next = runner;
+        node = node.next;
 
 
-            swap(node.next);
+        swap(node.next);
 
-        }
+    }
 
-    public static void main(String[] agrs){
+    public static void main(String[] agrs) {
         SwapNodesInPairs obj = new SwapNodesInPairs();
 
-        int[] arr = {1,2,3,4};
-        for (int i = 0; i <arr.length; i++){
+        int[] arr = {1, 2, 3, 4};
+        for (int i = 0; i < arr.length; i++) {
             obj.insert(arr[i]);
         }
         obj.iterate(obj.head);
@@ -123,11 +119,11 @@ public class SwapNodesInPairs {
     }
 
     private void insert(int x) {
-        if (head == null){
+        if (head == null) {
             ListNode node = new ListNode(x);
             tail = node;
             head = tail;
-        }else{
+        } else {
             ListNode last = tail;
             ListNode node = new ListNode(x);
             last.next = node;
@@ -138,7 +134,7 @@ public class SwapNodesInPairs {
     public void iterate(ListNode node) {
         System.out.print("Nodes: ");
         while (node != null) {
-            System.out.print(" " +node.val);
+            System.out.print(" " + node.val);
             node = node.next;
         }
         System.out.println(" ");

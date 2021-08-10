@@ -174,11 +174,10 @@ Iterative Solution
             next.next = runner.next; // 1 Point the next to runners next
             walker.next = runner;    // 2 Point the walker's next to runner
             runner.next = next;      // 3 Point the runner's next to next
-
             // After the swap of the nodes, advance the runner 1 step to point to the end of the current pair
             runner =  runner.next;
             
-            // For processing the next pair, advance the runner and walker 2 steps
+            // For swapping the next pair, advance the runner and walker 2 steps
             walker = runner;               // To advance the walker to take the runner's position            
             int j = 0;
             while(runner!=null && j < 2){  // Advance the runner 2 steps ahead
@@ -213,14 +212,12 @@ Recursive Solution
 
             // Advance runner 2 steps not n+1/2+1 steps because n+1 would become null at the end
             // The current node here is the node before the nodes that are to ve swapped.
-            //             node     >       1       >      2       >    3
-            //                1     >       3       >      4       >    null
-            //      dummy/walker        walkerNext       runner      runnerNext
-            int steps = 0;
-            for(int i=0; i<2; i++){
+            // ???            node     >       1     >      2       >    3   >   4   >   null
+            // ???     dummy/walker        walkerNext       runner      runnerNext
+            // ???              2      >       1     >      3       >      4       >    null
+            // ???                      dummy/walker        walkerNext       runner      runnerNext
+            for(int i=0; i<2; i++)
                 runner = runner.next;
-                steps++;
-            }
 
             // Swap nodes
             ListNode walkerNext = walker.next;
@@ -237,6 +234,10 @@ Recursive Solution
 ## 2.1 Reverse a Linked List
 Iterative Solution
 ```
+    //              dummy   >   1   >   2   >   3   >   4   >   5   >   null
+    //                ^         ^       ^
+    // 1-reverse     prev <(1) curr    next
+    // 2-increment            prev    curr    next
     public ListNode reverseList_iterative(ListNode head) {
         if (head == null || head.next == null)
             return head;
@@ -301,7 +302,7 @@ Recursive Solution
     
             dummy1   1   2
                          |
-                dummy2   5   4   null 
+            dummy2       5   4   null
                
             return dummy1.next
 
@@ -392,7 +393,7 @@ Option 2: Since it s a Linked list problem, we can try to solve it using pointer
                     6
         ^^
         SF
-        The slow pointer and fast pointer start out at the dummy node at the begining
+        The slow pointer and fast pointer start out at the dummy node at the beginning
         
                     4
         1   2   3       5
