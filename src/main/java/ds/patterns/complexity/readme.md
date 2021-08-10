@@ -1,11 +1,15 @@
-## Common Complexity classes
+# Runtime Complexity Analysis
+
+### Common Classifications for Time and Space Complexity
 
 ### 1. Constant
+```
+// Code example here...
+```
 
 ### 2. Logarithmic O(log(n))
-- Logarithmic is opposite of exponent.
-- Exponent (to the power) is repeated multiplication.
-```2^5 = 32```
+- Logarithmic is opposite of exponent ```log4(32) = 5```
+- Exponent (to the power) is repeated multiplication ```2^5 = 32```
 - Logarithmic of a base is repeated division by the base.
 ```
     4^3 = 64
@@ -16,7 +20,7 @@
     log2(32) = 5 [16/2 > 8/2 > 4/2 > 2/2 > 1 ]
     2 the 5th power is 32
 ```
-- Logarithmic does not grow fast
+- Logarithmic does not grow very fast
 ```
     n           log2(n)         n*log2(n)       n*n
     ------------------------------------------------
@@ -32,9 +36,20 @@
 
 ### 3. Linear - O(n)
 We have to evaluate n function calls
+```
+// Code example here...
+```
+
 
 ### 4. Linear Logarithmic / LogLinear - O(n*log(n))
-
+```
+        n* log(n)
+        _
+       |               abcdefgh                     4
+log(n) |         abcd            efgh               4+4
+       |     ab     cd       ef      gh             2+2+2+2
+       |_   a  b   c  d     e  f    g   h           1+1+1+1+1+1+1+1
+```
 ```
 public void foo(String[] arr){
     String str = "";
@@ -53,28 +68,22 @@ public void foo(String[] arr){
 }
 ```
 
-```
-        n* log(n)
-        _
-       |               abcdefgh                      4
-log(n) |         abcd            efgh                4+4
-       |     ab     cd       ef      gh             2+2+2+2
-       |_   a  b   c  d     e  f    g   h           1+1+1+1+1+1+1+1
-```
-
 ### 5. Polynomial - O(n^c)
-O(n^c) where, c is a constant
-e.g.  n^2, n^3
-
-
-
-
+- O(n^c) where, c is a constant. For e.g. ```n^2, n^3```
+- An example of nested for loop with ```O(n*n)``` runtime complexity
+```
+    void foo(int n){
+        for (int i=0; i<n; i++){
+            for (int i=0; i<n; i++){
+                // print...
+            }
+        }
+    }
+```
 
 ### 6. Exponential O(c^n)
-O(c^n)      where c is a constant and n is the size of the input]
-e.g. 2^n or 3^n
-
-```2^n``` A single call to foo, makes 2 further recursive calls
+- O(c^n) where c is a constant and n is the size of the input. For e.g. ```2^n or 3^n```
+- ```2^n``` A single call to foo, makes 2 further recursive calls
 ```
     void foo(int n){
         if (n==1) return;
@@ -102,8 +111,6 @@ Space Complexity = n, which is the number of digits on the stack.
         2^4 function calls  = 2*2*2*2 = 16
 ```
 
-
-
 - ```3^n``` A single call to foo makes 3 recursive calls here
 ```
     void foo(int n){
@@ -113,10 +120,10 @@ Space Complexity = n, which is the number of digits on the stack.
     }
     foo(4);
 ```
-```2^n/2 = 2^n/2 ``` A single call to foo makes 2 recursive calls and the height of the tree is going to be half as tall.
-- Branching factor of 2
-- Height is half of n
 
+- ```2^n/2 = 2^n/2 ``` A single call to foo makes 2 recursive calls and the height of the tree is going to be half as tall.
+```Branching factor of 2```
+```Height is half of n```
 ```
     void foo(int n){
         if (n == 1) return;
@@ -126,23 +133,6 @@ Space Complexity = n, which is the number of digits on the stack.
     foo(4);
 ```
 
-```
-n           log2(n)         n*log2(n)       n*n         n*n*n       2^n
------------------------------------------------------------------------
-1                           0               1           1           2
-2           1               2               4           8           4
-3                                           9                       8
-4           1               8               16          64          16
-5                                           25          125         32
-6                                           36                      64
-7                                           49
-8           3               24              64
-16          4               64              256
-32          5               128
-...         ...             ...             ...         ...         ...
-1024        10              10240           1048576
-
-```
 ### 7. Factorial (n!)
 - The key characteristic of this function is within each call to foo, we make n further recursive calls from within the for loop.
 - In an exponential function, we branch out a constant number of times.
@@ -174,9 +164,27 @@ n! = n * (n-1) * (n-2) ... (2) * (1)
 
 ```
 
+## Comparisons
+```
+n           log2(n)         n*log2(n)       n*n         n*n*n       2^n
+-----------------------------------------------------------------------
+1                           0               1           1           2
+2           1               2               4           8           4
+3                                           9                       8
+4           1               8               16          64          16
+5                                           25          125         32
+6                                           36                      64
+7                                           49
+8           3               24              64
+16          4               64              256
+32          5               128
+...         ...             ...             ...         ...         ...
+1024        10              10240           1048576
+```
+
 
 ## Analyzing Multi-Argument Function - O(m+n)
-Here we have loops after each other, hence ```O(m+n)```
+- Here we have loops after each other, hence ```O(m+n)```
 ```
     void foo(int m, int n){
         for (int i=0; i<m; i++){
@@ -198,7 +206,11 @@ Here we have nested for loops, hence ```O(m*n)```
     }
 ```
 
-### O(n) where n is the length of the longer string
+### Analyzing Complexity when iterating over two strings of different lengths
+- O(n) where n is the length of the longer string
+```
+// Code example here....
+```
 
 
 ## Analyzing Stack Space of recursive functions
