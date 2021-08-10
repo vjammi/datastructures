@@ -33,7 +33,7 @@ public class RemoveNthNode {
 
         // Advance the runner so that the dist between is N+1
         int i=0;
-        while(runner!=null & i < n+1){
+        while(runner!=null && i < n+1){
             runner =  runner.next;
             i++;
         }

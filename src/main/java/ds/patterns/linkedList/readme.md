@@ -1,11 +1,10 @@
-# Linked List Patterns
-- insertion and deletion at O(N)
-- finding s specific node is O(N)
-- Add a Dummy nodes
-- Linked Lists are a game of references. It all about how you modify these pointers in a systematic way. 
-- If you are reordering elements of a list, you take thee nodes and change their next pointer points to. 
-- if deleting a node, we modify the previous nodes next pointer to point to the next of the node to be deleted. 
-   
+# Linked List
+- Insertion and Deletion is O(N). Fetching a specific node is O(N)
+- Linked Lists are all about modify the pointers in a systematic way.
+- If you are reordering elements of a list, you take thee nodes and change their next pointer points to.
+- if deleting a node, we modify the previous nodes next pointer to point to the next of the node to be deleted.
+- We use the dummy nodes for convenience.
+
 ## LC19 Remove Nth Node from End of List
 - Add a dummy node to the start of the list with dummy.next pointing to the head. 
   Note: ??? Dummy nodes are pointers, not new nodes 
@@ -45,15 +44,15 @@ Iterative Solution
             ListNode walker = dummy;
             ListNode runner = dummy;
             
-            // Advance the runner so that the dist between is N+1
+            // Advance the runner so that the dist between runner ans walker is n+1
             int i=0;
-            while(runner!=null & i < n+1){
+            while(runner != null && i < n+1){
                 runner =  runner.next;
                 i++;
             }        
             
             // Now advance the runner and walker one step at a time until the runner reaches the end - runner is null
-            while(runner!=null){
+            while(runner != null){
                 walker = walker.next;
                 runner= runner.next;            
             }
@@ -63,7 +62,7 @@ Iterative Solution
             walker.next = walker.next.next;
             next.next = null;        
             
-             // return dummy.next
+            // return dummy.next
             return dummy.next;
         }
         
@@ -88,7 +87,11 @@ Recursive Solution
     
             int level = removeNthNode(node.next, n) + 1;
             
-            // Nth node from the end - Determined on the way back of the recurssion stack.         
+            // Nth node from the end - Determined on the way back of the recursion stack.
+            // dummy   1   2   3   4   5   NULL         n=2, so remove node 4
+            //                 ^
+            //                 3   2    1    0
+            //                n+1  n    1    0
             if (level == n+1){                
                 // Note the same iterative delete logic - deleting Nth node from the end.
                 ListNode next = node.next; // Save the next node temporarily so that its next could be set to null
