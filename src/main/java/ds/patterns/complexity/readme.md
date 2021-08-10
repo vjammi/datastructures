@@ -111,17 +111,18 @@ Space Complexity = n, which is the number of digits on the stack.
         2^4 function calls  = 2*2*2*2 = 16
 ```
 
-- ```3^n``` A single call to foo makes 3 recursive calls here
+- ```3^n``` A single call to foo makes 3 further recursive calls
 ```
     void foo(int n){
         if (n==1) return;
+        foo(n-1);
         foo(n-1);
         foo(n-1);
     }
     foo(4);
 ```
 
-- ```2^n/2 = 2^n/2 ``` A single call to foo makes 2 recursive calls and the height of the tree is going to be half as tall.
+- ```2^n/2 = 2^n/2 ``` A single call to foo makes 2 further recursive calls, but the height of the tree is going to be half as tall asd the earlier.
 ```Branching factor of 2```
 ```Height is half of n```
 ```
@@ -137,11 +138,18 @@ Space Complexity = n, which is the number of digits on the stack.
 - The key characteristic of this function is within each call to foo, we make n further recursive calls from within the for loop.
 - In an exponential function, we branch out a constant number of times.
 - However, in a factorial we branch out n number of times.
-
 ```
 n! = n * (n-1) * (n-2) ... (2) * (1)
 4! = 4 * 3 * 2 * 1
 ```
+```
+                                 4                                      4
+                  3         3         3         3                       3
+          2       2       2                                             2
+        1   1   1   1   1   1                                           1
+```
+
+
 ```
     void foo(int n){
         if (n == 1) return;
@@ -152,17 +160,7 @@ n! = n * (n-1) * (n-2) ... (2) * (1)
     foo(4);
 ```
 
-```
 
-                                    4                                                   4
-
-          3                     3               3               3                       3
-
-  2       2       2                                                                     2
-
-1   1   1   1   1   1                                                                   1
-
-```
 
 ## Comparisons
 ```
