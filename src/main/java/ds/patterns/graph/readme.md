@@ -15,7 +15,7 @@ Relationship between the edges. Neighbors of a node. We can usually represent a 
            /  \
           1     4
 ```
-## Adjacency list
+#### Adjacency list
 An Adjacency List is usually a Hashmap, or a List of Lists
 ```   
         Key Value
@@ -25,7 +25,7 @@ An Adjacency List is usually a Hashmap, or a List of Lists
         4   [2]
 ```
 
-Adjacency List Representation - Option 1
+#### Adjacency List Representation - Option 1
 ```
     someGraph(int n, int[][] edges) {
         LinkedList<Integer>[] adj; // Array of lists for Adjacency List Representation
@@ -38,7 +38,7 @@ Adjacency List Representation - Option 1
         adj[v].add(w); // Add w to v's list.
      }
 ```
-Adjacency List Representation - Option 2
+#### Adjacency List Representation - Option 2
 ```
     someGraph(int n, int[][] edges) {
         Map<Integer, List<Integer>> adjList = new HashMap<>();
@@ -54,7 +54,7 @@ Adjacency List Representation - Option 2
     }
 ```
 
-## Adjacency Matrix - 2D array 
+#### Adjacency Matrix - 2D array
 We mark all the spots where 2 nodes are connected and populate the matrix with all the edges. 
 It is east to lookup all the nods neighbors.
 ```
@@ -64,7 +64,7 @@ It is east to lookup all the nods neighbors.
     2       T
     3       T
 ```
-Adjacency Matrix Representation
+#### Adjacency Matrix Representation
 ```
     // Initialize the matrix
     public GraphAdjacencyMatrix(int numVertices) {
@@ -85,10 +85,43 @@ Adjacency Matrix Representation
     }
 ```
 
-A big chunk of work within the graph problem is 
-1. Setting up the  Adjacency List or the Matrix.
-2. Visited Array 
-3. Once you do that, you just have to iterate thru the graph using DFS or BFS, and keep track of everything you have seen using some sort of a visited array. 
+#### A big chunk of work within the graph problem is
+- Setting up the  Adjacency List or the Matrix.
+- Once you do that, you iterate thru the graph using DFS or BFS, and keep track of everything you have seen using a visited array.
+
+#### Solving Graph Problems
+- First we will draw all the nodes as a graph from 0 to N-1, so that we visually see what we are working with.
+- Then we can go thru the edges from the input and fill in the graph.
+- These are undirected edges - 2 way streets.
+- Once we draw we could see that there could be different clusters or islands of nodes.
+- Each of these is called a connected component.
+- We need to algorithmically count these connected components.
+- Similar to the number of islands problem in a graph instead of a matrix.
+- We want to pick a node and see all the nodes connected to it the next node.
+- Eventually we will visit all the nodes in that cluster, that would be 1 connected component.
+- The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array]
+- so that we do not visit them again.
+
+#### Implementing Graph Problems
+- We setup an adjacency list or a matrix  so that we can easily lookup each nodes neighbors.
+- We will get the edges in as a list of pairs. You want to go thru each of the edges and list which nodes are adjacent in the adjacency list.
+- We can use a hashmap, or a list of lists for the adjacency list.
+- We will set the key as the nodes name and the values a list of its edges.
+- We initially use a for-loop to initialize all these lists to be empty
+- We then we iterate thru the input pairs and populate the adjacency list with edges.
+- Since the graph is undirected, we need to add each edge twice, since a is b's neighbors. Then b is a's neighbor too.
+- After this we need to iterate thru each node and explore all its neighbors.
+- As we encounter nodes we use this boolean visited array to make the nodes that we have seen.
+- As we finish exploring all the connected components, we increment by 1.
+- Visited array prevents us from double counting a connected components and
+- the for loop prevents from missing one of the connected component.
+- Within the DFS, you mark the current node as visited and then you get the list of neighbors from the adjacency list.
+- We DFS into the one we have not seen.
+- Once all of them are visited. the DFS calls will automatically stop and then we are done.
+- Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
+
+
+
 
 ## Complexity Analysis of Depth First Search
 #### Time Complexity
@@ -133,35 +166,35 @@ Return the number of connected components in the graph.
 ```
 
 Solving the problem    
-    First we will draw all the nodes as a graph from 0 to N-1, so that we visually see what we are working with. 
-    Then we can go thru the edges from the input and fill in the graph.
-    These are undirected edges - 2 way streets.
-    Once we draw we could see that there could be different clusters or islands of nodes.
-    Each of these is called a connected component. 
-    We need to algorithmically count these connected components. 
-    Similar to the number of islands problem in a graph instead of a matrix.
-    We want to pick a node and see all the nodes connected to it the next node. 
-    Eventually we will visit all the nodes in that cluster, that would be 1 connected component. 
-    The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array] 
-    so that we do not visit them again.  
-     
+-First we will draw all the nodes as a graph from 0 to N-1, so that we visually see what we are working with.
+-Then we can go thru the edges from the input and fill in the graph.
+-These are undirected edges - 2 way streets.
+-Once we draw we could see that there could be different clusters or islands of nodes.
+-Each of these is called a connected component.
+-We need to algorithmically count these connected components.
+-Similar to the number of islands problem in a graph instead of a matrix.
+-We want to pick a node and see all the nodes connected to it the next node.
+-Eventually we will visit all the nodes in that cluster, that would be 1 connected component.
+-The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array]
+-so that we do not visit them again.
+
 Code
-    We setup an adjacency list or a matrix  so that we can easily lookup each nodes neighbors.  
-    *** you will get the edges in as a list of pairs. you want to go thru each of the edges and list which nodes are adjacent in the adjacency list.
-    We can use a hashmap, or a list of lists for the adjacency list.
-    We will set the key as the nodes name and the values a list of its edges.
-    We initially use a for-loop to initialize all these lists to be empty 
-    We then we iterate thru the input pairs and populate the adjacency list with edges.
-    Since the graph is undirected, we need to add each edge twice, since a is b's neighbors. Then b is a's neighbor too.
-    After this we need to iterate thru each node and explore all its neighbors. 
-    As we encounter nodes we use this boolean visited array to make the nodes that we have seen.
-    As we finish exploring all the connected components, we increment by 1.
-    Visited array prevents us from double counting a connected components and 
-    the forloop prevents from missing one of the connected component. 
-    Within the DFS, you mark the current node as visited and then you get the list of neighbors from the adjacency list. 
-    We DFS into the one we have not seen. 
-    Once all of them are visited. the DFS calls will automatically stop and then we are done.
-    Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
+- We setup an adjacency list or a matrix  so that we can easily lookup each nodes neighbors.
+- We will get the edges in as a list of pairs. You want to go thru each of the edges and list which nodes are adjacent in the adjacency list.
+- We can use a hashmap, or a list of lists for the adjacency list.
+- We will set the key as the nodes name and the values a list of its edges.
+- We initially use a for-loop to initialize all these lists to be empty
+- We then we iterate thru the input pairs and populate the adjacency list with edges.
+- Since the graph is undirected, we need to add each edge twice, since a is b's neighbors. Then b is a's neighbor too.
+- After this we need to iterate thru each node and explore all its neighbors.
+- As we encounter nodes we use this boolean visited array to make the nodes that we have seen.
+- As we finish exploring all the connected components, we increment by 1.
+- Visited array prevents us from double counting a connected components and
+- the for loop prevents from missing one of the connected component.
+- Within the DFS, you mark the current node as visited and then you get the list of neighbors from the adjacency list.
+- We DFS into the one we have not seen.
+- Once all of them are visited. the DFS calls will automatically stop and then we are done.
+- Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
 
 Implementation
 ```
