@@ -247,19 +247,19 @@ Implementation
 
 ```
 
-Complexity Analysis\
-Here E = Number of edges, V = Number of vertices.
+Complexity Analysis
+- If ```E is the number of edges``` and ```V is the number of vertices```.
 
-Time complexity: O(E+V).\
-Building the adjacency list will take O(E) operations, as we iterate over the list of edges once, and insert each
-edge into two lists.
-During the DFS traversal, each vertex will only be visited once. This is because we mark each vertex as visited
-as soon as we see it, and then we only visit vertices that are not marked as visited. In addition, when we iterate
-over the edge list of each vertex, we look at each edge once. This has a total cost of O(E+V).
+Time complexity ```O(E+V)```
+- Building the adjacency list will take O(E) operations, as we iterate over the list of edges once, and insert each edge into two lists.
+- During the DFS traversal, each vertex will only be visited once. This is because we mark each vertex as visited as soon as we see it, and then we only visit vertices that are not marked as visited.
+- In addition, when we iterate over the edge list of each vertex, we look at each edge once.
+- This has a total cost of O(E+V).
 
-Space complexity: O(E+V).\
-Building the adjacency list will take O(E) space. To keep track of visited vertices, an array of size O(V) is required.
-Also, the run-time stack for DFS will use O(V) space.
+Space complexity ``` O(E+V)```
+- Building the adjacency list will take O(E) space.
+- To keep track of visited vertices, an array of size O(V) is required.
+- Also, the run-time stack for DFS will use O(V) space.
 
 ## 207. Course Schedule  - Directed Graph + Cycle Detection (0 -1 1)
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
