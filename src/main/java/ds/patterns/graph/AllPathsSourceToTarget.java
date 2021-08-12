@@ -51,7 +51,16 @@ public class AllPathsSourceToTarget {
 
     public static void main(String[] args) {
         AllPathsSourceToTarget obj = new AllPathsSourceToTarget();
-        int[][] graph = {{1,2},{3},{3},{}};
+        /*
+                2 -> 3
+                ^    ^
+                |    |
+                0 -> 1
+        **/
+        int[][] graph = {{1,2},     // 0
+                         {3},       // 1
+                         {3},       // 2
+                         {}};       // 3
         obj.allPathsSourceTarget(graph);
     }
 }
