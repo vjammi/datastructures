@@ -1,13 +1,6 @@
-## Graph Problems
-Collection of vertices and edges. Unlike a Tree which uses a Node class, in a graph we usually care about the adjacent nodes here.
-1. Directed & Undirected edges
-2. Connected Components
-3. Cycle Detection
-4. Topological Sort
-5. Graph Coloring
-6. Indegrees
-
-Relationship between the edges. Neighbors of a node. We can usually represent a graph with an adjacency list or adjacency matrix.
+# Graph
+- A graph is a collection of vertices and edges. Unlike a Tree which uses a Node class, in a graph we usually care about the adjacent nodes.
+- The Relationship between the edges. Neighbors of a node. We can usually represent as a graph with an adjacency list or adjacency matrix.
 ```
               3
              / 
@@ -15,6 +8,14 @@ Relationship between the edges. Neighbors of a node. We can usually represent a 
            /  \
           1     4
 ```
+## Types of Graph Problems
+1. Directed & Undirected edges
+2. Connected Components
+3. Cycle Detection
+4. Topological Sort
+5. Graph Coloring
+6. Indegrees
+
 #### Adjacency list
 An Adjacency List is usually a Hashmap, or a List of Lists
 ```   
@@ -92,15 +93,6 @@ It is east to lookup all the nods neighbors.
 #### Solving Graph Problems
 - First we will draw all the nodes as a graph from 0 to N-1, so that we visually see what we are working with.
 - Then we can go thru the edges from the input and fill in the graph.
-- These are undirected edges - 2 way streets.
-- Once we draw we could see that there could be different clusters or islands of nodes.
-- Each of these is called a connected component.
-- We need to algorithmically count these connected components.
-- Similar to the number of islands problem in a graph instead of a matrix.
-- We want to pick a node and see all the nodes connected to it the next node.
-- Eventually we will visit all the nodes in that cluster, that would be 1 connected component.
-- The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array]
-- so that we do not visit them again.
 
 #### Implementing Graph Problems
 - We setup an adjacency list or a matrix  so that we can easily lookup each nodes neighbors.
@@ -126,7 +118,8 @@ Time Complexity
 - The time complexity of DFS actually depends on the data structure being used to represent the graph.
 
 Graph represented as adjacency list
-- Each node maintains a list of all its adjacent edges. Let’s assume that there are ```V number of nodes``` and ```E number of edges``` in the graph.
+- Each node maintains a list of all its adjacent edges.
+- If we assume that there are ```V number of nodes``` and ```E number of edges``` in the graph.
 - For each node, we discover all its neighbors by traversing its adjacency list just once in linear time.
 - Directed graph - For a directed graph, the sum of the sizes of the adjacency lists of all the nodes is E. So, the time complexity in this case is ```O(V) + O(E) = O(V + E)```
 - Undirected graph - For an undirected graph, each edge appears twice. Once in the adjacency list of either end of the edge. The time complexity for this case will be ```O(V) + O (2E) ~ O(V + E)```.
@@ -167,6 +160,7 @@ Space Complexity
 - Hence, the space complexity is ```O(V)```.
 
 
+# Graph Problems
 ## 323. Number of Connected Components in an Undirected Graph [Undirected Graph, Connected Components]
 You have a graph of n nodes. You are given an integer n, and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
 Return the number of connected components in the graph.
