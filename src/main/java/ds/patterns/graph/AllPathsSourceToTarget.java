@@ -49,4 +49,9 @@ public class AllPathsSourceToTarget {
         visited[v] = false;
     }
 
+    public static void main(String[] args) {
+        AllPathsSourceToTarget obj = new AllPathsSourceToTarget();
+        int[][] graph = {{1,2},{3},{3},{}};
+        obj.allPathsSourceTarget(graph);
+    }
 }
