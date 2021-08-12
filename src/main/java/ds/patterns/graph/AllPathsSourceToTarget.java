@@ -49,6 +49,34 @@ public class AllPathsSourceToTarget {
         visited[v] = false;
     }
 
+    public List<List<Integer>> allPathsSourceTarget2(int[][] graph) {
+        List<List<Integer>> result = new ArrayList();
+        List<Integer> path = new ArrayList<>();
+        boolean[] visited = new boolean[graph.length];
+
+        dfs2(graph, 0, visited, path, result);
+        System.out.println(result);
+
+        return result;
+    }
+
+
+    private void dfs2(int[][] graph, int v, boolean[] visited, List<Integer> path, List<List<Integer>> result) {
+        path.add(v);
+        if (v == graph.length-1){
+            result.add(new ArrayList(path));
+            return;
+        }
+
+        visited[v] = true;
+        int[] neighbors = graph[v];
+        for (int neighbor : neighbors) {
+            dfs2(graph, neighbor, visited, path, result);
+            path.remove(path.size()-1);
+        }
+        visited[v] = false;
+    }
+
     public static void main(String[] args) {
         AllPathsSourceToTarget obj = new AllPathsSourceToTarget();
         /*
