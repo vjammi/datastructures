@@ -702,7 +702,8 @@ Explanation: There are two paths: 0 -> 1 -> 3 and 0 -> 2 -> 3.
         return result;
     }
 
-    private void dfs(int[][] graph, int v, boolean[] visited, Stack<Integer> stack, List<List<Integer>> result) {
+  private void dfs(int[][] graph, int v, boolean[] visited, Stack<Integer> stack, List<List<Integer>> result) {
+
         if (v == graph.length-1){
             result.add(new ArrayList(stack));
             return;
@@ -719,4 +720,5 @@ Explanation: There are two paths: 0 -> 1 -> 3 and 0 -> 2 -> 3.
         }
         visited[v] = false;
     }
+
 ```
