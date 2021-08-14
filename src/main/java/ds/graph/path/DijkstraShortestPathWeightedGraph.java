@@ -91,7 +91,6 @@ public class DijkstraShortestPathWeightedGraph {
         }
     }
 
-
     public static void main(String[] args) {
         DijkstraShortestPathWeightedGraph obj = new DijkstraShortestPathWeightedGraph(5);
         obj.dijkstra(0,5);
