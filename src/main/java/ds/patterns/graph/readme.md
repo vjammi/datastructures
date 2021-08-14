@@ -307,6 +307,12 @@ While we are visiting, we mark them with -1. once done we change the -1s to 1s.
               /   \    /    \ 
             0       2    -   4 -1
             1      -1
+          ???
+            0   [0,1]
+            1   [1,2]
+            2   [3,2]
+            3   [4,3]
+            4   [2,4]
 ```
 Note that we have a cycle within 2-3-4 [2-4-3-2]
 
