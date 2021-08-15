@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class BinaryTree_ConstructFromPostOrderInOrder {
     TreeNode root;
-
     class TreeNode{
         int val;
         TreeNode left, right;
@@ -19,8 +18,20 @@ public class BinaryTree_ConstructFromPostOrderInOrder {
 
     private int[] postorder;
     private int[] inorder;
-    private int nextPostorderIndex = 0;
+    private int postorderIndex = 0;
     private Map<Integer, Integer> inorderMap = new HashMap<>();
+
+    private TreeNode buildTree() {
+        //int[] inorder = {9,3,15,20,7};
+        // int[] postorder = {9,15,7,20,3};
+        int[] postorder = {7,6,9,8,11,13,12,10,19,21,20,23,25,24,22,16};
+        //                 0,1,2,3,4, 5, 6, 7, 8, 9, 10,11,12,13,14,15
+        //                                                    ^
+        int[] inorder  = {6,7,8,9,10,11,12,13,16,19,20,21,22,23,24,25};
+        //                0,1,2,3,4, 5, 6, 7, 8, 9, 10,11,12,13,14,15
+        //                                                         ^  ^
+        return buildTree(inorder, postorder);
+    }
 
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         this.postorder = postorder;
@@ -29,45 +40,37 @@ public class BinaryTree_ConstructFromPostOrderInOrder {
         for(int i=0; i< inorder.length; i++){
             inorderMap.put(inorder[i], i);
         }
-        nextPostorderIndex = postorder.length - 1;
+        postorderIndex = postorder.length - 1;
         return buildTree(0, inorder.length-1);
     }
 
     public TreeNode buildTree(int leftIndex, int rightIndex) {
-        if (leftIndex > rightIndex){ // or we could also say (rightIndex < leftIndex){
+        if (leftIndex > rightIndex){
             return null;
         }
-
-        int postOrderNodeVal = postorder[nextPostorderIndex--];
+        // Select the next postorder node as the current root and decrement it postorder index
+        int postOrderNodeVal = postorder[postorderIndex--];
         TreeNode currNode = new TreeNode(postOrderNodeVal);
+
         int inorderIndexForCurrNode = inorderMap.get(postOrderNodeVal);
-
         currNode.right = buildTree(inorderIndexForCurrNode+1, rightIndex);
-        currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);
+        currNode.left  = buildTree(leftIndex, inorderIndexForCurrNode - 1);
 
-        //TreeNode right = buildTree(inorderIndexForRootValue+1, rightIndex);
-        //TreeNode left = buildTree(leftIndex, inorderIndexForRootValue - 1);
-        //rootNode.right = right;
-        //rootNode.left = left;
+        return currNode; // Return the current node to be added to the left or the right side of the parent node.
+    }
 
-        return currNode;
+    public static void main(String[] args) {
+        BinaryTree_ConstructFromPostOrderInOrder tree = new BinaryTree_ConstructFromPostOrderInOrder();
+        //tree.populate(tree);
+        //tree.print("", tree.root);
+
+        TreeNode node = tree.buildTree();
+        tree.print("", node);
     }
 
     private void populate(BinaryTree_ConstructFromPostOrderInOrder tree) {
         int[] arr = {3, 9, 20, 0, 0, 7, 15};
         root = insertLevelOrder(arr, root, 0);
-    }
-
-    // Function to insert nodes in level order
-    public static void main(String[] args) {
-        BinaryTree_ConstructFromPostOrderInOrder tree = new BinaryTree_ConstructFromPostOrderInOrder();
-        tree.populate(tree);
-        tree.print("", tree.root);
-
-        int[] inorder = {9,3,15,20,7};
-        int[] postorder = {9,15,7,20,3};
-        TreeNode node = tree.buildTree(inorder, postorder);
-        tree.print("", node);
     }
 
     public TreeNode insertLevelOrder(int[] arr, TreeNode node, int key){

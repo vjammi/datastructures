@@ -304,7 +304,6 @@ Implementation
     }
 ```
 
-## 105. Construct Binary Tree from Preorder and Inorder Traversal       https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 ## 285. Inorder Successor in BST                                        https://leetcode.com/problems/inorder-successor-in-bst/
 ## 1676. Lowest Common Ancestor of a Binary Tree IV                     https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iv/
 ## 314. Binary Tree Vertical Order Traversal                            https://leetcode.com/problems/binary-tree-vertical-order-traversal/
