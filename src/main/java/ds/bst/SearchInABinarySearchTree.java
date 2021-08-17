@@ -1,4 +1,4 @@
-package ds.binarysearchtree;
+package ds.bst;
 
 /**
     You are given the root of a binary search tree (BST) and an integer val.

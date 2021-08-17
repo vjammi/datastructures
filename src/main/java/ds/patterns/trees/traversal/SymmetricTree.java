@@ -28,19 +28,38 @@ public class SymmetricTree {
     }
 
     public boolean isSymmetric(TreeNode root) {
-        if (root == null)
-            return true;
+        if (root == null) return true;
         return symmetric(root.left, root.right);
+        //return symmetric2(root.left, root.right);
     }
 
     public boolean symmetric(TreeNode a, TreeNode b) {
+        if ( (a == null && b != null) || (a != null && b == null) ) // a or b is null
+            return false;
+
+        if (a == null && b == null)     // base case
+            return true;
+
+        if (a != null && b !=null && a.val != b.val)  // a and b are not null but they are not symmetric
+            return false;
+
+        boolean left  = symmetric(a.left, b.right);
+        boolean right = symmetric(a.right,b.left);
+
+        if (left == false || right == false)    // either left or right returns false
+            return false;
+
+        return true; // both left or right return true
+    }
+
+    public boolean symmetric2(TreeNode a, TreeNode b) {
         if (a == null && b == null)
             return true;
 
         // Are vals same?
         if ( (a != null && b!=null && a.val == b.val) ) {
-            boolean left  = symmetric(a.left, b.right);
-            boolean right = symmetric(a.right, b.left);
+            boolean left  = symmetric2(a.left, b.right);
+            boolean right = symmetric2(a.right, b.left);
 
             // Are they structurally the same?
             if (left && right)
@@ -51,4 +70,5 @@ public class SymmetricTree {
             return false;
         }
     }
+
 }

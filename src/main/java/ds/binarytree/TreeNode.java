@@ -1,6 +1,6 @@
 package ds.binarytree;
 
-import ds.binarysearchtree.BTreePrinter;
+import ds.bst.BTreePrinter;
 
 /* One node of a binary tree. The data element stored is a single
  * character.

@@ -15,6 +15,8 @@ public class BinaryTreeDepthAndHeight {
         }
     }
 
+    // A binary tree's maximum depth is the number of nodes along the longest path from the
+    // root node down to the farthest leaf node.
     public int maxDepth(TreeNode root) {
         if (root == null)
             return 0;
@@ -49,21 +51,20 @@ public class BinaryTreeDepthAndHeight {
     }
 
     //Input: root = [3,9,20,null,null,15,7]
-    //    3                 0
-    // 9    20          1      1
-    //    15   7             2    2
+    //    3                 4
+    // 9    20              3
+    //    15   7            2
+    //           8          1
+    //       null  null     0
     private int depthBottomUp(TreeNode node){
         if (node == null)
             return 0;
 
         int leftDepth  = depthBottomUp(node.left);
-        //leftHeight = leftHeight + 1;
         int rightDepth = depthBottomUp(node.right);
-        //rightHeight = rightHeight + 1;
 
         int depthMax = Math.max(leftDepth, rightDepth) + 1;
         System.out.println(depthMax);
-
         return depthMax;
     }
 

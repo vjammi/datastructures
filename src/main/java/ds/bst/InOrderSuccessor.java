@@ -1,4 +1,4 @@
-package ds.binarysearchtree;
+package ds.bst;
 
 public class InOrderSuccessor {
 
