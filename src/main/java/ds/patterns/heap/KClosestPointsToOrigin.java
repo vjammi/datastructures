@@ -27,29 +27,29 @@ public class KClosestPointsToOrigin {
     class Coordinate{
         int x;
         int y;
-        Double dist;
+        Double distFromOrigin;
 
-        public Coordinate(int x, int y, Double dist){
+        public Coordinate(int x, int y, Double distFromOrigin){
             this.x = x;
             this.y = y;
-            this.dist = dist;
+            this.distFromOrigin = distFromOrigin;
         }
     }
 
-    class MinDistComparator implements Comparator<Coordinate> {
+    class MinDistFromOriginComparator implements Comparator<Coordinate> {
         public int compare(Coordinate coord1, Coordinate coord2){
-            return coord1.dist.compareTo(coord2.dist); // or // return (int) (coord1.dist - coord2.dist);
+            return coord1.distFromOrigin.compareTo(coord2.distFromOrigin); // or // return (int) (coord1.dist - coord2.dist);
         }
     }
 
     class MaxDistComparator implements Comparator<Coordinate> {
         public int compare(Coordinate coord1, Coordinate coord2){
-            return coord2.dist.compareTo(coord1.dist);
+            return coord2.distFromOrigin.compareTo(coord1.distFromOrigin);
         }
     }
 
     // Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2)
-    // [[1,3],[-2,2]] = Sqrt((1-0)^2 + (3-0)^2)
+    // [[1,3],[-2,2]] = Math.sqrt((1-0)^2 + (3-0)^2)
     public int[][] kClosest(int[][] points, int k) {
 
         // Create a Map of dist to points[][]   - O(N)
@@ -61,13 +61,11 @@ public class KClosestPointsToOrigin {
             map.put(new Coordinate(coord[0], coord[1], dist), dist);
         }
 
-        // Load the elements of the map in a PQ using minOrder Comparator n + nlog(n)???
-        Queue<Coordinate> priorityQueue = new PriorityQueue(new MinDistComparator());
+        // Load the elements of the map in a PQ using a minimum distance from origin comparator - n + nlog(n)???
+        Queue<Coordinate> priorityQueue = new PriorityQueue(new MinDistFromOriginComparator());
         Set<Map.Entry<Coordinate, Double>> entrySet = map.entrySet();
         for (Map.Entry entry: entrySet){
             Coordinate coord = (Coordinate) entry.getKey();
-            Double     dist  = (Double) entry.getValue();
-            // if (priorityQueue.size() > k) priorityQueue.poll();
             priorityQueue.add(coord);
         }
 
