@@ -19,11 +19,11 @@ public class ValidateBinarySearchTree {
 
     public boolean isValidBST(TreeNode root) {
         // Approach 1 - Lower and Upper bound checks
-        //return validate(root, null, null);
+        return validate(root,Integer.MIN_VALUE, Integer.MAX_VALUE);
 
         // Approach 2 - Inorder processing
-        inorder(root);
-        return isValid;
+        //inorder(root);
+        //return isValid;
     }
 
     /**
@@ -60,8 +60,8 @@ public class ValidateBinarySearchTree {
         }
 
         // The left and right subtree must also be valid.
-        boolean left   = validate(node.left,  lowerBound,      node.val);
-        boolean right  = validate(node.right, node.val, upperBound);
+        boolean left   = validate(node.left,  lowerBound, node.val);
+        boolean right  = validate(node.right, node.val,   upperBound);
 
         if (left == true && right == true)
             return true;

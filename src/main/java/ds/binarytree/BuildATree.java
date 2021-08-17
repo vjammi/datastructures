@@ -1,4 +1,4 @@
-package ds.practice.binarytree;
+package ds.binarytree;
 
 import java.util.HashMap;
 import java.util.Map;
