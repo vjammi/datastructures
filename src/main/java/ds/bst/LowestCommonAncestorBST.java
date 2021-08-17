@@ -7,6 +7,12 @@ package ds.bst;
      Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
      Output: 6
      Explanation: The LCA of nodes 2 and 8 is 6.
+
+
+                    6                       p = 2, q = 8, lca = 6
+              2          8                  p = 2, q = 4, lca = 2
+            0   4      7   9
+             3   5
 */
 
 public class LowestCommonAncestorBST {
@@ -39,18 +45,18 @@ public class LowestCommonAncestorBST {
         int pVal = p.val;
         int qVal = q.val;
 
-        if( (nodeVal > pVal && nodeVal < qVal) || (nodeVal<pVal && nodeVal>qVal) ){
+        if( (nodeVal > pVal && nodeVal < qVal) || (nodeVal<pVal && nodeVal>qVal) ){ // P and Q are to the left and right of the node, node is the lca
             lca = node;
             return;
-        }else if (nodeVal == pVal){
+        }else if (nodeVal == pVal){ // P found and Q is on the left or right subtree. Regardless, P is the lca
             lca = p;
             return;
-        }else if (nodeVal == qVal){
+        }else if (nodeVal == qVal){ // Q found and P is on the left or right subtree. Regardless, Q is the lca
             lca = q;
             return;
-        }else if (pVal < nodeVal && qVal < nodeVal ){
+        }else if (pVal < nodeVal && qVal < nodeVal ){ // P and Q are either in the left or right subtree
             lca(node.left, p, q, parent);
-        }else if (pVal > nodeVal && qVal > nodeVal){
+        }else if (pVal > nodeVal && qVal > nodeVal){ // P and Q are either in the left or right subtree
             lca(node.right, p, q, parent);
         }
     }
