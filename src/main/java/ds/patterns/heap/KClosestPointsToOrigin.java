@@ -49,7 +49,9 @@ public class KClosestPointsToOrigin {
     }
 
     // Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2)
-    // [[1,3],[-2,2]] = Math.sqrt((1-0)^2 + (3-0)^2)
+    // Points=[[1,3],[-2,2]]
+    // Origin=[0,0]
+    // Distance for point [1,3] from origin [0,0] = Math.sqrt((1-0)^2 + (3-0)^2)
     public int[][] kClosest(int[][] points, int k) {
 
         // Create a Map of dist to points[][]   - O(N)
