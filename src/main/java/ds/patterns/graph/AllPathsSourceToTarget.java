@@ -90,5 +90,6 @@ public class AllPathsSourceToTarget {
                          {3},       // 2
                          {}};       // 3
         obj.allPathsSourceTarget(graph);
+        //obj.allPathsSourceTarget2(graph);
     }
 }
