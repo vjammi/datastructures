@@ -3,13 +3,6 @@ package ds.graph.path;
 import javafx.util.Pair;
 import java.util.*;
 
-// 1. We pick a vertex and add all its neighbors to the pq. We add the vertices that come out of all outgoing edges of the current vertex into the pq.
-//    The priority of the vertices in the queue will be adjusted based on the weight/dist of the edge
-//    This is true with one exception - distOfCurrentPathToTheVertex < distance[neighborVertex]
-// 2. Now that we have added all the vertices that come out of all outgoing edges of the current vertex into the pq - we have now our next item to process out of the pq.
-//    Remember that the priority of the vertices in the queue have already been adjusted based on the weight/dist of the edge and they are queue in the order of the increasing weights
-//    Now we are going to handle the min item from the pq [which will be A to C - 2] and we mark that edge as done.
-
 public class DijkstraShortestPathWeightedGraph {
     private Map<Integer, List<Pair<Integer,Integer>> > adjList;
 
