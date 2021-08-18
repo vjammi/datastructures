@@ -78,16 +78,9 @@ public class ShortestPathUnWeightedGraph {
 
         }
         print(startVertex, numberOfVertices, path, distance);
-        //        System.out.println("Path: " +path);
-        //        System.out.println("Distance: " +distance);
     }
 
     private void print(int startVertex, int numberOfVertices, int[] path, int[] distance) {
-        //        System.out.println("Distance from "+(char)(startVertex+'A')+" :");
-//        for(int i=0; i< this.numberOfVertices; i++){
-//            System.out.print("Distance to "+(char)(i+'A')+" is "+distance[i]);
-//            System.out.println(" from path "+(char)(path[i]+'A'));
-//        }
         System.out.print("");
         for(int i=0;i<numberOfVertices; i++){
             System.out.print("Distance from "+(char)(startVertex+'A'));
