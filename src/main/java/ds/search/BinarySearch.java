@@ -1,18 +1,73 @@
 package ds.search;
 
-/**
- * Created by Vijay Jammi on 05/31/2018.
- */
 public class BinarySearch {
+    private int result = -1;
 
-    public BinarySearch(){
+    public BinarySearch() {}
+
+    //     0  1   2   3   4   5   6   7   8   9   10  11  12  13  14   15   16
+    // a= [0, 11, 22, 33, 44, 55, 66, 66, 66, 66, 66, 66, 66, 66, 109, 119, 120]
+    //                            ^       ^                   ^
+    //                            first   mid                 last
+    private int search(int[] a, int key, int low, int high) {
+        int mid = (low + high) / 2;
+        if (key < a[mid]) {
+            high = mid - 1;
+            return search(a, key, low, high);
+        } else if (key > a[mid]) {
+            low = mid + 1;
+            return search(a, key, low, high);
+        } else {  // if (key == a[mid])
+            System.out.println("Found the key "+a[mid] + " at index " + mid);
+            return a[mid];
+        }
+    }
+    private void searchFirstOccurrence(int[] a, int key, int low, int high) {
+        if (low > high)
+            return;
+
+        int mid = (low + high) / 2;
+
+        if (key == a[mid]) {
+            result = a[mid];
+            System.out.println("Found an occurrence " + a[mid] + " at index " + mid +" Result " +result);
+
+            high = mid - 1;
+            searchFirstOccurrence(a, key, low, high);
+        }else if(key < a[mid]) {
+            high = mid - 1;
+            searchFirstOccurrence(a, key, low, high);
+        } else { // if (key > a[mid])
+            low = mid + 1;
+            searchFirstOccurrence(a, key, low, high);
+        }
+    }
+    private void searchLastOccurrence(int[] a, int key, int low, int high) {
+        if (low > high)
+            return;
+
+        int mid = (low + high) / 2;
+
+        if (key == a[mid]) {
+            result = a[mid];
+            System.out.println("Found an occurrence " + a[mid] + " at index " + mid +" Result " +result);
+            low = mid + 1;
+            searchLastOccurrence(a, key, low, high);
+        }else if(key < a[mid]) {
+            high = mid - 1;
+            searchFirstOccurrence(a, key, low, high);
+        } else { // if (key > a[mid])
+            low = mid + 1;
+            searchLastOccurrence(a, key, low, high);
+        }
     }
 
-    private int search_iteratively(int[] a, int key, int low, int high) {
+    private int searchIteratively(int[] a, int key, int low, int high) {
         while (low <= high) {
-            int mid = (low + high)/2;
+            int mid = (low + high) / 2;
+
             if (a[mid] == key) {
-                System.out.println("Found the key [" +key +"] at mid[" + mid +"] Low["+low +"] High["+high+"]");
+                System.out.println("Found the key [" + key + "] at mid[" + mid + "] Low[" + low + "] High[" + high + "]");
                 return mid;
             } else if (key < a[mid]) {
                 high = mid - 1;
@@ -23,134 +78,18 @@ public class BinarySearch {
         return -1; // or low???
     }
 
-    private void search_recursively(int[] a, int key, int low, int high) {
-        if (low > high) {
-            return;
-        }
-        int mid = (low + high)/2;
-        if (key < a[mid]) {
-            high = mid - 1;
-            search_recursively(a, key, low, high);
-        } else if (key > a[mid]) {
-            low = mid + 1;
-            search_recursively(a, key, low, high);
-        }else{
-            System.out.println(">>> Key ["+key +"] Found at mid [" + mid +"] Low [" +low +"] High [" +high +"]");
-        }
-    }
-
-    private int search_recursively_return_keyindex(int[] a, int key, int low, int high) {
-        if (low > high) {
-            return -1;
-        }
-        int mid = (low + high)/2;
-        if (key < a[mid]) {
-            high = mid - 1;
-            return search_recursively_return_keyindex(a, key, low, high);
-        } else if (key > a[mid]) {
-            low = mid + 1;
-            return search_recursively_return_keyindex(a, key, low, high);
-        }else{
-            System.out.println(">>> Key ["+key +"] Found at mid [" + mid +"] Low [" +low +"] High [" +high +"]");
-            return mid;
-        }
-    }
-
-    private int search_practice(int[] a, int key){
-        int low = 0;
-        int high = a.length - 1;
-
-        while(low <= high){
-            int mid = (low + high)/2;
-
-            System.out.println("|_Now searching the array using indexes - Low: "+low +" Mid: "+mid + " High: " +high);
-
-            if (key == a[mid]){
-                System.out.println(">>>Key Found. Index: "+mid);
-                return mid;
-            }else if (key < a[mid]){
-                high = mid - 1;
-                System.out.println(" |_Updating High. New High: " +high);
-            }else if(key > a[mid]){
-                low = mid +1;
-                System.out.println(" |_Updating Low. New Low: " +low);
-            }
-        }
-        return low;
-    }
-
-    public int getIndex(int[] a, int key, int low, int high){
-        if (a.length == 0)  return -1;
-        return  search_iteratively(a, key, low, high);
-    }
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
         BinarySearch search = new BinarySearch();
+        //int[] a = {10,15,17,19,20,31,44,55,77,99, 100, 101,102, 106, 109, 110};
+                // 0  1   2   3   4   5   6   7   8   9   10  11  12  13  14   15   16
+        int[] a = {0, 11, 22, 33, 44, 55, 66, 66, 66, 66, 66, 66, 66, 66, 109, 119, 120};
+        //                                ^        ^
+        //                               mid      mid
 
-        int[] a = {10,15,17,19,20,31,44,55,77,99, 100, 101,102, 106, 109, 110};
-        int low = 0;
-        int high = a.length - 1;
-
-        for (int i = 0; i < a.length ; i++) {
-            search.search_iteratively(a, a[i], low, high);
-        }
-
-        for (int i = 0; i < a.length ; i++) {
-            search.search_recursively(a, a[i], low, high);
-        }
-
-        /*
-        for (int i = 0; i < a.length ; i++) {
-            int index = search.search_recursively_return_keyindex(a, a[i], low, high);
-        }
-        */
-  }
-
+        int low = 0; int high = a.length - 1;
+        search.search(a, 66, low, high);
+        search.searchFirstOccurrence(a, 66, low, high);
+        search.searchLastOccurrence(a, 66, low, high);
+        search.searchIteratively(a, 66, low, high);
+    }
 }
-
-
-/*
-    15/Odd - {10,15,17,19,20,31,44,55,  77,99,100, 101,102,106,109};
-
-    looking for key: 77 Low:0 High:14
-    NotFound yet.... Low:0 High:14 Mid: 7
-    NotFound yet - Low:8 High:14 Mid: 11
-    NotFound yet - Low:8 High:10 Mid: 9
-   >Before Returning low - Low:8 High:8
-    Retruned Index: 8
-
-    looking for key: 99 Low:0 High:14
-    NotFound yet.... Low:0 High:14 Mid: 7
-    NotFound yet - Low:8 High:14 Mid: 11
-   >Found the key at index mid:9 Low:8 High:10
-    Retruned Index: 9
-
-    looking for key: 100 Low:0 High:14
-    NotFound yet.... Low:0 High:14 Mid: 7
-    NotFound yet - Low:8 High:14 Mid: 11
-    NotFound yet.... Low:8 High:10 Mid: 9
-   >Before Returning low - Low:10 High:10
-    Retruned Index: 10
-
-16/Even - {10,15,17,19,20,31,44,55,77,99, 100, 101,102, 106, 109, 110}
-
-    looking for key: 77 Low:0 High:15
-    NotFound yet.... Low:0 High:15 Mid: 7
-    NotFound yet - Low:8 High:15 Mid: 11
-    NotFound yet - Low:8 High:10 Mid: 9
-    Before Returning low - Low:8 High:8
-    Retruned Index: 8
-
-    looking for key: 99 Low:0 High:15
-    NotFound yet.... Low:0 High:15 Mid: 7
-    NotFound yet - Low:8 High:15 Mid: 11
-    Found the key at index mid:9 Low:8 High:10
-    Retruned Index: 9
-
-    looking for key: 100 Low:0 High:15
-    NotFound yet.... Low:0 High:15 Mid: 7
-    NotFound yet - Low:8 High:15 Mid: 11
-    NotFound yet.... Low:8 High:10 Mid: 9
-    Before Returning low - Low:10 High:10
-    Retruned Index: 10
-*/
