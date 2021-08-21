@@ -1,7 +1,9 @@
 package ds.arrays;
 
+// How many times is a sorted array rotated?
+// https://youtu.be/4qjprDkJrjY
 public class NumberOfTimesArrayHasBeenRotated {
-	
+	// runtime O(n)
 	private int linearSearch(int[] a) {
 		int min = a[0];
 		int minIndex = 0;		
@@ -14,7 +16,10 @@ public class NumberOfTimesArrayHasBeenRotated {
 		}		
 		return minIndex;
 	}
-		
+
+	// O(log(n))
+	// Number of times the array has been rotated ? It turns out that it is the index of the element.
+	// In other words - we need to find the index of the min element in the array.
 	private static int numberOfTimesArrayWasRotated(int[] a) {
 		int low = 0 ;
 		int high = a.length-1;

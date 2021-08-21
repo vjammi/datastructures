@@ -6,7 +6,7 @@ public class BinarySearch {
     public BinarySearch() {}
 
     //     0  1   2   3   4   5   6   7   8   9   10  11  12  13  14   15   16
-    // a= [0, 11, 22, 33, 44, 55, 66, 66, 66, 66, 66, 66, 66, 66, 109, 119, 120]
+    //a = [0, 11, 22, 33, 44, 55, 66, 66, 66, 66, 66, 66, 66, 66, 109, 119, 120]
     //                            ^       ^                   ^
     //                            first   mid                 last
     private int search(int[] a, int key, int low, int high) {
@@ -61,7 +61,6 @@ public class BinarySearch {
             searchLastOccurrence(a, key, low, high);
         }
     }
-
     private int searchIteratively(int[] a, int key, int low, int high) {
         while (low <= high) {
             int mid = (low + high) / 2;
@@ -76,6 +75,15 @@ public class BinarySearch {
             }
         }
         return -1; // or low???
+    }
+
+    // first occurrence - O(log(n))
+    // last  occurrence - O(log(n))
+    // # of occurrences - (lastIndex - firstIndex + 1) 2 x O(log(n))
+    private int countOccurrence(int[] a, int key, int low, int high){
+        int numOfOccurrences = 0;
+        // To be implemented - return (lastIndex - firstIndex + 1); // 2 x O(log(n))
+        return numOfOccurrences;
     }
 
     public static void main(String[] args) {
