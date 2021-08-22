@@ -46,8 +46,10 @@ public class PairSum {
     */
     private boolean isPairSumNaive2(int[] arr, int target) {
         Arrays.sort(arr);
-        for (int i = 0; i < arr.length; i++) {
-            // Note: When i=6, j=6+1=7, which is beyond the length of the array - so will never enter the inner for loop for j=7
+        for (int i = 0; i < arr.length-1; i++) {
+            // Option 1: iterate i=0 to n-1, j=i+1 to n
+            // Option 2: iterate i=0 to n, j=i+1 to n
+            //           Note that when i=6, j=6+1=7, which is beyond the length of the array - so will never enter the inner for loop for j=7
             for (int j = i+1; j < arr.length; j++) { // Optimization: j=i+1
                 int sum = arr[i] + arr[j];
                 if (sum == target)      // pair found
@@ -88,7 +90,7 @@ public class PairSum {
         PairSum obj = new PairSum();
 
         int arr[] = {3, 5, 9, 2, 8, 10, 11}; // unsorted
-        int target = 25; //17;
+        int target = 17; // 25; //17;
 
         System.out.println(obj.isPairSumNaive1(arr, target));
         System.out.println(obj.isPairSumNaive2(arr, target));
