@@ -1,4 +1,4 @@
-package ds.patterns.dfs;
+package ds.patterns.backtracking;
 
 /**
     200. Number of Islands

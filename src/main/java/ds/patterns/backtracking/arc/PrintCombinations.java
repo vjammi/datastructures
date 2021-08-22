@@ -1,4 +1,4 @@
-package ds.patterns.dfs.arc;
+package ds.patterns.backtracking.arc;
 
 // Ref: https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
 // Java program to print all combination of size r in an array of size n

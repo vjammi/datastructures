@@ -1,11 +1,10 @@
-package ds.patterns.dfs;
+package ds.patterns.backtracking;
 
 import ds.util.IndentUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 
 /**
      78. Subsets    https://leetcode.com/problems/subsets/

@@ -1,4 +1,4 @@
-package ds.patterns.dfs.arc;
+package ds.patterns.backtracking.arc;
 
 import java.util.ArrayList;
 import java.util.HashMap;

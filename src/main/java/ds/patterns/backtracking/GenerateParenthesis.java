@@ -1,4 +1,4 @@
-package ds.patterns.dfs;
+package ds.patterns.backtracking;
 
 import java.util.ArrayList;
 import java.util.List;

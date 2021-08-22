@@ -1,4 +1,4 @@
-package ds.patterns.dfs;
+package ds.patterns.backtracking;
 
 /**
     131 Palindrome Partition [https://leetcode.com/problems/palindrome-partitioning/]

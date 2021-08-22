@@ -1,4 +1,4 @@
-package ds.patterns.dfs;
+package ds.patterns.backtracking;
 
 /**
     You are given an m x n binary matrix grid, where 0 represents a sea cell and 1 represents a land cell.

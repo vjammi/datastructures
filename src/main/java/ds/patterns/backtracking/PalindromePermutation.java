@@ -1,49 +1,53 @@
-package ds.patterns.dfs;
+package ds.patterns.backtracking;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
+/**
+    266. Palindrome Permutation
+     Given a string s, return true if a permutation of the string could form a palindrome.
+     Example 1:
+        Input: s = "code"
+        Output: false
+     Example 2:
+        Input: s = "aab"
+        Output: true
+     Example 3:
+        Input: s = "carerac"
+        Output: true
+ **/
+public class PalindromePermutation {
 
-/*
-    267. Palindrome Permutation II
-    Given a string s, return all the palindromic permutations (without duplicates) of it.
-    You may return the answer in any order. If s has no palindromic permutation, return an empty list.
-    Example 1:
-    Input: s = "aabb"
-    Output: ["abba","baab"]
-
-* */
-public class PalindromePermutationII {
-
-    public List<String> generatePalindromes(String s) {
+    public boolean canPermutePalindrome(String s) {
         Set<String> result = new HashSet();
         StringBuilder chosen = new StringBuilder();
-        backtrack(new StringBuilder(s), chosen, result);
-        System.out.println(result);
-        return new ArrayList(result);
+        return backtrack(new StringBuilder(s), chosen, result);
     }
 
-    private void backtrack(StringBuilder input, StringBuilder chosen, Set<String> result){
+    private boolean backtrack(StringBuilder input, StringBuilder chosen, Set<String> result){
 
         if (input.length() == 0){
             String permutation = chosen.toString();
             if (isPalindrome(permutation)){
-                System.out.println(permutation);
+                //System.out.println(permutation);
                 result.add(permutation);
+                return true;
             }
-            return;
+            return false;
         }
 
         for (int i=0;i<input.length();i++) {
             Character c = input.charAt(i);
             chosen.append(c);
             input.deleteCharAt(i);
-            backtrack(input, chosen, result);
+            boolean canFormPermutation = backtrack(input, chosen, result);
+            if (canFormPermutation)
+                return true;
             chosen.deleteCharAt(chosen.length()-1);
             input.insert(i, c);
         }
+
+        return false;
     }
 
     public boolean isPalindrome(String s) {
@@ -62,11 +66,4 @@ public class PalindromePermutationII {
         }
         return true;
     }
-
-    public static void main(String[] args) {
-        PalindromePermutationII obj = new PalindromePermutationII();
-        obj.generatePalindromes("aabb");
-    }
-
-
 }
