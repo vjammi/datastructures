@@ -37,31 +37,33 @@ https://leetcode.com/problems/roman-to-integer/
 https://leetcode.com/problems/integer-to-roman/
 * */
 public class RomanToInteger {
-        Map<String, Integer> values = new HashMap<>();
+    Map<String, Integer> values = new HashMap<>();
 
-        public int romanToInt(String s) {
-            values.put("M",1000); values.put("D",500); values.put("C",100);values.put("L",50);
-            values.put("X",10); values.put("V",5); values.put("I",1);
+    public int romanToInt(String s) {
+        values.put("M", 1000);
+        values.put("D", 500);
+        values.put("C", 100);
+        values.put("L", 50);
+        values.put("X", 10);
+        values.put("V", 5);
+        values.put("I", 1);
 
-            int sum = 0;
-            int i = 0;
-            while (i < s.length()) {
-                String currentSymbol = s.substring(i, i + 1);
-                int currentValue = values.get(currentSymbol);
-                int nextValue = 0;
-                if (i + 1 < s.length()) {
-                    String nextSymbol = s.substring(i + 1, i + 2);
-                    nextValue = values.get(nextSymbol);
-                }
+        // Compute the total for the last value.
+        String lastSymbol = s.substring(s.length() - 1);
+        int lastValue = values.get(lastSymbol);
+        int total = lastValue;
 
-                if (currentValue < nextValue) {
-                    sum += (nextValue - currentValue);
-                    i += 2;
-                }else {
-                    sum += currentValue;
-                    i += 1;
-                }
+        // Decrement from 2nd last element (length-2) to 0
+        for (int i = s.length()-2; i >= 0; i--) {
+            String currentSymbol = s.substring(i, i + 1);
+            int currentValue = values.get(currentSymbol);
+            if (currentValue < lastValue) {
+                total -= currentValue;
+            } else {
+                total += currentValue;
             }
-            return sum;
+            lastValue = currentValue;
         }
+        return total;
     }
+}
