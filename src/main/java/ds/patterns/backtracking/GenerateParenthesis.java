@@ -6,16 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
-     22. Generate Parentheses
-     Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+    22. Generate Parentheses
+    Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
-     Example 1:
-     Input: n = 3
-     Output: ["((()))","(()())","(())()","()(())","()()()"]
+    Input: n = 2
+    Output: [[(())],[()()]]
 
-     Example 2:
-     Input: n = 1
-     Output: ["()"]
+    Input: n = 3
+    Output: ["((()))","(()())","(())()","()(())","()()()"]
+
  * */
 public class GenerateParenthesis {
 
@@ -34,9 +33,9 @@ public class GenerateParenthesis {
        if ( left == n && right == n )
             we gather the results
 
-       // right > left - will prevent adding right parenthesis before the left  - )))(((
-       // left > n     - will ensure we do not add more than n left braces      - ((((
-       // right > left - will ensure we do not add more than n right braces   - ((())))
+       // right > left - will prevent adding right parenthesis before the left  - x())
+       // left > n     - will ensure we do not add more than n left braces      - x((((
+       // right > left - will ensure we do not add more than n right braces     - x((( ))))
        if ( right > left || left > n || right > n )
             we return / backtrack
 
@@ -184,10 +183,10 @@ public class GenerateParenthesis {
             return;
         }
 
-        // *** right > left - will prevent adding right parenthesis before the left  - )))(((
-        //     left > n     - will ensure we do not add more than n left braces      - ((((
-        //     right > left - will ensure we do not add more than n right braces   - ((())))
-        if( right>left || left > n || right >n ){
+        // *** right > left - will prevent adding right parenthesis before the left  - x())
+        //     left  > n    - will ensure we do not add more than n left braces      - ((((
+        //     right > n    - will ensure we do not add more than n right braces     - ((())))
+        if( right > left || left > n || right >n ){
             System.out.println(indent +n +" X["+chosen +"] " +chosen);
             return;
         }
