@@ -12,6 +12,8 @@ public class PairSum {
          arr[] = {2, 3, 5, 8, 9, 10, 11}
          i =                         ^
          j =                     ^
+
+        Runtime: O(n^2)
      */
     private boolean isPairSumNaive1(int[] arr, int target) {
         Arrays.sort(arr);
@@ -39,6 +41,8 @@ public class PairSum {
          arr[] = {2, 3, 5, 8, 9, 10, 11}
              i =                     ^
              j =                        ^
+
+        Runtime: O(n/2 ^ 2)
     */
     private boolean isPairSumNaive2(int[] arr, int target) {
         Arrays.sort(arr);
@@ -57,11 +61,12 @@ public class PairSum {
     }
 
     /**
-     Two pointer technique based solution to find if there is a pair in arr[0...n-1] with a given sum.
-     arr[] = {3, 5, 9, 2, 8, 10, 11} target = 17
-     arr[] = {2, 3, 5, 8, 9, 10, 11}
-     i =  ^
-     j =           ^
+         Two pointer technique based solution to find if there is a pair in arr[0...n-1] with a given sum.
+         arr[] = {3, 5, 9, 2, 8, 10, 11} target  = 8
+         arr[] = {2, 3, 5, 8, 9, 10, 11}  target = 8
+         i & j =     ^  ^
+
+         Runtime = O(n)
      */
     public boolean isPairSumUsingTwoPointers(int[] arr, int target) {
         Arrays.sort(arr);
@@ -70,9 +75,9 @@ public class PairSum {
             int sum = arr[i] + arr[j];
             if (sum == target) { // If we find a pair
                 return true;
-            }else if (sum < target) { // Optimization: If sum is less than the target, we move towards higher values (i++)
+            }else if (sum < target) { // If sum is less than the target, we move towards higher values (i++)
                 i++;
-            }else if (sum > target){ // Optimization: If sum is grater than the target, we move towards lower values (j--)
+            }else if (sum > target){ // If sum is greater than the target, we move towards lower values (j--)
                 j--;
             }
         }
