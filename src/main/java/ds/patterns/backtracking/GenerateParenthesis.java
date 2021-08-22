@@ -42,7 +42,7 @@ public class GenerateParenthesis {
 
                                                      []
                              (                                                       x )
-              ((                          ()                                    X))
+              ((                          ()
         x(((     (()                ()(          ())
              x(()(  (())OUT      x()((  OUT()()  x())(  x()))
      **/
