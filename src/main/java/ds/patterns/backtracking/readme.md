@@ -1,4 +1,4 @@
-# Depth First Search - Exhaustive Search and backtracking
+# Exhaustive Search and Backtracking
 DFS search is a way to exhaustively search thru all the nodes of a tree or a graph by searching all the way down one path before coming back to search other paths.
 
 ## Print all Binary
