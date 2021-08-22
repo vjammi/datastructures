@@ -202,8 +202,8 @@ Implementation
             chosen.pop();
         }
     }
-
 ```
+
 ### 22 Generate Parentheses
 Generate Parenthesis for n=2 here is the recursive tree view with output [ [(())], [()()] ]
 ```
