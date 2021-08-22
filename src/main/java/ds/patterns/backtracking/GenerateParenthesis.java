@@ -18,35 +18,57 @@ import java.util.List;
 public class GenerateParenthesis {
 
     public List<String> generateParenthesis(int n) {
-        List<String> combinations = new ArrayList<String>();
-        if (n==0)
-            return combinations;
-        dfs(n, combinations, new StringBuilder(""), 0, 0);
-        return combinations;
+        List<String> result = new ArrayList<String>();
+        StringBuilder chosen = new StringBuilder("");
+        if (n == 0)
+            return result;
+
+        dfs(n, 0, 0, chosen, result);
+        return result;
     }
 
-    // Without returns
-    public void dfs(int n, List<String> combinations, StringBuilder current, int left, int right){
+    /**
+       // When we have a total of n valid left and n valid right parenthesis - we add the choice to our result
+       if ( left == n && right == n )
+            we gather the results
+
+       // right > left - will prevent adding right parenthesis being added before the left  - )))(((
+       // left > n     - will ensure we do not add more than n left braces      - ((((
+       // right > left - will ensure we do not add more than n right braces   - ((())))
+       if ( right > left || left > n || right > n )
+            we return / backtrack
+
+                      []
+                   (       )
+              ((                ()   ))x  )(x
+           x     (()
+             x(()(  (())
+     **/
+
+
+    public void dfs(int n, int left, int right, StringBuilder chosen, List<String> result){
+        // When we have a total of n valid left and n valid right parenthesis - we add the choice to our result
         if( left == n && right == n ){
-            combinations.add(current.toString());
-            System.out.println("*** Valid Combination: " +current +"***");
+            result.add(chosen.toString());
+            System.out.println("*** Valid Combination: " +chosen +"***");
             return;
         }
 
-        //  right>left will prevent adding right parenthesis being added before the left  - )))(((
-        //  left > n will ensure we do not add more than n left braces      - ((((
-        //  right>left will ensure we do not add more than n right braces   - ((())))
+        // right > left - will prevent adding right parenthesis being added before the left  - )))(((
+        // left > n     - will ensure we do not add more than n left braces      - ((((
+        // right > left - will ensure we do not add more than n right braces   - ((())))
         if( right>left || left > n || right >n ){
             return;
         }
 
-        dfs(n, combinations, current.append("("), left+1, right);
-        current.deleteCharAt(current.length()-1);   // Going downhill - we remove the parenthesis that was added uphill
+        chosen.append("(");
+        dfs(n, left+1, right, chosen, result);
+        chosen.deleteCharAt(chosen.length()-1);   // Going downhill - we remove the parenthesis that was added uphill
 
-        dfs(n, combinations, current.append(")"), left, right+1);
-        current.deleteCharAt(current.length()-1);   // Doing downhill - we remove the parenthesis that was added uphill
+        chosen.append(")");
+        dfs(n, left, right+1, chosen, result);
+        chosen.deleteCharAt(chosen.length()-1);   // Doing downhill - we remove the parenthesis that was added uphill
 
-        return;
     }
 
     public static void main(String[] args) {
