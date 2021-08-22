@@ -1,4 +1,4 @@
-package ds.arrays;
+package ds.binarysearch;
 /**
  * Created by Vijay Jammi on 06/15/2017.
  */
