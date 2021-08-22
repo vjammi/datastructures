@@ -1,4 +1,4 @@
-package ds.patterns.hashing;
+package ds.strings;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,6 @@ import java.util.Map;
                     Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 
 https://leetcode.com/problems/roman-to-integer/
-https://leetcode.com/problems/integer-to-roman/
 * */
 public class RomanToInteger {
     Map<String, Integer> values = new HashMap<>();
