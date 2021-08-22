@@ -20,7 +20,9 @@ public class NumberOfTimesArrayHasBeenRotated {
 
 	// O(log(n)) - Number of times the array has been rotated ? It turns out that it is the index of the element. In other words we need to find the index of the min element in the array.
 	private int numberOfTimesBinarySearch(int[] a) {
-		int low = 0 ; int high = a.length-1;
+		int low = 0 ;
+		int size = a.length;
+		int high = size -1;
 
 		// Case 1 -- Array is already sorted, so return the index min element in the array, or just 0
 		if (a[low] <= a[high]){
@@ -30,8 +32,9 @@ public class NumberOfTimesArrayHasBeenRotated {
 		// Array has been rotated - so lets find the number of times it has been rotated
 		while (low <= high){
 			int mid = (low+high)/2;
-			int next = (mid+1)% a.length;
-			int previous = ((mid + a.length) - 1) % a.length;
+			// ??? int nxt = (mid+1)%size;	int prev = ((mid+size)-1)%size;
+			int next = mid + 1;
+			int previous = mid - 1;
 
 			if (a[mid] <= a[next] && a[mid] <= a[previous]){ // Case 2 -- segment no sorted. find mid/pivot element. for pivot element both left and right  return mid
 				return mid;
