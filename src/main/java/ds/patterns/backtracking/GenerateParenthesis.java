@@ -41,10 +41,10 @@ public class GenerateParenthesis {
             we return / backtrack
 
                                                      []
-                             (                                                       x )
+                             (                                                    x )
               ((                          ()
-        x(((     (()                ()(          ())
-             x(()(  (())OUT      x()((  OUT()()  x())(  x()))
+        x(((     (()                ()(          x())
+             x(()(  (())OUT     x()((  OUT()()
      **/
 
     /**
@@ -209,6 +209,5 @@ public class GenerateParenthesis {
     public static void main(String[] args) {
         GenerateParenthesis obj = new GenerateParenthesis();
         obj.generateParenthesis(2);
-
     }
 }
