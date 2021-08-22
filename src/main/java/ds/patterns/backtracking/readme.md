@@ -138,6 +138,7 @@ Output: ["ad","ae","af",
          "cd","ce","cf"]
 
 Tree Representation of digits [23] to their letters
+```
                2       3
           -------------- 
                   -  d
@@ -165,18 +166,17 @@ Alternate Tree Representation of digits [234] to their letters
 
 ```
 Steps          
-    - Starting with the first digit, we list all the possible letters it can represent. 
-    - Then for each of letters for the first digit, we list out all possible letters of the next digit  
-    - We continue until we have considered all the digits in out input. 
-    - Each of the possible paths is a possible combination we will want in our solution set
-    - Now if we start an empty string on the top, note that our solution space now looks like a tree.
-    - We want whatever search algorithm we implement, we need to get to all the endpoints at the bottom
+- Starting with the first digit, we list all the possible letters it can represent.
+- Then for each of letters for the first digit, we list out all possible letters of the next digit
+- We continue until we have considered all the digits in out input.
+- Each of the possible paths is a possible combination we will want in our solution set
+- Now if we start an empty string on the top, note that our solution space now looks like a tree.
+- We want whatever search algorithm we implement, we need to get to all the endpoints at the bottom
 
 Implementation
 ```
     // Time complexity be O(3^n), which came from O(3+3²+3³+…+3^n)
     // Space Complexity: O(2x3^N)
-
     public List<String> letterCombinations(String digits) {
         if (digits ==null || digits.length() == 0)
             return new ArrayList<String>();
@@ -205,7 +205,7 @@ Implementation
 ```
 
 ### 22 Generate Parentheses
-Generate Parenthesis for n=2 here is the recursive tree view with output [ [(())], [()()] ]
+Recursive tree view of the Generate Parenthesis for n=2, with output [ [(())], [()()] ]
 ```
                                                      []
                              (                                                    x )
