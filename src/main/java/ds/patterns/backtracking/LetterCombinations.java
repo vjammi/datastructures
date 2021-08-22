@@ -104,24 +104,15 @@ public class LetterCombinations {
             return new ArrayList<String>();
         Map<String, String> map = buildNumToCharsMap();
         List<String> result = new ArrayList<>();
-        combinations(digits, map, new Stack<String>(), result, 0);
+        //combinations(digits, map, new Stack<String>(), result, 0);
+        combinations2(digits, map, new Stack<String>(), result, 0);
         return result;
     }
 
     private void combinations(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
         String indent = get_indent(level);
-        if (level == input.length()) { // 0>1>2  when level/2 == digits.length()/2 return and backtrack
-//            String chosenStr = new String(chosen.toString());
-//            while(!chosen.isEmpty()){
-//                res =  (String)chosen.pop() + res;
-//            }
-//           String res = "";
-//            Object[] charArr = new Object[chosen.size()];
-//            chosen.copyInto(charArr);
-//            for(int i=charArr.length-1; i>=0; i--){
-//               res =  (String)charArr[i] + res;
-//            }
-            result.add(new String(chosen.toString()));
+        if (level == input.length()) {
+            result.add(chosen.toString());
             System.out.println(indent +input +" OUT(" +level +")" +chosen);
             return;
         }
@@ -131,6 +122,23 @@ public class LetterCombinations {
             System.out.println(indent +input +" L(" +level +"-"+character+") " +chosen);
             chosen.push(String.valueOf(character));
             combinations(input, map, chosen, result,level+1);
+            chosen.pop();
+        }
+    }
+
+    private void combinations2(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
+        String indent = get_indent(level);
+        if (level == input.length()) {
+            result.add(chosen.toString());
+            System.out.println(indent +input +" OUT(" +level +")" +chosen);
+            return;
+        }
+        String digit = String.valueOf(input.charAt(level));
+        String charsForDigit = map.get(digit);
+        for(int i=0; i < charsForDigit.length(); i++){              //char character: charsForDigit.toCharArray()
+            System.out.println(indent +input +" L(" +level +"-"+charsForDigit.charAt(i)+") " +chosen);
+            chosen.push(String.valueOf(charsForDigit.charAt(i)));
+            combinations2(input, map, chosen, result,level+1);
             chosen.pop();
         }
     }

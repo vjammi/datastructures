@@ -202,6 +202,24 @@ Implementation
             chosen.pop();
         }
     }
+
+    private void combinations2(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
+        String indent = get_indent(level);
+        if (level == input.length()) {
+            result.add(chosen.toString());
+            System.out.println(indent +input +" OUT(" +level +")" +chosen);
+            return;
+        }
+        String digit = String.valueOf(input.charAt(level));
+        String charsForDigit = map.get(digit);
+        for(int i=0; i < charsForDigit.length(); i++){              //char character: charsForDigit.toCharArray()
+            System.out.println(indent +input +" L(" +level +"-"+charsForDigit.charAt(i)+") " +chosen);
+            chosen.push(String.valueOf(charsForDigit.charAt(i)));
+            combinations2(input, map, chosen, result,level+1);
+            chosen.pop();
+        }
+    }
+
 ```
 
 ### 22 Generate Parentheses
