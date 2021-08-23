@@ -2,6 +2,23 @@ package ds.hashing.applications;
 
 import java.util.*;
 
+/**
+     49. Group Anagrams
+     Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+     An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+     Example 1:
+     Input: strs = ["eat","tea","tan","ate","nat","bat"]
+     Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+     Example 2:
+     Input: strs = [""]
+     Output: [[""]]
+
+     Example 3:
+     Input: strs = ["a"]
+     Output: [["a"]]
+ */
 public class GroupAnagrams {
 
     public List<List<String>> groupAnagrams(String[] strs) {
@@ -55,4 +72,14 @@ public class GroupAnagrams {
         }
         return map;
     }
+
+    private String sort(String string){
+        System.out.println(string);
+        char[] chars = string.toCharArray(); // method on input string to create a char array for input string.
+        Arrays.sort(chars); // method to sort char array.
+        String sortedString = new String(chars);  // Use String class constructor to create a sorted string from char array. String is immutable in java, hence in third step we have to create a new string.
+        System.out.println(sortedString);
+        return sortedString;
+    }
+
 }
