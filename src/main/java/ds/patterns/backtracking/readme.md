@@ -544,6 +544,7 @@ Source: Geek for Geeks and CTCI by Gayle Laakmann McDowell
          }
 
          dfs(input+1, chosen, result, n, k);
+
          chosen.push(input);
          dfs(input+1, chosen, result, n, k);
          chosen.pop();
@@ -625,8 +626,10 @@ Option 3
             chosenList.add(chosen); System.out.println(indent +" Result \"" +chosen +"\"");
             return;
         }
+
         System.out.println(indent +" -(L:" +input.charAt(index) +") "+chosen);
         constructSubset(input, chosen, chosenList, index + 1, n+1);
+
         chosen = chosen + input.charAt(index);
         System.out.println(indent +" +(R:" +input.charAt(index) +") "+chosen);
         constructSubset(input, chosen, chosenList, index + 1, n+1);
