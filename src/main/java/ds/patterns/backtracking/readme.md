@@ -561,37 +561,75 @@ Source: Geek for Geeks and CTCI by Gayle Laakmann McDowell
 ### 131 Palindrome Partition    https://leetcode.com/problems/palindrome-partitioning/
 
 ### 78	Subsets                 https://leetcode.com/problems/subsets/
-Option 1
+Recursive Tree View
+```
+-----------------------
+A    B    C    BaseCase
+0    1    2    3
+------------------------
+> -(L:A)
+>    > -(L:B)
+>    >    > -(L:C)
+>    >    >    >  Result ""
+>    >    > +(R:C) C
+>    >    >    >  Result "C"
+>    > +(R:B) B
+>    >    >  -(L:C) B
+>    >    >    >  Result "B"
+>    >    >  +(R:C) BC
+>    >    >    >  Result "BC"
+>  +(R:A) A
+>    >  -(L:B) A
+>    >    >  -(L:C) A
+>    >    >    >  Result "A"
+>    >    >  +(R:C) AC
+>    >    >    >  Result "AC"
+>    >  +(R:B) AB
+>    >    >  -(L:C) AB
+>    >    >    >  Result "AB"
+>    >    >  +(R:C) ABC
+>    >    >    >  Result "ABC"
+[, C, B, BC, A, AC, AB, ABC]
+
+```
+Option 1 -
 ```
     // Time complexity is O(n*2^n) ???
     // Space complexity is O(2^n). ???
-    private void subsets1(List<Integer> input,  List<Integer> chosen, List<List<Integer>> result, int n){
+
+    // [ [], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3] ]
+    // [ [], [C], [B], [BC], [A], [AC], [AB], [ABC] ]
+
+    // Note: Consistent with the Subsets tree view - No removing chars from the input
+    private void subsets1(List<Integer> input, int i, List<Integer> chosen, List<List<Integer>> result, int n){
         String indent = get_indent(n);
-        if (input.isEmpty()){
+        //if (input.isEmpty()){
+        if (i == input.size()){
             // 4. base case
             result.add(new ArrayList(chosen));
             System.out.println(indent +" Result " +input +chosen);
+            //IndentUtil.showChosenI(indent, input,chosen);
             return;
         }
-
-        //  Note:
         //  For a backtracking problem it could be tricky to figure what the choices are?
         //  What unit of work each function call is going to need to take care ?
-        // Recursive case - for each possible choice we need to [for each element in the input list]
-        Integer s = input.get(0);
-        //  1. Choose  2. Explore
-        //System.out.println(indent +" " +input +" " +s +" " +chosen);     // input add the first element from the input
-        input.remove(0); System.out.println(indent +" - " +s +" "+input +chosen);      // Exclude the first element from the input
-        subsets1(input, chosen, result, n+1);
+        //  Recursive case - for each possible choice we need to [for each element in the input list]
+        Integer choice = input.get(i);
 
-        //  3. Choose again & 4. Further Explore
-        chosen.add(s); System.out.println(indent +" + " +s +" "+input +chosen);             // Include the first element from the input
-        subsets1(input, chosen, result,  n+1);
+        //  1. Choose to exclude and explore -
+        //     Explore without the choice, by incrementing the index
+        //input.remove(0); // No longer needed to remove - to be consistent with the subsets tree view
+        System.out.println(indent +" - " +choice +" "+input +chosen);      // Exclude the first element from the input
+        subsets1(input, i+1, chosen, result, n+1);
 
-        //  3. UnChoose
-        input.add(0, s);
-        System.out.println(indent +" " +input +chosen);                  // input add the first element from the input
+        //  3. Choose to include and further explore & UnChoose -
+        //     Explore with the choice, incrementing the index and later un-choose
+        chosen.add(choice);
+        System.out.println(indent +" + " +choice +" "+input +chosen);             // Include the first element from the input
+        subsets1(input, i+1, chosen, result,  n+1);
         chosen.remove(chosen.size()-1);
+        //input.add(0, s); // No longer needed to add back - to be consistent with the subsets tree view
+        System.out.println(indent +" " +input +chosen);                  // input add the first element from the input
     }
 ```
 Option 2
@@ -634,36 +672,6 @@ Option 3
         System.out.println(indent +" +(R:" +input.charAt(index) +") "+chosen);
         constructSubset(input, chosen, chosenList, index + 1, n+1);
     }
-```
-```
------------------------
-A    B    C    BaseCase
-0    1    2    3
-------------------------
-> -(L:A)
->    > -(L:B)
->    >    > -(L:C)
->    >    >    >  Result ""
->    >    > +(R:C) C
->    >    >    >  Result "C"
->    > +(R:B) B
->    >    >  -(L:C) B
->    >    >    >  Result "B"
->    >    >  +(R:C) BC
->    >    >    >  Result "BC"
->  +(R:A) A
->    >  -(L:B) A
->    >    >  -(L:C) A
->    >    >    >  Result "A"
->    >    >  +(R:C) AC
->    >    >    >  Result "AC"
->    >  +(R:B) AB
->    >    >  -(L:C) AB
->    >    >    >  Result "AB"
->    >    >  +(R:C) ABC
->    >    >    >  Result "ABC"
-[, C, B, BC, A, AC, AB, ABC]
-
 ```
 ### 90. Subsets II              https://leetcode.com/problems/subsets-ii/
 
