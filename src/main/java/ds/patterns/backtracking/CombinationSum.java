@@ -48,19 +48,23 @@ public class CombinationSum {
     int totalCalls;
     int callsThatMadeIt;
 
-    /**
-                            input/chosen
-                            [2367] []
-
-              [2]              [3]           [6]     [7]
-              |
-              [22]                x[33]  x[36]  x[66]    x[77]
-              |
-             x[222] [223] x[226] x[227]
-              |
-             x[2222] x[2223] x[2226] x[2227]
-                     1                                    2
-
+        /**
+                                                                [input] [chosen]
+                                                                 [2367] []      target=7
+                                                    ___________________|__________________________
+                                                  0 |             1 |               2  |     3 |
+                                                  [2]             [3]               [6]      [7]
+                                             ______|______       __|__               _        _
+                                           0 |  1 |    3 |      |     |              |        |
+                                           [22] [23]...[27]  x[33]  x[36]         x[66]    x[77]
+                                 __________|__________
+                               0 |  1 |     2 |    3 |
+                              x[222] [223] x[226] x[227]
+                      __________|____________
+                    0|   2 |      2 |      3 |
+                 x[2222] x[2223] x[2226] x[2227]
+        */
+        /**
              [2, 3, 6, 7] BL(0-2) [2]
              > [2, 3, 6, 7] BL(0-2) [2, 2]
              >    > [2, 3, 6, 7] BL(0-2) [2, 2, 2]
@@ -227,6 +231,7 @@ public class CombinationSum {
 
     /**
          [2, 3, 6, 7] L(0-R) []
+
          [2, 3, 6, 7] L(0-2) [2]
          > [2, 3, 6, 7] L(0-2) [2, 2]
          >    > [2, 3, 6, 7] L(0-2) [2, 2, 2]
@@ -253,6 +258,7 @@ public class CombinationSum {
          >    >    > [2, 3, 6, 7] RET() [2, 2, 7]
          >    > [2, 3, 6, 7] R(0-7) [2, 2, 7]
          > [2, 3, 6, 7] R(0-2) [2, 2]
+
          > [2, 3, 6, 7] L(0-3) [2, 3]
          >    > [2, 3, 6, 7] L(1-3) [2, 3, 3]
          >    >    > [2, 3, 6, 7] RET() [2, 3, 3]
@@ -271,6 +277,7 @@ public class CombinationSum {
          >    > [2, 3, 6, 7] RET() [2, 7]
          > [2, 3, 6, 7] R(0-7) [2, 7]
          [2, 3, 6, 7] R(0-2) [2]
+
          [2, 3, 6, 7] L(0-3) [3]
          > [2, 3, 6, 7] L(1-3) [3, 3]
          >    > [2, 3, 6, 7] L(1-3) [3, 3, 3]
@@ -290,6 +297,7 @@ public class CombinationSum {
          >    > [2, 3, 6, 7] RET() [3, 7]
          > [2, 3, 6, 7] R(1-7) [3, 7]
          [2, 3, 6, 7] R(0-3) [3]
+
          [2, 3, 6, 7] L(0-6) [6]
          > [2, 3, 6, 7] L(2-6) [6, 6]
          >    > [2, 3, 6, 7] RET() [6, 6]
@@ -298,9 +306,11 @@ public class CombinationSum {
          >    > [2, 3, 6, 7] RET() [6, 7]
          > [2, 3, 6, 7] R(2-7) [6, 7]
          [2, 3, 6, 7] R(0-6) [6]
+
          [2, 3, 6, 7] L(0-7) [7]
          > [2, 3, 6, 7] OUT() [7]
          [2, 3, 6, 7] R(0-7) [7]
+
          [[2, 2, 3], [7]]
      */
     public List<List<Integer>> combinationSumApproach2(int[] nums, int target) {
@@ -324,11 +334,10 @@ public class CombinationSum {
         }
 
         for(int i = index; i < input.length; i++){
-            chosen.add(input[i]);
-            IndentUtil.showLeft(indent, input, index, input[i], chosen);
+            chosen.add(input[i]);  //IndentUtil.showLeft(indent, input, index, input[i], chosen);
             sum = sum - input[i];
-            backtrackApproach2(input, sum, i, chosen, result, n+1); // not i + 1 because we can reuse same elements
-            IndentUtil.showRight(indent, input, index, input[i], chosen);
+            // not i + 1 because we can reuse same elements
+            backtrackApproach2(input, sum, i, chosen, result, n+1); // IndentUtil.showRight(indent, input, index, input[i], chosen);
             sum = sum + input[i];
             chosen.remove(chosen.size() - 1);
         }
