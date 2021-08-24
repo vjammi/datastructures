@@ -583,8 +583,6 @@ Recursive Tree View [https://youtu.be/NA2Oj9xqaZQ?t=407]
         exc  inc exc  inc    exc    inc   exc   inc
     C   []   [C] [B]  [BC]   [A]    [AC]  [AB]    [ABC]     2^3 [Doubling factor 2^n]
 ```
-
-
 ```
 -----------------------
 A    B    C    BaseCase
@@ -615,7 +613,7 @@ A    B    C    BaseCase
 [, C, B, BC, A, AC, AB, ABC]
 
 ```
-Option 1 -
+Option 1 *** Classic recursion
 ```
     // Time complexity is O(n*2^n) ???
     // Space complexity is O(2^n). ???
@@ -623,45 +621,32 @@ Option 1 -
     // [ [], [3], [2], [2, 3], [1], [1, 3], [1, 2], [1, 2, 3] ]
     // [ [], [C], [B], [BC], [A], [AC], [AB], [ABC] ]
 
-    // Note: Consistent with the Subsets tree view - No removing chars from the input
+    // Note: Consistent with the Subsets tree view - No removing chars from the input like permutation
     private void subsets1(List<Integer> input, int i, List<Integer> chosen, List<List<Integer>> result, int n){
-        String indent = get_indent(n);
-        //if (input.isEmpty()){
-        if (i == input.size()){
-            // 4. base case
+        if (i == input.size()){   // or if (input.isEmpty()){
             result.add(new ArrayList(chosen));
-            System.out.println(indent +" Result " +input +chosen);
-            //IndentUtil.showChosenI(indent, input,chosen);
             return;
         }
-        //  For a backtracking problem it could be tricky to figure what the choices are?
-        //  What unit of work each function call is going to need to take care ?
-        //  Recursive case - for each possible choice we need to [for each element in the input list]
+
+        // For each possible choice we need to [for each element in the input list]
         Integer choice = input.get(i);
 
-        //  1. Choose to exclude and explore -
-        //     Explore without the choice, by incrementing the index
+        //  1. Choose to exclude and explore - Explore without the choice, by incrementing the index
         //input.remove(0); // No longer needed to remove - to be consistent with the subsets tree view
-        System.out.println(indent +" - " +choice +" "+input +chosen);      // Exclude the first element from the input
-        subsets1(input, i+1, chosen, result, n+1);
+        subsets1(input, i+1, chosen, result, n+1);// Exclude the first element from the input
 
-        //  3. Choose to include and further explore & UnChoose -
-        //     Explore with the choice, incrementing the index and later un-choose
+        //  3. Choose to include and further explore & UnChoose -  Explore with the choice, incrementing the index and later un-choose
         chosen.add(choice);
-        System.out.println(indent +" + " +choice +" "+input +chosen);             // Include the first element from the input
-        subsets1(input, i+1, chosen, result,  n+1);
+        subsets1(input, i+1, chosen, result,  n+1); // Include the first element from the input
         chosen.remove(chosen.size()-1);
-        //input.add(0, s); // No longer needed to add back - to be consistent with the subsets tree view
-        System.out.println(indent +" " +input +chosen);                  // input add the first element from the input
+        //input.add(0, s); // No longer needed to add back - to be consistent with the subsets tree view // input add the first element from the input
     }
 ```
-Option 2
+Option 2  *** Easy to implement and explain. Tree view ???
 ```
     private void subsets2(List<Integer> input, List<List<Integer>> result, int n){
-        String indent = get_indent(n);
         if (input.isEmpty()){
             result.add(new ArrayList<Integer>());
-            System.out.println(indent +" Input " +input +" Result "+result);
             return;
         }
 
@@ -676,10 +661,9 @@ Option 2
             result.add(list);
         }
         input.add(0, s);
-        System.out.println(indent +" Input: " +input +" s: " +s + " Result: "+result);
     }
 ```
-Option 3
+Option 3 - String input
 ```
     private void constructSubset(String input, String chosen, List<String> chosenList, int index, int n) {
         String indent = get_indent(n);
