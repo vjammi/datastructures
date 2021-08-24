@@ -527,7 +527,18 @@ Source: Geek for Geeks and CTCI by Gayle Laakmann McDowell
         chosen.pop();
     }
 ```
-### 77  Combinations            https://leetcode.com/problems/combinations/
+### 77  Combinations                    https://leetcode.com/problems/combinations/
+Recursive Tree View [https://youtu.be/NA2Oj9xqaZQ?t=407]
+```
+                           []                               2^0 [Doubling factor 2^n]
+                exc                   inc
+    A           []                    [A]                   2^1 [Doubling factor 2^n]
+           exc      inc          exc        inc
+    B      []       [B]          [A]        [AB]            2^2 [Doubling factor 2^n]
+        exc  inc exc  inc    exc    inc   exc   inc
+    C   []   [C] [B]  [BC]   [A]    [AC]  [AB]    [ABC]     2^3 [Doubling factor 2^n]
+```
+Implementation
 ```
     public List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> result = new ArrayList<>();
@@ -561,7 +572,19 @@ Source: Geek for Geeks and CTCI by Gayle Laakmann McDowell
 ### 131 Palindrome Partition    https://leetcode.com/problems/palindrome-partitioning/
 
 ### 78	Subsets                 https://leetcode.com/problems/subsets/
-Recursive Tree View
+
+Recursive Tree View [https://youtu.be/NA2Oj9xqaZQ?t=407]
+```
+                           []                               2^0 [Doubling factor 2^n]
+                exc                   inc
+    A           []                    [A]                   2^1 [Doubling factor 2^n]
+           exc      inc          exc        inc
+    B      []       [B]          [A]        [AB]            2^2 [Doubling factor 2^n]
+        exc  inc exc  inc    exc    inc   exc   inc
+    C   []   [C] [B]  [BC]   [A]    [AC]  [AB]    [ABC]     2^3 [Doubling factor 2^n]
+```
+
+
 ```
 -----------------------
 A    B    C    BaseCase
