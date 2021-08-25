@@ -38,7 +38,8 @@ public class KClosestPointsToOrigin {
 
     class MinDistFromOriginComparator implements Comparator<Coordinate> {
         public int compare(Coordinate coord1, Coordinate coord2){
-            return coord1.distFromOrigin.compareTo(coord2.distFromOrigin); // or // return (int) (coord1.dist - coord2.dist);
+            // return (int) (coord1.dist - coord2.dist); or
+            return coord1.distFromOrigin.compareTo(coord2.distFromOrigin);
         }
     }
 
