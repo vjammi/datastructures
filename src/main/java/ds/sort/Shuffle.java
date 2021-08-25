@@ -2,25 +2,25 @@ package ds.sort;
 
 public class Shuffle {
 
-    private int generateRandom(int lo, int hi) {
-        return lo + (int) (Math.random() * (hi-lo));
-    }
 
-    // Shuffle using random number between i and n-1
     public void shuffleStringArray(String[] a) {
         int n = a.length;
         for (int i = 0; i < n; i++) {
-            int r = generateRandom(i, n-1); // between i and n-1
+            int r = generateRandomIndex(i, n-1); // between i and n-1
             System.out.println("i="+i +", r="+r);
             exch1(a, i, r);
         }
     }
 
-    // Shuffle using random number between 0 and i-1
+    private int generateRandomIndex(int lo, int hi) {
+        return lo + (int) (Math.random() * (hi-lo));
+    }
+
+    // Shuffle with a random number between 0 and i-1
     public void shuffleIntArray(int[] a) {
         int n = a.length;
         for (int i = 0; i < n; i++) {
-            int r = generateRandom(0, i-1); // between 0 and i-1
+            int r = generateRandomIndex(0, i-1); // between 0 and i-1
             System.out.println("i="+i +", r="+r);
             exch2(a, i, r);
         }

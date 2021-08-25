@@ -22,7 +22,7 @@ public class HashingObjects {
     public int hashCode() {
         // Starts off with a small prime number
         int hash = 17;
-        // x = mx+y or 31x+y rule. Multiply hash so far by 31 & Add the hashcode of the field
+        // x = mx+y or 31x+y rule. Multiply hashValue (so far) by 31 & Add the hashcode of the field
         hash = 31*hash + who.hashCode();
         hash = 31*hash + when.hashCode();
         // For primitive types take the wrapper types and compute the hashCode

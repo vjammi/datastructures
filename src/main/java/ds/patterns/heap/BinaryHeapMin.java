@@ -46,22 +46,22 @@ public class BinaryHeapMin {
     }
 
     private void sink(int k) {
-        int minChild = 0;
-        int l = 2*k;
-        int m = 2*k+1;
+        int l = 2*k;    // l is left of k
+        int m = 2*k+1;  // m is right of k
+        int minIndOfTwoChildren = 0;      // minIndOfTwoChildren is the min of l (2k) and m(2k+1) - minIndOfTwoChildren min child index
 
         while(l<= n || m<= n){
             if (m <= n)
-                minChild = pq[l] < pq[m] ? l : m;
+                minIndOfTwoChildren = pq[l] < pq[m] ? l : m;
             else if (l <= n)
-                minChild = l;
+                minIndOfTwoChildren = l;
 
-            if (pq[minChild] < pq[k])
-                exch(k, minChild);
+            if (pq[minIndOfTwoChildren] < pq[k])
+                exch(k, minIndOfTwoChildren);
             else
                 break;
 
-            k = minChild;
+            k = minIndOfTwoChildren;
             l = 2*k;
             m = 2*k+1;
         }

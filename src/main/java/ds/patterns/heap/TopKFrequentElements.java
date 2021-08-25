@@ -3,31 +3,31 @@ package ds.patterns.heap;
 import java.util.*;
 
 /**
-347. Top K Frequent Elements
-    Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
-    Input: nums = {11,11,11,22,22,22,33,33,44,55,55,55,55,55,55}; int k = 2;
-    Solution
-         charToFreqMap =  size = 5
-             33 -> 2
-             22 -> 3
-             55 -> 6    <
-             11 -> 3    <
-             44 -> 1
-         heap =  size = 2
-             0 = 11
-             1 = 55
-         topKFrequentElements
-             0 = 55
-             1 = 11
+    347. Top K Frequent Elements
+        Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+        Input: nums = {11,11,11,22,22,22,33,33,44,55,55,55,55,55,55}; int k = 2;
+        Solution
+             charToFreqMap =  size = 5
+                 33 -> 2
+                 22 -> 3
+                 55 -> 6    <
+                 11 -> 3    <
+                 44 -> 1
+             heap =  size = 2
+                 0 = 11
+                 1 = 55
+             topKFrequentElements
+                 0 = 55
+                 1 = 11
 
-Next challenges:
-    Word Frequency
-    Kth Largest Element in an Array
-    Sort Characters By Frequency
-    Split Array into Consecutive Subsequences
-    Top K Frequent Words
-    K Closest Points to Origin
-    Sort Features by Popularity
+    Next challenges:
+        Word Frequency
+        Kth Largest Element in an Array
+        Sort Characters By Frequency
+        Split Array into Consecutive Subsequences
+        Top K Frequent Words
+        K Closest Points to Origin
+        Sort Features by Popularity
 */
 
 public class TopKFrequentElements {

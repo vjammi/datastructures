@@ -13,7 +13,8 @@ public class IsomorphicStrings {
         All occurrences of a character must be replaced with another character while preserving the order of characters.
         No two characters may map to the same character, but a character may map to itself.
          Example 1:
-             Input: s = "egg", t = "add"
+             Input: s = "egg",      e>a & g>d
+                    t = "add"
              Output: true
 
          Example 2:
