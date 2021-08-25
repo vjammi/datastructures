@@ -8,6 +8,8 @@ import java.util.Collections;
      The class itself must implements the java.lang.Comparable interface to compare its instances.
      For instance a Java String or Integer and other classes implement the Comparable interface - Comparable<String>, Comparable<Integer>
      Hence, a string or an integer obj is capable of comparing itself to other objs
+
+    *** Note: You pass comparable objects to be compared by a Comparator
 */
 
 class SportsTeam implements Comparable<SportsTeam> {

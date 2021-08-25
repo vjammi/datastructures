@@ -22,6 +22,7 @@ import java.util.*;
              return o1.compareTo(o2); // Note that the objects passed are comparable
          }
      }
+    *** Note: You pass comparable objects to be compared by a Comparator
  */
 /**
  * int compare(String o1, String o2){
