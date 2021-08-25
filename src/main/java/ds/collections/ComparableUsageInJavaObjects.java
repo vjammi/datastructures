@@ -3,9 +3,11 @@ package ds.collections;
 import java.util.ArrayList;
 import java.util.Collections;
 /**
-  Using Comparable Interface
-  A comparable object is capable of comparing itself with another object.
-  The class itself must implements the java.lang.Comparable interface to compare its instances.
+ Using Comparable Interface
+     A comparable object is capable of comparing itself with another object.
+     The class itself must implements the java.lang.Comparable interface to compare its instances.
+     For instance a Java String or Integer and other classes implement the Comparable interface - Comparable<String>, Comparable<Integer>
+     Hence, a string or an integer obj is capable of comparing itself to other objs
 */
 
 class SportsTeam implements Comparable<SportsTeam> {
