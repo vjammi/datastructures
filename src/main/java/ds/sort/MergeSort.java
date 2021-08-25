@@ -22,8 +22,9 @@ public class MergeSort {
         for (int k = lo; k<=hi; k++){
             aux[k] = arr[k];
         }
-
-        // Sort - Now copy the elements from aux array, back to the original array in sorted order.
+        // Iterate aux array using i & j pointers, with i=lo, j=mid+1  - aux[i++], aux[j++]
+        // Iterate orig array using k pointer from lo to hi            - arr[k]
+        // Sorting - Copy the elements from aux array, back to the original array in sorted order.
         int i = lo; int j = mid+1;          // Iterate aux array using i & j pointers, with i=lo, j=mid+1  - aux[i++], aux[j++]
         for (int k = lo; k <= hi; k++){     // Iterate orig array using k pointer from lo to hi            - arr[k]
             // Alternate Path - Once one of the sub-arrays are exhausted (i>mid) or (j>hi), we take the remaining
