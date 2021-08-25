@@ -4,12 +4,12 @@ public class MergeSort {
 
     public static void sort(int[] arr){
         int low = 0; int high = arr.length-1;
-        int[] aux = new int[arr.length];
+        int[] aux = new int[arr.length]; // Using an aux array - we have space O(n)
         sort(arr, aux, low, high);
     }
 
     private static void sort(int[] arr, int[] aux, int lo, int hi){
-        if (hi <= lo)
+        if (hi <= lo) // or if (lo < hi) ???
             return;                      // checks if there is something to do first
         int mid = lo + (hi-lo) / 2;      // computes the mid point
         sort(arr, aux, lo, mid);         // sort the left/first half
@@ -24,12 +24,13 @@ public class MergeSort {
         }
 
         // Sort - Now copy the elements from aux array, back to the original array in sorted order.
-        int i = lo; int j = mid+1;          // i & j - aux array pointers aux[i++], aux[j++]
-        for (int k = lo; k <= hi; k++){     // k     - orig array pointer arr[k]
-            // Once one of the sub-arrays are exhausted, we take the remaining elements from the other sub half and move the remainder into the original array.
+        int i = lo; int j = mid+1;          // Iterate aux array using i & j pointers, with i=lo, j=mid+1  - aux[i++], aux[j++]
+        for (int k = lo; k <= hi; k++){     // Iterate orig array using k pointer from lo to hi            - arr[k]
+            // Alternate Path - Once one of the sub-arrays are exhausted (i>mid) or (j>hi), we take the remaining
+            // elements from the other sub half and move them into the original array.
             if      (i>mid)                     arr[k] = aux[j++];
             else if (j>hi)                      arr[k] = aux[i++];
-            // Normal Path - compare the min values between i and j and copy the smallest element into the original array.
+            // Normal Path    - Compare the min values between i and j and copy the smallest element into the original array.
             else if (aux[j]<aux[i])             arr[k] = aux[j++];
             else                                arr[k] = aux[i++];
         }
