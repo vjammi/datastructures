@@ -2,3 +2,5 @@ target/
 .idea/
 /datastructures.iml
 /src/main/java/ds/patterns/fb/
+/src/main/java/ds/lc100/*
+/**/lc100/**

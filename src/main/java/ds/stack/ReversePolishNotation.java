@@ -16,9 +16,12 @@ public class ReversePolishNotation {
         Stack<String> operandStack = new Stack<>();
 
         for(String token: tokens){
+
             if (isOperand(token)) {
                 operandStack.push(token);
+
             }else if (isOperator(token)){
+
                 int number2 = Integer.parseInt(operandStack.pop());
                 int number1 = Integer.parseInt(operandStack.pop());
 
@@ -30,6 +33,7 @@ public class ReversePolishNotation {
                     operandStack.push(String.valueOf(number1 - number2));
                 else if (token.equals("/"))
                     operandStack.push(String.valueOf(number1 / number2));
+
             }else{
                 System.out.println("Unknown token " +token);
             }

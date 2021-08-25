@@ -139,53 +139,97 @@ private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] 
 
 ## Combination Sum II (can't reuse same element) : https://leetcode.com/problems/combination-sum-ii/
 ```
-public List<List<Integer>> combinationSum2(int[] nums, int target) {
-    List<List<Integer>> list = new ArrayList<>();
-    Arrays.sort(nums);
-    backtrack(list, new ArrayList<>(), nums, target, 0);
-    return list;
+    public List<List<Integer>> combinationSum2(int[] nums, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(list, new ArrayList<>(), nums, target, 0);
+        return list;
+        
+    }
     
-}
-
-private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
-    if(remain < 0) return;
-    else if(remain == 0) list.add(new ArrayList<>(tempList));
-    else{
+    private void backtrack(List<List<Integer>> list, List<Integer> tempList, int [] nums, int remain, int start){
+        if(remain < 0) 
+            return;
+        else if(remain == 0){ 
+            list.add(new ArrayList<>(tempList));
+            return;
+        }
+    
         for(int i = start; i < nums.length; i++){
             if(i > start && nums[i] == nums[i-1]) continue; // skip duplicates
             tempList.add(nums[i]);
             backtrack(list, tempList, nums, remain - nums[i], i + 1);
             tempList.remove(tempList.size() - 1); 
-        }
-    }
-} 
+        }    
+    } 
 ```
 
 ## Palindrome Partitioning : https://leetcode.com/problems/palindrome-partitioning/
+Option 1
 ```
-public List<List<String>> partition(String s) {
-   List<List<String>> list = new ArrayList<>();
-   backtrack(list, new ArrayList<>(), s, 0);
-   return list;
-}
+    public List<List<String>> partition(String s) {
+       List<List<String>> list = new ArrayList<>();
+       backtrack(list, new ArrayList<>(), s, 0);
+       return list;
+    }
+    
+    public void backtrack(List<List<String>> list, List<String> tempList, String s, int start){
+       if(start == s.length()){
+          list.add(new ArrayList<>(tempList));
+          return;
+       }
 
-public void backtrack(List<List<String>> list, List<String> tempList, String s, int start){
-   if(start == s.length())
-      list.add(new ArrayList<>(tempList));
-   else{
       for(int i = start; i < s.length(); i++){
          if(isPalindrome(s, start, i)){
             tempList.add(s.substring(start, i + 1));
             backtrack(list, tempList, s, i + 1);
             tempList.remove(tempList.size() - 1);
          }
-      }
-   }
-}
 
-public boolean isPalindrome(String s, int low, int high){
-   while(low < high)
-      if(s.charAt(low++) != s.charAt(high--)) return false;
-   return true;
-} 
+      }       
+    }
+
+    public boolean isPalindrome(String s, int low, int high){
+       while(low < high)
+          if(s.charAt(low++) != s.charAt(high--)) return false;
+       return true;
+    } 
+```
+Option 2
+```
+    public List<List<String>> partition(String s) {
+       List<List<String>> list = new ArrayList<>();
+       backtrack(list, new ArrayList<>(), s, 0);
+       return list;
+    }
+    
+    public void backtrack(List<List<String>> list, List<String> tempList, String s, int start){
+        if(start == s.length()){
+            list.add(new ArrayList<>(tempList));
+            return;
+        }
+
+        for(int i = start; i < s.length(); i++){
+            String subString = s.substring(start, i + 1);
+            if( isPalindrome(subString) ){
+                tempList.add(subString);
+                backtrack(list, tempList, s, i + 1);
+                tempList.remove(tempList.size() - 1);
+            }
+        }
+    }
+    
+    boolean isPalindrome(String s) {
+        int i=0; int j=s.length()-1;
+        while(j>=0 && i<=s.length()-1 && i<j){ // *** i<j
+            while(i<j && i<=s.length()-1 && !Character.isLetterOrDigit(s.charAt(i)) )
+                i++;
+            while(i<j && j>=0 && !Character.isLetterOrDigit(s.charAt(j)) )
+                j--;
+            if ( Character.toLowerCase(s.charAt(i)) != Character.toLowerCase(s.charAt(j))  )
+                return false;
+            i++; j--;
+        }
+        return true;
+    }
 ```
