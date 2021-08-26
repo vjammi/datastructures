@@ -25,9 +25,13 @@ public class LowestCommonAncestor {
         TreeNode left = lca(node.left, p, q);
         TreeNode right = lca(node.right, p, q);
 
+        // If/Once LCA is found, keep bubbling it up the tree
         if (lca != null){
-            return lca; // Once lca node is found, keep bubbling it up the tree for each node
-        }else if ( (left == p && right == q) || (right == p && left == q) )  {
+            return lca;
+        }
+
+        // else find the LCA
+        else if ( (left == p && right == q) || (right == p && left == q) )  {
             lca = node;  // current node is an LCA, with its left and right nodes containing p and q or q and p
             return lca;
         }else if((left == q || right == q)  && node.val == p.val){
