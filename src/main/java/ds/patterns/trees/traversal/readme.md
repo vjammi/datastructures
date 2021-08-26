@@ -225,7 +225,9 @@ Solution
         }
 
         private TreeNode buildTree(int leftIndex, int rightIndex) {
-            if (leftIndex > rightIndex){ // or we could also say (rightIndex < leftIndex){
+            // Traversing the left side of the tree, the right index becomes negative, causing the left index to be greater then the right
+            // Traversing the right side of the tree, the left index index grows and crosses the size of the right index, once again causing the left index to be greater then the right.
+            if (leftIndex > rightIndex){
                 return null;
             }
     
@@ -287,7 +289,9 @@ Implementation
         }
     
         public TreeNode buildTree(int leftIndex, int rightIndex) {
-            if (leftIndex > rightIndex){ // or we could also say (rightIndex < leftIndex){
+            // Traversing the left side of the tree, the right index becomes negative, causing the left index to be greater then the right
+            // Traversing the right side of the tree, the left index index grows and crosses the size of the right index, once again causing the left index to be greater then the right.
+            if (leftIndex > rightIndex){
                 return null;
             }
     
