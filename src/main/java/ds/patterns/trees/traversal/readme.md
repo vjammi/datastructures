@@ -250,7 +250,7 @@ Solution
         class TreeNode{...}
         
     }
-    
+```
 ## 106. Construct Binary Tree from Inorder and Postorder Traversal
 Approach: Recursion
 How to construct the tree from two traversals: inorder and preorder/postorder/etc
