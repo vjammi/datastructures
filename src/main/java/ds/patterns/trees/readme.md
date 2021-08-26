@@ -280,7 +280,7 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         if (node == null)
             return;
 
-        if (levelOrderTraversalRecursiveList.size() == level) { // Ugly way of checking a list for that level has already been created
+        if (levelOrderTraversalRecursiveList.size() == level) { // For instance, initially at level 0 the size of the result list will be 0. Same with other levels.
             List<Integer> list = new ArrayList<>();
             list.add(node.val);
             levelOrderTraversalRecursiveList.add(list); // Note: list.get(level).add(node.val) will throw IndexOutOfBoundsException: Index: 0, Size: 0
