@@ -252,6 +252,20 @@ Solution
     }
     
 ## 106. Construct Binary Tree from Inorder and Postorder Traversal
+Approach: Recursion
+How to construct the tree from two traversals: inorder and preorder/postorder/etc
+Start from not inorder traversal, usually it's preorder or postorder one, and use the traversal picture above to define the strategy to pick the nodes. For example, for preorder traversal the first value is a root, then its left child, then its right child, etc. For postorder traversal the last value is a root, then its right child, then its left child, etc.
+The value picked from preorder/postorder traversal splits the inorder traversal into left and right subtrees. The only information one needs from inorder - if the current subtree is empty (= return None) or not (= continue to construct the subtree).
+
+What is the reason that we have to construct the right sub-tree first and then the left sub-tree?
+Post order sequence is left --> right --> root. So since here we are building it backward, it should go from root --> right --> left
+
+Complexity Analysis
+Time complexity : O(N)\mathcal{O}(N)O(N). Let's compute the solution with the help of master theorem T(N)=aT(bN)+Θ(Nd)T(N) = aT\left(\frac{b}{N}\right) + \Theta(N^d)T(N)=aT(Nb​)+Θ(Nd). The equation represents dividing the problem up into aaa subproblems of size Nb\frac{N}{b}bN​ in Θ(Nd)\Theta(N^d)Θ(Nd) time. Here one divides the problem in two subproblemes a = 2, the size of each subproblem (to compute left and right subtree) is a half of initial problem b = 2, and all this happens in a constant time d = 0. That means that log⁡b(a)>d\log_b(a) > dlogb​(a)>d and hence we're dealing with case 1 that means O(Nlog⁡b(a))=O(N)\mathcal{O}(N^{\log_b(a)}) = \mathcal{O}(N)O(Nlogb​(a))=O(N) time complexity.
+Space complexity : O(N)\mathcal{O}(N)O(N), since we store the entire tree.
+
+Reference: https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/
+
 ```
      
                                             16
