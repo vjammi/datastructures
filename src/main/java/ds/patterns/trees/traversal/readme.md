@@ -26,7 +26,7 @@ Creates a list of lists (result list) by creating a list for each level and addi
             if (node == null)
                 return;
     
-            if (level == lists.size()){  // Ugly way of checking a list for that level has already been created
+            if (level == lists.size()){  // For instance, initially at level 0 the size of the result list will be 0. Same with other levels.
                 System.out.println(node.val +" -- " +level);
                 List<Integer> list = new ArrayList<>();
                 list.add(node.val);
