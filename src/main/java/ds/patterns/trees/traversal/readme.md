@@ -200,7 +200,7 @@ Solution
                            ^ -->
             // inorder    [6 7 8 9 10 11 12 13 16 19 20 21 22 23 24 25]
                                                 ^
-    Note: This is similar to building a tree from a sorted array/list
+    Note: This is similar to building a a tree from a sorted array.
           Unlike finding the mid node by using binary search (low+hi)/2 on the sorted array,
           Here we first find the node to be created by looking at the next node in the preorder sequence.
           We then look up that node in the inorder array and build the node node of our binary tree.
@@ -229,7 +229,8 @@ Solution
                 return null;
             }
     
-            // Select the next preorder node as the current root and increment it preorder index
+            // Pick the next node to be built by selecting the next preorder node as the current root and incrementing the preorder index
+            // This is similar to building a a tree from a sorted array where we pick the next node by find the mid (low+hi)/2 of the segment of the array.
             int preorderNodeVal = preorder[nextPreorderIndex++]; // preOrderIndex++;
             TreeNode currNode = new TreeNode(preorderNodeVal);
 
