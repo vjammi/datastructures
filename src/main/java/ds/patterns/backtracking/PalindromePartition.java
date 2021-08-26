@@ -52,15 +52,15 @@ public class PalindromePartition {
 
         for(int i = start; i < s.length(); i++){
             String subString = s.substring(start, i + 1);
-            //if( isPalindrome(subString) ){
+            if( isPalindrome(subString) ){
                 chosen.add(subString);
                 System.out.println(indent +s +" L[" +subString +"] " +chosen);
                 backtrack(s, i+1, result, chosen, ind+1);
                 System.out.println(indent +s +" R[" +subString +"] " +chosen);
                 chosen.remove(chosen.size() - 1);
-            //}else{
-            //    System.out.println(indent +s +" XXX[" +subString +"] " +chosen);
-            //}
+            }else{
+                System.out.println(indent +s +" XXX[" +subString +"] " +chosen);
+            }
         }
     }
 

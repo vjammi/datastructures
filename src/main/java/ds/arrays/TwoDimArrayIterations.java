@@ -76,32 +76,32 @@ public class TwoDimArrayIterations {
     }
 
     private static void print2DimArraySpirally(int[][] matrix, int m, int n) {
-        int top = 0, bottom = m - 1, left = 0, right = n - 1;
+        int top = 0, left = 0, bottom = m-1, right = n-1;
         int dir = 0;
 
         System.out.println("\nPrint elements of a matrix Sprially");
         while (top <= bottom && left <= right) {
 
-            if (dir == 1) {
+            if (dir == 1) { // left to right
                 for (int k = left; k <= right; k++) {
                     System.out.print(matrix[top][k] + " ");
                 }
-                top++;
-            } else if (dir == 2) {
+                top++; // inner/next left to right
+            } else if (dir == 2) { // top to bottom
                 for (int k = top; k <= bottom; k++) {
                     System.out.print(matrix[k][right] + " ");
                 }
-                right--;
-            } else if (dir == 3) {
+                right--; // inner/previous top to bottom
+            } else if (dir == 3) {  // right to left
                 for (int k = right; k >= left; k--) {
                     System.out.print(matrix[bottom][k] + " ");
                 }
                 bottom--;
-            } else if (dir == 4) {
+            } else if (dir == 4) {  // bottom to top
                 for (int k = bottom; k >= top; k--) {
                     System.out.print(matrix[k][left] + " ");
                 }
-                left++;
+                left++; // previous/inner bottom to top
             }
             dir = (dir + 1) % 4;
         }

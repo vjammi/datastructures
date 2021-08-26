@@ -51,7 +51,7 @@ public class NumberOfIslands {
                                N
                      r-1,c-1  r-1, c    r-1,c+1
         W            r, c-1     r, c    r, c+1       E
-                     r+1,c-1  r+1, c    r+11,c+1
+                     r+1,c-1  r+1, c    r+1,c+1
                                S
     */
     // N  S  E  W

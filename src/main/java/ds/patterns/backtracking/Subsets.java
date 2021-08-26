@@ -115,6 +115,40 @@ public class Subsets {
         }
     }
 
+    // Easy to explain
+    public List<List<Integer>> subsets22(int[] nums){
+        List<Integer> chosen = new ArrayList<>();
+        List<Integer> input = new ArrayList<>();
+        for (int i=0;i<nums.length; i++)
+            input.add(nums[i]);
+
+        List<List<Integer>> result = new ArrayList();
+        //subsets1(input, 0, chosen, result, 0);
+        subsets22(input, result, 0);
+        System.out.println(result);
+        return result;
+    }
+
+    private void subsets22(List<Integer> input, List<List<Integer>> result, int n){
+        if (input.isEmpty()){
+            result.add(new ArrayList<Integer>());
+            return;
+        }
+
+        Integer s = input.get(0);
+        input.remove(0);
+
+        subsets22(input, result, n);
+        int size = result.size();
+        for (int i=0; i<size; i++){ // We only want to iterate thru the initial size the result
+            // result.get(i).add(s); // Does not work ???
+            List<Integer> list = new ArrayList<Integer>(result.get(i));
+            list.add(s);
+            result.add(list);
+        }
+        input.add(0, s);
+    }
+
     public List<String> powerSet(String input) {
         List<String> result = new ArrayList<>();
         String chosen = "";
