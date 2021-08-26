@@ -298,15 +298,11 @@ Implementation
             int postOrderNodeVal = postorder[nextPostorderIndex--];
             TreeNode currNode = new TreeNode(postOrderNodeVal);
             int inorderIndexForCurrNode = inorderMap.get(postOrderNodeVal);
-    
+
+            // Note: Because the sequence is post order, we build the right first???
             currNode.right = buildTree(inorderIndexForCurrNode+1, rightIndex);
             currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);
-    
-            //TreeNode right = buildTree(inorderIndexForRootValue+1, rightIndex);
-            //TreeNode left = buildTree(leftIndex, inorderIndexForRootValue - 1);
-            //rootNode.right = right;
-            //rootNode.left = left;
-    
+
             return currNode;
         }
         
