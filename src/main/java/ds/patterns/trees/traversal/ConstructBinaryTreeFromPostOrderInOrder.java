@@ -3,6 +3,39 @@ package ds.patterns.trees.traversal;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+            leftIndes		rightIndex		inOrderNodeIndex		currentNode/nodeVal			return
+
+            3				3										 9							null / R - 9
+            3				3										 9							null / L - 9
+            3				3										 9							9/R
+    x		1+1				0																	null/R - 7
+    x		1				0																	null/L - 7
+    x		0+1=1			1				1						 7							7/R
+    x		0				-1																	null
+            0				1				0						 6							6/L						L
+            0				3				2						 8							8	[6/L & 9/R]			L
+            0				7				4						 10												    L
+            0				15				8						 16													L
+
+
+    //                 0,1,2,3,4, 5, 6, 7, 8, 9, 10,11,12,13,14,15
+    int[] postorder = {7,6,9,8,11,13,12,10,19,21,20,23,25,24,22,16};
+    //                                                 ^
+    int[] inorder  = {6,7,8,9,10,11,12,13,16,19,20,21,22,23,24,25};
+    //                0,1,2,3,4, 5, 6, 7, 8, 9, 10,11,12,13,14,15
+    //                                      		     ^	   ^
+
+        leftIndes		rightIndex		inOrderNodeIndex		currentNode/nodeVal			return
+
+        15				14
+    x	15+1=16			15																    null
+    x	14+1=15			15				15						25							ret 25		R
+        12+1=13	 		15				14						24										R
+        8+1=9	 		15				12						22										R
+        0		 		15				8						16										R
+
+**/
 public class ConstructBinaryTreeFromPostOrderInOrder {
     TreeNode root;
     class TreeNode{

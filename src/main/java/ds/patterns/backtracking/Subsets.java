@@ -211,8 +211,8 @@ public class Subsets {
     public static void main(String[] args) {
         Subsets obj = new Subsets();
         int[] nums = {1,1,2};
-        obj.subsets1(nums);
+        //obj.subsets1(nums);
         //obj.subsets2(nums);
-        //obj.powerSet("abc");
+        obj.powerSet("catsandog");
     }
 }

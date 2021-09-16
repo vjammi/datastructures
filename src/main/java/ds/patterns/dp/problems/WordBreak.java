@@ -1,4 +1,4 @@
-package ds.patterns.dp;
+package ds.patterns.dp.problems;
 
 import java.util.Arrays;
 import java.util.HashMap;
