@@ -1,10 +1,16 @@
 package ds.bitvector;
 
 public class BitVector {
-	private static int DATA_SIZE = 32;
+
+	private static int DATA_SIZE = 64;
 	private int length;
 	private int[] vector;
-	
+
+	public static void main(String[] args) {
+		BitVector obj = new BitVector(128);
+		obj.print();
+	}
+
 	public BitVector(int length) {
 		this.length = length;
 		if (length % DATA_SIZE == 0) {
@@ -33,9 +39,9 @@ public class BitVector {
 		for (int k : vector) {
 			for (int i = 0; i < DATA_SIZE; i++) {
 				if ((k >> i & 1) == 1) {
-					System.out.print(1);
+					System.out.print(1 +" ");
 				} else {
-					System.out.print(0);
+					System.out.print(0 +" ");
 				}
 			}
 			System.out.println();
@@ -53,4 +59,6 @@ public class BitVector {
 			}
 		}
 	}
+
+
 }

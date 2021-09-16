@@ -2,6 +2,8 @@ package ds.patterns.dp;
 
 import java.util.Arrays;
 
+// https://youtu.be/ZI17bgz07EE
+// https://gist.github.com/SuryaPratapK/665ea0e02c1560c7d70346ed4ae794bc
 public class CoinChange {
 
     public int coinChang(int amount){
