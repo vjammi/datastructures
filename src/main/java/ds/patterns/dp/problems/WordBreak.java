@@ -55,20 +55,7 @@ public class WordBreak {
                 }
             }
         }
-       //memo.put(s, false);
         return false;
-    }
-
-    private void powerset(String input, int i, String chosen, List<String> result, int n) {
-        if(i >= input.length()) {
-            result.add(chosen);
-            return;
-        }
-        char c = input.charAt(i);
-        powerset(input, i + 1, chosen, result, n+1);
-        chosen = chosen + c;
-        powerset(input, i + 1, chosen, result, n+1);
-        chosen = chosen.substring(0, chosen.length()-1); //
     }
 
     public static void main(String[] args) {
