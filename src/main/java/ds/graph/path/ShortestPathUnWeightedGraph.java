@@ -9,14 +9,14 @@ public class ShortestPathUnWeightedGraph {
         this.numberOfVertices = numberOfVertices;
         Map<Integer, List<Integer>> adjList = new HashMap<>();
 
-        for (int i=0; i<numberOfVertices; i++){
+        for (int i=0; i<numberOfVertices; i++){         // Create Adj List
             adjList.put(i, new ArrayList<Integer>());
         }
         populateAdjList(adjList);
 
-        int[] path = new int[numberOfVertices];
-        int[] distance = new int[numberOfVertices];
-        Arrays.fill(distance,-1); // Initialize distance array
+        int[] path = new int[numberOfVertices]; // Stores a reference of the previous vertex, which lead to the vertex [building path]
+        int[] distance = new int[numberOfVertices]; // Stores the distance to the the current vertex from the source
+        Arrays.fill(distance,-1); // Initialize distance array elements with -1
 
         bfs(2, adjList, path, distance);
     }
@@ -47,9 +47,10 @@ public class ShortestPathUnWeightedGraph {
                  Distance from C to G is 2 via path F
      **/
     public void bfs(int startVertex, Map<Integer, List<Integer>> adjList, int[] path, int[] distance) {
-
-        distance[startVertex] = 0; // Making distance for start vertex 0
-        path[startVertex] = startVertex; // Updating path for start vertex to itself
+        // Store the reference of the previous vertex. Since this is the source we store the reference to itself.
+        path[startVertex] = startVertex;
+        // Set the distance of the current vertex from the source vertex, in this case to itself, which will be 0
+        distance[startVertex] = 0;
 
         Queue<Integer> queue = new LinkedList() ;
         queue.offer(startVertex);
@@ -58,24 +59,24 @@ public class ShortestPathUnWeightedGraph {
             int size = queue.size();
 
             while(size > 0){
-                int vertex = queue.poll();
+                int currentVertex = queue.poll();
 
-                List<Integer> neighbors = adjList.get(vertex);
-                for(Integer neighbor: neighbors){
-                    //  neighbor
-                    int weightOfEdge = 1;
-                    int distanceToNeighbor = distance[vertex] + weightOfEdge;
+                List<Integer> neighbors = adjList.get(currentVertex);
+                for(Integer neighbor: neighbors){ // Iterate over the neighbors
 
+                    int weightOfEdge = 1; // Is a constant [1], in the case of an unweighted graph
+                    int distanceToNeighbor = distance[currentVertex] + weightOfEdge;
+
+                    // If not visited [-1] we will visit it and will update the neighbors distance to the distance of the currentVertex + 1
                     if(-1 == distance[neighbor]){
-                        System.out.println("Edge " +(char)(vertex +'A') +" - " +(char)(neighbor +'A') +" distanceToNeighbor: " +distanceToNeighbor + " priorDistance: " +distance[neighbor]);
+                        System.out.println("Edge " +(char)(currentVertex +'A') +" - " +(char)(neighbor +'A') +" distanceToNeighbor: " +distanceToNeighbor + " priorDistance: " +distance[neighbor]);
                         distance[neighbor] = distanceToNeighbor; // distance[vertex] + 1;
-                        path[neighbor] = vertex;
+                        path[neighbor] = currentVertex;
                         queue.offer(neighbor);
                     }
                 }
                 size--;
             }
-
         }
         print(startVertex, numberOfVertices, path, distance);
     }
