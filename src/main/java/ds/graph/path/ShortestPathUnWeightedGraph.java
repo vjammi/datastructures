@@ -56,8 +56,8 @@ public class ShortestPathUnWeightedGraph {
         queue.offer(sourceVertex);
 
         while(!queue.isEmpty()){
-            int size = queue.size();
 
+            int size = queue.size(); // We iterate all the neighbors of the current popped vertex, so get the neighboring count [size]
             while(size > 0){
                 int currentVertex = queue.poll();
 
