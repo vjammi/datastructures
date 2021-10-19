@@ -46,14 +46,14 @@ public class ShortestPathUnWeightedGraph {
                  Distance from C to F is 1 via path C
                  Distance from C to G is 2 via path F
      **/
-    public void bfs(int startVertex, Map<Integer, List<Integer>> adjList, int[] path, int[] distance) {
+    public void bfs(int sourceVertex, Map<Integer, List<Integer>> adjList, int[] path, int[] distance) {
         // Store the reference of the previous vertex. Since this is the source we store the reference to itself.
-        path[startVertex] = startVertex;
+        path[sourceVertex] = sourceVertex;
         // Set the distance of the current vertex from the source vertex, in this case to itself, which will be 0
-        distance[startVertex] = 0;
+        distance[sourceVertex] = 0;
 
         Queue<Integer> queue = new LinkedList() ;
-        queue.offer(startVertex);
+        queue.offer(sourceVertex);
 
         while(!queue.isEmpty()){
             int size = queue.size();
@@ -70,15 +70,15 @@ public class ShortestPathUnWeightedGraph {
                     // If not visited [-1] we will visit it and will update the neighbors distance to the distance of the currentVertex + 1
                     if(-1 == distance[neighbor]){
                         System.out.println("Edge " +(char)(currentVertex +'A') +" - " +(char)(neighbor +'A') +" distanceToNeighbor: " +distanceToNeighbor + " priorDistance: " +distance[neighbor]);
-                        distance[neighbor] = distanceToNeighbor; // distance[vertex] + 1;
-                        path[neighbor] = currentVertex;
+                        distance[neighbor] = distanceToNeighbor; // Distance of the current vertex + the weight of the edge to the the this neighbor that is being visited
+                        path[neighbor] = currentVertex; // We will add the reference of the currentVertex as the vertex from which we have come to this neighbor
                         queue.offer(neighbor);
                     }
                 }
                 size--;
             }
         }
-        print(startVertex, numberOfVertices, path, distance);
+        print(sourceVertex, numberOfVertices, path, distance);
     }
 
     private void print(int startVertex, int numberOfVertices, int[] path, int[] distance) {
