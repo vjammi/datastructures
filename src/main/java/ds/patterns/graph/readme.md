@@ -26,22 +26,27 @@ An Adjacency List is usually a Hashmap, or a List of Lists
         4   [2]
 ```
 
-#### Adjacency List Representation - Option 1
+#### Adjacency List Representation - Option 1 - Array of linked lists
 ```
-    someGraph(int n, int[][] edges) {
-        LinkedList<Integer>[] adj; // Array of lists for Adjacency List Representation
-        ...        
+    // Array of linked lists - adjacency list representation
+    private LinkedList<Integer>[] adj;
+
+    // Function to initialize the adjacency list
+    private void initialize(int v) {
         adj = new LinkedList[v];
         for (int i = 0; i < v; ++i) {
             adj[i] = new LinkedList();
         }
-        ...
-        adj[v].add(w); // Add w to v's list.
-     }
+    }
+
+    // Function to add an edge into the graph
+    void addEdge(int v, int w)    {
+        adj[v].add(w); // Add and edge w to v's linked list.
+    }
 ```
-#### Adjacency List Representation - Option 2
+#### Adjacency List Representation - Option 2 - A map of Linked Lists
 ```
-    someGraph(int n, int[][] edges) {
+    void someGraph(int n, int[][] edges) {
         Map<Integer, List<Integer>> adjList = new HashMap<>();
         for (int i=0; i<n; i++)
             adjList.put(i, new ArrayList<Integer>());
