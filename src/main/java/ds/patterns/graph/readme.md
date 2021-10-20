@@ -40,8 +40,26 @@ An Adjacency List is usually a Hashmap, or a List of Lists
     }
 
     // Function to add an edge into the graph
-    void addEdge(int v, int w)    {
+    public void addEdge(int v, int w)    {
         adj[v].add(w); // Add an edge w to the linked list adj[v]
+    }
+
+           /  1 - 4 - 7  \
+         /
+         0  - 2 - 5 - 8 - 10
+         \
+           \  3 - 6 - 9 /
+
+        0 1 4 7 10 2 5 8 3 6 9
+
+    public void addEdges(){
+        ...
+        // Populate the E Edges - O(E)
+        g.addEdge(0, 1);  g.addEdge(0, 2);  g.addEdge(0, 3);
+        g.addEdge(1, 4);  g.addEdge(2, 5);  g.addEdge(3, 6);
+        g.addEdge(4, 7);  g.addEdge(5, 8);  g.addEdge(6, 9);
+        g.addEdge(7, 10); g.addEdge(8, 10); g.addEdge(9, 10);
+        ...
     }
 ```
 #### Adjacency List Representation - Option 2 - A map of Linked Lists
