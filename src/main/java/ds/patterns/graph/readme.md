@@ -41,7 +41,7 @@ An Adjacency List is usually a Hashmap, or a List of Lists
 
     // Function to add an edge into the graph
     void addEdge(int v, int w)    {
-        adj[v].add(w); // Add an edge w to the linked list v
+        adj[v].add(w); // Add an edge w to the linked list adj[v]
     }
 ```
 #### Adjacency List Representation - Option 2 - A map of Linked Lists

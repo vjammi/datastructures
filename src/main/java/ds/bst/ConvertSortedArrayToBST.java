@@ -37,7 +37,7 @@ package ds.bst;
         That will generate different BSTs but both solutions will be accepted.
 
  */
-public class ConvertSortedArrayToBinarySearchTree {
+public class ConvertSortedArrayToBST {
 
 
     public class TreeNode {
