@@ -5,7 +5,7 @@ import java.util.*;
 public class GraphTraversal {
     Map<Integer, List<Integer>> adjList;
 
-    private ArrayList<Integer> traverse(int vertices, int[][] edges) {
+    private void traverse(int vertices, int[][] edges) {
         adjList = new HashMap();
 
         for (int i=0; i<vertices; i++){
@@ -20,21 +20,22 @@ public class GraphTraversal {
             System.out.println("Key(vertex) " +entry.getKey() +" Value(neighbors) " +entry.getValue());
         }
 
+        ArrayList<Integer> chosen = new ArrayList<>();
         int[] visited = new int[vertices];
-        ArrayList<Integer> path = new ArrayList<>();
 
-        dfs(0, adjList, visited, path); // DFS connected graph
+        //dfs(0, adjList, visited, chosen); // Connected graph
+        //System.out.println(chosen);
 
-        System.out.println(path);
-        return path;
+        chosen.add(0);
+        dfsAllPaths(0, adjList, visited, chosen, new ArrayList());
     }
 
     private void dfs(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, List<Integer> path) {
-        if (visited[vertex] == 1)
+        if (visited[vertex] == 1) {
             return;
+        }
 
-        System.out.print(vertex +" ");
-        path.add(vertex);
+        path.add(vertex); System.out.print(vertex +" ");
 
         visited[vertex] = 1;
         List<Integer>  neighbors = adjList.get(vertex);
@@ -43,7 +44,24 @@ public class GraphTraversal {
                 dfs(neighbor, adjList, visited, path);
             }
         }
+    }
 
+    private void dfsAllPaths(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, /*Stack<Integer>*/ List<Integer> chosen, List<List<Integer>> result) {
+        if (chosen.size() == adjList.size()) {
+            result.add(new ArrayList(chosen)); System.out.println(chosen);
+            return;
+        }
+
+        visited[vertex] = 1;
+        List<Integer>  neighbors = adjList.get(vertex);
+        for(int neighbor: neighbors){
+            if (visited[neighbor] == 0){
+                chosen.add(neighbor);
+                dfsAllPaths(neighbor, adjList, visited, chosen, result);
+                chosen.remove(chosen.size() - 1);
+            }
+        }
+        visited[vertex] = 0;
     }
 
         /**
