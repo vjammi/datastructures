@@ -325,6 +325,49 @@ Space complexity ``` O(E+V)```
 - To keep track of visited vertices, an array of size O(V) is required.
 - Also, the run-time stack for DFS will use O(V) space.
 
+## All Paths from Source to Target
+```
+    Map<Integer, List<Integer>> adjList;
+
+    private void traverse(int vertices, int[][] edges) {
+        adjList = new HashMap();
+
+        for (int i=0; i<vertices; i++){
+            adjList.put(i, new LinkedList());
+        }
+        for (int i=0; i<edges.length; i++){
+            int[] edge = edges[i];
+            adjList.get(edge[0]).add(edge[1]);
+            adjList.get(edge[1]).add(edge[0]);
+        }
+
+        ArrayList<Integer> chosen = new ArrayList<>();
+        int[] visited = new int[vertices];
+
+        chosen.add(0);
+        dfsAllPaths(0, adjList, visited, chosen, new ArrayList());
+    }
+
+    private void dfsAllPaths(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, /*Stack<Integer>*/ List<Integer> chosen, List<List<Integer>> result) {
+        if (chosen.size() == adjList.size()) {
+            result.add(new ArrayList(chosen)); System.out.println(chosen);
+            return;
+        }
+
+        visited[vertex] = 1;
+        List<Integer>  neighbors = adjList.get(vertex);
+        for(int neighbor: neighbors){
+            if (visited[neighbor] == 0){
+                chosen.add(neighbor);
+                dfsAllPaths(neighbor, adjList, visited, chosen, result);
+                chosen.remove(chosen.size() - 1);
+            }
+        }
+        visited[vertex] = 0;
+    }
+```
+
+
 ## 207. Course Schedule  - Directed Graph + Cycle Detection (0 -1 1)
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
