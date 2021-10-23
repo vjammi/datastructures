@@ -78,8 +78,10 @@ public class Graph {
             adjList.get(edge[0]).add(edge[1]);
             adjList.get(edge[1]).add(edge[0]);
         }
-        for (Map.Entry entry: adjList.entrySet()){
-            System.out.println("Key(vertex) " +entry.getKey() +" Value(neighbors) " +entry.getValue());
+        for (Map.Entry<Integer, List<Integer>> entry: adjList.entrySet()){
+            Integer key          = entry.getKey();
+            List<Integer>  value = entry.getValue();
+            System.out.println("Key(vertex) " + key +" Value(neighbors) " + value);
         }
 
         int[] visited = new int[vertices];
