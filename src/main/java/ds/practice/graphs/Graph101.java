@@ -57,6 +57,10 @@ public class Graph101 {
             return;
         }
 
+        if (visited[vertex] == 1) {
+            return;
+        }
+
         visited[vertex] = 1;
         List<Integer>  neighbors = adjList.get(vertex);
         for(int neighbor: neighbors){
