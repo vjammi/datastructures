@@ -833,7 +833,6 @@ Implementation 2
 
         ArrayList<Integer> chosen = new ArrayList<>();
         int[] visited = new int[vertices];
-
         chosen.add(0);
         dfsAllPaths(0, adjList, visited, chosen, new ArrayList());
     }
@@ -841,6 +840,10 @@ Implementation 2
     private void dfsAllPaths(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, /*Stack<Integer>*/ List<Integer> chosen, List<List<Integer>> result) {
         if (chosen.size() == adjList.size()) {
             result.add(new ArrayList(chosen)); System.out.println(chosen);
+            return;
+        }
+
+        if (visited[vertex] == 1) {
             return;
         }
 
