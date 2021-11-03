@@ -46,9 +46,8 @@ Given the array is sorted in ascending order, find if there exists any pair of e
     */
     private boolean isPairSumNaive2(int[] arr, int target) {
         Arrays.sort(arr);
+        // iterate i=0 to n-1, j=i+1 to n
         for (int i = 0; i < arr.length-1; i++) {
-            // Option 1: iterate i=0 to n-1, j=i+1 to n
-            // Option 2: iterate i=0 to n, j=i+1 to n
             for (int j = i+1; j < arr.length; j++) { // Optimization: j=i+1
                 int sum = arr[i] + arr[j];
                 if (sum == target)      // pair found
