@@ -86,8 +86,7 @@ public class ComparatorUsageForBuiltInClasses {
         List<Integer> list = new ArrayList<>();
         list.add(50000);list.add(400);list.add(300000);list.add(200000);list.add(10);
 
-        CompareIntegers compareIntegers = new CompareIntegers();
-        Collections.sort(list, compareIntegers);
+        Collections.sort(list, new CompareIntegers());
 
         Iterator<Integer> listIterator = list.iterator();
         while (listIterator.hasNext()) {

@@ -86,7 +86,7 @@ Sorting using a Comparator
 ```
 (3) Call the sort(...) method of the Collections passing the list to be sorted and the associated comparator.
 ```
-    Collections.sort(list, compareByRating);
+    Collections.sort(list, new CompareByRating());
 ```
 (4) You now have a sorted list based on the comparator that was passed.
 ```
