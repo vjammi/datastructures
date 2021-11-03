@@ -1,4 +1,4 @@
-package ds.collections;
+package ds.usage;
 
 import java.util.*;
 

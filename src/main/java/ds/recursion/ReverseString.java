@@ -33,25 +33,47 @@ public class ReverseString {
         System.out.println(s);
     }
 
-    // Solution 1
-    public void reverse1(String str, int i){
-        if (i >= str.length()) {
-            System.out.println("\n");
-            return;
-        }
-        System.out.print(str.charAt(i) +" > ");
-        reverse1(str, i+1);
-        System.out.print(str.charAt(i) +" > ");
+    private StringBuilder output2 = new StringBuilder();
+    public void reverseStringRecursive(String input){
+        //reverseString1(input, 0);
+        //System.out.println("");
+
+        StringBuilder output = new StringBuilder();
+        reverseString2(input, 0, output);
+        System.out.println("Output1 " + output);
+        System.out.println("Output2 " + output2);
     }
 
+    // Solution 1
+    public void reverseString1(String input, int i){
+        if (i == input.length())
+            return;
+
+        System.out.print(input.charAt(i) +" > ");
+        reverseString1(input, i+1);
+        System.out.print(input.charAt(i) +" > ");
+    }
+
+    public void reverseString2(String input, int i, StringBuilder output){
+        if (i == input.length())
+            return;
+
+        output.insert(0,input.charAt(i));  // Insert/Prefix at offset 0
+        output2.append(input.charAt(i));         // Append/Suffix at offset i/n
+        reverseString2(input, i+1, output);
+        output2.append(input.charAt(i));         // Append/Suffix at offset i/n
+        output.setCharAt(i, input.charAt(i));
+    }
 
     // Solution 2
     private void reverse2(char[] string) {
         reverse2(string, 0, string.length-1);
     }
+
     public void reverse2(char[] s, int i, int j){
         if (i>j)
             return;
+
         exch(s, i, j);
         reverse2(s, i+1, j-1);
     }
@@ -65,16 +87,18 @@ public class ReverseString {
     public static void main(String[] args) {
         ReverseString obj = new ReverseString();
 
-        String str1 = "hello";
-        obj.reverse1(str1, 0);
+        String input1 = "hello";
+        obj.reverseStringRecursive(input1);
 
-        System.out.println("");
+        System.out.println("----");
 
-        char[] str2 = {'h','e','l','l','o'};
-        System.out.println(str2);
-        obj.reverse2(str2);
-        System.out.println(str2);
+        char[] input2 = {'h','e','l','l','o'};
+        System.out.println(input2);
+        obj.reverse2(input2);
+        System.out.println(input2);
+        obj.reverseString(input2);
 
-        obj.reverseString(str2);
     }
+
+
 }

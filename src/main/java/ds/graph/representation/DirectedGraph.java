@@ -101,7 +101,7 @@ class DirectedGraph {
              \
                \  3 - 6 - 9 /
 
-                0 1 4 7 10 2 5 8 3 6 9
+           0 1 4 7 10 2 5 8 3 6 9
 
      */
     public static void main(String args[])    {

@@ -1,8 +1,8 @@
-package ds.collections;
+package ds.usage;
 
 import java.util.*;
 
-public class Sorting {
+public class SortingArrays {
 
     static class StringComparator implements Comparator<String>{
         public int compare(String a, String b) {
@@ -67,7 +67,7 @@ public class Sorting {
     }
 
     public static void main(String[] args) {
-        Sorting obj = new Sorting();
+        SortingArrays obj = new SortingArrays();
         obj.sortStringTest("algorithm");
         obj.sortIntArraysTest();
         obj.sortStringArraysTest();

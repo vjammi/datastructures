@@ -1,4 +1,4 @@
-package ds.collections;
+package ds.usage;
 
 /**
  * Created by Vijay Jammi on 06/19/2018.

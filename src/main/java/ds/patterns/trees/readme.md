@@ -76,11 +76,18 @@ Note: Here is a memory aid that you might find useful:
 ## Relationship between Level, Height & Nodes in a Binary Tree
 
 #### How can we calculate the min and max number of nodes in a Binary Tree, when the height of a tree is given?
+Level in a Binary Tree
+    Level - 2^(level-1)
+
     Level 0     2^0 = 1                     1
     Level 1     2^1 = 2             2               3
     Level 2     2^2 = 4         4       5       6       7
 
-```Number of Nodes =  2^0 + 2^1 + 2^2 + 2^3 + 2^4 ... 2^h = (2^(h+1))-1```
+```??? Number of Nodes =  2^0 + 2^1 + 2^2 + 2^3 + 2^4 ... 2^h = (2^(h+1))-1```
+
+In a Binary Tree with n nodes
+- Max number of nodes in a Binary tree = [(2^h) - 1]
+- Min height or min levels = log base2(N+1)
 
 Therefore, the min and max number of nodes for a binary tree for a given height is
     Min number of nodes = h + 1         [For a skewed Binary Tree]

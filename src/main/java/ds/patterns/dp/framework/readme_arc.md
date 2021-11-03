@@ -70,7 +70,7 @@ then we can easily use that information to figure out how many ways there are to
 how many ways there are to get to stair three and so on
 
 once you draw this out you can see that it really lends itself to an iterative implementation where you go through and
-construct future values from past values a formal way to think about this is that any dp problem is a dag or a directed acyclic graph 
+construct future values from past values a formal way to think about this is that any dp problem is a dag or a directed acyclic graphTraversal 
 of sub-problems that go from easy to hard any of these representations is fine at this point and 
 
 I would also say that at this point don't think too much about how you're eventually going to implement it yet recursively or iteratively 

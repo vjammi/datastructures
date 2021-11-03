@@ -1,4 +1,4 @@
-package ds.practice.graphs;
+package ds.patterns.graph;
 
 import java.util.*;
 
@@ -73,11 +73,12 @@ public class Graph101 {
         visited[vertex] = 0;
     }
 
-        /**
-              /  1 -  3 \
-            0       /    5
-              \  2 -  4 /
-        */
+    /**
+          /  1 -  3 \
+        0       /    5
+          \  2 -  4 /
+    */
+
     public static void main(String[] args) {
         int vertices = 6;
         int[][] edges = {{0,1}, {0,2}, {1,3}, {2,3}, {2,4}, {4,5}, {3,5}};
