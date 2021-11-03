@@ -21,9 +21,9 @@ The class itself must implement the java.lang.Comparable interface to compare it
         private int year;
 
         // Used to sort SportsTeam by year or by rating
-        public int compareTo(SportsTeam m) {
-            //return this.year - m.year;
-            return this.rating - m.rating;
+        public int compareTo(SportsTeam that) {
+            //return this.year - that.year;
+            return this.rating - that.rating;
         }
         ...
     }

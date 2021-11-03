@@ -25,13 +25,13 @@ class SportsTeam implements Comparable<SportsTeam> {
     }
 
     // Used to sort SportsTeam by year or by rating
-    public int compareTo(SportsTeam m) {
-        return this.rating - m.rating;
+    public int compareTo(SportsTeam that) {
+        return this.rating - that.rating;
     }
 
     // Used to sort SportsTeam by year or by year
-    public int compareTo2(SportsTeam m) {
-        return this.year - m.year;
+    public int compareTo2(SportsTeam that) {
+        return this.year - that.year;
     }
 
     // Getter methods for accessing private data
