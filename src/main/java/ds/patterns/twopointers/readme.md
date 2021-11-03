@@ -49,7 +49,6 @@ Given the array is sorted in ascending order, find if there exists any pair of e
         for (int i = 0; i < arr.length-1; i++) {
             // Option 1: iterate i=0 to n-1, j=i+1 to n
             // Option 2: iterate i=0 to n, j=i+1 to n
-            //           Note that when i=6, j=6+1=7, which is beyond the length of the array - so will never enter the inner for loop for j=7
             for (int j = i+1; j < arr.length; j++) { // Optimization: j=i+1
                 int sum = arr[i] + arr[j];
                 if (sum == target)      // pair found
