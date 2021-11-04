@@ -57,9 +57,9 @@ public class GraphValidTree {
         }
 
         int[] visited  = new int[n];
-        //boolean validTree = dfs(0, adjList, visited, -1);
+        boolean validTree = dfs(0, adjList, visited, -1);
         //boolean validTree = bfs(0, adjList, visited);
-        boolean validTree = bfs2(0, adjList, visited);
+        //boolean validTree = bfs2(0, adjList, visited);
         if (!validTree) return false; // if there is an edge from child to parent
 
         for (int visit: visited){
@@ -70,7 +70,7 @@ public class GraphValidTree {
     }
 
     private boolean dfs(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
-        if (visited[current] == 1){
+        if (visited[current] == 1){ // Detects if there is a path that goes back to an already discovered node
             System.out.println(current + " " + parent +" " +visited[current] +" < ");
             return false;
         }
