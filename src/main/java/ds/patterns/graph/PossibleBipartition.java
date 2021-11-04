@@ -50,10 +50,10 @@ public class PossibleBipartition {
     }
 
     private boolean dfs(int node, Map<Integer, List<Integer>> adjList, int[] visited, int visit, int parent) {
-        if (visited[node] != 0 && visited[node] != visit)
+        if (visited[node] != 0 && visited[node] != visit)       // Node has been previously visited but the node has the same color as the previous
             return false;
 
-        if (visited[node] != 0 && visited[node] == visit){      // protects from re-processing of a node, when cycling thru all nodes of the adjList
+        if (visited[node] != 0 && visited[node] == visit){      // Node has been previously visited and is of the opposite color. We will not re-process the node.
             return true;
         }
 
