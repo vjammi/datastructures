@@ -16,6 +16,12 @@
 5. Graph Coloring
 6. Indegrees
 
+### Properties of a Graph
+- Vertices & Edges
+   A graph can have anywhere between 0 edges to a max of V*(V-1) edges
+- Directed & Undirected edges
+
+
 #### Adjacency list
 An Adjacency List is usually a Hashmap, or a List of Lists
 ```   
@@ -26,7 +32,7 @@ An Adjacency List is usually a Hashmap, or a List of Lists
         4   [2]
 ```
 
-#### Adjacency List Representation - Option 1 - Array of linked lists
+#### Adjacency List Representation
 ```
     // Array of linked lists - adjacency list representation
     private LinkedList<Integer>[] adj;
@@ -62,7 +68,7 @@ An Adjacency List is usually a Hashmap, or a List of Lists
         ...
     }
 ```
-#### Adjacency List Representation - Option 2 - Map of Linked Lists
+#### A Sparse Graph - Represented as an Adjacency List
 ```
 public class Graph {
     Map<Integer, List<Integer>> adjList;
@@ -121,7 +127,7 @@ public class Graph {
 }
 ```
 
-#### Adjacency Matrix - 2D array
+#### A Dense Graph - Represented as an Adjacency Matrix
 We mark all the spots where 2 nodes are connected and populate the matrix with all the edges. 
 It is east to lookup all the nods neighbors.
 ```
@@ -728,6 +734,12 @@ O(E+V)
 Space complexity \
 O(E+V) - Adjacency list for our nodes and a visited array for storing the adjacent 
 
+## Indegrees and Outdegrees
+Any graph can be seen as collection of nodes connected through edges.
+If edges have direction then graphs are known as directed graphs else undirected graphs.
+In case of directed graphs, number of edges going into a node is known as in degree of the corresponding node and number of edges coming out of a node is known as outdegree of the corresponding node. For any graph sum of total indegree should be equal to total outdegree. (Why ? Think !)
+Assumptions: Self loops contribute to both indegree and outdegree.
+Reference: https://www.quora.com/What-is-the-indegree-and-outdegree-of-a-graph
 
 ## 310. Minimum Height Trees
 A tree is an undirected graph in which any two vertices are connected by exactly one path. 
@@ -859,3 +871,8 @@ Implementation 2
         visited[vertex] = 0;
     }
 ```
+
+
+## OTHER REFERENCES
+https://youtu.be/AfYqN3fGapc
+
