@@ -598,8 +598,8 @@ Implementation
     }
 
     public boolean bfs2(int i, Map<Integer, List<Integer> > adjList, int[] visited){
-        Map<Integer, Integer> parent = new HashMap<>();
-        parent.put(0, -1);
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
         Queue<Integer> queue = new LinkedList<>();
         queue.offer(i);
 
@@ -613,12 +613,12 @@ Implementation
             List<Integer> children = adjList.get(current);
             for (int child: children){
                 //*** For current 1, child  0 evaluates to false, so skips over
-                // However for current 1, child 4 evaluates to true 
-                if (parent.get(current) != child) {   
+                // However for current 1, child 4 evaluates to true
+                if (map.get(current) != child) {  // check witin the map if the current/parent is a child
                     queue.offer(child);
-                    // For current (say 0) we populate the children (1,2,3) in the map. 
-                    // So for current 0 and child 1,2,3 we have 1:0, 2:0, 3:0 within the map
-                    parent.put(child, current); 
+                    // For current (say 0) we populate the children (1,2,3) in the map.
+                    // For a child [1/2/3] we add its parent/current [0] into the map - So the map will contain 1:0, 2:0, 3:0
+                    map.put(child, current); // Add the parent of the child into the map
                 }
             }
         }
