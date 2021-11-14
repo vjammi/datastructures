@@ -47,7 +47,7 @@ Given the array is sorted in ascending order, find if there exists any pair of e
                 if (sum == target)      // pair found
                     return true;
 
-                if (sum > target) // Optimization: Since the array is sorted, we stop further iterating the second array and start the next ith index
+                if (sum > target) // Optimization: Since the array is sorted, we break iterating the inner loop and start at the next ith pointer
                     break;
                 else
                     continue; // continue iterating  the inner loop looking for the pair.
