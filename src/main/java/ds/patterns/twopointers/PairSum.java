@@ -24,10 +24,6 @@ public class PairSum {
                 int sum = arr[i] + arr[j];
                 if (sum == target)      // pair found
                     return true;
-
-                if (sum > target) // Optimization: Since the array is sorted, we stop further iterating the second array and start the next ith index
-                    break;
-                else continue; // continue iterating  the inner loop.
             }
         }
         return false;          // No pair found with given sum.
@@ -50,9 +46,11 @@ public class PairSum {
                 int sum = arr[i] + arr[j];
                 if (sum == target)      // pair found
                     return true;
-                else if (sum > target)  // Optimization: Since the array is sorted, we break for that ith iteration and start the next ith iteration.
+
+                if (sum > target) // Optimization: Since the array is sorted, we stop further iterating the second array and start the next ith index
                     break;
-                // else continue;       // Continue looking for the pair
+                else
+                    continue; // continue iterating  the inner loop looking for the pair.
             }
         }
         return false; // No pair found
