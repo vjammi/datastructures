@@ -7,11 +7,11 @@ import java.util.Map;
 public class PairSum {
 
     /**
-                  0  1  2  3  4  5   6
-         arr[] = {3, 5, 9, 2, 8, 10, 11} target = 17
-         arr[] = {2, 3, 5, 8, 9, 10, 11}
-         i =                         ^
-         j =                     ^
+         0  1  2  3  4  5   6  7
+         arr[] = {3, 5, 9, 2, 8, 10, 11} target  = 8  // unsorted
+         arr[] = {2, 3, 5, 8, 9, 10, 11}  target = 8  // sorted
+             i =                 ^
+             j =                     ^
 
         Runtime: O(n^2)
      */
@@ -19,28 +19,26 @@ public class PairSum {
         Arrays.sort(arr);
 
         int length = arr.length;
-        for (int i = 0; i < length; i++) {
-            for (int j = 0; j < length; j++) {
-                if (i != j) {               // We are looking for distinct pairs, not pair an element by itself. So we will skip if i == j
-                    int sum = arr[i] + arr[j];
-                    if (sum == target)      // pair found
-                        return true;
-                    else if (sum > target)  // Since the array is sorted, we stop further iterating the jth index and start the next ith index
-                        break;
-                    else
-                       continue;            // Continue looking for the pair
-                }
+        for (int i = 0; i < length-1; i++) {
+            for (int j = i; j < length; j++) {  // We are looking for distinct pairs, not pair an element by itself. So i cannot be j to form the pair
+                int sum = arr[i] + arr[j];
+                if (sum == target)      // pair found
+                    return true;
+
+                if (sum > target) // Optimization: Since the array is sorted, we stop further iterating the second array and start the next ith index
+                    break;
+                else continue; // continue iterating  the inner loop.
             }
         }
-        return false;                       // No pair found with given sum.
+        return false;          // No pair found with given sum.
     }
 
     /**
-     *            0  1  2  3  4  5   6  7
-         arr[] = {3, 5, 9, 2, 8, 10, 11} target = 17
-         arr[] = {2, 3, 5, 8, 9, 10, 11}
-             i =                     ^
-             j =                        ^
+                  0  1  2  3  4  5   6  7
+         arr[] = {3, 5, 9, 2, 8, 10, 11} target  = 8  // unsorted
+         arr[] = {2, 3, 5, 8, 9, 10, 11}  target = 8  // sorted
+             i =                 ^
+             j =                     ^
 
         Runtime: O(n * n/2) = O(n^2)
     */
@@ -62,9 +60,10 @@ public class PairSum {
 
     /**
          Two pointer technique based solution to find if there is a pair in arr[0...n-1] with a given sum.
-         arr[] = {3, 5, 9, 2, 8, 10, 11} target  = 8
-         arr[] = {2, 3, 5, 8, 9, 10, 11}  target = 8
-         i & j =     ^  ^
+         arr[] = {3, 5, 9, 2, 8, 10, 11} target  = 8  // unsorted
+         arr[] = {2, 3, 5, 8, 9, 10, 11}  target = 8  // sorted
+                  -> ^  ^ <------------
+                     i  j
 
          Runtime = O(n)
      */
@@ -91,7 +90,7 @@ public class PairSum {
         int target = 17; // 25; //17;
 
         System.out.println(obj.isPairSumNaive1(arr, target));
-        System.out.println(obj.isPairSumNaive2(arr, target));
-        System.out.println(obj.isPairSumUsingTwoPointers(arr, target));
+        //System.out.println(obj.isPairSumNaive2(arr, target));
+        //System.out.println(obj.isPairSumUsingTwoPointers(arr, target));
     }
 }
