@@ -34,7 +34,7 @@
 
 ### Search Iteratively
 ```
-    private int searchIteratively(int[] a, int key, int low, int high) {
+    private int search(int[] a, int key, int low, int high) {
 
         while (low <= high) {
             int mid = (low + high) / 2;
