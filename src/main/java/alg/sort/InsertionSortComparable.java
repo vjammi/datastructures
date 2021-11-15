@@ -1,4 +1,4 @@
-package ds.sort;
+package alg.sort;
 
 public class InsertionSortComparable {
 

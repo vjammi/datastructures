@@ -1,4 +1,4 @@
-package ds.sort.arc;
+package alg.sort.arc;
 
 // GOLD :)
 public class MergeSort1 {

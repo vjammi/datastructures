@@ -1,4 +1,4 @@
-package ds.sort;
+package alg.sort;
 
 import java.util.Comparator;
 
