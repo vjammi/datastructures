@@ -7,7 +7,7 @@
     //                             ^       ^                   ^
     //                            first   mid                 last
 
-    private void searchRecursively(int[] a, int key, int low, int high) {
+    private void search(int[] a, int key, int low, int high) {
         if (low > high) // Base condition #1 - will cause the recursion to end
             return;
 
@@ -24,10 +24,10 @@
             return;
         }else if(key < a[mid]) {
             high = mid - 1;
-            searchFirstOccurrence(a, key, low, high);
+            search(a, key, low, high);
         } else { // if (key > a[mid])
             low = mid + 1;
-            searchFirstOccurrence(a, key, low, high);
+            search(a, key, low, high);
         }
     }
 ```
