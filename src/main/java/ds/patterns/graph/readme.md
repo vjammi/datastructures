@@ -13,13 +13,29 @@
 2. Connected Components
 3. Cycle Detection
 4. Topological Sort
+   - Class Pre-Requisites
+   - Program Dependencies
+   - Build an operator graph [directed acyclic graph] and split the graph into stages for task scheduling in
 5. Graph Coloring
-6. Indegrees
+     Bi-bipartite Graph
+6. InDegrees and OutDegrees
+
+
 
 ### Properties of a Graph
-- Vertices & Edges
-   A graph can have anywhere between 0 edges to a max of V*(V-1) edges
+- Relationship between Vertices & Edges
+  A graph can have anywhere between 0 edges to a max of V*(V-1) edges
 - Directed & Undirected edges
+- Walk, Path, Trail in a Graph
+- Strongly Connected and Disconnected Graphs
+  Directed/Strongly Connected Graph Any vertex to any other vertex
+- Cycle in a Graph
+  Directed Acyclic Graph [DAG]:
+  UnDirected Acyclic Graph
+
+REFERENCES
+https://youtu.be/AfYqN3fGapc
+https://youtu.be/ZdY1Fp9dKzs
 
 
 #### Adjacency list
@@ -633,6 +649,43 @@ Implementation
 
 ```
 
+## Topological Sort
+A topological ordering is a linear ordering of its vertices such that for every directed edge uv from vertex u to vertex v, u comes before v in the ordering.
+
+Time Complexity: O(V + E)
+```
+          0 -  1  -  3
+            \  |  /
+               2  -  4
+
+        [0, 1, 3, 2, 4]
+        [0, 1, 2, 4, 3]
+```
+
+```
+    private List<Integer> topologicalSort(int vertices, int[][] edges) {
+        ...
+
+        for (int i=0; i<adjList.size(); i++) {
+            if (visited[i] != 1) dfs(0, adjList, visited, result);
+        }
+        ...
+    }
+
+    private void dfs(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, List<Integer> result) {
+        if (visited[vertex] == 1)
+            return;
+
+        visited[vertex] = 1;
+        List<Integer> neighbors = adjList.get(vertex);
+        for (Integer neighbor: neighbors){
+            dfs(neighbor, adjList, visited, result);
+        }
+        result.add(0, vertex); // Add the vertices in the reverse order.
+    }
+```
+
+
 ## 886. Possible Bipartition [UnDirected Graph + Graph Coloring - Group A & B - visited[node] != visit]
 Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
 Each person may dislike some other people, and they should not go into the same group.
@@ -874,5 +927,5 @@ Implementation 2
 
 
 ## OTHER REFERENCES
-https://youtu.be/AfYqN3fGapc
+
 
