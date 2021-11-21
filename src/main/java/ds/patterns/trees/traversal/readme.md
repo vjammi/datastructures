@@ -225,6 +225,7 @@ This is similar to building a tree from a sorted array. Unlike finding the mid n
 here we first find the node to be created by looking at the next node in the preorder sequence. We then look up that node in the
 inorder array and build the node node of our binary tree.
 
+```
     public class BinaryTree_ConstructFromPreOrderInOrder {
         
         private int nextPreorderIndex = 0;
