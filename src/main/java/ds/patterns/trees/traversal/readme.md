@@ -201,29 +201,44 @@ Solution
               // inorder    [6 7 8 9 10 11 12 13 16 19 20 21 22 23 24 25]
                                                   ^
                           -------------------------------------------------------
+                          preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
+                                      ^
                                                  16
                           [6 7 8 9 10 11 12 13]      [19 20 21 22 23 24 25]
 
                           -------------------------------------------------------
+                          preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
+                                         ^
                                                   16
                                     10               [19 20 21 22 23 24 25]
                           [6 7 8 9]    [11 12 13]
                           --------------------------------------------------------
+                          preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
+                                            ^
                                                   16
                                     10                [19 20 21 22 23 24 25]
-                              8            12
-                        [6 7]    [9]  [11]    [13]
+                              [89]       [11 12 13]
+                        [6 7]
                         ---------------------------------------------------------
+                          preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
+                                              ^
+                          preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
+                                                ^
+                          preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
+                                                  ^
                                                   16
                                     10                [19 20 21 22 23 24 25]
-                              8            12
-                        [6]     [9]  [11]    [13]
+                              8       [11 12 13]
+                        [6]     [9]
                            [7]
                         -------------------------------------------------------------------
 Note:
 This is similar to building a tree from a sorted array. Unlike finding the mid node by using binary search (low+hi)/2 on the sorted array,
 here we first find the node to be created by looking at the next node in the preorder sequence. We then look up that node in the
 inorder array and build the node node of our binary tree.
+
+Reference
+https://youtu.be/FBaSrNSf9po?list=PLFj4kIJmwGu2WedpHdv1p_LrLGvwqDvjZ
 
 ```
     public class BinaryTree_ConstructFromPreOrderInOrder {
@@ -279,12 +294,14 @@ then its left child, etc. The value picked from preorder/postorder traversal spl
 from inorder - if the current subtree is empty (= return None) or not (= continue to construct the subtree).
 
 #### What is the reason that we have to construct the right sub-tree first and then the left sub-tree?
-Post order sequence is left -> right -> root. So since here we are building it backward, it should go from root -> right -> left
+Postorder sequence is left -> right -> node. So since here we are building it backward, it should go from node, right, left
 
 Complexity Analysis
 Time complexity : O(N)\mathcal{O}(N)O(N). Let us compute the solution with the help of master theorem T(N)=aT(bN)+Θ(Nd)T(N) = aT\left(\frac{b}{N}\right) + \Theta(N^d)T(N)=aT(Nb​)+Θ(Nd). The equation represents dividing the problem up into aaa subproblems of size Nb\frac{N}{b}bN​ in Θ(Nd)\Theta(N^d)Θ(Nd) time. Here one divides the problem in two subproblemes a = 2, the size of each subproblem (to compute left and right subtree) is a half of initial problem b = 2, and all this happens in a constant time d = 0. That means that log⁡b(a)>d\log_b(a) > dlogb​(a)>d and hence we are dealing with case 1 that means O(Nlog⁡b(a))=O(N)\mathcal{O}(N^{\log_b(a)}) = \mathcal{O}(N)O(Nlogb​(a))=O(N) time complexity.
 Space complexity : O(N)\mathcal{O}(N)O(N), since we store the entire tree.
-Reference: https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/
+Reference:
+https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/
+https://youtu.be/rY9ejIY9Osw?list=PLFj4kIJmwGu2WedpHdv1p_LrLGvwqDvjZ
 
 ```
      
