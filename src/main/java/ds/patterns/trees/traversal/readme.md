@@ -258,10 +258,8 @@ inorder array and build the node node of our binary tree.
             TreeNode currNode = new TreeNode(preorderNodeVal);
 
             int inorderIndexForCurrNode = inOrderMap.get(preorderNodeVal); // lookup the index of the nextPreOrderNodeVal within the inorder map.
-            // On your way back, add the returned node to the left of the current root node
-            currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);  // Return left node
-            // On your way back, add the returned node to the right of the current root node
-            currNode.right = buildTree(inorderIndexForCurrNode + 1, rightIndex); // Return right node
+            currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);  // Return left node. On your way back, add the returned node to the left of the current root node
+            currNode.right = buildTree(inorderIndexForCurrNode + 1, rightIndex); // Return right node. On your way back, add the returned node to the right of the current root node
 
             // Return the current node to be added to the left or the right side of the parent node.
             return currNode;
