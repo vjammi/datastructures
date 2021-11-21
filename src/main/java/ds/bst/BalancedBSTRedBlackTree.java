@@ -34,7 +34,7 @@ import ds.queue.Queue;
 import java.util.NoSuchElementException;
 
 
-public class RedBlackBST<Key extends Comparable<Key>, Value> {
+public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
 
     private static final boolean RED   = true;
     private static final boolean BLACK = false;
@@ -60,7 +60,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     /**
      * Initializes an empty symbol table.
      */
-    public RedBlackBST() {
+    public BalancedBSTRedBlackTree() {
     }
 
     /***************************************************************************
@@ -699,7 +699,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        RedBlackBST<String, Integer> st = new RedBlackBST<String, Integer>();
+        BalancedBSTRedBlackTree<String, Integer> st = new BalancedBSTRedBlackTree<String, Integer>();
 
         //for (int i = 1010; i<1018; i++) { //  Adding in an ascending order
         for (int i = 1018; i>1010; i--) {   //  Adding in descending order

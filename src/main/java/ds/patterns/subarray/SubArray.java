@@ -1,4 +1,4 @@
-package ds.arrays.subarrays;
+package ds.patterns.subarray;
 
 import java.util.ArrayList;
 import java.util.List;

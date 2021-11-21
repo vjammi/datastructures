@@ -2,6 +2,7 @@ package ds.patterns.graph;
 
 import java.util.*;
 
+// References: https://youtu.be/eL-KzMXSXXI & https://youtu.be/gDNm1m3G4wo?list=PLFj4kIJmwGu0yzwN3qZmw6p3E3zpoHpZz
 public class TopologicalSort {
 
     Map<Integer, List<Integer>> adjList = new HashMap<>();

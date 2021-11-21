@@ -1,4 +1,4 @@
-package ds.bst;
+package ds.bst.arc;
 
 import java.util.LinkedList;
 import java.util.Queue;

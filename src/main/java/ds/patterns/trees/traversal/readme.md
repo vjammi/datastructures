@@ -183,7 +183,7 @@ Solution
               1
             2   3
     PreOrder [1-2-3]: In a Preorder, you perform something on the current node first, before exploring its left and right nodes ???
-    Inorder  [2-1-3]: In a InOrder, you perform something on the left node first, then the parent node and then on its right node ???.  
+    Inorder  [2-1-3]: In a InOrder, you perform something on the left node first, then the current node and then on its right node ???.
 
         
                                        16
@@ -196,14 +196,34 @@ Solution
                  
             NULL     7   
 
-            // preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
-                           ^ -->
-            // inorder    [6 7 8 9 10 11 12 13 16 19 20 21 22 23 24 25]
-                                                ^
-    Note: This is similar to building a a tree from a sorted array.
-          Unlike finding the mid node by using binary search (low+hi)/2 on the sorted array,
-          Here we first find the node to be created by looking at the next node in the preorder sequence.
-          We then look up that node in the inorder array and build the node node of our binary tree.
+              // preorder = [16 10 8 6 7 9 12 11 13 22 20 19 21 24 23 25]
+                             ^ -->
+              // inorder    [6 7 8 9 10 11 12 13 16 19 20 21 22 23 24 25]
+                                                  ^
+                          -------------------------------------------------------
+                                                 16
+                          [6 7 8 9 10 11 12 13]      [19 20 21 22 23 24 25]
+
+                          -------------------------------------------------------
+                                                  16
+                                    10               [19 20 21 22 23 24 25]
+                          [6 7 8 9]    [11 12 13]
+                          --------------------------------------------------------
+                                                  16
+                                    10                [19 20 21 22 23 24 25]
+                              8            12
+                        [6 7]    [9]  [11]    [13]
+                        ---------------------------------------------------------
+                                                  16
+                                    10                [19 20 21 22 23 24 25]
+                              8            12
+                        [6]     [9]  [11]    [13]
+                           [7]
+                        -------------------------------------------------------------------
+Note:
+This is similar to building a tree from a sorted array. Unlike finding the mid node by using binary search (low+hi)/2 on the sorted array,
+here we first find the node to be created by looking at the next node in the preorder sequence. We then look up that node in the
+inorder array and build the node node of our binary tree.
 
     public class BinaryTree_ConstructFromPreOrderInOrder {
         
@@ -237,12 +257,11 @@ Solution
             TreeNode currNode = new TreeNode(preorderNodeVal);
 
             int inorderIndexForCurrNode = inOrderMap.get(preorderNodeVal); // lookup the index of the nextPreOrderNodeVal within the inorder map.
-            TreeNode leftNode = buildTree(leftIndex, inorderIndexForCurrNode - 1);  // Return left node
-            TreeNode rightNode = buildTree(inorderIndexForCurrNode + 1, rightIndex); // Return right node
-    
-            currNode.left = leftNode;   // On your way back, add the returned node to the left of the current root node
-            currNode.right = rightNode; // On your way back, add the returned node to the right of the current root node
-    
+            // On your way back, add the returned node to the left of the current root node
+            currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);  // Return left node
+            // On your way back, add the returned node to the right of the current root node
+            currNode.right = buildTree(inorderIndexForCurrNode + 1, rightIndex); // Return right node
+
             // Return the current node to be added to the left or the right side of the parent node.
             return currNode;
         }
@@ -251,19 +270,21 @@ Solution
         
     }
 ```
+
 ## 106. Construct Binary Tree from Inorder and Postorder Traversal
 Approach: Recursion
 How to construct the tree from two traversals: inorder and preorder/postorder/etc
-Start from not inorder traversal, usually it's preorder or postorder one, and use the traversal picture above to define the strategy to pick the nodes. For example, for preorder traversal the first value is a root, then its left child, then its right child, etc. For postorder traversal the last value is a root, then its right child, then its left child, etc.
-The value picked from preorder/postorder traversal splits the inorder traversal into left and right subtrees. The only information one needs from inorder - if the current subtree is empty (= return None) or not (= continue to construct the subtree).
+Start from not inorder traversal, usually its preorder or postorder one, and use the traversal picture above to define the strategy to pick the nodes. For example,
+for preorder traversal the first value is a root, then its left child, then its right child, etc. For postorder traversal the last value is a root, then its right child,
+then its left child, etc. The value picked from preorder/postorder traversal splits the inorder traversal into left and right subtrees. The only information one needs
+from inorder - if the current subtree is empty (= return None) or not (= continue to construct the subtree).
 
-What is the reason that we have to construct the right sub-tree first and then the left sub-tree?
-Post order sequence is left --> right --> root. So since here we are building it backward, it should go from root --> right --> left
+#### What is the reason that we have to construct the right sub-tree first and then the left sub-tree?
+Post order sequence is left -> right -> root. So since here we are building it backward, it should go from root -> right -> left
 
 Complexity Analysis
-Time complexity : O(N)\mathcal{O}(N)O(N). Let's compute the solution with the help of master theorem T(N)=aT(bN)+Θ(Nd)T(N) = aT\left(\frac{b}{N}\right) + \Theta(N^d)T(N)=aT(Nb​)+Θ(Nd). The equation represents dividing the problem up into aaa subproblems of size Nb\frac{N}{b}bN​ in Θ(Nd)\Theta(N^d)Θ(Nd) time. Here one divides the problem in two subproblemes a = 2, the size of each subproblem (to compute left and right subtree) is a half of initial problem b = 2, and all this happens in a constant time d = 0. That means that log⁡b(a)>d\log_b(a) > dlogb​(a)>d and hence we're dealing with case 1 that means O(Nlog⁡b(a))=O(N)\mathcal{O}(N^{\log_b(a)}) = \mathcal{O}(N)O(Nlogb​(a))=O(N) time complexity.
+Time complexity : O(N)\mathcal{O}(N)O(N). Let us compute the solution with the help of master theorem T(N)=aT(bN)+Θ(Nd)T(N) = aT\left(\frac{b}{N}\right) + \Theta(N^d)T(N)=aT(Nb​)+Θ(Nd). The equation represents dividing the problem up into aaa subproblems of size Nb\frac{N}{b}bN​ in Θ(Nd)\Theta(N^d)Θ(Nd) time. Here one divides the problem in two subproblemes a = 2, the size of each subproblem (to compute left and right subtree) is a half of initial problem b = 2, and all this happens in a constant time d = 0. That means that log⁡b(a)>d\log_b(a) > dlogb​(a)>d and hence we are dealing with case 1 that means O(Nlog⁡b(a))=O(N)\mathcal{O}(N^{\log_b(a)}) = \mathcal{O}(N)O(Nlogb​(a))=O(N) time complexity.
 Space complexity : O(N)\mathcal{O}(N)O(N), since we store the entire tree.
-
 Reference: https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/
 
 ```

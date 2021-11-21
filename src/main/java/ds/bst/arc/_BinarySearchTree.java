@@ -1,4 +1,4 @@
-package ds.bst;
+package ds.bst.arc;
 
 /**
  * Created by Vijay Jammi on 06/06/2018.

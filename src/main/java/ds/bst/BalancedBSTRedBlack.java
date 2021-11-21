@@ -1,6 +1,6 @@
 package ds.bst;
 
-public class MyRedBlackBinarySearchTree {
+public class BalancedBSTRedBlack {
 
     private Node root = null;
     private static final boolean RED = true;
@@ -182,7 +182,7 @@ public class MyRedBlackBinarySearchTree {
         }
     }
 
-    private static void testPut(MyRedBlackBinarySearchTree bst) {
+    private static void testPut(BalancedBSTRedBlack bst) {
         bst.put(1015, "Sam1015");
         bst.put(1013, "Sam1013");
         bst.put(1017, "Sam1017");
@@ -192,7 +192,7 @@ public class MyRedBlackBinarySearchTree {
         bst.put(1018, "Sam1018");
     }
 
-    private static void testPutAscendingOrder(MyRedBlackBinarySearchTree bst) {
+    private static void testPutAscendingOrder(BalancedBSTRedBlack bst) {
         bst.put(1012, "Sam1012");
         bst.put(1013, "Sam1013");
         bst.put(1014, "Sam1014");
@@ -202,7 +202,7 @@ public class MyRedBlackBinarySearchTree {
         bst.put(1018, "Sam1018");
     }
 
-    private static void testPutDescendingOrder(MyRedBlackBinarySearchTree bst) {
+    private static void testPutDescendingOrder(BalancedBSTRedBlack bst) {
         bst.put(1018, "Sam1018");
         bst.put(1017, "Sam1017");
         bst.put(1016, "Sam1016");
@@ -213,7 +213,7 @@ public class MyRedBlackBinarySearchTree {
     }
 
     public static void main(String[] args){
-        MyRedBlackBinarySearchTree bst = new MyRedBlackBinarySearchTree();
+        BalancedBSTRedBlack bst = new BalancedBSTRedBlack();
 
         //testPut(bst);
         //testPutAscendingOrder(bst);
