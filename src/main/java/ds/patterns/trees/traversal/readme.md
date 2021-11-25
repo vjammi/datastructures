@@ -318,8 +318,10 @@ https://youtu.be/rY9ejIY9Osw?list=PLFj4kIJmwGu2WedpHdv1p_LrLGvwqDvjZ
                 // postorder [7 6 9 8 11 13 12 10 19 20 23 25 24 22 16]
                                                                <--- ^
                 // inorder   [6 7 8 9 10 11 12 13 16 19 20 21 22 23 24 25]
-```                                                  ^
-Implementation
+                                                  ^
+```
+
+#### Implementation
 ```
      public class BinaryTree_ConstructFromPostOrderInOrder {
         
