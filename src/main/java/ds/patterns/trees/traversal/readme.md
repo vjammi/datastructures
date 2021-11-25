@@ -365,8 +365,11 @@ Implementation
 ## 1676. Lowest Common Ancestor of a Binary Tree IV                     https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iv/
 ## 314. Binary Tree Vertical Order Traversal                            https://leetcode.com/problems/binary-tree-vertical-order-traversal/
 ## 431. Encode N-ary Tree to Binary Tree                                https://leetcode.com/problems/encode-n-ary-tree-to-binary-tree/
-## 108. Convert Sorted Array to Binary Search Tree                      https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
 
+## 108. Convert Sorted Array to Binary Search Tree
+https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+
+Implementation
 ```
     public TreeNode sortedArrayToBST(int[] nums) {
         if (nums.length ==0) return null;
@@ -390,42 +393,37 @@ Implementation
     }
 ```
 
-## 109. Convert Sorted List to Binary Search Tree                       https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
-Intuition
-The important condition that we have to adhere to in this problem is that we have to create a height balanced binary search tree using the set of nodes given to us in the form of a linked list. The good thing is that the nodes in the linked list are sorted in ascending order.
-As we know, a binary search tree is essentially a rooted binary tree with a very special property or relationship amongst its nodes. For a given node of the binary search tree, it's value must be ≥\ge≥ the value of all the nodes in the left subtree and ≤\le≤ the value of all the nodes in the right subtree. Since a binary tree has a recursive substructure, so does a BST i.e. all the subtrees are binary search trees in themselves.
+## 109. Convert Sorted List to Binary Search Tree
+https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
 
-The main idea in this approach and the next is that the middle element of the given list would form the root of the binary search tree. All the elements to the left of the middle element would form the left subtree recursively. Similarly, all the elements to the right of the middle element will form the right subtree of the binary search tree. This would ensure the height balance required in the resulting binary search tree.
+Intuition
+The important condition that we have to adhere to in this problem is that we have to create
+a height balanced binary search tree using the set of nodes given to us in the form of a linked list.
+The good thing is that the nodes in the linked list are sorted in ascending order.
+As we know, a binary search tree is essentially a rooted binary tree with a very special property or
+relationship amongst its nodes. For a given node of the binary search tree, its value must be ≥\ge≥
+the value of all the nodes in the left subtree and ≤\le≤ the value of all the nodes in the right subtree.
+Since a binary tree has a recursive substructure, so does a BST i.e. all the subtrees are binary search trees in themselves.
+
+The main idea in this approach and the next is that the middle element of the given list would form the
+root of the binary search tree. All the elements to the left of the middle element would form the left subtree recursively.
+Similarly, all the elements to the right of the middle element will form the right subtree of the binary search tree.
+This would ensure the height balance required in the resulting binary search tree.
 
 Algorithm
-Since we are given a linked list and not an array, we don't really have access to the elements of the list using indexes. We want to know the middle element of the linked list.
-We can use the two pointer approach for finding out the middle element of a linked list. Essentially, we have two pointers called slow_ptr and fast_ptr. The slow_ptr moves one node at a time whereas the fast_ptr moves two nodes at a time. By the time the fast_ptr reaches the end of the linked list, the slow_ptr would have reached the middle element of the linked list. For an even sized list, any of the two middle elements can act as the root of the BST.
-Once we have the middle element of the linked list, we disconnect the portion of the list to the left of the middle element. The way we do this is by keeping a prev_ptr as well which points to one node before the slow_ptr i.e. prev_ptr.next = slow_ptr. For disconnecting the left portion we simply do prev_ptr.next = None
-We only need to pass the head of the linked list to the function that converts it to a height balances BST. So, we recurse on the left half of the linked list by passing the original head of the list and on the right half by passing slow_ptr.next as the head.
+Since we are given a linked list and not an array, we dont really have access to the elements of the list using indexes.
+We want to know the middle element of the linked list.
+We can use the two pointer approach for finding out the middle element of a linked list. Essentially, we have two pointers
+called slow_ptr and fast_ptr. The slow_ptr moves one node at a time whereas the fast_ptr moves two nodes at a time.
+By the time the fast_ptr reaches the end of the linked list, the slow_ptr would have reached the middle element of the linked list.
+For an even sized list, any of the two middle elements can act as the root of the BST.
+Once we have the middle element of the linked list, we disconnect the portion of the list to the left of the middle element.
+The way we do this is by keeping a prev_ptr as well which points to one node before the slow_ptr i.e. prev_ptr.next = slow_ptr.
+For disconnecting the left portion we simply do prev_ptr.next = None
+We only need to pass the head of the linked list to the function that converts it to a height balances BST. So, we recurse on
+the left half of the linked list by passing the original head of the list and on the right half by passing slow_ptr.next as the head.
 
 ```
-    private ListNode findMiddleElement(ListNode head) {
-
-        // The pointer used to disconnect the left half from the mid node.
-        ListNode prevPtr = null;
-        ListNode slowPtr = head;
-        ListNode fastPtr = head;
-
-        // Iterate until fastPr doesn't reach the end of the linked list.
-        while (fastPtr != null && fastPtr.next != null) {
-            prevPtr = slowPtr;
-            slowPtr = slowPtr.next;
-            fastPtr = fastPtr.next.next;
-        }
-
-        // Handling the case when slowPtr was equal to head.
-        if (prevPtr != null) {
-            prevPtr.next = null;
-        }
-
-        return slowPtr;
-    }
-
     public TreeNode sortedListToBST(ListNode head) {
 
         // If the head doesn't exist, then the linked list is empty
@@ -434,12 +432,14 @@ We only need to pass the head of the linked list to the function that converts i
         }
 
         // Find the middle element for the list.
-        ListNode mid = this.findMiddleElement(head);
+        ListNode mid = this.findMid(head);
 
         // The mid becomes the root of the BST.
         TreeNode node = new TreeNode(mid.val);
 
-        // Base case when there is just one element in the linked list
+        // Another base case - when there is just one element in the linked list
+        // When the node has no left and right siblings (only 1 element left) - head will be the mid.
+        // Then, we will no longer need to traverse its left and right subtree
         if (head == mid) {
             return node;
         }
@@ -449,7 +449,29 @@ We only need to pass the head of the linked list to the function that converts i
         node.right = this.sortedListToBST(mid.next);
         return node;
     }
+
+    private ListNode findMid(ListNode head) {
+
+        ListNode prev = null; // The pointer used to disconnect the left half from the mid node.
+        ListNode slow = head; // Mid element
+        ListNode fast = head;
+
+        // Iterate until fastPr doesn't reach the end of the linked list.
+        while (fast != null && fast.next != null) {
+            prev = slow;
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Disconnect mid/slow from its prev
+        if (prev != null) {
+            prev.next = null;
+        }
+
+        return slow;
+    }
 ```
-## 98. Validate Binary Search Tree                                      https://leetcode.com/problems/validate-binary-search-tree/
+## 98. Validate Binary Search Tree
+https://leetcode.com/problems/validate-binary-search-tree/
 
 
