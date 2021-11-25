@@ -368,7 +368,6 @@ Implementation
 
 ## 108. Convert Sorted Array to Binary Search Tree
 https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
-
 Implementation
 ```
     public TreeNode sortedArrayToBST(int[] nums) {
@@ -392,11 +391,10 @@ Implementation
         return node;
     }
 ```
-
-## 109. Convert Sorted List to Binary Search Tree
+## 109 Convert Sorted List to Binary Search Tree
 https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
 
-Intuition
+#### Intuition
 The important condition that we have to adhere to in this problem is that we have to create
 a height balanced binary search tree using the set of nodes given to us in the form of a linked list.
 The good thing is that the nodes in the linked list are sorted in ascending order.
@@ -410,7 +408,7 @@ root of the binary search tree. All the elements to the left of the middle eleme
 Similarly, all the elements to the right of the middle element will form the right subtree of the binary search tree.
 This would ensure the height balance required in the resulting binary search tree.
 
-Algorithm
+#### Algorithm
 Since we are given a linked list and not an array, we dont really have access to the elements of the list using indexes.
 We want to know the middle element of the linked list.
 We can use the two pointer approach for finding out the middle element of a linked list. Essentially, we have two pointers
@@ -426,7 +424,7 @@ the left half of the linked list by passing the original head of the list and on
 ```
     public TreeNode sortedListToBST(ListNode head) {
 
-        // If the head doesn't exist, then the linked list is empty
+        // If the head doesnt exist, then the linked list is empty
         if (head == null) {
             return null;
         }
@@ -456,7 +454,7 @@ the left half of the linked list by passing the original head of the list and on
         ListNode slow = head; // Mid element
         ListNode fast = head;
 
-        // Iterate until fastPr doesn't reach the end of the linked list.
+        // Iterate until fastPr doesnt reach the end of the linked list.
         while (fast != null && fast.next != null) {
             prev = slow;
             slow = slow.next;
