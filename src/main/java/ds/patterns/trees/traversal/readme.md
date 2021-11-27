@@ -12,7 +12,7 @@ Output: [[3],[9,20],[15,7]]
 
 Solution
 Creates a list of lists (result list) by creating a list for each level and adding that list to the result list.
-  
+```
     public class BinaryTreeLevelOrderTraversal {
         class TreeNode {... }
     
@@ -21,12 +21,18 @@ Creates a list of lists (result list) by creating a list for each level and addi
             traversal(root, lists, 0);
             return lists;
         }
-    
+
+        /*
+            level       list size
+            0           1
+            1           2
+            2           3
+        */
         public void traversal(TreeNode node, List<List<Integer>> lists, int level){
             if (node == null)
                 return;
     
-            if (level == lists.size()){  // For instance, initially at level 0 the size of the result list will be 0. Same with other levels.
+            if (lists.size() <= level){             // For instance, initially at level 0 the size of the result list will be 0.
                 System.out.println(node.val +" -- " +level);
                 List<Integer> list = new ArrayList<>();
                 list.add(node.val);
@@ -40,10 +46,81 @@ Creates a list of lists (result list) by creating a list for each level and addi
             traversal(node.right, lists, level+1);
         }
     }
+```
+### Find the largest value in each Tree Row
+```
+class LargestValueInEachTreeRow{
 
-### Find the largest value in each Tree Row 
+    public List<Integer> largestValues(TreeNode root) {
+        if (root == null)
+            return new ArrayList<Integer>();
+
+        //return bfs(root);
+
+        List<Integer> result = new ArrayList<>();
+        dfs(root, result, 0);
+        return result;
+    }
+
+    /*
+        level       listSize
+        0           1
+        1           2
+        2           3
+    */
+    private void dfs(TreeNode node, List<Integer> result, int level){
+        if (node == null)
+            return;
+
+        if (result.size() <= level){                    // Level not created so far. Add new level to the list.
+            result.add(node.val);                       // Add the node val - first val
+        }else{                                          // Adding the already created level
+            Integer largestVal = Math.max(result.get(level), node.val);
+
+            // Can use either
+            // result.remove(level); result.add(level, largestVal);    // remove and add val at index
+            // or
+            result.set(level, largestVal);                             // Set val at index
+        }
+
+        dfs(node.left, result, level+1);
+        dfs(node.right, result, level+1);
+
+    }
+
+    private List<Integer> bfs(TreeNode root){
+        List<Integer> result = new ArrayList<>();
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        while(!queue.isEmpty()){
+            int largestVal = Integer.MIN_VALUE;
+
+            int levelSize = queue.size();
+            for (int i=0; i<levelSize; i++){
+                TreeNode node = queue.poll();
+
+                largestVal = Math.max(node.val, largestVal);
+
+                if (node.left!=null)
+                    queue.offer(node.left);
+
+                if(node.right!=null)
+                    queue.offer(node.right);
+
+            }
+            result.add(largestVal);
+        }
+        return result;
+    }
+
+}
+
+```
+
 ### Binary Tree Zigzag Level Order Traversal
-
+```
     private void zigzagLevelOrderTraversal(TreeNode node, List<List<Integer>> lists, int level) {
         if(node == null) return;
 
@@ -64,8 +141,8 @@ Creates a list of lists (result list) by creating a list for each level and addi
         zigzagLevelOrderTraversal(node.left, lists, level + 1);
         zigzagLevelOrderTraversal(node.right, lists, level + 1);
     }
+```
 
-   
 ## 116. Populating Next Right Pointers in Each Node
 You are given a perfect binary tree where all leaves are on the same level, and every parent has two children. 
 The binary tree has the following definition:
