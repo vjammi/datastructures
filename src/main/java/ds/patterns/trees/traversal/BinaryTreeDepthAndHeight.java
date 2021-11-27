@@ -6,6 +6,7 @@ public class BinaryTreeDepthAndHeight {
         int val;
         TreeNode left;
         TreeNode right;
+
         TreeNode() {}
         TreeNode(int val) { this.val = val; }
         TreeNode(int val, TreeNode left, TreeNode right) {
@@ -28,7 +29,7 @@ public class BinaryTreeDepthAndHeight {
     public int maxHeight(TreeNode root){
         if (root == null)
             return 0;
-        int heightBottomUp = depthBottomUp(root);
+        int heightBottomUp = heightBottomUp(root);
         System.out.println("heightBottomUp " + heightBottomUp);
         return heightBottomUp;
     }
@@ -56,12 +57,12 @@ public class BinaryTreeDepthAndHeight {
     //    15   7            2
     //           8          1
     //       null  null     0
-    private int depthBottomUp(TreeNode node){
+    private int heightBottomUp(TreeNode node){
         if (node == null)
             return 0;
 
-        int leftDepth  = depthBottomUp(node.left);
-        int rightDepth = depthBottomUp(node.right);
+        int leftDepth  = heightBottomUp(node.left);
+        int rightDepth = heightBottomUp(node.right);
 
         int depthMax = Math.max(leftDepth, rightDepth) + 1;
         System.out.println(depthMax);
