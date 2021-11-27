@@ -1,7 +1,9 @@
 package ds.patterns.trees.traversal;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  *  102. Binary Tree Level Order Traversal
@@ -42,7 +44,6 @@ public class BinaryTreeLevelOrderTraversal {
         if (node == null)
             return;
 
-
         if (level == lists.size()){  // Ugly way of checking a list for that level has already been created
             System.out.println(node.val +" -- " +level);
             List<Integer> list = new ArrayList<>();
@@ -55,6 +56,36 @@ public class BinaryTreeLevelOrderTraversal {
 
         traversal(node.left,  lists, level+1);
         traversal(node.right, lists, level+1);
+    }
+
+    public List<List<Integer>> levelOrderIterative(TreeNode root) {
+
+        List<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if (root != null) {
+            queue.offer(root);
+        }
+
+        TreeNode node;
+        while (!queue.isEmpty()) {
+
+            int size = queue.size();
+            List<Integer> level = new LinkedList<>();
+
+            for (int i=0; i<size; i++) {                 // traverse all nodes of the same level
+                node = queue.poll();
+                level.add(node.val);                     // visit the root
+
+                if (node.left != null)
+                    queue.offer(node.left);              // push left child to queue if it is not null
+
+                if (node.right != null)
+                    queue.offer(node.right);             // push right child to queue if it is not null
+
+            }
+            result.add(level);
+        }
+        return result;
     }
 
     private void levelOrder() {
