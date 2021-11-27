@@ -44,9 +44,12 @@ public class InvertBinaryTree {
         if (node == null)
             return null;
 
-        TreeNode tempNode = invert(node.left);
-        node.left         = invert(node.right);
-        node.right        = tempNode;
+        node.left  = invert(node.left);
+        node.right  = invert(node.right);
+
+        TreeNode tempNode = node.left;
+        node.left   = node.right;
+        node.right  = tempNode;
 
         return node;
     }
