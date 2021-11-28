@@ -12,6 +12,14 @@ package ds.patterns.trees.traversal;
     Input: root = [1,2]
     Output: 1
 
+    Complexity Analysis
+    If N be the number of nodes in the tree.
+    Time complexity: O(N).  We traverse all nodes
+    Space complexity: O(N). The space complexity depends on the size of our implicit call stack during our DFS, which relates to the height of the tree.
+                            In the worst case, if the tree is skewed, the height of the tree would be O(N).
+                            If the tree is balanced, it would be O(log N).
+
+
  * */
 public class DiameterOfBinaryTree {
 
