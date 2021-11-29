@@ -283,7 +283,7 @@ In general, our solution looks like ```8^(s−1) = 8^s ∗ 8^−1```. Since ```8
 3. func(3,8); ```// 3^8 = 6,561```
 4. func(4,8); ```// 4^8 = 65,536```
 
-## Complexity Analysis
+# Complexity Analysis of Commonly used Algorithms
 
 ### Binary Tree - DFS
 Time complexity  : O(N)
@@ -299,6 +299,8 @@ We used a queue to maintain the nodes along with its indices, which is the main 
 Due to the nature of BFS, at any given moment, the queue holds no more than two levels of nodes. In the worst case,
 a level in a full binary tree contains at most half of the total nodes (i.e. N/2​), i.e. this is also the
 level where the leaf nodes reside. Hence, the overall space complexity of the algorithm is O(N).
+
+
 
 ## REFERENCES
 https://youtu.be/zo7YFqw5hNw
