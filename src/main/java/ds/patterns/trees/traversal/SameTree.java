@@ -18,6 +18,7 @@ public class SameTree {
         int val;
         TreeNode left;
         TreeNode right;
+
         TreeNode() {}
         TreeNode(int val) {
             this.val = val;
@@ -30,19 +31,26 @@ public class SameTree {
     }
 
     public boolean isSameTree(TreeNode p, TreeNode q) {
+        return dfs(p,q);
+    }
+
+    public boolean dfs(TreeNode p, TreeNode q) {
         if (p == null && q == null)
             return true;
 
-        if (p != null && q!=null && p.val == q.val){
-            boolean left  = isSameTree(p.left, q.left);
-            boolean right = isSameTree(p.right, q.right);
-            if (left && right)
-                return true;
-            else
-                return false;
-        }else{
+        if ( (p != null && q == null) ||  (p == null && q != null) )
             return false;
-        }
+
+        if ( (p != null && q != null) && (p.val != q.val) )
+            return false;
+
+        boolean leftSame = dfs(p.left, q.left);
+        boolean rightSame = dfs(p.right, q.right);
+
+        if (leftSame && rightSame)
+            return true;
+
+        return false;
     }
 
 }
