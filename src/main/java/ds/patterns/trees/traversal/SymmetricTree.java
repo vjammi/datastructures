@@ -33,18 +33,18 @@ public class SymmetricTree {
         return symmetric(root.left, root.right);
     }
 
-    private boolean symmetric(TreeNode leftNode, TreeNode rightNode){
-        if ( leftNode == null && rightNode == null)
+    private boolean symmetric(TreeNode p, TreeNode q){
+        if ( p == null && q == null)
             return true;
 
-        if ( ( leftNode == null && rightNode != null) || ( leftNode != null && rightNode == null) )
+        if ( ( p == null && q != null) || ( p != null && q == null) )
             return false;
 
-        if ( (leftNode != null && rightNode != null) && (leftNode.val != rightNode.val) )
+        if ( (p != null && q != null) && (p.val != q.val) )
             return false;
 
-        boolean left  = symmetric(leftNode.left, rightNode.right);
-        boolean right = symmetric(leftNode.right, rightNode.left);
+        boolean left  = symmetric(p.left, q.right);
+        boolean right = symmetric(p.right, q.left);
 
         if (left && right)
             return true;
@@ -52,6 +52,7 @@ public class SymmetricTree {
             return false;
     }
 
+    /*
     public boolean symmetric2(TreeNode a, TreeNode b) {
         if ( (a == null && b != null) || (a != null && b == null) ) // a or b is null
             return false;
@@ -70,6 +71,6 @@ public class SymmetricTree {
 
         return true; // both left or right return true
     }
-
+    */
 
 }
