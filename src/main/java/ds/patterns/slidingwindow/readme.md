@@ -27,14 +27,24 @@ Output : 39
 ```
 Notice how we get maximum sum by adding sub-array {4, 2, 10, 23} of size 4.
 
-### Solution using nested loop - O(n*k)
+### Solution using nested loop - O((n-k)*k)
 ```
-    // Runtime O(n*k)
+    // Return maximum sum in a sub-array of size k.
+    //    int arr[] = {1, 4, 2, 10, 2, 3, 1, 0, 20}, n = 9, k = 4
+    //                 0  1  2  3   4  5  6  7  8
+    //                                 |--------|
+    //           i     ->              ^
+    //           j     ->                       ^
+
+    // Runtime O((n-k)*k)
     public int maxSumNestedLoop(int arr[], int n, int k) {
         int maxSum = Integer.MIN_VALUE;
-        for (int i = 0; i < n-k+1; i++) {
+        // O(n-k) - This loop runs for n-k iterations
+        for (int i=0; i<n-k+1; i++) {
             int sum = 0;
-            for (int j = i; j < i + k; j++) {
+            // O(k) - This loop of k iterations run n-k times.
+            // Hence overall time complexity is O((n-k)*k)
+            for (int j=i; j<i+k; j++) {
                 sum = sum + arr[j];
             }
             maxSum = Math.max(sum, maxSum);
@@ -52,8 +62,9 @@ The space complexity would be O(1) because the solution does not create new data
     // Return maximum sum in a sub-array of size k.
     //    int arr[] = {1, 4, 2, 10, 2, 3, 1, 0, 20}, n = 9, k = 4
     //                 0  1  2  3   4  5  6  7  8
-    //                              ^
-    //                    ^
+    //                                 |--------|
+    //           i                              ^
+    //           j                     ^
     // Runtime O(n)
     private int maxSum = 0;
     public int maxSumSlidingWindow(int arr[], int n, int k) {
@@ -63,18 +74,20 @@ The space complexity would be O(1) because the solution does not create new data
         int sum = 0;
         int windowSize = 0;
         int j = 0;
-        for (int i=0; i<n; i++){
+        // O(N) - This runs for only n iterations and in each iteration the window (while loop) is shifted by 1 index only.
+        for (int i=0; i<n; i++){ // when i is n the for loop ends
             sum = sum + arr[i];
             windowSize++;
 
+            // When window equals to k, we enter into the while [i.e. i=3 & j=0]
             while(windowSize >= k){
                 maxSum = Math.max(sum, maxSum);
-                System.out.println("MaxSum:" +maxSum +" @ Window j: " +j +" i:" +i);
-
                 sum = sum - arr[j];
                 windowSize--;
                 j++;
             }
+            if (j > n-k+1)
+                break;
         }
         return maxSum;
     }
