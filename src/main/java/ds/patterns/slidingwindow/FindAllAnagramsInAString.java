@@ -24,129 +24,65 @@ import java.util.List;
  */
 
 //  Complexity Analysis
-//  Time complexity: O(N_cr+ N_cm) since it's one pass along both strings.
-//  Space complexity: O(1), because the arrays charRef and charMatches both contain 26 elements each.
+//      Time complexity: O(Ns+Np). Since it's one pass along both strings.
+//                      Additionally, we incur an O(N*26) constant number of compares to determine if the window is an anagram
+//      Space complexity: O(1), because pCount and sCount contain 26 elements each.
 
 public class FindAllAnagramsInAString {
-
     // Window size changes overtime
     // Create a static window of size 3 and move it across s
-    //          s = "cbaebabacd"
-    //          i=        ^
-    //          j=      ^
-    //          p = "abc"
-    //    current=c
-    //    currVal=
-    //s.charAt(i)=
+    //               0123456789
+    //          s = cbaebabacd
+    //          i=    ^
+    //          j=  ^
+    //          p = abc
 
-    char[] chars = new char[26];
-    int[] bitIndex = new int[26];
-    public List<Integer> findAnagramsUsingArraySorting(String s, String p) {
-
-        int pVal = 0;
-        for(int i=0;i<p.length(); i++){
-            pVal = pVal + p.charAt(i);
-        }
-
-        List<Integer> indices = new ArrayList<>();
-        StringBuilder current = new StringBuilder();
-        int j=0;
-        int currentVal = 0;
-
-        for(int i=0;i<s.length(); i++){
-            current.append(s.charAt(i));
-            currentVal = currentVal + (int)s.charAt(i);
-            chars[s.charAt(i) - 97] = s.charAt(i);
-            bitIndex[s.charAt(i) - 97] = bitIndex[s.charAt(i) - 97] +1;
-            if(current.toString().length() == p.length()){
-                if (currentVal == pVal && isAnagram(s.substring(j, i+1), p))
-                    indices.add(j);
-                currentVal = currentVal - s.charAt(j);
-                chars[s.charAt(j)- 97] = 0;
-                bitIndex[s.charAt(j) - 97] = bitIndex[s.charAt(j) - 97] - 1;
-                current.deleteCharAt(0);
-                j++;
-            }
-        }
-
-        return indices;
-    }
-    private boolean isAnagram(String ss, String p){
-        for (int i=0; i < p.length(); i++){
-            char chSS = p.charAt(i);
-            if (bitIndex[chSS - 97] == 0){
-                System.out.println(ss + " " +p +" " +false);
-                return false;
-            }
-        }
-        System.out.println(ss + " " +p +" " +true);
-        return true;
-    }
-
-    int[] charRef = new int[26];       int charRefCount = 0;
-    int[] charMatches = new int[26];   int charMatchCount = 0;
     public List<Integer> findAnagrams(String s, String p) {
-        List<Integer> indices = new ArrayList<>();
-        StringBuilder current = new StringBuilder();
-        for(int i=0; i<p.length(); i++){
-            charRef[p.charAt(i) - 'a']++;
-            charRefCount++;
+
+        int[] charSetForP = new int[26];
+        for (int i=0; i<p.length(); i++){
+            int ch = p.charAt(i);
+            charSetForP[ch-97] = charSetForP[ch-97] + 1;
         }
+
+        List<Integer> listOfIndices = new ArrayList<>();
+        int anagramSize = p.length();
+        int windowSize = 0;
+        int[] windowChars = new int[26];
         int j=0;
-        for(int i=0; i<s.length(); i++){
-            current.append(s.charAt(i));
 
-            // Increment the char match count if char is in valid string p (charRef)
-            if (charRef[s.charAt(i) - 'a'] > 0){
-                charMatches[s.charAt(i) - 97]++;
-                charMatchCount++;
-            }
-            if(current.length() == p.length()){
+        for (int i=0; i<s.length(); i++){
+            int ch = s.charAt(i);
+            windowChars[ch-97] = windowChars[ch-97] + 1;
+            windowSize++;
 
-                // Easier way is to compare the 2 arrays - Arrays.equals(charRef, charMatches)
-                if (charMatchCount == p.length() && isAnagram(s.substring(j, i+1))){ // *** i+1
-                    indices.add(j);
-                }
-                // Even though there might be no matches for the current index, we still want to make sure
-                // we remove the jth element from charMatches array, if present
-                if (charMatches[s.charAt(j) - 97] > 0 ) { // > 0 TODO: Is there a better way to check if the jth element is in charMatches (due to duplicates)
-                    charMatches[s.charAt(j) - 97]--;
-                    charMatchCount--;
-                }
-                current.deleteCharAt(0);
+            while(windowSize == anagramSize){
+                if (isAnagram(windowChars, charSetForP))
+                    listOfIndices.add(j);
+
+                int charAtJ = s.charAt(j);
+                windowChars[charAtJ-97] = windowChars[charAtJ-97] - 1;
                 j++;
+                windowSize--;
             }
         }
-        return indices;
+        return listOfIndices;
     }
 
-    private boolean isAnagram(String ss){
-        for (int i=0; i < ss.length(); i++){
-            char chSS = ss.charAt(i);
-            if (charMatches[chSS - 97] != charRef[chSS - 97]){
+
+    private boolean isAnagram(int[] windowChars, int[] charSetForP){
+        for (int i=0; i< windowChars.length;  i++){
+            if (windowChars[i] != charSetForP[i])
                 return false;
-            }
         }
         return true;
     }
 
     public static void main(String[] args) {
-        scratchPad();
+
         FindAllAnagramsInAString obj = new FindAllAnagramsInAString();
         obj.findAnagrams("cbaebabacd", "abc");
         obj.findAnagrams("af", "be");
-    }
-
-    private static void scratchPad() {
-        char[] chars = new char[26];
-        char a = 'a';
-        char z = 'z';
-
-        System.out.println((a - 97) +" " + (z - 97));
-        chars[a-97] = 'a';
-        chars[z-97] = 'z';
-
-        System.out.println(chars[a - 97] +" " +chars[z - 97]);
     }
 
 }
