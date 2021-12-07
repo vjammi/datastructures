@@ -12,69 +12,67 @@ import java.util.List;
     Input: nums = [1,2,3]
     Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
  */
+/**
+ //              INPUT|CHOICE
+ //                ABC|
+
+ //               0-BC|A
+ //                0-C|AB
+ //                  _|ABC
+ //                0-B|AC
+ //                  _|ACB
+
+ //               1-AC|B
+
+ //                                         0-4x
+ //
+ //                                                 4x
+ //                                0-4      1-5     5x
+ //                                                 6   [456]
+
+ //                                                 4x
+ //                                         2-6     5   [465]
+ //                                                 6x
+ //
+ //                                         0-4
+ //                         456    1-5      1-5
+ //                                         2-6
+ //
+ //                                         0-4
+ //                                2-6      1-5
+ //                                         2-6
+
+
+
+ //                                       _|ABC
+ //                               0-C|AB                // C inserted back at the 0th index - C
+ //                                 0
+ //                      0-BC|A                         // B inserted back 0th index resulting in BC, C inserted back at 1st index resulting in BC
+ //                        01
+ //                               1-B|AC                // B is put back at the 0th index
+ //                                 0
+ //                                       _|ACB
+
+ //                                       _|BAC
+ //                               0-C|BA                // On the way back B is put back at the 0th index
+ //                                 0
+ //             ABC|     1-AC|B
+ //             012        01     1-A|BC
+ //                                 0
+ //                                       _|BCA
+
+ //                                       _|CAB
+ //                               0-B|CA
+ //                                 0
+ //                      2-AB|C
+ //                        01
+ //                               1-A|CB
+ //                                 0
+ //                                       _|CBA
+ */
+
 public class Permutations {
 
-    /**
-     //              INPUT|CHOICE
-     //                ABC|
-
-     //               0-BC|A
-     //                0-C|AB
-     //                  _|ABC
-     //                0-B|AC
-     //                  _|ACB
-
-     //               1-AC|B
-
-     //                                         0-4x
-     //
-     //                                                 4x
-     //                                0-4      1-5     5x
-     //                                                 6   [456]
-
-     //                                                 4x
-     //                                         2-6     5   [465]
-     //                                                 6x
-     //
-     //                                         0-4
-     //                         456    1-5      1-5
-     //                                         2-6
-     //
-     //                                         0-4
-     //                                2-6      1-5
-     //                                         2-6
-
-
-
-     //                                       _|ABC
-     //                               0-C|AB                // C inserted back at the 0th index - C
-     //                                 0
-     //                      0-BC|A                         // B inserted back 0th index resulting in BC, C inserted back at 1st index resulting in BC
-     //                        01
-     //                               1-B|AC                // B is put back at the 0th index
-     //                                 0
-     //                                       _|ACB
-
-     //                                       _|BAC
-     //                               0-C|BA                // On the way back B is put back at the 0th index
-     //                                 0
-     //             ABC|     1-AC|B
-     //             012        01     1-A|BC
-     //                                 0
-     //                                       _|BCA
-
-     //                                       _|CAB
-     //                               0-B|CA
-     //                                 0
-     //                      2-AB|C
-     //                        01
-     //                               1-A|CB
-     //                                 0
-     //                                       _|CBA
-     */
-
-
-    // Solution using N connected components
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
 
@@ -86,7 +84,7 @@ public class Permutations {
         dfs1(nums, path, result, visited);
 
         // List<Integer> chosen = new ArrayList();
-        // backtrack1(nums, 0, chosen, result);
+        // backtrack1(nums, chosen, result);
 
         // List<Integer> input = new ArrayList();
         // List<Integer> chosen = new ArrayList();
@@ -118,7 +116,7 @@ public class Permutations {
         }
     }
 
-    private void backtrack1(int[] nums, int index, List<Integer> chosen, List<List<Integer>> result){
+    private void backtrack1(int[] nums, List<Integer> chosen, List<List<Integer>> result){
         if (chosen.size() == nums.length){
             result.add(new ArrayList(chosen)); System.out.println(new ArrayList(chosen));
             return;
@@ -128,13 +126,13 @@ public class Permutations {
             int choice = nums[i];
 
             if(chosen.contains(choice)) {
-                //System.out.println(i +"***" + index+"***"+choice);
+                //System.out.println(i +"***" +choice);
                 continue;
             }
 
             //System.out.println(i +" " +index+" "+choice);
             chosen.add(choice);
-            backtrack1(nums, i, chosen, result);
+            backtrack1(nums, chosen, result);
             chosen.remove(chosen.size()-1);
         }
 
@@ -160,7 +158,6 @@ public class Permutations {
         }
 
     }
-
 
     public static void main(String[] args) {
         new Permutations().permute(new int[]{4, 5, 6});
