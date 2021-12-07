@@ -23,25 +23,35 @@ import java.util.List;
  //                  _|ACB
 
  //               1-AC|B
-
+ //                     --------------------------------------------------------
+                                    0       1       2   BASE
  //                                         0-4x
  //
  //                                                 4x
  //                                0-4      1-5     5x
  //                                                 6   [456]
-
  //                                                 4x
  //                                         2-6     5   [465]
  //                                                 6x
  //
- //                                         0-4
- //                         456    1-5      1-5
- //                                         2-6
- //
- //                                         0-4
- //                                2-6      1-5
- //                                         2-6
+                                                    4x
+ //                                         0-4     5x
+                                                    6
+ //                    456         1-5      1-5x
+                                                    4
+ //                                         2-6     5x
+ //                                                 6x
 
+                                                    4x
+ //                                         0-4     5
+                                                    6x
+
+                                                    4
+ //                                2-6      1-5     5x
+ //                                                 6x
+
+ //                                         2-6x
+ //                     --------------------------------------------------------
 
 
  //                                       _|ABC
@@ -69,6 +79,7 @@ import java.util.List;
  //                               1-A|CB
  //                                 0
  //                                       _|CBA
+ //                     --------------------------------------------------------
  */
 
 public class Permutations {
@@ -95,7 +106,6 @@ public class Permutations {
         return result;
     }
 
-
     public void dfs1(int[] nums, List<Integer> path, List<List<Integer>> result, boolean[] visited){
         if (path.size() == nums.length){
             result.add(new ArrayList(path));
@@ -103,7 +113,14 @@ public class Permutations {
         }
 
         for (int i=0;i<nums.length; i++){
+            // if(visited[i]){
+            //     continue;
+            // }
+
+            // OR
+
             if(!visited[i]){
+
                 path.add(nums[i]);
                 visited[i] = true;
 
@@ -112,7 +129,6 @@ public class Permutations {
                 path.remove(path.size()-1);
                 visited[i] = false;
             }
-
         }
     }
 
@@ -125,12 +141,9 @@ public class Permutations {
         for (int i=0; i< nums.length; i++){
             int choice = nums[i];
 
-            if(chosen.contains(choice)) {
-                //System.out.println(i +"***" +choice);
+            if(chosen.contains(choice))
                 continue;
-            }
 
-            //System.out.println(i +" " +index+" "+choice);
             chosen.add(choice);
             backtrack1(nums, chosen, result);
             chosen.remove(chosen.size()-1);
