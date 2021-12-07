@@ -52,187 +52,27 @@ public class CombinationSum {
         if (nums.length == 0)
             return result;
 
-        List<Integer> chosen = new ArrayList();
-        backtrack(nums, 0, target, 0, chosen, result);
+        Stack<Integer> chosen = new Stack<>();
+        backtrack0(nums, target, 0, 0, chosen, result);
+
+        // List<Integer> chosen = new ArrayList();
+        // backtrack1(nums, target, 0, chosen, result);
+        // backtrack2(nums, target, 0, chosen, result);
 
         return result;
     }
 
-    private void backtrack(int[] nums, int sum, int target, int start, List<Integer> chosen, List<List<Integer>> result){
+    private void backtrack0(int[] nums, int target, int sum, int index, Stack<Integer> chosen, List<List<Integer>> result){
 
-        if(sum > target)
-            return;
-
-        if (sum == target) {
+        if (sum == target ){
             result.add(new ArrayList(chosen));
-            System.out.println(new ArrayList(chosen));
-            return;
-        }
-
-        for (int i=start; i< nums.length; i++){
-            chosen.add(nums[i]);
-            sum = sum + nums[i];
-            backtrack(nums, sum, target, i, chosen, result);
-            sum = sum - nums[i];
-            chosen.remove(chosen.size()-1);
-        }
-    }
-
-    /**
-     [input] [chosen]
-     [2367] []      target=7
-     ___________________|__________________________
-     0 |             1 |               2  |     3 |
-     [2]             [3]               [6]      [7]
-     ______|______       __|__               _        _
-     0 |  1 |    3 |      |     |              |        |
-     [22] [23]...[27]  x[33]  x[36]         x[66]    x[77]
-     __________|__________
-     0 |  1 |     2 |    3 |
-     x[222] [223] x[226] x[227]
-     __________|____________
-     0|   2 |      2 |      3 |
-     x[2222] x[2223] x[2226] x[2227]
-     */
-    /**
-     [2, 3, 6, 7] BL(0-2) [2]
-     > [2, 3, 6, 7] BL(0-2) [2, 2]
-     >    > [2, 3, 6, 7] BL(0-2) [2, 2, 2]
-     >    >    > [2, 3, 6, 7] BL(0-2) [2, 2, 2, 2]
-     >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 2]
-     >    >    > [2, 3, 6, 7] N(0-2) [2, 2, 2]
-     >    >    >    > [2, 3, 6, 7] BL(1-3) [2, 2, 2, 3]
-     >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 3]
-     >    >    >    > [2, 3, 6, 7] N(1-3) [2, 2, 2]
-     >    >    >    >    > [2, 3, 6, 7] BL(2-6) [2, 2, 2, 6]
-     >    >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 6]
-     >    >    >    >    > [2, 3, 6, 7] N(2-6) [2, 2, 2]
-     >    >    >    >    >    > [2, 3, 6, 7] BL(3-7) [2, 2, 2, 7]
-     >    >    >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 2, 7]
-     >    >    >    >    >    > [2, 3, 6, 7] N(3-7) [2, 2, 2]
-     >    >    >    >    >    >    > [2, 3, 6, 7] X=L  [2, 2, 2]
-     >    >    >    >    >    > [2, 3, 6, 7] AR(3-7) [2, 2, 2]
-     >    >    >    >    > [2, 3, 6, 7] AR(2-6) [2, 2, 2]
-     >    >    >    > [2, 3, 6, 7] AR(1-3) [2, 2, 2]
-     >    >    > [2, 3, 6, 7] AR(0-2) [2, 2, 2]
-     >    > [2, 3, 6, 7] N(0-2) [2, 2]
-     >    >    > [2, 3, 6, 7] BL(1-3) [2, 2, 3]
-     >    >    >    > [2, 3, 6, 7] OUT  [2, 2, 3]
-     >    >    > [2, 3, 6, 7] N(1-3) [2, 2]
-     >    >    >    > [2, 3, 6, 7] BL(2-6) [2, 2, 6]
-     >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 6]
-     >    >    >    > [2, 3, 6, 7] N(2-6) [2, 2]
-     >    >    >    >    > [2, 3, 6, 7] BL(3-7) [2, 2, 7]
-     >    >    >    >    >    > [2, 3, 6, 7] X>T  [2, 2, 7]
-     >    >    >    >    > [2, 3, 6, 7] N(3-7) [2, 2]
-     >    >    >    >    >    > [2, 3, 6, 7] X=L  [2, 2]
-     >    >    >    >    > [2, 3, 6, 7] AR(3-7) [2, 2]
-     >    >    >    > [2, 3, 6, 7] AR(2-6) [2, 2]
-     >    >    > [2, 3, 6, 7] AR(1-3) [2, 2]
-     >    > [2, 3, 6, 7] AR(0-2) [2, 2]
-     > [2, 3, 6, 7] N(0-2) [2]
-     >    > [2, 3, 6, 7] BL(1-3) [2, 3]
-     >    >    > [2, 3, 6, 7] BL(1-3) [2, 3, 3]
-     >    >    >    > [2, 3, 6, 7] X>T  [2, 3, 3]
-     >    >    > [2, 3, 6, 7] N(1-3) [2, 3]
-     >    >    >    > [2, 3, 6, 7] BL(2-6) [2, 3, 6]
-     >    >    >    >    > [2, 3, 6, 7] X>T  [2, 3, 6]
-     >    >    >    > [2, 3, 6, 7] N(2-6) [2, 3]
-     >    >    >    >    > [2, 3, 6, 7] BL(3-7) [2, 3, 7]
-     >    >    >    >    >    > [2, 3, 6, 7] X>T  [2, 3, 7]
-     >    >    >    >    > [2, 3, 6, 7] N(3-7) [2, 3]
-     >    >    >    >    >    > [2, 3, 6, 7] X=L  [2, 3]
-     >    >    >    >    > [2, 3, 6, 7] AR(3-7) [2, 3]
-     >    >    >    > [2, 3, 6, 7] AR(2-6) [2, 3]
-     >    >    > [2, 3, 6, 7] AR(1-3) [2, 3]
-     >    > [2, 3, 6, 7] N(1-3) [2]
-     >    >    > [2, 3, 6, 7] BL(2-6) [2, 6]
-     >    >    >    > [2, 3, 6, 7] X>T  [2, 6]
-     >    >    > [2, 3, 6, 7] N(2-6) [2]
-     >    >    >    > [2, 3, 6, 7] BL(3-7) [2, 7]
-     >    >    >    >    > [2, 3, 6, 7] X>T  [2, 7]
-     >    >    >    > [2, 3, 6, 7] N(3-7) [2]
-     >    >    >    >    > [2, 3, 6, 7] X=L  [2]
-     >    >    >    > [2, 3, 6, 7] AR(3-7) [2]
-     >    >    > [2, 3, 6, 7] AR(2-6) [2]
-     >    > [2, 3, 6, 7] AR(1-3) [2]
-     > [2, 3, 6, 7] AR(0-2) [2]
-     [2, 3, 6, 7] N(0-2) []
-     > [2, 3, 6, 7] BL(1-3) [3]
-     >    > [2, 3, 6, 7] BL(1-3) [3, 3]
-     >    >    > [2, 3, 6, 7] BL(1-3) [3, 3, 3]
-     >    >    >    > [2, 3, 6, 7] X>T  [3, 3, 3]
-     >    >    > [2, 3, 6, 7] N(1-3) [3, 3]
-     >    >    >    > [2, 3, 6, 7] BL(2-6) [3, 3, 6]
-     >    >    >    >    > [2, 3, 6, 7] X>T  [3, 3, 6]
-     >    >    >    > [2, 3, 6, 7] N(2-6) [3, 3]
-     >    >    >    >    > [2, 3, 6, 7] BL(3-7) [3, 3, 7]
-     >    >    >    >    >    > [2, 3, 6, 7] X>T  [3, 3, 7]
-     >    >    >    >    > [2, 3, 6, 7] N(3-7) [3, 3]
-     >    >    >    >    >    > [2, 3, 6, 7] X=L  [3, 3]
-     >    >    >    >    > [2, 3, 6, 7] AR(3-7) [3, 3]
-     >    >    >    > [2, 3, 6, 7] AR(2-6) [3, 3]
-     >    >    > [2, 3, 6, 7] AR(1-3) [3, 3]
-     >    > [2, 3, 6, 7] N(1-3) [3]
-     >    >    > [2, 3, 6, 7] BL(2-6) [3, 6]
-     >    >    >    > [2, 3, 6, 7] X>T  [3, 6]
-     >    >    > [2, 3, 6, 7] N(2-6) [3]
-     >    >    >    > [2, 3, 6, 7] BL(3-7) [3, 7]
-     >    >    >    >    > [2, 3, 6, 7] X>T  [3, 7]
-     >    >    >    > [2, 3, 6, 7] N(3-7) [3]
-     >    >    >    >    > [2, 3, 6, 7] X=L  [3]
-     >    >    >    > [2, 3, 6, 7] AR(3-7) [3]
-     >    >    > [2, 3, 6, 7] AR(2-6) [3]
-     >    > [2, 3, 6, 7] AR(1-3) [3]
-     > [2, 3, 6, 7] N(1-3) []
-     >    > [2, 3, 6, 7] BL(2-6) [6]
-     >    >    > [2, 3, 6, 7] BL(2-6) [6, 6]
-     >    >    >    > [2, 3, 6, 7] X>T  [6, 6]
-     >    >    > [2, 3, 6, 7] N(2-6) [6]
-     >    >    >    > [2, 3, 6, 7] BL(3-7) [6, 7]
-     >    >    >    >    > [2, 3, 6, 7] X>T  [6, 7]
-     >    >    >    > [2, 3, 6, 7] N(3-7) [6]
-     >    >    >    >    > [2, 3, 6, 7] X=L  [6]
-     >    >    >    > [2, 3, 6, 7] AR(3-7) [6]
-     >    >    > [2, 3, 6, 7] AR(2-6) [6]
-     >    > [2, 3, 6, 7] N(2-6) []
-     >    >    > [2, 3, 6, 7] BL(3-7) [7]
-     >    >    >    > [2, 3, 6, 7] OUT  [7]
-     >    >    > [2, 3, 6, 7] N(3-7) []
-     >    >    >    > [2, 3, 6, 7] X=L  []
-     >    >    > [2, 3, 6, 7] AR(3-7) []
-     >    > [2, 3, 6, 7] AR(2-6) []
-     > [2, 3, 6, 7] AR(1-3) []
-     [2, 3, 6, 7] AR(0-2) []
-     [[2, 2, 3], [7]]
-     */
-
-    int totalCalls;
-    int callsThatMadeIt;
-    public List<List<Integer>> combinationSumApproach1(int[] candidates, int target) {
-        Stack<Integer> chosen = new Stack();
-        List<List<Integer>> result = new ArrayList();
-        backtrackApproach1(candidates, asList(candidates), chosen, target, result, 0, 0, 0);
-        System.out.println(result);
-        return result;
-    }
-
-    void backtrackApproach1(int[] candidates, List<Integer> input, Stack<Integer> chosen, int target, List<List<Integer>> result, int sum, int index, int n){
-        totalCalls++;
-        String indent = get_indent(n);
-        if (sum == target ){ // ||
-            result.add(new ArrayList(chosen));
-            System.out.println(indent + input +" OUT " +" " +chosen);
             return;
         }else if (sum > target ){
-            System.out.println(indent + input +" X>T " +" " +chosen);
             return;
         } else
-            if (index == candidates.length){  // We do not want the sum of elements greater than the input size - [2, 3, 6, 7] X>T  [2, 2, 2, 2]
-            System.out.println(indent + input +" X=L " +" " +chosen);
+        if (index == nums.length){  // We do not want the sum of elements greater than the input size - [2, 3, 6, 7] X>T  [2, 2, 2, 2]
             return;
         }
-        callsThatMadeIt++;
 
         //   > [2, 3, 6, 7] BL(0-2) [2, 2]                      // We make an initial choice
         //   >    > [2, 3, 6, 7] BL(0-2) [2, 2, 2]              // We make the same choice again until the base case passes/fails
@@ -242,141 +82,62 @@ public class CombinationSum {
         //   >    >    >    > [2, 3, 6, 7] BL(1-3) [2, 2, 2, 3] // We make the next choice by incrementing the index
 
         // We add the same choice over and over until the base case is reached - either sum is > or == target
-        chosen.push(candidates[index]);         // 2  2  2 | 2  2  3
-        IndentUtil.showBeforeLeftI(indent, input, index, candidates[index], chosen);
-        // We make an initial choice, update the sum. We then make the same choice again and update the sumuntil the base case passes/fails
-        sum = sum + candidates[index];
-        backtrackApproach1(candidates, input, chosen, target, result, sum, index, n+1);
+        // We make an initial choice, update the sum. We then make the same choice again and update the sum until the base case passes/fails
+        chosen.push(nums[index]);               // 2  2  2 | 2  2  3
+        sum = sum + nums[index];
+
+        backtrack0(nums, target, sum, index, chosen, result);
+
         chosen.pop();                           // 2  2
-        sum = sum - candidates[index];
-        IndentUtil.showI(indent, input, index, candidates[index], chosen);
+        sum = sum - nums[index];
 
         //Finally when are done trying all variations of the same choice, we can now increment the index and make the next choice
-        backtrackApproach1(candidates, input, chosen, target, result, sum, index+1, n+1); // We make the next choice by incrementing the index
-        IndentUtil.showAfterRightI(indent, input, index, candidates[index], chosen);
+        backtrack0(nums, target, sum, index+1, chosen, result); // We make the next choice by incrementing the index
+
     }
 
-    /**
-         [2, 3, 6, 7] L(0-R) []
 
-         [2, 3, 6, 7] L(0-2) [2]
-         > [2, 3, 6, 7] L(0-2) [2, 2]
-         >    > [2, 3, 6, 7] L(0-2) [2, 2, 2]
-         >    >    > [2, 3, 6, 7] L(0-2) [2, 2, 2, 2]
-         >    >    >    > [2, 3, 6, 7] RET() [2, 2, 2, 2]
-         >    >    > [2, 3, 6, 7] R(0-2) [2, 2, 2, 2]
-         >    >    > [2, 3, 6, 7] L(0-3) [2, 2, 2, 3]
-         >    >    >    > [2, 3, 6, 7] RET() [2, 2, 2, 3]
-         >    >    > [2, 3, 6, 7] R(0-3) [2, 2, 2, 3]
-         >    >    > [2, 3, 6, 7] L(0-6) [2, 2, 2, 6]
-         >    >    >    > [2, 3, 6, 7] RET() [2, 2, 2, 6]
-         >    >    > [2, 3, 6, 7] R(0-6) [2, 2, 2, 6]
-         >    >    > [2, 3, 6, 7] L(0-7) [2, 2, 2, 7]
-         >    >    >    > [2, 3, 6, 7] RET() [2, 2, 2, 7]
-         >    >    > [2, 3, 6, 7] R(0-7) [2, 2, 2, 7]
-         >    > [2, 3, 6, 7] R(0-2) [2, 2, 2]
-         >    > [2, 3, 6, 7] L(0-3) [2, 2, 3]
-         >    >    > [2, 3, 6, 7] OUT() [2, 2, 3]
-         >    > [2, 3, 6, 7] R(0-3) [2, 2, 3]
-         >    > [2, 3, 6, 7] L(0-6) [2, 2, 6]
-         >    >    > [2, 3, 6, 7] RET() [2, 2, 6]
-         >    > [2, 3, 6, 7] R(0-6) [2, 2, 6]
-         >    > [2, 3, 6, 7] L(0-7) [2, 2, 7]
-         >    >    > [2, 3, 6, 7] RET() [2, 2, 7]
-         >    > [2, 3, 6, 7] R(0-7) [2, 2, 7]
-         > [2, 3, 6, 7] R(0-2) [2, 2]
+    private void backtrack1(int[] nums, int target, int start, List<Integer> chosen, List<List<Integer>> result){
 
-         > [2, 3, 6, 7] L(0-3) [2, 3]
-         >    > [2, 3, 6, 7] L(1-3) [2, 3, 3]
-         >    >    > [2, 3, 6, 7] RET() [2, 3, 3]
-         >    > [2, 3, 6, 7] R(1-3) [2, 3, 3]
-         >    > [2, 3, 6, 7] L(1-6) [2, 3, 6]
-         >    >    > [2, 3, 6, 7] RET() [2, 3, 6]
-         >    > [2, 3, 6, 7] R(1-6) [2, 3, 6]
-         >    > [2, 3, 6, 7] L(1-7) [2, 3, 7]
-         >    >    > [2, 3, 6, 7] RET() [2, 3, 7]
-         >    > [2, 3, 6, 7] R(1-7) [2, 3, 7]
-         > [2, 3, 6, 7] R(0-3) [2, 3]
-         > [2, 3, 6, 7] L(0-6) [2, 6]
-         >    > [2, 3, 6, 7] RET() [2, 6]
-         > [2, 3, 6, 7] R(0-6) [2, 6]
-         > [2, 3, 6, 7] L(0-7) [2, 7]
-         >    > [2, 3, 6, 7] RET() [2, 7]
-         > [2, 3, 6, 7] R(0-7) [2, 7]
-         [2, 3, 6, 7] R(0-2) [2]
-
-         [2, 3, 6, 7] L(0-3) [3]
-         > [2, 3, 6, 7] L(1-3) [3, 3]
-         >    > [2, 3, 6, 7] L(1-3) [3, 3, 3]
-         >    >    > [2, 3, 6, 7] RET() [3, 3, 3]
-         >    > [2, 3, 6, 7] R(1-3) [3, 3, 3]
-         >    > [2, 3, 6, 7] L(1-6) [3, 3, 6]
-         >    >    > [2, 3, 6, 7] RET() [3, 3, 6]
-         >    > [2, 3, 6, 7] R(1-6) [3, 3, 6]
-         >    > [2, 3, 6, 7] L(1-7) [3, 3, 7]
-         >    >    > [2, 3, 6, 7] RET() [3, 3, 7]
-         >    > [2, 3, 6, 7] R(1-7) [3, 3, 7]
-         > [2, 3, 6, 7] R(1-3) [3, 3]
-         > [2, 3, 6, 7] L(1-6) [3, 6]
-         >    > [2, 3, 6, 7] RET() [3, 6]
-         > [2, 3, 6, 7] R(1-6) [3, 6]
-         > [2, 3, 6, 7] L(1-7) [3, 7]
-         >    > [2, 3, 6, 7] RET() [3, 7]
-         > [2, 3, 6, 7] R(1-7) [3, 7]
-         [2, 3, 6, 7] R(0-3) [3]
-
-         [2, 3, 6, 7] L(0-6) [6]
-         > [2, 3, 6, 7] L(2-6) [6, 6]
-         >    > [2, 3, 6, 7] RET() [6, 6]
-         > [2, 3, 6, 7] R(2-6) [6, 6]
-         > [2, 3, 6, 7] L(2-7) [6, 7]
-         >    > [2, 3, 6, 7] RET() [6, 7]
-         > [2, 3, 6, 7] R(2-7) [6, 7]
-         [2, 3, 6, 7] R(0-6) [6]
-
-         [2, 3, 6, 7] L(0-7) [7]
-         > [2, 3, 6, 7] OUT() [7]
-         [2, 3, 6, 7] R(0-7) [7]
-
-         [[2, 2, 3], [7]]
-     */
-    public List<List<Integer>> combinationSumApproach2(int[] nums, int target) {
-        List<List<Integer>> result = new ArrayList<>();
-        ArrayList<Integer> chosen = new ArrayList<>();
-        Arrays.sort(nums);
-        IndentUtil.showRoot(IndentUtil.getIndent(0), nums, 0, "", chosen);
-        backtrackApproach2(nums, target, 0, chosen, result, 0);
-        System.out.println(result);
-        return result;
-    }
-
-    private void backtrackApproach2(int[] input, int sum, int index, List<Integer> chosen, List<List<Integer>> result, int n){
-        String indent = IndentUtil.getIndent(n);
-        if(sum < 0) {
-            IndentUtil.showReturn(indent, input, chosen);
+        if (target < 0)
             return;
-        }else if(sum == 0) {
-            result.add(new ArrayList<>(chosen));
-            IndentUtil.showChosen(indent, input, chosen);
+
+        if (target == 0) {
+            result.add(new ArrayList(chosen));
+            System.out.println(new ArrayList(chosen));
             return;
         }
 
-        for(int i = index; i < input.length; i++){
-            chosen.add(input[i]);  //IndentUtil.showLeft(indent, input, index, input[i], chosen);
-            sum = sum - input[i];
-            // not i + 1 because we can reuse same elements
-            backtrackApproach2(input, sum, i, chosen, result, n+1); // IndentUtil.showRight(indent, input, index, input[i], chosen);
-            sum = sum + input[i];
-            chosen.remove(chosen.size() - 1);
+        for (int i=start; i< nums.length; i++){
+            chosen.add(nums[i]);
+
+            backtrack1(nums, target-nums[i], i, chosen, result);
+
+            chosen.remove(chosen.size()-1);
         }
     }
 
-    private List<Integer>  asList(int[] candidates) {
-        List<Integer> input = new ArrayList<>();
-        for (int value : candidates) {
-            input.add(value);
+
+    private void backtrack2(int[] nums, int target, int start, List<Integer> chosen, List<List<Integer>> result){
+
+        if (target < 0)
+            return;
+
+        if (target == 0) {
+            result.add(new ArrayList(chosen));
+            System.out.println(new ArrayList(chosen));
+            return;
         }
-        return input;
+
+        for (int i=start; i< nums.length; i++){
+            chosen.add(nums[i]);
+            target = target - nums[i];
+
+            backtrack2(nums, target, i, chosen, result);
+
+            target = target + nums[i];
+            chosen.remove(chosen.size()-1);
+        }
     }
 
     public static void main(String[] args) {
@@ -384,16 +145,7 @@ public class CombinationSum {
 
         int[] nums = {2,3,6,7};
         obj.combinationSum(nums, 7);
-        obj.combinationSumApproach1(nums, 7);
-        System.out.println();
-        obj.combinationSumApproach2(nums, 7);
-    }
 
-    public String get_indent(int N) {
-        String S = new String("");
-        for (int i = 0; i < N; i++)
-            S = S + "   > ";
-        return S;
     }
 
 }
