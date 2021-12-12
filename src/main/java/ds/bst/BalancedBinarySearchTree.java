@@ -65,7 +65,6 @@ public class BalancedBinarySearchTree {
     }
 
     private Node put(Node h, int key, String val) {
-
         // Regular BST Impl
         if (h == null){
             return new Node(key, val, RED);

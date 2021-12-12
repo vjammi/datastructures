@@ -25,42 +25,36 @@ Reference: https://opendsa-server.cs.vt.edu/ODSA/Books/CS3/html/BinaryTree.html
 ### Binary Tree Classifications
 1. Full Binary Tree
 Each node in a full binary tree is either
-(1) an internal node with exactly two non-empty children or
-(2) a leaf.
+- an internal node with exactly two non-empty children or
+- a leaf.
 ```
-             1
-       2          3
-    4     5
-       6     7
-Figure (a)
+                 1
+           2          3
+        4     5
+           6     7
+            Figure (a)
 ```
-2. Complete Binary Tree
-A complete binary tree has a restricted shape obtained by starting at the root and filling the tree by levels from left to right.
-In the complete binary tree of height d, all levels except possibly level d are completely full.
-The bottom level has its nodes filled in from the left side.
-In other words every level except the bottom level is completely full and all the nodes within the bottom level nodes are filled from left to right.
-
+2. Complete Binary Tree *
+In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible.
 ```
                     1
             2               3
         4       5       6       7
       8   9   10  11  12
-Figure (b)
+                Figure (b)
 ```
-3. Perfect Binary Tree
+3. Perfect Binary Tree *
 A Binary tree is a Perfect Binary Tree in which all the internal nodes have two children and all leaf nodes are at the same level.
+Number of Nodes =  [(2^levels) - 1]
 ```
-               18
-           /       \
-         15         30
-        /  \        /  \
-      40    50    100   40
+                   18
+                /     \
+             15         30
+            /  \        /  \
+          40    50    100   40
+                Figure (c)
+```
 
-               18
-           /       \
-         15         30
-Figure (c)
-```
 
 ### Differences between full and complete binary trees
 There is no particular relationship between these two tree shapes; that is, the tree of Figure (a) is full but not complete while the tree of Figure (b) is complete but not full.
@@ -73,8 +67,9 @@ Because the common meaning of the words "full" and "complete" are quite similar,
 Note: Here is a memory aid that you might find useful:
 "Complete" is a wider word than "full", and complete binary trees tend to be wider than full binary trees because each level of a complete binary tree is as wide as possible.
 
-## Relationship between Level, Height & Nodes in a Binary Tree
 
+
+## Relationship between - Level, Height & Nodes in a Binary Tree
 #### How can we calculate the min and max number of nodes in a Binary Tree, when the height of a tree is given?
 Level in a Binary Tree
     Level - 2^(level-1)

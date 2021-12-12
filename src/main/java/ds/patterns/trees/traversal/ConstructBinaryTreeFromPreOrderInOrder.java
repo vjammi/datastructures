@@ -122,3 +122,48 @@ public class ConstructBinaryTreeFromPreOrderInOrder {
     }
 
 }
+
+/*
+    private int nextPreorderIndex = 0;
+    private int[] preorder;
+    private int[] inorder;
+    private Map<Integer, Integer> inOrderMap = new HashMap<>();
+
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        this.preorder = preorder;
+        this.inorder = inorder;
+
+        for(int i = 0 ; i < inorder.length; i++){
+            inOrderMap.put(inorder[i], i);
+        }
+
+        int leftIndex = 0; int rightIndex = preorder.length - 1;
+        return buildTree(leftIndex, rightIndex);
+    }
+
+    private TreeNode buildTree(int leftIndex, int rightIndex) {
+
+        // Break the recursion by returning null [when right index crosses the left index.
+        // The same condition holds good, while traversing both the left and right side of an element in the InOrder array].
+        // This is similar to a return, while building a tree, when we encounter node == null,
+        // traversing either the left or the right nodes
+        if (leftIndex > rightIndex){
+            return null;
+        }
+
+        // Select the next preorder node as the current root and increment it preorder index
+        int preorderNodeVal = preorder[nextPreorderIndex++]; // preOrderIndex++;
+        TreeNode currNode = new TreeNode(preorderNodeVal);
+
+        // lookup the index of the nextPreOrderNodeVal within the inorder map.
+        int inorderIndexForCurrNode = inOrderMap.get(preorderNodeVal);
+        TreeNode leftNode = buildTree(leftIndex, inorderIndexForCurrNode - 1);
+        TreeNode rightNode = buildTree(inorderIndexForCurrNode + 1, rightIndex);
+
+        currNode.left = leftNode;   // On your way back, add the returned node to the left of the current root node
+        currNode.right = rightNode; // On your way back, add the returned node to the right of the current root node
+
+        // Return the current node to be added to the left or the right side of the parent node.
+        return currNode;
+    }
+ */

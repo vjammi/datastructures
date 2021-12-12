@@ -1,6 +1,6 @@
 package ds.binarytree;
 
-public class SumOfLeftLeaves {
+public class _SumOfLeftLeaves {
 
 /*
      - Pass Left and right child indicators from a node

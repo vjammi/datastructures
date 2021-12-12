@@ -47,7 +47,7 @@ import java.util.*;
      Column 2: Only node 7 is in this column.
 
  */
-public class VerticalOrderTraversal {
+public class BinaryTreeVerticalOrderTraversal {
 
     class TreeNode {
         int val;

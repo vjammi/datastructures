@@ -98,7 +98,7 @@ public class SurroundedRegions {
         return board[i][j];
     }
 
-    // TODO: Input [["X","O","X"],["X","O","X"],["X","O","X"]]  Output: [["X","O","X"],["X","O","X"],["X","O","X"]]
+    // MyNotes.md: Input [["X","O","X"],["X","O","X"],["X","O","X"]]  Output: [["X","O","X"],["X","O","X"],["X","O","X"]]
     // Accepted:
     // Input [["X","X","X","X"],["X","O","O","X"],["X","X","O","X"],["X","O","X","X"]]
     // Output [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]

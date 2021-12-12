@@ -178,7 +178,7 @@ public class Unique {
                 if (String.valueOf(a[i]).equals(c)){
                     return false;
                 }else{
-                    //TODO
+                    //MyNotes.md
                     ht.put(new Integer(hash), new String(a[i]+""));
                 }
             }

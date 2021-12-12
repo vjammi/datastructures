@@ -1,7 +1,7 @@
 package ds.binarytree;
 
 // Delete a node in a Binary Tree
-public class BinaryTree_DeleteANode {
+public class _BinaryTree_DeleteANode {
 
 /*
     - Pass 1 - Traverse the tree in a level order,

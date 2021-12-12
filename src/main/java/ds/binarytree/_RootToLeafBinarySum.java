@@ -8,5 +8,5 @@ package ds.binarytree;
     Return the sum of these numbers.
     The answer is guaranteed to fit in a 32-bits integer.
 */
-public class RootToLeafBinarySum {
+public class _RootToLeafBinarySum {
 }

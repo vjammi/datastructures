@@ -4,6 +4,42 @@ import java.util.*;
 
 public class PermutationsII {
 
+    public List<List<Integer>> permuteUnique(int[] nums) {
+
+        List<List<Integer>> result = new ArrayList();
+        if (nums.length == 0)
+            return result;
+
+        boolean[] visited = new boolean[nums.length];
+        List<Integer> chosen = new  ArrayList();
+        backtrack(nums, 0, chosen, result, visited);
+
+        return result;
+    }
+
+
+    private void backtrack(int[] nums, int index, List<Integer> chosen, List<List<Integer>> result, boolean[] visited){
+        if (chosen.size() == nums.length){
+            result.add(new ArrayList(chosen)); System.out.println(new ArrayList(chosen));
+            return;
+        }
+
+        for (int i=0; i< nums.length; i++){
+            if(visited[i] || i > 0 && nums[i] == nums[i-1] && !visited[i-1])
+                continue;
+
+            int choice = nums[i];
+            chosen.add(choice);
+            visited[i] = true;
+            backtrack(nums, i, chosen, result, visited);
+            chosen.remove(chosen.size()-1);
+            visited[i] = false;
+
+        }
+
+    }
+
+
     // Solution using N connected components
     public List<List<Integer>> permuteUnique1(int[] nums) {
         List<List<Integer>> permutations = new ArrayList<>();

@@ -1,6 +1,6 @@
 package ds.binarytree;
 
-public class PrintNodesWithKLeaves {
+public class _PrintNodesWithKLeaves {
 
     /*
         If node is a leaf return 1

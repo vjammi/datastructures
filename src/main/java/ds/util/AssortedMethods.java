@@ -2,7 +2,7 @@ package ds.util;
 
 import ds.binarytree.TreeNode;
 import ds.linkedlist.LinkedListNode;
-import ds.trie.TrieDS;
+import ds.trie.Trie_ListImpl;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -245,8 +245,8 @@ public class AssortedMethods {
 		return getLongTextBlob().split(" ");
 	}
 
-	public static TrieDS getTrieDictionary() {
-		return new TrieDS(getListOfWords());
+	public static Trie_ListImpl getTrieDictionary() {
+		return new Trie_ListImpl(getListOfWords());
 	}
 	
 	public static HashSet<String> getWordListAsHashSet() {

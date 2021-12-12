@@ -149,7 +149,7 @@ public class BalancedBSTRedBlack {
     }
 
     public boolean isBLACK(Node x){
-        if(x == null) return true; // TODO: ???
+        if(x == null) return true; // MyNotes.md: ???
 
         return x.color == BLACK;
     }

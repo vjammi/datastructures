@@ -22,7 +22,7 @@ public class CloneNArrayTree {
         }
     }
 
-    // TODO: Do not pass all the tests on leetcode
+    // MyNotes.md: Do not pass all the tests on leetcode
     public Node cloneTree(Node root) {
         if (root == null)
             return null;

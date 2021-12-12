@@ -272,7 +272,7 @@ public class BinarySearchTree {
     }
 
 
-    // TODO: Implement the floor and ceil functionality
+    // MyNotes.md: Implement the floor and ceil functionality
     public float floor(float key)    {
         Node x = floor(root, key);
 
@@ -345,7 +345,7 @@ public class BinarySearchTree {
 
 }
 
-// TODO: Implement Rank functionality
+// MyNotes.md: Implement Rank functionality
 /*
 *public int rank(Key key){
     return rank(key, root);
@@ -360,7 +360,7 @@ private int rank(Key key, TrieNode x){
 }
 */
 
-// TODO: InOrder Traversal
+// MyNotes.md: InOrder Traversal
 /*
 public Iterable<Key> keys()    {
     Queue1<Key> q = new Queue1<Key>();
