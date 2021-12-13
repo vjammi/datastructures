@@ -21,9 +21,9 @@ package ds.patterns.subarray;
 // A SubArray needs to be contiguous
 public class MaximumSubarray {
 
-    // Runtime O(n^2)
+    // Runtime O(n^2) - 2 for loops
     // Space   O(1)
-    public int maxSubArray(int[] nums) {
+    public int maxSubArrayNaive(int[] nums) {
         int maxSumSoFar = 0;
         for (int i=0; i<nums.length; i++){
             int sum = 0;
@@ -41,14 +41,53 @@ public class MaximumSubarray {
 
     /**
          Kadane's Algorithm
-         Runtime O(n)
-         Space   O(1)
-         a [-2,1,-3,4,-1,2,1,-5,4]
-         subArray = a[k] || a[k-1] + a[k]
-    */
-    public int maxSubArray2(int[] nums) {
+             Runtime O(n)
+             Space   O(1)
+         Approach
+              if   - Check to add the num to existing subarray [positive subArray + positive num or positive subArray + negative num)
+              else - Discard the existing subarray and start new subarray [negative subarray + positive current num]
+              subArray at a[k-1] + a[k] > a[k]  or a[k]
+        //                     nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        //                                        |---------|
 
-        return 0;
+        //      currSubArraySum     =      1  -2  4   3  5  6  1   5
+        //      maxSubArraySumSoFar =      1   1  4   4  5  6  6   6
+
+        // -2 +  1 >  1  [F]
+        //  1 + -3 > -3  [T]
+        // -2 +  4 >  4  [F]
+        //  4 + -1 > -1  [T]
+        //  3 +  2 >  2  [T]
+        //  5 +  1 >  1  [T]
+        //  6 + -5 > -5  [T]
+        //  1 +  4 >  4  [T]
+
+    */
+    public int maxSubArray(int[] nums) {
+
+        int maxSubArraySumSoFar = nums[0];
+        int currSubArraySum = nums[0];
+
+        for (int i=1; i < nums.length; i++){
+
+            int num = nums[i];
+            // Check to add num at current index to existing subarray [positive subArray + positive num or positive subArray + negative num
+            //      or
+            // To discard the existing subarray and start new subarray [negative subarray + positive current num]
+            if ( currSubArraySum + num > num ){
+                currSubArraySum = currSubArraySum + num;
+            }else{
+                currSubArraySum = num; // Not resetting or keeping track of the start index
+            }
+            maxSubArraySumSoFar = Math.max(maxSubArraySumSoFar, currSubArraySum);
+        }
+        return maxSubArraySumSoFar;
+    }
+
+
+    public static void main(String[] args) {
+        int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
+        new MaximumSubarray().maxSubArray(nums);
     }
 
 }
