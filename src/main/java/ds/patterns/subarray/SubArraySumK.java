@@ -44,7 +44,9 @@ public class SubArraySumK {
                  if (sum == k) {
                      count++;
                  }
+                 System.out.println("[" +nums[i] +", " +nums[j] +"]   " +count  +" total number of continuous sub arrays whose sum equals to k");
              }
+             System.out.println("");
          }
          return count;
      }
