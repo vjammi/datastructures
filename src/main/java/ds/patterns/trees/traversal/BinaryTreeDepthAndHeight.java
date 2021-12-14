@@ -56,11 +56,11 @@ public class BinaryTreeDepthAndHeight {
     }
 
     //Input: root = [3,9,20,null,null,15,7]
-    //    3                 4
-    // 9    20              3
-    //    15   7            2
-    //           8          1
-    //       null  null     0
+    //                3                 4
+    //             9    20              3
+    //                15   7            2
+    //                       8          1
+    //                   null  null     0
     private int height(TreeNode node){
         if (node == null)
             return 0;
