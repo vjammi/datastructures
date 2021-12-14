@@ -102,7 +102,8 @@ Need to find the path of longest consecutive numbers.
                            2
                           /
                          1
-     Explanation: Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
+    Input: root = [2,null,3,2,null,1] Output: 2
+    Explanation: Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
 
 Pattern
     This pattern extremely common. 
