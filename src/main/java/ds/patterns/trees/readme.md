@@ -205,6 +205,7 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
 ```
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> inOrderedList = new ArrayList<>();
+
         Stack<TreeNode> stack = new Stack(); // We are not adding the node to the stack, since we need to traverse to the leftmost node first
         TreeNode current = root; // *** We add the node to the current to traverse to the leftmost node before printing the node.
 
@@ -240,7 +241,8 @@ Note: In a binary search tree, we can retrieve all the data in sorted order usin
 
         // Create an empty stack and push root to it
         Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);        
+        stack.push(root);
+
         // AB+ (Left Right Node)
         while (!stack.isEmpty()) {
             // Pop an item from stack and add it to list at the 0th index
@@ -290,8 +292,10 @@ Note:
     private List<List<Integer>> levelOrderTraversalIterative(TreeNode root) {
         List<List<Integer>> levelOrderTraversalLists = new ArrayList();
         List<Integer> levelList = null;
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
+
         int level = 0;
         while(!queue.isEmpty()){
             int size = queue.size();
@@ -331,10 +335,6 @@ Note:
         levelOrderTraversalRecursive(node.right, level+1);
     }
 ```
-
-
-
-
 References
 https://www.geeksforgeeks.org/relationship-number-nodes-height-binary-tree/
 https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
