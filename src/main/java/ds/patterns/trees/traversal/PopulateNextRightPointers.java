@@ -16,7 +16,7 @@ import java.util.Queue;
  *              2    4>         4>5
  *              2    5>         5>6
  *      Solution
- *          We will need top use a level order traversal.
+ *          We will need to use a level order traversal.
  *          At any point we are going down and across/laterally. We do not need to recurse or backtrack.
  *          At any point we are connecting the nodes at its next level, children's level
  *          We will assign the next pointers to the
@@ -25,7 +25,7 @@ import java.util.Queue;
  *
  */
 
-public class PopulatingNextRightPointersInEachNode {
+public class PopulateNextRightPointers {
     class Node {
         public int val;
         public Node left;
@@ -46,7 +46,6 @@ public class PopulatingNextRightPointersInEachNode {
         }
     }
 
-
     public Node connect(Node root) {
 
         if (root == null)
@@ -57,51 +56,24 @@ public class PopulatingNextRightPointersInEachNode {
 
         while(!queue.isEmpty()){
             Node node = queue.poll();
-
             // Assigning next pointer to a left node
             if (node.left !=null && node.right !=null ){
                 node.left.next = node.right;
-
             }else if(node.left != null && node.right == null){
                 Node nextNode = node.next;
-                if (nextNode == null){
+                if (nextNode == null)
                     node.left.next = null;
-                }else{
-                    while(nextNode !=null ){
-                        if (nextNode.left != null){
-                            node.left.next = nextNode.left;
-                            break;
-                        }else if (nextNode.right != null){
-                            node.left.next = nextNode.right;
-                            break;
-                        }else{
-                            nextNode = nextNode.next;
-                        }
-                        node.left.next = null;
-                    }
-                }
-
+                else
+                    whileNextNotNull(nextNode, node.left);
             }
 
             // Assigning next pointer to a right node
             if(node.right != null ){
                 Node nextNode = node.next;
-                if (nextNode == null){
+                if (nextNode == null)
                     node.right.next = null;
-                }else{
-                    while(nextNode !=null ){
-                        if (nextNode.left != null){
-                            node.right.next = nextNode.left;
-                            break;
-                        }else if (nextNode.right != null){
-                            node.right.next = nextNode.right;
-                            break;
-                        }else{
-                            nextNode = nextNode.next;
-                        }
-                        node.right.next = null;
-                    }
-                }
+                else
+                    whileNextNotNull(nextNode, node.right);
             }
 
             if (node.left != null){
@@ -113,6 +85,21 @@ public class PopulatingNextRightPointersInEachNode {
 
         }
         return root;
+    }
+
+    private void whileNextNotNull(Node nextNode, Node left) {
+        while (nextNode != null) {
+            if (nextNode.left != null) {
+                left.next = nextNode.left;
+                break;
+            } else if (nextNode.right != null) {
+                left.next = nextNode.right;
+                break;
+            } else {
+                nextNode = nextNode.next;
+            }
+            left.next = null;
+        }
     }
 
 }
