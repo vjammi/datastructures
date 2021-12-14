@@ -14,6 +14,15 @@ the path from the root of the tree to M. The height of a tree is the depth of th
 The root is the only node at level 0, and its depth is 0. A leaf node is any node that has two empty children. An internal node is any node that has at least one non-empty child.
 Reference: https://opendsa-server.cs.vt.edu/ODSA/Books/CS3/html/BinaryTree.html
 
+## Binary Tree Vs Binary Search Tree
+### Binary Tree
+- Nodes are unordered, due to which insertion, deletion, and searching are slower
+- Each node can have atmost two child nodes
+
+### Binary Search Tree
+- Nodes are ordered, due to which insertion, deletion, searching of an element are faster
+- The left subtree has elements less than the node and the right subtree has elements greater than the node
+
 ### Depth, Height, Level in a Binary Tree
 - The depth of a node M in the tree is the length of the path from the root of the tree to M.
 - The height of a tree is the depth of the deepest node in the tree.
@@ -294,8 +303,6 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         levelOrderTraversalRecursive(node.right, level+1);
     }
 ```
-
-
 
 References
 https://www.geeksforgeeks.org/relationship-number-nodes-height-binary-tree/
