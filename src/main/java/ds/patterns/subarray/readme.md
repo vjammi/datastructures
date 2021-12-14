@@ -44,3 +44,5 @@ Given an array/sequence of size n
     Subseqeunce = (2^n) -1 (non-empty subsequences)
     Subset = 2^n
 
+REFERENCES
+https://stackoverflow.com/questions/26568560/difference-between-subarray-subset-subsequence

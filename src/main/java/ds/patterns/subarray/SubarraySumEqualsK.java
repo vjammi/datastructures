@@ -1,6 +1,6 @@
 package ds.patterns.subarray;
 
-public class SubArraySumK {
+public class SubarraySumEqualsK {
 
     /**
          560. Subarray Sum Equals K

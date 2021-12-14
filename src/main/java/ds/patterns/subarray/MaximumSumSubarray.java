@@ -19,7 +19,7 @@ package ds.patterns.subarray;
  **/
 
 // A SubArray needs to be contiguous
-public class MaximumSubarray {
+public class MaximumSumSubarray {
 
     // Runtime O(n^2) - 2 for loops
     // Space   O(1)
@@ -40,7 +40,7 @@ public class MaximumSubarray {
     }
 
     /**
-         Kadane's Algorithm
+         Kadane's Algorithm: https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm
              Runtime O(n)
              Space   O(1)
          Approach
@@ -87,7 +87,7 @@ public class MaximumSubarray {
 
     public static void main(String[] args) {
         int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
-        new MaximumSubarray().maxSubArray(nums);
+        new MaximumSumSubarray().maxSubArray(nums);
     }
 
 }

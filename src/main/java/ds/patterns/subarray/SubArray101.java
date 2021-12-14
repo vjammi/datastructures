@@ -1,6 +1,6 @@
 package ds.patterns.subarray;
 
-public class SubArray {
+public class SubArray101 {
 
     /**
      [1 2 3 4 5]
@@ -25,22 +25,18 @@ public class SubArray {
      [5, 5] = 5 - 0
      */
 
-    public int subarraySum(int[] nums) {
-        int count = 0;
+    public void subarray(int[] nums) {
         for (int i=0; i<nums.length; i++){
-            int sum = 0;
             for (int j=i; j<nums.length; j++){  // here j == i - if a single element is equal to the sum
-                sum = sum + nums[j];
                 System.out.println(+nums[i] +", " +nums[j]);
             }
             System.out.println("");
         }
-        return count;
     }
 
     public static void main(String[] args) {
         int[] nums = {1,2,3,4};; //{2,1,-3,4,-1,2,1,-5,4,-10,100};
-        SubArray obj = new SubArray();
-        obj.subarraySum(nums);
+        SubArray101 obj = new SubArray101();
+        obj.subarray(nums);
     }
 }
