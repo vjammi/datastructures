@@ -89,19 +89,20 @@ Need to find the path of longest consecutive numbers.
     Example 1
                     1
                         3
-                    2       4
-                        5
-    Input: root = [1,null,3,2,4,null,null,null,5]
-    Output: 3
+                     2     4
+                              5
+    Input: root = [1,null,3,2,4,null,null,null,5]   Output: 3
     Explanation: Longest consecutive sequence path is 3-4-5, so return 3.
 
-    Example 2 
-                    1
-            /    6      3   \
-              7     2       4
-                        5    /
-Constraints: Path should go from parent to child i.e 1,3,4,5 and
-            the numbers have to be increasing/consecutive [6,7], [3,4,5]
+    Example 2:
+                           2
+                            \
+                             3
+                            /
+                           2
+                          /
+                         1
+     Explanation: Longest consecutive sequence path is 2-3, not 3-2-1, so return 2.
 
 Pattern
     This pattern extremely common. 
