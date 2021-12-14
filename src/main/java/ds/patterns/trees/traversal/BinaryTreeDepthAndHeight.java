@@ -1,5 +1,5 @@
 package ds.patterns.trees.traversal;
-
+// 104. Maximum Depth of Binary Tree
 public class BinaryTreeDepthAndHeight {
 
     public class TreeNode {
@@ -21,34 +21,38 @@ public class BinaryTreeDepthAndHeight {
     public int maxDepth(TreeNode root) {
         if (root == null)
             return 0;
-        depthTopDown(root, 1); // Note: Depth of the root node is 1
 
-        return maxDepth;
+        depth(root, 0);
+        return maxDepthSeenSofar;
+    }
+
+    //Input: root = [3,9,20,null,null,15,7]
+    //       depth(node, 0)
+    //    3                 1                 +1      1
+    // 9    20          2      2              +1      2
+    //    15   7             3    3           +1      3
+    int maxDepthSeenSofar;
+    public void depth(TreeNode node, int  currentDepth) {
+        if (node == null)
+            return;
+
+        // If left and right nodes are null, you know its a leaf node, lets get the depth at this level and compare to the maxDepth
+        int depthAtCurrentNode = currentDepth + 1;
+        if (node.left == null && node.right == null) {
+            maxDepthSeenSofar = Math.max(depthAtCurrentNode, maxDepthSeenSofar);
+            System.out.println("depthAtCurrentNode: " +depthAtCurrentNode +" maxDepthSeenSofar "+maxDepthSeenSofar);
+        }
+
+        depth(node.left, depthAtCurrentNode);
+        depth(node.right, depthAtCurrentNode);
     }
 
     public int maxHeight(TreeNode root){
         if (root == null)
             return 0;
-        int heightBottomUp = heightBottomUp(root);
+        int heightBottomUp = height(root);
         System.out.println("heightBottomUp " + heightBottomUp);
         return heightBottomUp;
-    }
-
-    //Input: root = [3,9,20,null,null,15,7]
-    //    3                 1
-    // 9    20          2      2
-    //    15   7             3    3
-    int maxDepth = 0;
-    public void depthTopDown(TreeNode node, int currentDepth) {
-        if (node == null)
-            return;
-
-        // If left and right nodes are null, you know its a leaf node, lets get the depth at this level and compare to the maxDepth
-        if (node.left == null && node.right == null)
-            maxDepth = Math.max(currentDepth, maxDepth);
-
-        depthTopDown(node.left, currentDepth+1);
-        depthTopDown(node.right, currentDepth+1);
     }
 
     //Input: root = [3,9,20,null,null,15,7]
@@ -57,16 +61,16 @@ public class BinaryTreeDepthAndHeight {
     //    15   7            2
     //           8          1
     //       null  null     0
-    private int heightBottomUp(TreeNode node){
+    private int height(TreeNode node){
         if (node == null)
             return 0;
 
-        int leftDepth  = heightBottomUp(node.left);
-        int rightDepth = heightBottomUp(node.right);
+        int leftHeight  = height(node.left);
+        int rightHeight = height(node.right);
 
-        int depthMax = Math.max(leftDepth, rightDepth) + 1;
-        System.out.println(depthMax);
-        return depthMax;
+        int maxHeightSeenSoFar = Math.max(leftHeight, rightHeight) + 1; // Adding 1 for the current depth
+        System.out.println(maxHeightSeenSoFar);
+        return maxHeightSeenSoFar;
     }
 
 
