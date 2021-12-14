@@ -229,6 +229,8 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         return inOrderedList;
     }
 ```
+Note: In a binary search tree, we can retrieve all the data in sorted order using in-order traversal.
+
 ### Postorder Traversal
 ```
     public List<Integer> postOrderTraversal(TreeNode root) {
@@ -257,6 +259,32 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
         return postOrderList;
     }
 ```
+Note:
+1. When you delete nodes in a tree, deletion process will be in post-order. That is to say, when you delete a node,
+   you will delete its left child and its right child before you delete the node itself.
+
+2. Post-order is widely use in mathematical expression.
+```
+
+                            +
+
+                    *               5
+
+                4       -
+
+                    7       2
+
+```
+   It is easier to write a program to parse a post-order expression. We You can easily figure out the original expression using the inorder traversal.
+   However, it is not easy for a program to handle this expression since you have to check the priorities of operations.
+
+   If you handle this tree in postorder, you can easily handle the expression using a stack.
+   Each time when you meet a operator, you can just pop 2 elements from the stack, calculate the result and push the
+   result back into the stack.
+
+
+
+
 ### Level Order Traversal
 ```
     private List<List<Integer>> levelOrderTraversalIterative(TreeNode root) {
@@ -304,5 +332,9 @@ postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 
     }
 ```
 
+
+
+
 References
 https://www.geeksforgeeks.org/relationship-number-nodes-height-binary-tree/
+https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
