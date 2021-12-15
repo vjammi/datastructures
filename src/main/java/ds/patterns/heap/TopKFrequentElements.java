@@ -42,16 +42,19 @@ public class TopKFrequentElements {
         // 1. build hash map : character and its frequency [how often it appears] - O(N) time
         charToFreqMap = new HashMap();
         for (int num: nums) {
-            if (charToFreqMap.containsKey(num)) charToFreqMap.put(num, charToFreqMap.get(num)+1);
-            else charToFreqMap.put(num, 1);
+            if (charToFreqMap.containsKey(num))
+                charToFreqMap.put(num, charToFreqMap.get(num)+1);
+            else
+                charToFreqMap.put(num, 1);
         }
 
         // init heap 'the less frequent element first'
         Queue<Integer> heap = new PriorityQueue<>(new FrequencyComparator());
-        // 2. keep k top frequent elements in the heap - O(N log k) < O(N log N) time [iterate over all elements N but keep only K elements]
+        // 2. Keep K top frequent elements in the heap - O(K log N) < O(N log N) time [iterate over all elements N but keep only K elements]
         for (int key: charToFreqMap.keySet()) {
             heap.add(key);
-            if (heap.size() > k) heap.poll();
+            if (heap.size() > k)
+                heap.poll();
         }
 
         // 3. build an output array - O(k log k) time. k = number of items to store in the pq
@@ -80,9 +83,7 @@ public class TopKFrequentElements {
             //System.out.print(diff22 +" "); // -1 -3 -1 3 2
 
             //return charToFreqMap.get(n1) - charToFreqMap.get(n2);             //    descending
-            int diff = charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));  // descending
-            System.out.print(diff +" "); // 1 1 0 -1 -1
-            return diff;
+            return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));  // descending
         }
     }
 

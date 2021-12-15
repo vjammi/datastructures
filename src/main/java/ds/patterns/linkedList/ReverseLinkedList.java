@@ -12,11 +12,12 @@ public class ReverseLinkedList {
         }
     }
     //                         head
-    //              dummy   >   1   >   2   >   3   >   4   >   5   >   null
+    //               null       1   >   2   >   3   >   4   >   5   >   null
     //                ^         ^       ^
     // 1-reverse     prev <(1) curr    next
     // 2-increment             prev    curr    next
-    //                                                        prev/head curr
+    //                                                          prev    curr
+    //                                                          head
     public ListNode reverseList_iterative(ListNode head) {
         if (head == null || head.next == null)
             return head;

@@ -75,7 +75,7 @@ public class SwapNodesInPairs {
     }
 
     private void swap(ListNode node) {
-        if (node == null || node.next == null || node.next.next == null) // takes care of odd input such as [1,2,3]
+        if (node.next == null || node.next.next == null) // takes care of odd input such as [1,2,3] // note needed node == null
             return;
 
         ListNode walker = node;
@@ -83,7 +83,7 @@ public class SwapNodesInPairs {
 
         // Advance runner 2 steps not n+1/2+1 steps because n+1 would become null at the end
         // The current node here is the node before the nodes that are to be swapped.
-        //       dummy/node     >       1       >      2       >    3
+        //     dummy/node 0     >       1       >      2       >    3    >   4   >   null
         //                1     >       3       >      4       >    null
         //       node/walker        walkerNext       runner      runnerNext
         for (int i = 0; i < 2; i++)
@@ -95,6 +95,7 @@ public class SwapNodesInPairs {
         walkerNext.next = runnerNext;
         runner.next = walkerNext;
         node.next = runner;
+
         node = node.next;
 
 
@@ -105,14 +106,14 @@ public class SwapNodesInPairs {
     public static void main(String[] agrs) {
         SwapNodesInPairs obj = new SwapNodesInPairs();
 
-        int[] arr = {1, 2, 3, 4};
+        int[] arr = {1, 2, 3, 4, 5};
         for (int i = 0; i < arr.length; i++) {
             obj.insert(arr[i]);
         }
         obj.iterate(obj.head);
 
-        //ListNode head1 = obj.swapPairs_iteratively(obj.head);
-        //obj.iterate(head1);
+        ListNode head1 = obj.swapPairs_iteratively(obj.head);
+        obj.iterate(head1);
 
         ListNode head2 = obj.swapPairs_recursively(obj.head);
         obj.iterate(head2);

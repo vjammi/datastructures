@@ -234,10 +234,15 @@ Recursive Solution
 ## 2.1 Reverse a Linked List
 Iterative Solution
 ```
-    //              dummy   >   1   >   2   >   3   >   4   >   5   >   null
+
+    //                         head
+    //               null       1   >   2   >   3   >   4   >   5   >   null
     //                ^         ^       ^
     // 1-reverse     prev <(1) curr    next
-    // 2-increment            prev    curr    next
+    // 2-increment             prev    curr    next
+    //                                                          prev    curr
+    //                                                          head
+
     public ListNode reverseList_iterative(ListNode head) {
         if (head == null || head.next == null)
             return head;
