@@ -264,7 +264,7 @@ Iterative Solution
     }
 ```
 Recursive Solution        
-```        
+```
         /*
             #    node    previous   next
             --------------------------------
