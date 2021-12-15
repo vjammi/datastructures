@@ -1,8 +1,9 @@
 ## Complexity Analysis
 
 ### Binary Tree - DFS
-Time complexity  : O(N)
-Space complexity : O(d) = O(log N) to keep the recursion stack, where d is a tree depth. 
+Time Complexity : O(N), where N is the number of nodes in the binary tree. In the worst case we might be visiting all the nodes of the binary tree.
+Space Complexity : O(N). In the worst case space utilized by the recursion stack would be N, since the height of a skewed binary tree could be N. 
+                   Can also be said as O(depth) = O(log N) to keep the recursion stack, where d is a tree depth.
 
 ### Binary Tree - BFS
 Let N be the total number of nodes in the input tree.

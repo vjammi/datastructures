@@ -16,6 +16,9 @@ import java.util.*;
      Output: []
 
   */
+// https://leetcode.com/problems/3sum/solution/
+// https://leetcode.com/problems/3sum-smaller/
+    
 public class ThreeSum {
 
     // Runtime: O(n^3)

@@ -284,6 +284,8 @@ Note:
    Each time when you meet a operator, you can just pop 2 elements from the stack, calculate the result and push the
    result back into the stack.
 
+References
+https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
 
 
 

@@ -3,6 +3,8 @@ package ds.patterns.twopointers;
 import java.util.HashMap;
 import java.util.Map;
 
+// https://leetcode.com/problems/two-sum/solution/
+// https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/solution/
 public class TwoSum {
 
     /**
@@ -37,6 +39,14 @@ public class TwoSum {
 
         [2,7,11,15] target=9
         ^
+
+     Follow-Up
+     What if the problem constraints were different and we needed to consider integer overflow when adding numbers[low]numbers[low]numbers[low] and numbers[high]numbers[high]numbers[high]? In that case, to prevent an overflow error, we could cast our numbers from int data type to long data type before adding them together, e.g.: long sum = static_cast<long>(numbers[low]) + numbers[high] for C++. Casting ensures that we will not get the overflow error since the signed long data type supports numbers up to 2^63 - 1. Alternatively, if we cannot use long integers, then we can check if numbers[low] > (1 << 31) - 1 - numbers[high] at the beginning of each iteration. If this condition is true, then numbers[low] + numbers[high] will result in integer overflow, and so we would move the larger index to the left.
+
+     Complexity Analysis
+     Time complexity: O(n). The input array is traversed at most once. Thus the time complexity is O(n).
+     Space complexity: O(1). We only use additional space to store two indices and the sum, so the space complexity is O(1).
+
      */
     public int[] isPairSumUsingHashtable(int[] arr, int target) {
         Map<Integer, Integer> map = new HashMap<>();
