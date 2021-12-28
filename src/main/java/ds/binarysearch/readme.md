@@ -6,30 +6,38 @@
     // i    0  1   2   3   4   5   6   7   8   9   10  11  12  13  14   15   16
     //                             ^       ^                   ^
     //                            first   mid                 last
+```
 
-    private void search(int[] a, int key, int low, int high) {
-        if (low > high) // Base condition #1 - will cause the recursion to end
-            return;
-
+```
         // Could result in an integer overflow - When low and high are both at integer max at the same time.
-        // int mid = (low + high) / 2;
+        //  int mid = (low + high) / 2;
 
-        // A better approach would be, mid=low+(high-low)/2;
+        // A better approach would be,
+        //  mid=low+(high-low)/2;
         //      0+(16-0)/2   = 0+8      = 8
         //      8+(16-8)/2   = 8+4      = 12
         //      12+(16-12)/2 = 12+(4)/2 = 14
+```
+
+```
+    private int search(int[] arr, int key, int low, int high) {
+        if (low > high)
+            return -1;
+
         int mid = low + (high-low) / 2;
-        if (key == a[mid]) {  // Base condition #2 - Will cause the recursion to end
-            result = a[mid]; System.out.println("Found " + a[mid] + " at index " + mid +" Result " +result);
-            return;
-        }else if(key < a[mid]) {
+
+        if (key == arr[mid]) {
+            return mid;
+        }else if(key < arr[mid]) {
             high = mid - 1;
-            search(a, key, low, high);
-        } else { // if (key > a[mid])
+            return search(arr, key, low, high);
+        } else { // if (key > arr[mid])
             low = mid + 1;
-            search(a, key, low, high);
+            return search(arr, key, low, high);
         }
     }
+
+
 ```
 
 ### Search Iteratively
@@ -52,3 +60,87 @@
     }
 ```
 
+## Binary Search Patterns
+Reference: https://youtu.be/U66U1-umNbQ
+
+### 1 Given an array of integers nums sorted in ascending order, find the frequency of a given target value
+```
+
+    nums = [1,2,2,2,2,2,3,4,5,6,7,8], target = 2
+    frequency = 5
+            0  1  2  3  4  5  6  7  8  9  10 11
+    nums = [1, 2, 2, 2, 2, 2, 2, 2, 5, 6, 7, 8]
+                           ^
+                  ^
+            ^
+               ^
+            ^
+
+              low = 1
+                                    ^
+                        ^
+                              ^
+```
+### 2 Given a sorted array of integers nums, find the number of times the array has been rotated.
+```
+            0   1   2   3   4   5   6   7   8   9
+    nums = [15, 16, 17, 18, 19, 20, 21, 12, 13, 14]
+                            ^
+                                    ^
+            --------------------------  ^   ------
+    // Property that can can be noted - The pivot element is lesser than its left and right
+
+```
+
+### 3  Given a sorted roted array of integers nums, find the target number.
+```
+              0   1   2   3   4   5   6   7   8   9
+      nums = [15, 16, 17, 18, 19, 20, 21, 12, 13, 14]
+                              ^
+                                      ^
+              --------------------------  ^   ------
+      // Property that can can be noted - The pivot element is lesser than its left and right
+```
+
+### 4 Given an M rows and N Cols matrix containing binary digits, with each row sorted
+      Write a function to find the row which has max num of 1s
+```               // 0 ...........................  N-1
+    int nums[][] =  [0   0   0   0   1   1   1   1   1]      // 0
+                    [0   0   0   0   0   1   1   1   1]
+                    [0   0   0   1   1   1   1   1   1]
+                    [0   0   0   0   0   1   1   1   1]
+                    [0   1   1   1   1   1   1   1   1]
+                    [0   0   1   1   1   1   1   1   1]       // M-1
+
+    Approach
+       - Find the leftmost 1 in each row.
+       - Repeat for all rows to find the max num of 1s
+
+    Runtime
+       M log(N)
+```
+
+
+### 5 Given an M by N matrix containing integers, with each row sorted from left to right with the first integer of each row
+      greater than the last integer of the previous row.
+      Write a function to find the target value in the matrix.
+
+```
+                  // 0   ........ N-1
+    int nums[][] =  [0   1   2   3   4]      // 0
+                    [5   6   7   8   9]
+                    [10  11  12  13 14]
+                    [15  16  17  18 19]
+                    [20  21  22  23 24]
+                    [25  26  27  28 29]       // M-1
+         target = 17
+
+    Approach:
+        - Run a binary search across the index 0 of each row, to find which row the target might lie in.
+        - Once the row is found continue with the binary search across the values of the row to find the target within that row
+    Runtime
+        log (M+N)
+```
+### 6 Given an array of positive integers and a positive integer s,
+      find the minimal length of a contiguous subarray of which the sum >= s
+      If there isnt one, return 0 instead.
