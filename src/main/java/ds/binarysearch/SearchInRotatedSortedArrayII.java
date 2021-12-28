@@ -58,7 +58,7 @@ public class SearchInRotatedSortedArrayII {
             result = true;
             return;
         }else if (nums[low] <= nums[mid]){ // left side is sorted -- nums[low] <= nums[mid
-            if (target >= nums[low] && target <nums[mid]){
+            if (target >= nums[low] && target < nums[mid]){
                 search(nums,target,low, mid-1);
             }else{
                 search(nums,target,mid+1, high);

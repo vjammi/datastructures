@@ -19,6 +19,23 @@ public class BinarySearch {
 
     private int result = -1;
 
+    private int search(int[] arr, int key, int low, int high) {
+        if (low > high)
+            return -1;
+
+        int mid = low + (high-low) / 2;
+
+        if (key == arr[mid]) {
+            return mid;
+        }else if(key < arr[mid]) {
+            high = mid - 1;
+            return search(arr, key, low, high);
+        } else { // if (key > arr[mid])
+            low = mid + 1;
+            return search(arr, key, low, high);
+        }
+    }
+
     private int searchIteratively(int[] a, int key, int low, int high) {
 
         while (low <= high) {
