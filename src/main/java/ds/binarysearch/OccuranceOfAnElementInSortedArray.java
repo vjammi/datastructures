@@ -111,7 +111,6 @@ public class OccuranceOfAnElementInSortedArray {
 		return result;
 	}
 
-
 	public static void main(String args[]) {
 
 		OccuranceOfAnElementInSortedArray obj = new OccuranceOfAnElementInSortedArray();
