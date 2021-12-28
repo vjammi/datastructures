@@ -175,5 +175,6 @@
 
 
 References:
-https://youtube.com/playlist?list=PL2_aWCzGMAwL3ldWlrii6YeLszojgH77j
-https://youtu.be/U66U1-umNbQ
+- https://youtube.com/playlist?list=PL2_aWCzGMAwL3ldWlrii6YeLszojgH77j
+- https://youtu.be/U66U1-umNbQ
+- Search element in a circular sorted array: https://youtu.be/uufaK2uLnSI?list=PL2_aWCzGMAwL3ldWlrii6YeLszojgH77j&t=597
