@@ -1,4 +1,4 @@
-package ds.bitvector;
+package ds.bitmanipulations;
 
 public class BitManipulations {
 

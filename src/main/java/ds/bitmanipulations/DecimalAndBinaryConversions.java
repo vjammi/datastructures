@@ -1,4 +1,4 @@
-package ds.math;
+package ds.bitmanipulations;
 
 public class DecimalAndBinaryConversions {
 
