@@ -90,7 +90,6 @@
 ```
 
 ## Binary Search Patterns
-Reference: https://youtu.be/U66U1-umNbQ
 
 ### 1 Given an array of integers nums sorted in ascending order, find the frequency of a given target value
 ```
@@ -173,3 +172,8 @@ Reference: https://youtu.be/U66U1-umNbQ
 ### 6 Given an array of positive integers and a positive integer s,
       find the minimal length of a contiguous subarray of which the sum >= s
       If there isnt one, return 0 instead.
+
+
+References:
+https://youtube.com/playlist?list=PL2_aWCzGMAwL3ldWlrii6YeLszojgH77j
+https://youtu.be/U66U1-umNbQ
