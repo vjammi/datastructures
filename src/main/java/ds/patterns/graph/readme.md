@@ -443,7 +443,7 @@ This calls for the below pattern - keeping track of visiting and visited nodes.
 - Components in the graph does not need to be connected
 The components in the graph will not need to be connected, the graph can have separate connected components.
 
-##### Implementation 
+##### Implementation
 ```
   public boolean canFinish(int numCourses, int[][] prerequisites) {
         if (numCourses == 0 || prerequisites == null || prerequisites.length ==0)
@@ -484,15 +484,15 @@ The components in the graph will not need to be connected, the graph can have se
 
         //Current node is not -1 or 1, it is 0. So mark the node as currently visiting before going uphill
         visited[node]  = -1;
-        if (adjacencyList.containsKey(node)){
-            List<Integer> list = adjacencyList.get(node);
-            for (int neighbor: list){
-                boolean cycle = dfs(adjacencyList, visited, neighbor);
-                // if a cycle is found return false, which should bubble all the way up to return false, else continue
-                if(!cycle)
-                    return false;
-            }
+
+        List<Integer> list = adjacencyList.get(node);
+        for (int neighbor: list){
+            boolean cycle = dfs(adjacencyList, visited, neighbor);
+            // if a cycle is found return false, which should bubble all the way up to return false, else continue
+            if(!cycle)
+                return false;
         }
+
         // Once we have visit all the current nodes neighbors, we mark the node as fully visited during downhill
         visited[node] = 1;
         return true;
