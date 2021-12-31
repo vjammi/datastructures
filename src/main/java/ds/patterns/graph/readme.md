@@ -367,17 +367,18 @@ Example 2:
 Input: numCourses = 5, 
 prerequisites = [[0,1], [1,2], [3,2], [4,3], [2,4]]
 
-Intuition 
-Similar to the above. But different in few ways. It's a cycle detection problem which kind of changes the way you traverse and label nodes.
-Apart from few minor differences that the graph is directed and visited array used different labels to check for cycles. 
+Similar to the above. But different in few ways.
+- It is a cycle detection problem which kind of changes the way you traverse and label nodes.
+Apart from few minor differences that
+- the graph is directed and visited array used different labels to check for cycles.
 This problem is very similar in structure to the previous one. 
-
-First we will draw all the nodes as a graph from 0-N-1, so that we visually see what we are working with. 
+First we will draw all the nodes as a graph from 0 to n-1, so that we visually see what we are working with.
 Then we can go thru the edges from the input and fill in the graph.
 In this case these edges are directed edges - one way streets. we add arrows to the edges.
-As you make up more examples you will notice that the components in the graph will not need to be connected. 
-Can have separate connected components.
-only case you cannot complete all the courses is when we have a cycle. *This problem is all about finding cycle*
+As you make up more examples you will notice that the components in the graph will not need to be connected, the graph can have separate connected components.
+The only case you cannot complete all the courses is when we have a cycle.
+*This problem is all about finding cycle*
+
 Then how do you find cycles in a graph?
 The traversal part is the same, we pick and node and visit all its neighbors and mark them as visited in the visited graph.
 *Now anytime you come across a node that is already visited, you would know that have a cycle.* \
@@ -404,6 +405,7 @@ While we are visiting, we mark them with -1. once done we change the -1s to 1s.
 ```
 Note that we have a cycle within 2-3-4 [2-4-3-2]
 
+
 ##### Intuition
 Pretty much like the previous one.
 The only difference is, since this is a *directed graph* we only need to add each edge once
@@ -425,10 +427,21 @@ For example, this one below is not a cycle.
          0   -   1
 This can be identified by passing the parent node as a param to the next node you are visiting.
    
-##### Intuition
+##### Solution
 The problem could be modeled as yet another graph traversal problem, where each course can be represented as a vertex in a graph and the dependency between the courses can be modeled as a directed edge between two vertex.\
 And the problem to determine if one could build a valid schedule of courses that satisfies all the dependencies (i.e. constraints) would be equivalent to determine if the corresponding graph is a DAG (Directed Acyclic Graph), i.e. there is no cycle existed in the graph.\
 A typical strategy for graph traversal problems would be backtracking or simply DFS (depth-first search).\
+
+- Cycle detection
+A cycle is only when you come across a node in the current traversal, not from the past traversal.
+This calls for the below pattern - keeping track of visiting and visited nodes.
+```
+    0 = unvisited
+   -1 = visiting
+    1 = visited
+```
+- Components in the graph does not need to be connected
+The components in the graph will not need to be connected, the graph can have separate connected components.
 
 ##### Implementation 
 ```
@@ -498,6 +511,32 @@ Space Complexity: O(|E| + |V|), with the same denotation as in the above time co
 - In addition, during the backtracking process, we employed a sort of bitmap (path) to keep track of all visited nodes, which consumes |V| space.
 - Finally, since we implement the function in recursion, which would incur additional memory consumption on call stack. In the worst case where all nodes are chained up in a line, the recursion would pile up |V| times.
 - Hence, the overall space complexity of the algorithm would be O(|E| + 3.|V|) = O(|E| + |V|).
+
+Additional Notes
+```
+   Graph needs to be directed, connected??? with NO Cycles
+    i.e. [2->1] [1->0]
+   Here,
+    numCourses: Nodes of the graph
+    prerequisites: Edges between the nodes of the graph
+
+   numCourses = 9
+   prerequisites: [[8,7],[7,6],[6,5],[5,4],[4,3],[3,2],[2,1],[1,0]]
+   adjList: {  0:[],   1:[0],  2:[1],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
+   canFinish: true
+     7       5       3      1
+    /  \   /   \   /   \  /  \
+   8     6        4      2     0
+
+   numCourses = 9
+   prerequisites: [[8,7], [7,6], [6,5], [5,4], [4,3], [3,2], [2,1], [2,4], [1,0]]
+   adjList: {  0:[],   1:[0],  2:[1,4],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
+   canFinish: false
+
+      7       5       3      1
+    /  \   /   \   /   \  /  \
+   8     6        4   -  2     0
+```
 
 
 ## 261. Graph Valid Tree [Fully Connected Graph + No Cycles (parent current child)] 
