@@ -484,9 +484,9 @@ The components in the graph will not need to be connected, the graph can have se
         
         // populate the adjacencyList - directed graph one side only populated
         for (int i=0; i<prerequisites.length; i++){
-            int[] prerequisite = prerequisites[i];
-            adjacencyList.get(prerequisite[0]).add(prerequisite[1]);    // intutive     [0-1-2-4-3-2]
-            //adjacencyList.get(prerequisite[1]).add(prerequisite[0]);  // Not intutive 
+            int[] edge = prerequisites[i];
+            //                   1   ->   0
+            adjacencyList.get(edge[0]).add(edge[1]); // [2->1] [1->0]
         }
 
         // visited array where 0=not visited, 1= visited, -1= currently visiting
