@@ -432,7 +432,10 @@ The problem could be modeled as yet another graph traversal problem, where each 
 And the problem to determine if one could build a valid schedule of courses that satisfies all the dependencies (i.e. constraints) would be equivalent to determine if the corresponding graph is a DAG (Directed Acyclic Graph), i.e. there is no cycle existed in the graph.\
 A typical strategy for graph traversal problems would be backtracking or simply DFS (depth-first search).\
 
-- Cycle detection
+1. Directed Graph
+We only need to add each edge once
+
+2. Cycle detection
 A cycle is only when you come across a node in the current traversal, not from the past traversal.
 This calls for the below pattern - keeping track of visiting and visited nodes.
 ```
@@ -440,8 +443,33 @@ This calls for the below pattern - keeping track of visiting and visited nodes.
    -1 = visiting
     1 = visited
 ```
-- Components in the graph does not need to be connected
+3. Components in the graph need not be connected
 The components in the graph will not need to be connected, the graph can have separate connected components.
+
+```
+   Graph is directed, need not be connected. Its a cycle detection problem.
+    i.e. [2->1] [1->0]
+   Here,
+    numCourses: Nodes of the graph
+    prerequisites: Edges between the nodes of the graph
+
+   numCourses = 9
+   prerequisites: [[8,7],[7,6],[6,5],[5,4],[4,3],[3,2],[2,1],[1,0]]
+   adjList: {  0:[],   1:[0],  2:[1],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
+   canFinish: true
+     7       5       3      1
+    /  \   /   \   /   \  /  \
+   8     6        4      2     0
+
+   numCourses = 9
+   prerequisites: [[8,7], [7,6], [6,5], [5,4], [4,3], [3,2], [2,1], [2,4], [1,0]]
+   adjList: {  0:[],   1:[0],  2:[1,4],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
+   canFinish: false
+
+      7       5       3      1
+    /  \   /   \   /   \  /  \
+   8     6        4   -  2     0
+```
 
 ##### Implementation
 ```
@@ -511,33 +539,6 @@ Space Complexity: O(|E| + |V|), with the same denotation as in the above time co
 - In addition, during the backtracking process, we employed a sort of bitmap (path) to keep track of all visited nodes, which consumes |V| space.
 - Finally, since we implement the function in recursion, which would incur additional memory consumption on call stack. In the worst case where all nodes are chained up in a line, the recursion would pile up |V| times.
 - Hence, the overall space complexity of the algorithm would be O(|E| + 3.|V|) = O(|E| + |V|).
-
-Additional Notes
-```
-   Graph needs to be directed, connected??? with NO Cycles
-    i.e. [2->1] [1->0]
-   Here,
-    numCourses: Nodes of the graph
-    prerequisites: Edges between the nodes of the graph
-
-   numCourses = 9
-   prerequisites: [[8,7],[7,6],[6,5],[5,4],[4,3],[3,2],[2,1],[1,0]]
-   adjList: {  0:[],   1:[0],  2:[1],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
-   canFinish: true
-     7       5       3      1
-    /  \   /   \   /   \  /  \
-   8     6        4      2     0
-
-   numCourses = 9
-   prerequisites: [[8,7], [7,6], [6,5], [5,4], [4,3], [3,2], [2,1], [2,4], [1,0]]
-   adjList: {  0:[],   1:[0],  2:[1,4],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
-   canFinish: false
-
-      7       5       3      1
-    /  \   /   \   /   \  /  \
-   8     6        4   -  2     0
-```
-
 
 ## 261. Graph Valid Tree [Fully Connected Graph + No Cycles (parent current child)] 
 You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
