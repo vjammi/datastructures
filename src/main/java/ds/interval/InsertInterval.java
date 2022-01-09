@@ -21,15 +21,20 @@ public class InsertInterval {
          [4,8]
 
          [[1,2],[3,5],[6,7],[8,10],[12,16]]
-         [2,5]
+          [2,5]
+         [[1,5      ],[6,7],[8,10],[12,16]]
 
          [[1,3],[6,9]]
          [2,5]
 
          Solution:
-         Case 1: newInterval greater than currentInterval
-         Case 2: newInterval lesser than currentInterval
-         Case 3: newInterval overlapping currentInterval
+         Case 1: newInterval greater than currentInterval    [[1,2]...]
+                                                              [4,8]
+         Case 2: newInterval lesser than currentInterval     [6,9]...]
+                                                             [4,8]
+         Case 3: newInterval overlapping currentInterval     [[1,3],[6,9]...]        [[1,    5]...]
+                                                                [2,6]                   [2,4]
+
      */
 
     // Implementation 1:
