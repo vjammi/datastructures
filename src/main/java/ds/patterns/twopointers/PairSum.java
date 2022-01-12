@@ -20,7 +20,7 @@ public class PairSum {
 
         int length = arr.length;
         for (int i = 0; i < length-1; i++) {
-            for (int j = i; j < length; j++) {  // We are looking for distinct pairs, not pair an element by itself. So i cannot be j to form the pair
+            for (int j = i+1; j < length; j++) {  // We are looking for distinct pairs, not pair an element by itself. So i cannot be j to form the pair
                 int sum = arr[i] + arr[j];
                 if (sum == target)      // pair found
                     return true;
