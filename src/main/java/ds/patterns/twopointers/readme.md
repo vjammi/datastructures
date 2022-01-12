@@ -120,6 +120,7 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
         return new ArrayList(set);
     }
 
+```
 #### Two Pointer Approach
 ```
     /**
@@ -127,7 +128,7 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
            ^ ^         ^
            i j --> <-- k
 
-        Runtime: O(n)
+          Runtime: O(n)
     */
 
     public List<List<Integer>> threeSum(int[] nums) {
