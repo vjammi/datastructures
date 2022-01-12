@@ -43,12 +43,13 @@ public class ThreeSum {
         return new ArrayList(set);
     }
 
-    /**    0 1 2 3  4  5
-     [-1 0 1 2 -1 -4]  // We will iterate array from i = 0 to i<size-2; j<size-1; k < size;
-     ^ ^         ^
-     i j --> <-- k
+    /**
+           0 1 2 3  4  5
+         [-1 0 1 2 -1 -4]  // We will iterate array from i = 0 to i<size-2; j<size-1; k < size;
+         ^ ^         ^
+         i j --> <-- k
 
-     Runtime: O(n)
+         Runtime: O(n)
      */
 
     public List<List<Integer>> threeSum(int[] nums) {
@@ -59,8 +60,9 @@ public class ThreeSum {
 
         Set<List<Integer>> set = new HashSet<>();
         int size = nums.length;
-        for (int i = 0; i< size-2; i++) {   // We will iterate array from i = 0 to i<size-2; j<size-1; k < size;
-            int j = i+1; int k = size-1;
+        for (int i = 0; i< size-2; i++) {   // We iterate array from i=0 to i<size-2 or j=size-3; j<size-1 or j=size-2; k<size or k=size-1;
+            int j = i+1;
+            int k = size-1;
             while (j < k) {
                 int sum = nums[i] + nums[j] + nums[k];
                 if (sum == 0)
