@@ -1,8 +1,8 @@
 ## Two Pointers
 Two pointers is a technique used for searching pairs of numbers in a array or a list.
 
-### Problem
-Given the array is sorted in ascending order, find if there exists any pair of elements (arr[i], arr[j]) such that their sum is equal to the target.
+### Problem #1
+Given the array, find if there exists any pair of elements (arr[i], arr[j]) such that their sum is equal to the target.
 
 #### Naive Approach
 ```
@@ -90,6 +90,73 @@ We move left pointer i when the sum of arr[i] and arr[j] is less than target. We
         return false;
     }
 ```
+
+### Problem #2
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0. Note that the solution set must not contain duplicate triplets.
+
+#### Naive Approach
+```
+     // Input: nums = [-1,0,1,2,-1,-4]
+     // Output: [[-1,-1,2],[-1,0,1]]
+     // Runtime: O(n^3)
+
+    public List<List<Integer>> threeSumNaive(int[] nums) {
+        Arrays.sort(nums);
+
+        Set<List<Integer>> set = new HashSet();
+        int size = nums.length;
+        for (int i=0; i < size-2; i++){
+            for (int j=i+1; j < size-1; j++){
+                for (int k=j+1; k <size; k++){
+                    int sum = nums[i] + nums[j] + nums[k];
+                    if (sum == 0) {
+                        List<Integer> list = new ArrayList();
+                        list.add(nums[i]); list.add(nums[j]); list.add(nums[k]);
+                        set.add(list);
+                    }
+                }
+            }
+        }
+        return new ArrayList(set);
+    }
+
+#### Two Pointer Approach
+```
+    /**
+         [-1 0 1 2 -1 -4]  - We will iterate array from i = 0; i< size-2;
+           ^ ^         ^
+           i j --> <-- k
+
+        Runtime: O(n)
+    */
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        if (nums.length < 3)
+            return new ArrayList<>(); // if size of array less than 3
+
+        Arrays.sort(nums); // sort array
+
+        Set<List<Integer>> set = new HashSet<>();
+        int size = nums.length;
+        for (int i = 0; i< size-2; i++) {   // We iterate array from i = 0; i< size-2;
+
+            int j = i+1;
+            int k = size-1;
+            while (j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if (sum == 0)
+                    set.add(Arrays.asList(nums[i], nums[j++], nums[k--]));
+                else if(sum > 0)
+                    k--;
+                else if (sum < 0)
+                    j++;
+            }
+
+        }
+        return new ArrayList<>(set);
+    }
+```
+
 ## Two Pointers Vs Sliding Window
 In a two pointer technique we compare the value at the both pointers instead of taking the elements between the pointers.
 Also, there is a variation of two pointers called the fast and slow and pointer.
