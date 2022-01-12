@@ -123,8 +123,8 @@ Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
 ```
 #### Two Pointer Approach
 ```
-    /**
-         [-1 0 1 2 -1 -4]  - We will iterate array from i = 0; i< size-2;
+    /**    0 1 2 3  4  5
+         [-1 0 1 2 -1 -4]  // We will iterate array from i = 0 to i<size-2; j<size-1; k < size;
            ^ ^         ^
            i j --> <-- k
 
