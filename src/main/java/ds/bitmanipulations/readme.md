@@ -54,3 +54,7 @@ To find the decimal value of 111001
         return decimal;
    }
 ```
+
+
+REFERENCES
+https://www.rapidtables.com/convert/number/binary-to-decimal.html

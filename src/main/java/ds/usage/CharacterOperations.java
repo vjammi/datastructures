@@ -13,6 +13,7 @@ public class CharacterOperations {
             boolean isDigit = Character.isDigit(ch);
             boolean isLetter = Character.isLetter(ch);
             Character character = Character.valueOf(ch);
+            Character.isLetterOrDigit(ch);
         }
 
     }

@@ -1,4 +1,4 @@
-package ds.arrays;
+package ds.interval;
 
  /**
     252. Meeting Rooms
