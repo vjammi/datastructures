@@ -1,4 +1,4 @@
-package ds.strings;
+package ds.patterns.strings;
 
 public class ValidPalindrome {
     /**
