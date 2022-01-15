@@ -45,28 +45,24 @@ public class MaximumSumSubarray {
              Space   O(1)
 
          Approach
-                 nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-                                    |---------|
+                                                |---------|
+              nums                = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+              currSubArraySum     =  -2  1  -2  4   3  5  6  1   5
+              maxSubArraySumSoFar =   0  1   1  4   4  5  6  6   6
+
+                         -2 +  1 >  1  [F]
+                         1 + -3 > -3  [T]
+                         -2 +  4 >  4  [F]
+                         4 + -1 > -1  [T]
+                         3 +  2 >  2  [T]
+                         5 +  1 >  1  [T]
+                         6 + -5 > -5  [T]
+                         1 +  4 >  4  [T]
 
               if   a[k-1] + a[k] > a[k]
                     // Add the a[k] to the existing subarray
-                    // A positive subArray + positive num or Positive subArray + negative num ???
               else
                     // Discard the subarray, and start new one starting a[k]
-                    // Negative subarray + positive current num
-
-          currSubArraySum     =      1  -2  4   3  5  6  1   5
-          maxSubArraySumSoFar =      1   1  4   4  5  6  6   6
-
-             -2 +  1 >  1  [F]
-              1 + -3 > -3  [T]
-             -2 +  4 >  4  [F]
-              4 + -1 > -1  [T]
-              3 +  2 >  2  [T]
-              5 +  1 >  1  [T]
-              6 + -5 > -5  [T]
-              1 +  4 >  4  [T]
-
     */
     public int maxSubArray(int[] nums) {
 
