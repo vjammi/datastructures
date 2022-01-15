@@ -43,24 +43,29 @@ public class MaximumSumSubarray {
          Kadane's Algorithm: https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm
              Runtime O(n)
              Space   O(1)
+
          Approach
-              if   - Check to add the num to existing subarray [positive subArray + positive num or positive subArray + negative num)
-              else - Discard the existing subarray and start new subarray [negative subarray + positive current num]
-              subArray at a[k-1] + a[k] > a[k]  or a[k]
-        //                     nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-        //                                        |---------|
+                 nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+                                    |---------|
 
-        //      currSubArraySum     =      1  -2  4   3  5  6  1   5
-        //      maxSubArraySumSoFar =      1   1  4   4  5  6  6   6
+              if   a[k-1] + a[k] > a[k]
+                    // Add the a[k] to the existing subarray
+                    // A positive subArray + positive num or Positive subArray + negative num ???
+              else
+                    // Discard the subarray, and start new one starting a[k]
+                    // Negative subarray + positive current num
 
-        // -2 +  1 >  1  [F]
-        //  1 + -3 > -3  [T]
-        // -2 +  4 >  4  [F]
-        //  4 + -1 > -1  [T]
-        //  3 +  2 >  2  [T]
-        //  5 +  1 >  1  [T]
-        //  6 + -5 > -5  [T]
-        //  1 +  4 >  4  [T]
+          currSubArraySum     =      1  -2  4   3  5  6  1   5
+          maxSubArraySumSoFar =      1   1  4   4  5  6  6   6
+
+             -2 +  1 >  1  [F]
+              1 + -3 > -3  [T]
+             -2 +  4 >  4  [F]
+              4 + -1 > -1  [T]
+              3 +  2 >  2  [T]
+              5 +  1 >  1  [T]
+              6 + -5 > -5  [T]
+              1 +  4 >  4  [T]
 
     */
     public int maxSubArray(int[] nums) {
