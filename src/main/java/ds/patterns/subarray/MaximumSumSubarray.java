@@ -59,10 +59,10 @@ public class MaximumSumSubarray {
                          6 + -5 > -5  [T]
                          1 +  4 >  4  [T]
 
-              if   a[k-1] + a[k] > a[k]
+              if   subarray upto a[k-1] + a[k] > a[k]
                     // Add the a[k] to the existing subarray
               else
-                    // Discard the subarray, and start new one starting a[k]
+                    // Discard the subarray, and start a new one starting a[k]
     */
     public int maxSubArray(int[] nums) {
 
