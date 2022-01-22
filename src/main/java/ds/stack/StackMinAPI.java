@@ -1,7 +1,5 @@
 package ds.stack;
 
-import com.sun.media.sound.InvalidDataException;
-
 public class StackMinAPI<Item> {
 
     private Node<Item> first = null;
@@ -14,7 +12,7 @@ public class StackMinAPI<Item> {
         Node<Item> next;
     }
 
-    public void push(Item item) throws InvalidDataException {
+    public void push(Item item) {
         Node<Item> oldFirst = first;
 
         first = new Node<Item>();
@@ -35,9 +33,9 @@ public class StackMinAPI<Item> {
         tempFirst.next= oldTempFirst;
     }
 
-    private boolean lesser(Item item, Item minItem) throws InvalidDataException{
+    private boolean lesser(Item item, Item minItem){
 
-        if (item instanceof Integer) {
+        //if (item instanceof Integer) {
             Integer itemVal = ((Integer) item).intValue();
             Integer minItemVal = ((Integer) minItem).intValue();
 
@@ -46,10 +44,7 @@ public class StackMinAPI<Item> {
             }else{
                 return false;
             }
-
-        }else {
-            throw new InvalidDataException();
-        }
+        //}
     }
 
     public Item pop(){
@@ -62,7 +57,7 @@ public class StackMinAPI<Item> {
         return nodeToReturn.item;
     }
 
-    public Item min() throws InvalidDataException {
+    public Item min()  {
         Item itemToReturn = null;
         Node current = first;
         while(current != null){
@@ -93,7 +88,7 @@ public class StackMinAPI<Item> {
     }
 
 
-    public static void main(String args[]) throws InvalidDataException {
+    public static void main(String args[])  {
         StackMinAPI<Integer> mainStack = new StackMinAPI<>();
         mainStack.push(50);
         mainStack.push(30);

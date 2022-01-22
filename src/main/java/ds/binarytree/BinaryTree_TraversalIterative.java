@@ -1,7 +1,5 @@
 package ds.binarytree;
 
-import jdk.nashorn.internal.ir.CallNode;
-
 import java.util.*;
 
 public class BinaryTree_TraversalIterative {

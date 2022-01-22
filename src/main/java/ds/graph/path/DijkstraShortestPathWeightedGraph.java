@@ -1,6 +1,5 @@
 package ds.graph.path;
 
-import javafx.util.Pair;
 import java.util.*;
 
 public class DijkstraShortestPathWeightedGraph {
@@ -112,4 +111,21 @@ public class DijkstraShortestPathWeightedGraph {
         System.out.print("");
     }
 
+    private class Pair<T, T1> {
+        int key;
+        int value;
+
+        public Pair(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public Integer getKey() {
+            return key;
+        }
+
+        public Integer getValue() {
+            return value;
+        }
+    }
 }
