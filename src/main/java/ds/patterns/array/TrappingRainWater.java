@@ -8,12 +8,6 @@ package ds.patterns.array;
     Output: 6
     Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1].
                  In this case, 6 units of rain water (blue section) are being trapped.
-
-   TODO: Approach
-        1. Brute Force:
-           At each index, find the max(right) and max(left) by iterating left and right
-           Once found the water that can trapped at that index will be min(max(right), max(left)) - height[i]
-        2. With Arrays
 */
 public class TrappingRainWater {
 
