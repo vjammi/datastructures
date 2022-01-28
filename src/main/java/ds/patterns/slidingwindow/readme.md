@@ -12,7 +12,7 @@ You have a window over a section of an array and you slide the window from start
 4. Longest Repeating Character
 5. Find All Anagrams in a String
 
-### Sliding Window Technique - Details
+### Sliding Window Technique
 This technique shows how a nested for loop in some problems can be converted to a single for loop to reduce the time complexity.
 We can take a problem to illustrate the technique
 Given an array of integers of size n, calculate the max sum of k consecutive elements in the array.
@@ -100,9 +100,9 @@ In a two pointer technique we compare the value at the both pointers instead of 
 
 
 ##  209. Minimum Size Subarray Sum
-     Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous
-     subarray [numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal to target. If there is no
-     such subarray, return 0 instead.
+ Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous
+ subarray [numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal to target. If there is no
+ such subarray, return 0 instead.
 ```
     /**
          Input: nums = [2 3 1 2 4 3]
@@ -148,12 +148,9 @@ In a two pointer technique we compare the value at the both pointers instead of 
 ```
 
 ## Longest SubArray without Repeating Characters
+Given a string s, find the length of the longest substring without repeating characters.
 ```
-/**
-     3. Longest Substring Without Repeating Characters
-         Given a string s, find the length of the longest substring without repeating characters.
-        
-         Example 1:
+    /**
          Input: s = "abcabcbb"
          Output: 3
          Explanation: The answer is "abc", with the length of 3.
@@ -175,6 +172,28 @@ In a two pointer technique we compare the value at the both pointers instead of 
             Output: 3
     
     */
+    public int lengthOfLongestSubstringFirstAfterGap_PraiseTheLord(String s) {
+
+        Set<Character> set = new HashSet<>();
+        int longest=0;
+        int j=0;
+        for(int i=0; i<s.length(); i++){
+            if (!set.contains(s.charAt(i))) {
+                longest = Math.max(longest, (i-j)+1);
+                set.add(s.charAt(i));
+            }else{
+                while( set.contains(s.charAt(i)) && j<=i && j<s.length() ){
+                    set.remove(s.charAt(j));
+                    j++;
+                }
+                longest = Math.max(longest, (i-j)+1);
+                set.add(s.charAt(i));
+            }
+            System.out.println(j +" - " +i +" - "+longest);
+        }
+        return longest;
+    }
+    
     public int lengthOfLongestSubstring(String s) {
 
         int longest = 0;
@@ -216,7 +235,7 @@ In a two pointer technique we compare the value at the both pointers instead of 
 ```
 
 ## Find All Anagrams in a String
-   Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
 ```
     // Window size changes overtime
     // Create a static window of size 3 and move it across s
@@ -257,7 +276,6 @@ In a two pointer technique we compare the value at the both pointers instead of 
         }
         return listOfIndices;
     }
-
 
     private boolean isAnagram(int[] windowChars, int[] charSetForP){
         for (int i=0; i< windowChars.length;  i++){
