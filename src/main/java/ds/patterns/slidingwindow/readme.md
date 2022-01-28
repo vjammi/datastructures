@@ -8,7 +8,9 @@ You have a window over a section of an array and you slide the window from start
 ### Type of Problems
 1. Minimum Size SubArray Sum
 2. Longest SubArray without Repeating Characters
-3. Find All Anagrams in a String
+3. Longest Substring with At Most Two Distinct Characters
+4. Longest Repeating Character
+5. Find All Anagrams in a String
 
 ### Sliding Window Technique - Details
 This technique shows how a nested for loop in some problems can be converted to a single for loop to reduce the time complexity.
@@ -93,13 +95,193 @@ The space complexity would be O(1) because the solution does not create new data
     }
 ```
 ### Sliding Window Vs Two Pointers
-In sliding window typically we use all of the elements within the window for the problem (for eg - sum of all elements in the window).
+In sliding window typically we use all the elements within the window for the problem (for eg - sum of all elements in the window).
 In a two pointer technique we compare the value at the both pointers instead of taking the elements between the pointers.
+
+
+##  209. Minimum Size Subarray Sum
+     Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous
+     subarray [numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal to target. If there is no
+     such subarray, return 0 instead.
+```
+    /**
+         Input: nums = [2 3 1 2 4 3]
+                        ^     ^
+                        j     i
+                            sum=8
+         target = 7
+         Output: 2
+         Explanation: The subarray [4,3] has the minimal length under the problem constraint.
+
+        Solution
+            Brute Force
+                 Naive solution would be to use a nested for loop - o(N2)
+    
+            2 Pointers - Window size changes overtime
+                Setup 2 pointers - start and end pointers.
+                Move the start pointer until a window is found. Then adjust the window by moving the end pointer.
+                then we move the start pointer to find next window
+    */
+    public int minSubArrayLen(int target, int[] nums) {
+        if (nums == null || nums.length == 0)
+            return  0;
+
+        int minLength = Integer.MAX_VALUE;
+        int sum=0;
+        int end=0;
+        for (int start=0; start<nums.length; start++){
+
+            sum = sum + nums[start];
+            if (sum >= target)
+                minLength = Math.min(minLength, (start-end) + 1);
+
+            while (sum >= target){
+                minLength = Math.min(minLength, (start-end) + 1);
+                System.out.println("Sum: " + sum +" minLength: " +minLength+ " end: " + end + " start: " + start);
+                sum = sum - nums[end];
+                end = end+1;
+            }
+        }
+
+        return (minLength != Integer.MAX_VALUE) ? minLength : 0;
+    }
+```
+
+## Longest SubArray without Repeating Characters
+```
+/**
+     3. Longest Substring Without Repeating Characters
+         Given a string s, find the length of the longest substring without repeating characters.
+        
+         Example 1:
+         Input: s = "abcabcbb"
+         Output: 3
+         Explanation: The answer is "abc", with the length of 3.
+        
+         // Window size changes overtime
+         Naive Approach - Nested for loops - O(N2) time
+         s = abcad
+             ^ ^
+             s e
+        
+         Other problems
+             Longest Substring with At Most Two Distinct Characters
+             Longest Repeating Character
+
+             Input: s = "abcabcbb"
+                        "tmmzuxt"
+                    i          ^
+                    j      ^
+            Output: 3
+    
+    */
+    public int lengthOfLongestSubstring(String s) {
+
+        int longest = 0;
+        int longestSubStrLength = 0;
+        int j=0;
+        Set<Character> set = new HashSet<>();
+        for (int i=0; i< s.length(); i++){
+
+            Character c = s.charAt(i);
+
+            if (!set.contains(c)){
+                set.add(c);
+                longestSubStrLength++; // 3
+                longest = Math.max(longest, longestSubStrLength);
+            }else{
+                // Increment j until it reaches the duplicate char
+                // In the meantime you will remove the chars you will encounter.
+                while(s.charAt(j) != c) {
+                    set.remove(s.charAt(j));
+                    j++;
+                    longestSubStrLength--;
+                }
+
+                // Once j is at char c, we remove from the set, increment j and decrement length
+                set.remove(s.charAt(j));
+                j++;
+                longestSubStrLength--;
+
+                // Now add new char to the set, increment longestSubStrLength and get max length
+                set.add(c);
+                longestSubStrLength++;
+                longest = Math.max(longest, longestSubStrLength);
+            }
+
+        }
+
+        return longest;
+    }
+```
+
+## Find All Anagrams in a String
+   Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+```
+    // Window size changes overtime
+    // Create a static window of size 3 and move it across s
+    //               0123456789
+    //          s = cbaebabacd
+    //          i=    ^
+    //          j=  ^
+    //          p = abc
+
+    public List<Integer> findAnagrams(String s, String p) {
+
+        int[] charSetForP = new int[26];
+        for (int i=0; i<p.length(); i++){
+            int ch = p.charAt(i);
+            charSetForP[ch-97] = charSetForP[ch-97] + 1;
+        }
+
+        List<Integer> listOfIndices = new ArrayList<>();
+        int anagramSize = p.length();
+        int windowSize = 0;
+        int[] windowChars = new int[26];
+        int j=0;
+
+        for (int i=0; i<s.length(); i++){
+            int ch = s.charAt(i);
+            windowChars[ch-97] = windowChars[ch-97] + 1;
+            windowSize++;
+
+            while(windowSize == anagramSize){
+                if (isAnagram(windowChars, charSetForP))
+                    listOfIndices.add(j);
+
+                int charAtJ = s.charAt(j);
+                windowChars[charAtJ-97] = windowChars[charAtJ-97] - 1;
+                j++;
+                windowSize--;
+            }
+        }
+        return listOfIndices;
+    }
+
+
+    private boolean isAnagram(int[] windowChars, int[] charSetForP){
+        for (int i=0; i< windowChars.length;  i++){
+            if (windowChars[i] != charSetForP[i])
+                return false;
+        }
+        return true;
+    }
+```
+
+##  Longest Substring with At Most Two Distinct Characters
+```
+
+```
+
+##  Longest Repeating Character
+```
+
+```
 
 ## 480 Sliding Window Median
 The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value. So the median is the mean of the two middle values.
-    For examples, if arr = [2,3,4], the median is 3.
-    For examples, if arr = [1,2,3,4], the median is (2 + 3) / 2 = 2.5.
+For examples, if arr = [2,3,4], the median is 3.
+For examples, if arr = [1,2,3,4], the median is (2 + 3) / 2 = 2.5.
 You are given an integer array nums and an integer k. There is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by one position.
 
 Return the median array for each window in the original array. Answers within 10-5 of the actual value will be accepted.
@@ -207,6 +389,8 @@ public class SlidingWindowMedian {
     }
 
 ```
+
+
 
 References:
 https://medium.com/outco/how-to-solve-sliding-window-problems-28d67601a66
