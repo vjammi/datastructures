@@ -33,7 +33,7 @@ public class MinSizeSubArraySum {
         int minLength = Integer.MAX_VALUE;
         int sum=0;
         int end=0;
-        for (int start=0;start<nums.length;start++){
+        for (int start=0; start<nums.length; start++){
 
             sum = sum + nums[start];
             if (sum >= target)
