@@ -104,7 +104,6 @@ Recursive Solution
 
 ##  LC24 Swap Nodes in Pairs
     Need 3 swaps to swap each pair and to maintain the LinkedList structure.
-    Reference: https://youtu.be/OFr16YdsBEQ?list=PLujIAthk_iiO7r03Rl4pUnjFpdHjdjDwy&t=747
 ```
             1   2    3   4   5   6  NULL
     dummy   1   2    3   4   5   6  NULL
