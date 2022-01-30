@@ -74,8 +74,8 @@ public class SubarraySumEqualsK {
           further, if the cumulative sum up to two indices, say iii and jjj is at a difference of kkk
           i.e. if sum[i]−sum[j] = k, the sum of elements lying between indices i and j is k.
 
-          Based on these thoughts, we make use of a hashmap mapmapmap which is used to store the cumulative sum up to all the indices
-          possible along with the number of times the same sum occurs. We store the data in the form: (sum_i, no_of_occurrencesofsum_i).
+          Based on these thoughts, we make use of a hashmap map which is used to store the cumulative sum up to all the indices
+          possible along with the number of times the same sum occurs. We store the data in the form: (sum_i, no_of_occurrences_of_sum_i).
           We traverse over the array nums and keep on finding the cumulative sum. Every time we encounter a new sum, we make a new entry
           in the hashmap corresponding to that sum. If the same sum occurs again, we increment the count corresponding to that sum in the
           hashmap. Further, for every sum encountered, we also determine the number of times the sum sum−k has occurred already, since it
@@ -86,15 +86,15 @@ public class SubarraySumEqualsK {
       */
      public int subarraySumWithCumulativeSum(int[] nums, int k) {
          int count = 0;  int sum = 0;
-         Map<Integer, Integer> cumSumMap = new HashMap<>(); cumSumMap.put(0, 1); // {sum, count}
+         Map<Integer, Integer> cummulativeSumMap = new HashMap<>(); cummulativeSumMap.put(0, 1); // {sum, count}
          for (int i=0; i<nums.length; i++){
              sum = sum + nums[i];
-             if (cumSumMap.containsKey(sum-k))
-                 count = count + cumSumMap.get(sum-k);
-             if (cumSumMap.containsKey(sum))
-                 cumSumMap.put(sum, cumSumMap.get(sum)+ 1);
+             if (cummulativeSumMap.containsKey(sum-k))
+                 count = count + cummulativeSumMap.get(sum-k);
+             if (cummulativeSumMap.containsKey(sum))
+                 cummulativeSumMap.put(sum, cummulativeSumMap.get(sum)+ 1);
              else
-                 cumSumMap.put(sum, 1);
+                 cummulativeSumMap.put(sum, 1);
          }
          return count;
      }
