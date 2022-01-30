@@ -19,7 +19,7 @@ public class MaximumProductSubarray {
 
     // Runtime O(n^2) - 2 for loops
     // Space   O(1)
-    public int maxProduct(int[] nums) {
+    public int maxProductNaive(int[] nums) {
         int maxProductSoFar = nums[0];          // Initialize to nums[0], since j starts from index 1
         for (int i=0; i<nums.length; i++){
             int product = 1;                    // Initialize to 1, not 0 :)
@@ -28,57 +28,47 @@ public class MaximumProductSubarray {
                 if (product > maxProductSoFar){
                     maxProductSoFar = product;
                 }
-                //System.out.println("[" +nums[i] +", " +nums[j] +"]    MaxProduct =" +maxProductSoFar);
             }
-            //System.out.println("");
         }
         return maxProductSoFar;
     }
 
        /*
-        //      Using Kadane's Algorithm
+        Scenarios
+           1. If all positives we can keep multiplying all the elements
+                +ve x Max (+ve) = +ve
+           2. If we come across a -ve, then we will reduce the product
+                -ve x Max (+ve) = -ve
+           3. However, if we come across another negative, it will increase the product based on previous -ve
+                -ve x Min (-ve) = +ve
+           4. If we come across a 0 it will take our product down to 0
 
-        //                     nums = [-2, 1, -3, 4, -1,   2,  1, -5,   4]
-        //      currSubArrayProdWith =    -2   6  24 -24 -48 -48  240  960
-        //   currSubArrayProdWithout =     1  -3 -12  12  24  24 -120 -480
-        //      maxSubArrayProdSoFar =     1   6  24  24  24  24  240  960
-
-
-        //          nums =    [2, -5,   3,   1,   -4  0  -10  2  8]
-        //   minSoFar    =     2  -10 -30  -30   -12
-        //   maxSoFar    =     2   -5   3    3   120  -4
-
-        //   maxProduct  =     2   -5  24 -24 -48  ???
-
-        minSoFar = Math.min(num, Math.min())
-        // -2 +  1 >  1  [F]
-        //  1 + -3 > -3  [T]
-        // -2 +  4 >  4  [F]
-        //  4 + -1 > -1  [T]
-        //  3 +  2 >  2  [T]
-        //  5 +  1 >  1  [T]
-        //  6 + -5 > -5  [T]
-        //  1 +  4 >  4  [T]
-
-            [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-            [2,3,-2,4]
+        //          nums = [-2  1 -3  4   -1  2   1  -5    4]
+        //      minSoFar =  -2 -2 -3 -12 -24 -48 -48 -120 -480
+        //      maxSoFar =  -2  1  6  24  12  24  24  240  960
+        //     globalMax =  -2  1  6  24  24* 24  24  240  960   * Note that 24 is being carried from previous globalMax
     */
 
-    public int maxProduct1(int[] nums) {
+    public int maxProduct(int[] nums) {
+        int maxSoFar  = nums[0];
+        int minSoFar  = nums[0];
+        int globalMax = nums[0];
+        System.out.println(minSoFar +" " +maxSoFar +" " +globalMax);
 
-        //int maxSubArrayProductSoFar       = nums[0];
-        int minSoFar   = nums[0];
-        int maxSoFar = nums[0];
-
-        for (int i=1; i < nums.length; i++){
-            int num = nums[i];
-            minSoFar    = Math.min(num, Math.min(minSoFar*num, maxSoFar*num));
-
-            int tempMax  = Math.max(num, Math.max( minSoFar*num, maxSoFar*num));
-            maxSoFar = Math.max(maxSoFar, tempMax);
-
+        for(int i = 1; i < nums.length; ++i){
+            int tmp = maxSoFar;
+            maxSoFar = Math.max(nums[i], Math.max(nums[i]*maxSoFar, nums[i]*minSoFar));
+            minSoFar = Math.min(nums[i], Math.min(nums[i]*tmp, nums[i]*minSoFar));
+            globalMax = Math.max(globalMax, maxSoFar);
+            System.out.println(minSoFar +" " +maxSoFar +" " +globalMax);
         }
-        return maxSoFar;
+        return globalMax;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        MaximumProductSubarray obj = new MaximumProductSubarray();
+        System.out.println(obj.maxProduct(nums));
     }
 
 }
