@@ -6,30 +6,68 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+    253. Meeting Rooms II
     Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.
     Input: intervals = [[0,30],[5,10],[15,20]]    Output: 2
-         [start, end]  Meeting Room
-         [0,30]        #1: 1
-         [5,10]        #2: 1+1
-         [15,20]       #2: 2-1+1
 
-         0, 30
-         5, 10
-         15, 20
+    Approach #1 Brute force:
+             [start, end]  Meeting Room
+             [0,30]        #1: 1
+             [5,10]        #2: 1+1
+             [15,20]       #2: 2-1+1
 
-         . 1 0 30
-         .. 2
-         ... 2 15 20
+             0, 30
+             5, 10
+             15, 20
 
-    Input: intervals = [[7,10],[2,4]]             Output: 1
-    Input: intervals = [[1,5],[8,9],[8,9]]        Output: 2
-         1, 5
-         8, 9
-         8, 9
+             . 1 0 30
+             .. 2
+             ... 2 15 20
 
-         . 1 1 5
-         ... 1 8 9
-         .. 2
+        Input: intervals = [[7,10],[2,4]]             Output: 1
+        Input: intervals = [[1,5],[8,9],[8,9]]        Output: 2
+             1, 5
+             8, 9
+             8, 9
+
+             . 1 1 5
+             ... 1 8 9
+             .. 2
+
+    Approach#2 - Optimization
+                       0  5  10  15  20  25  30
+         interval #1   |----------------------|
+         interval #2      |---|
+         interval #3             |----|
+
+         int[] startTimes = {1, 5, 15};                     count = 2
+                                ^
+                                i
+         int[] endTimes   = {10, 20, 30}
+                             ^
+                             j
+         ...
+
+         int[] startTimes = {1, 5, 15};                     count = 2
+                                   ^
+                                   i
+         int[] endTimes   = {10, 20, 30}
+                                 ^
+                                 j
+
+         Approach: Sort the intervals by startTime and endTime, resulting in 2 arrays.
+                   Now scan the 2 arrays in parallel
+                        If startTime[i] > endTime[j] - increment the meeting room count
+                        else if (startTime[i] < endTime[j]) - decrement the meeting room count
+                   Keep max meeting room count as we scan through both the arrays
+
+             int maxCount = 0; int i=0; int j=0;
+             while( i < startTime.length && j < endTime.length)
+                if (startTime[i] > endTime[j])
+                    i++; count++; maxCount = Math.max(maxCount, count);
+                else if (startTime[i] < endTime[j])
+                    j++; count--; maxCount = Math.max(maxCount, count);
+
  */
 public class MeetingRoomsII {
 
