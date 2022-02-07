@@ -18,7 +18,7 @@ import java.util.Comparator;
   **/
 public class MeetingRooms {
 
- private class SortbyStartTime implements Comparator<int[]> {
+ private class SortIntervalsByStartTime implements Comparator<int[]> {
   public int compare(int[] interval1, int[] interval2){
    Integer startTime1  = interval1[0];
    Integer startTime2  = interval2[0];
@@ -43,7 +43,7 @@ public class MeetingRooms {
        else continue - if currentStartTime >= previousIntervalEndTime
    */
   public boolean canAttendMeetings(int[][] intervals) {
-    Arrays.sort(intervals, new SortbyStartTime());
+    Arrays.sort(intervals, new SortIntervalsByStartTime());
 
     int[] previousInterval = null;
     for (int i=0; i<intervals.length; i++){
@@ -53,7 +53,6 @@ public class MeetingRooms {
          previousInterval = interval;
          System.out.println("CanAttend meeting for interval "+ interval[0] + ", " +interval[1]);
       }else{
-
         if (interval[0] < previousInterval[1]) {
          System.out.println("canAttendAllMeetings = false for interval " + interval[0] + ", " + interval[1]);
          return false;
@@ -62,6 +61,7 @@ public class MeetingRooms {
          previousInterval = interval;
         }
       }
+
      }
     return true;
    }
