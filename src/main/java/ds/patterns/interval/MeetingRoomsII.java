@@ -1,4 +1,4 @@
-package ds.interval;
+package ds.patterns.interval;
 
 import java.util.ArrayList;
 import java.util.Arrays;
