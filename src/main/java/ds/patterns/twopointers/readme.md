@@ -16,8 +16,6 @@ Given the array, find if there exists any pair of elements (arr[i], arr[j]) such
         Runtime: O(n^2)
      */
     private boolean isPairSumNaive1(int[] arr, int target) {
-        Arrays.sort(arr);
-
         int length = arr.length;
         for (int i = 0; i < length-1; i++) {
             for (int j = i+1; j < length; j++) {  // We are looking for distinct pairs, not pair an element by itself. So i cannot be j to form the pair
@@ -39,7 +37,6 @@ Given the array, find if there exists any pair of elements (arr[i], arr[j]) such
         Runtime: O(n * n/2) = O(n^2)
     */
     private boolean isPairSumNaive2(int[] arr, int target) {
-        Arrays.sort(arr);
         // iterate i=0 to n-1, j=i+1 to n
         for (int i = 0; i < arr.length-1; i++) {
             for (int j = i+1; j < arr.length; j++) { // Optimization: j=i+1
