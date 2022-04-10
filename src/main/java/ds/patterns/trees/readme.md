@@ -1,3 +1,228 @@
+# Binary Trees
+
+## Binary Tree Traversals
+```
+                                 16
+
+                     10                      22
+
+                8         12            20         24
+
+             6     9   11    13     19     21   23    25
+
+           N   7
+```
+```
+ preorderTraversalList  [+AB] [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
+ inOrderTraversalList   [A+B] [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]
+ postOrderTraversalList [AB+] [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
+```
+
+### Preorder Traversal
+```
+    // preorder +AB
+    public void preorder(TreeNode node){
+       if(node == null)
+           return;
+
+       System.out.println(node.val); //  + [Print node]
+       preorder(node.left);          //  A [Traverse left of the node]
+       preorder(node.right)          //  B [Traverse right of the node]
+    }
+```
+
+```
+    public List<Integer> preorderTraversal(TreeNode node) {
+        List<Integer> preOrderedList = new ArrayList<>();
+        if (node == null)
+            return preOrderedList;
+
+        // Create an empty stack and push root to it
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(node);
+
+        // Note that right child is pushed first so that left is processed first
+        // +AB (Node Left Right)
+        while (!stack.empty()) {
+
+            // Pop the top item from stack and add it to the list 
+            TreeNode current = stack.pop();  //stack.peek();
+            preOrderedList.add(current.val); // +
+
+            // *** [+AB] Push right and left children of the popped node to stack
+            if (current.right != null) {
+                stack.push(current.right);  // R
+            }
+            if (current.left != null) {
+                stack.push(current.left);   // L
+            }
+        }
+        return preOrderedList;
+    }
+```
+### Inorder Traversal
+```
+    // inorder A+B
+    public void inorder(TreeNode node){
+       if(node == null)
+           return;
+
+       inorder(node.left);           //  A [Traverse left of the node]
+       System.out.println(node.val); //  + [Print node]
+       inorder(node.right)           //  B [Traverse right of the node]
+    }
+```
+```
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> inOrderedList = new ArrayList<>();
+
+        Stack<TreeNode> stack = new Stack(); // We are not adding the node to the stack, since we need to traverse to the leftmost node first
+        TreeNode current = root; // *** We add the node to the current to traverse to the leftmost node before printing the node.
+
+        // A+B (Left Node Right)
+        while (current != null || !stack.empty()) {
+            // When current != null - Push current element into stack & update current pointer
+            // When the left of Node (L/A) is null, traverse the right Node.
+            // For the right node, traverse again its left side until its left is null
+            // When left and right are null then ???
+            if (current != null) {
+                stack.push(current);
+                current = current.left;             // A
+            } else { // When iterating to the left of a node, when current becomes null, we process the topmost element in the stack.
+                // At this point, we pop the top most element from the stack,
+                TreeNode poppedNode = stack.pop();
+                // and Print it
+                inOrderedList.add(poppedNode.val);  // +
+                // and then assign its right node to the current, to traverse its left subtree
+                current = poppedNode.right;         // B
+            }
+        }
+        return inOrderedList;
+    }
+```
+Note: In a binary search tree, we can retrieve all the data in sorted order using in-order traversal.
+
+### Postorder Traversal
+
+Recursive
+```
+    // postorder AB+
+    public void postorder(TreeNode node){
+       if(node == null)
+           return;
+
+       postorder(node.left);           //  A [Traverse left of the node]
+       postorder(node.right)           //  B [Traverse right of the node]
+       System.out.println(node.val);   //  + [Print node]
+    }
+```
+
+Iterative
+```
+    public List<Integer> postOrderTraversal(TreeNode root) {
+        List<Integer> postOrderList = new ArrayList<>();
+        if (root == null)
+            return postOrderList;
+
+        // Create an empty stack and push root to it
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(root);
+
+        // AB+ (Left Right Node)
+        while (!stack.isEmpty()) {
+            // Pop an item from stack and add it to list at the 0th index
+            TreeNode current = stack.pop();
+
+            // Push left and right children of current popped item to stack
+            if (current.left != null)
+                stack.push(current.left);   // A
+            if (current.right != null)
+                stack.push(current.right);  // B
+
+            // *** Add the current popped element to the 0th index of the list (could use a stack alternatively)
+            // Adding to the 0th index/position of the list, shifts any existing elements to its right
+            postOrderList.add(0, current.val); // + ***
+        }
+        return postOrderList;
+    }
+```
+Note:
+1. When you delete nodes in a tree, deletion process will be in post-order. That is to say, when you delete a node,
+   you will delete its left child and its right child before you delete the node itself.
+
+2. Post-order is widely use in mathematical expression.
+```
+
+                            +
+
+                    *               5
+
+                4       -
+
+                    7       2
+
+```
+   It is easier to write a program to parse a post-order expression. We You can easily figure out the original expression using the inorder traversal.
+   However, it is not easy for a program to handle this expression since you have to check the priorities of operations.
+
+   If you handle this tree in postorder, you can easily handle the expression using a stack.
+   Each time when you meet a operator, you can just pop 2 elements from the stack, calculate the result and push the
+   result back into the stack.
+
+References
+https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
+
+
+
+### Level Order Traversal
+```
+    private List<List<Integer>> levelOrderTraversalIterative(TreeNode root) {
+        List<List<Integer>> levelOrderTraversalLists = new ArrayList();
+        List<Integer> levelList = null;
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        int level = 0;
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            levelList = new ArrayList();
+            System.out.println("Processing level " +level +" of size " +size);
+            while(size > 0){
+                TreeNode node = queue.poll();
+                levelList.add(node.val);
+                if (node.left != null) {
+                    queue.add(node.left);
+                }
+                if (node.right != null) {
+                    queue.add(node.right);
+                }
+                size--;
+            }
+            levelOrderTraversalLists.add(levelList);
+            level++;
+        }
+        return levelOrderTraversalLists;
+    }
+
+    List<List<Integer>> levelOrderTraversalRecursiveList =  new ArrayList<>();
+    private void levelOrderTraversalRecursive(TreeNode node, int level) {
+        if (node == null)
+            return;
+
+        if (levelOrderTraversalRecursiveList.size() == level) { // For instance, initially at level 0 the size of the result list will be 0. Same with other levels.
+            List<Integer> list = new ArrayList<>();
+            list.add(node.val);
+            levelOrderTraversalRecursiveList.add(list); // Note: list.get(level).add(node.val) will throw IndexOutOfBoundsException: Index: 0, Size: 0
+        }else {
+            // if a list for that level has already been created, then just retrieve the list by level and add the node value to the list
+            levelOrderTraversalRecursiveList.get(level).add(node.val);
+        }
+        levelOrderTraversalRecursive(node.left, level+1);
+        levelOrderTraversalRecursive(node.right, level+1);
+    }
+```
+
 ## Binary Tree
 A tree where each parent node can have at most 2 children either 0,1,2 children only
 each node is either a leaf node with no children or is a node with 2 children
@@ -143,200 +368,15 @@ K in this case of a balanced binary tree is 1. For example, if we remove the nod
               1
           2       3
         4       6   7
-      8   9  
+      8   9
 ```
-     
+
 ### Properties of a Binary Tree
 1. Number of nodes in a full/perfect binary tree 2^(h+1)-1
 2. Number of nodes in a complete binary tree is between 2^(h) and 2^(h+1)-1
 3. Min height of a binary tree is log2(n+1)-1 or floor( (log2(n+1) )
-   
-
-## Binary Tree Traversals
-```
-                                 16
-
-                     10                      22
-
-                8         12            20         24
-
-             6     9   11    13     19     21   23    25
-
-           N   7
-
-```
-```
-preorderTraversalList  [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
-inOrderTraversalList   [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]
-postOrderTraversalList [7, 6, 9, 8, 11, 13, 12, 10, 19, 21, 20, 23, 25, 24, 22, 16]
-```
-
-### Preorder Traversal
-```
-    public List<Integer> preorderTraversal(TreeNode node) {
-        List<Integer> preOrderedList = new ArrayList<>();
-        if (node == null)
-            return preOrderedList;
-
-        // Create an empty stack and push root to it
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(node);
-
-        // Note that right child is pushed first so that left is processed first
-        // +AB (Node Left Right)
-        while (!stack.empty()) {
-
-            // Pop the top item from stack and add it to the list 
-            TreeNode current = stack.pop();  //stack.peek();
-            preOrderedList.add(current.val); // +
-
-            // *** [+AB] Push right and left children of the popped node to stack
-            if (current.right != null) {
-                stack.push(current.right);  // R
-            }
-            if (current.left != null) {
-                stack.push(current.left);   // L
-            }
-        }
-        return preOrderedList;
-    }
-```
-### Inorder Traversal
-```
-    public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> inOrderedList = new ArrayList<>();
-
-        Stack<TreeNode> stack = new Stack(); // We are not adding the node to the stack, since we need to traverse to the leftmost node first
-        TreeNode current = root; // *** We add the node to the current to traverse to the leftmost node before printing the node.
-
-        // A+B (Left Node Right)
-        while (current != null || !stack.empty()) {
-            // When current != null - Push current element into stack & update current pointer
-            // When the left of Node (L/A) is null, traverse the right Node.
-            // For the right node, traverse again its left side until its left is null
-            // When left and right are null then ???
-            if (current != null) {
-                stack.push(current);
-                current = current.left;             // A
-            } else { // When iterating to the left of a node, when current becomes null, we process the topmost element in the stack.
-                // At this point, we pop the top most element from the stack,
-                TreeNode poppedNode = stack.pop();
-                // and Print it
-                inOrderedList.add(poppedNode.val);  // +
-                // and then assign its right node to the current, to traverse its left subtree
-                current = poppedNode.right;         // B
-            }
-        }
-        return inOrderedList;
-    }
-```
-Note: In a binary search tree, we can retrieve all the data in sorted order using in-order traversal.
-
-### Postorder Traversal
-```
-    public List<Integer> postOrderTraversal(TreeNode root) {
-        List<Integer> postOrderList = new ArrayList<>();
-        if (root == null)
-            return postOrderList;
-
-        // Create an empty stack and push root to it
-        Stack<TreeNode> stack = new Stack<>();
-        stack.push(root);
-
-        // AB+ (Left Right Node)
-        while (!stack.isEmpty()) {
-            // Pop an item from stack and add it to list at the 0th index
-            TreeNode current = stack.pop();
-
-            // Push left and right children of current popped item to stack
-            if (current.left != null)
-                stack.push(current.left);   // A
-            if (current.right != null)
-                stack.push(current.right);  // B
-
-            // *** Add the current popped element to the 0th index of the list (could use a stack alternatively)
-            // Adding to the 0th index/position of the list, shifts any existing elements to its right
-            postOrderList.add(0, current.val); // + ***
-        }
-        return postOrderList;
-    }
-```
-Note:
-1. When you delete nodes in a tree, deletion process will be in post-order. That is to say, when you delete a node,
-   you will delete its left child and its right child before you delete the node itself.
-
-2. Post-order is widely use in mathematical expression.
-```
-
-                            +
-
-                    *               5
-
-                4       -
-
-                    7       2
-
-```
-   It is easier to write a program to parse a post-order expression. We You can easily figure out the original expression using the inorder traversal.
-   However, it is not easy for a program to handle this expression since you have to check the priorities of operations.
-
-   If you handle this tree in postorder, you can easily handle the expression using a stack.
-   Each time when you meet a operator, you can just pop 2 elements from the stack, calculate the result and push the
-   result back into the stack.
-
-References
-https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
 
 
-
-### Level Order Traversal
-```
-    private List<List<Integer>> levelOrderTraversalIterative(TreeNode root) {
-        List<List<Integer>> levelOrderTraversalLists = new ArrayList();
-        List<Integer> levelList = null;
-
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-
-        int level = 0;
-        while(!queue.isEmpty()){
-            int size = queue.size();
-            levelList = new ArrayList();
-            System.out.println("Processing level " +level +" of size " +size);
-            while(size > 0){
-                TreeNode node = queue.poll();
-                levelList.add(node.val);
-                if (node.left != null) {
-                    queue.add(node.left);
-                }
-                if (node.right != null) {
-                    queue.add(node.right);
-                }
-                size--;
-            }
-            levelOrderTraversalLists.add(levelList);
-            level++;
-        }
-        return levelOrderTraversalLists;
-    }
-
-    List<List<Integer>> levelOrderTraversalRecursiveList =  new ArrayList<>();
-    private void levelOrderTraversalRecursive(TreeNode node, int level) {
-        if (node == null)
-            return;
-
-        if (levelOrderTraversalRecursiveList.size() == level) { // For instance, initially at level 0 the size of the result list will be 0. Same with other levels.
-            List<Integer> list = new ArrayList<>();
-            list.add(node.val);
-            levelOrderTraversalRecursiveList.add(list); // Note: list.get(level).add(node.val) will throw IndexOutOfBoundsException: Index: 0, Size: 0
-        }else {
-            // if a list for that level has already been created, then just retrieve the list by level and add the node value to the list
-            levelOrderTraversalRecursiveList.get(level).add(node.val);
-        }
-        levelOrderTraversalRecursive(node.left, level+1);
-        levelOrderTraversalRecursive(node.right, level+1);
-    }
-```
 References
 https://www.geeksforgeeks.org/relationship-number-nodes-height-binary-tree/
 https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
