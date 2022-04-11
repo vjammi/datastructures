@@ -1,4 +1,133 @@
+## Java Collection
+
+### Java Collection Interface and Implementation Classes
+```
+- The root interface in the collection hierarchy. 
+- A collection represents a group of objects, known as its elements. 
+- Some collections allow duplicate elements and others do not. 
+- Some are ordered and others unordered. 
+- The JDK does not provide any direct implementations of this interface: it provides implementations of more specific subinterfaces like Set and List. 
+- This interface is typically used to pass collections around and manipulate them where maximum generality is desired.
+
+
+
+Interfaces
+                                                      Iterable
+                                                         | [extends]
+                                                     Collection
+                                                         | [extends]
+                        --------------------------------------------------                                   
+                       | [implements]     | [extends]     | [extends]     | [extends]          
+                       |                 List            Set            Queue            
+                       |                  |               |               |
+                       |                  |           SortedSet        Dequeue
+                       
+Abstract Classes 
+                       | [implements]     |                             
+                  AbstractCollection      |    
+                       | [extends]        | [implements]
+                        -----------------   
+                               |
+                           AbstractList               AbstractSet
+                  | [extends]            |            |        |                    | [extends]
+        AbstractSequentialList           |
+                                              
+Implementations                
+                  |                      |            |         |                  |               
+                  |                   ArrayList    HashSet      |             PriorityQueue               
+              LinkedList               Vector         |         |              ArrayQueue
+                                       Stack    LinkedHashSet TreeSet          LinkedList
+                                      
+
+
+Interfaces
+    public interface Iterable<T> {...}
+    public interface Collection<E> extends Iterable<E> {...}
+    
+    public interface List<E> extends Collection<E> {...}
+    public interface Set<E> extends Collection<E> {...}
+    public interface Queue<E> extends Collection<E> {...}
+
+Abstract Classes
+    public abstract class AbstractCollection<E> implements Collection<E> { }
+    public abstract class AbstractList<E> extends AbstractCollection<E> implements List<E> {...}
+    public abstract class AbstractSequentialList<E> extends AbstractList<E> {...}
+    public abstract class AbstractSet<E> extends AbstractCollection<E> implements Set<E> {...}
+    public abstract class AbstractQueue<E> extends AbstractCollection<E> implements Queue<E> {...}
+
+Implementations
+    public class LinkedList<E> extends AbstractSequentialList<E> implements List<E>, Deque<E>, Cloneable, java.io.Serializable {...}
+    public class ArrayList<E> extends AbstractList<E> implements List<E>, RandomAccess, Cloneable, java.io.Serializable {...}
+    public class Vector<E> extends AbstractList<E> implements List<E>, RandomAccess, Cloneable, java.io.Serializable{...}
+    public class Stack<E> extends Vector<E> {...}
+    
+    public class HashSet<E> extends AbstractSet<E> implements Set<E>, Cloneable, java.io.Serializable{...}
+            This class implements the Set interface, backed by a hash table (actually a HashMap instance). It makes no guarantees as to the iteration order of the set; in particular, it does not guarantee that the order will remain constant over time. This class permits the null element.
+    public class LinkedHashSet<E> extends HashSet<E> implements Set<E>, Cloneable, java.io.Serializable {...}
+            Hash table and linked list implementation of the Set interface, with predictable iteration order. This implementation differs from HashSet in that it maintains a doubly-linked list running through all of its entries. This linked list defines the iteration ordering, which is the order in which elements were inserted into the set (insertion-order). Note that insertion order is not affected if an element is re-inserted into the set. (An element e is reinserted into a set s if s.add(e) is invoked when s.contains(e) would return true immediately prior to the invocation.)
+    public class TreeSet<E> extends AbstractSet<E> implements NavigableSet<E>, Cloneable, java.io.Serializable {...}
+            A NavigableSet implementation based on a TreeMap. The elements are ordered using their natural ordering, or by a Comparator provided at set creation time, depending on which constructor is used.
+
+See also
+    Set, List, Map, SortedSet, SortedMap, HashSet, TreeSet, ArrayList, LinkedList, Vector, Collections, Arrays, AbstractCollection, 
+    ConcurrentSkipListSet, ConcurrentSkipListMap,
+```
+### Java Map Interface and Implementation Classes
+```                                                               
+Interfaces
+                                        Map
+                                         | 
+                               --------  | -----------------
+                    [extends] |          |                  | [implements]
+                          SortedMap      |              AbstractMap
+                    [extends] |          |                  |
+                          NavigableMap   |                  |
+Impl. Classes                            | [implements]     | [extends]
+                                            ---------------
+                                                  |
+                                               HashMap              
+                                               TreeMap
+                                           ConcurrentHashMap                                    
+                                               HashTable
+
+public interface Map<K, V> {...}
+public interface SortedMap<K,V> extends Map<K,V> {...}
+public abstract class AbstractMap<K,V> implements Map<K,V> {...}
+public interface NavigableMap<K,V>  extends SortedMap<K,V> {...}
+                            
+public class HashMap<K,V>   extends AbstractMap<K,V>    
+                            implements Map<K,V>, Cloneable, Serializable {...}                            
+public class TreeMap<K,V>   extends AbstractMap<K,V>
+                            implements NavigableMap<K,V>, Cloneable, java.io.Serializable {...}
+public class ConcurrentHashMap<K,V> extends AbstractMap<K,V>
+                            implements ConcurrentMap<K,V>, Serializable {...}
+public class Hashtable<K,V> extends Dictionary<K,V>
+                            implements Map<K,V>, Cloneable, java.io.Serializable {
+                                                                                                        
+```
+
+### Collections & Arrays Utility Classes 
+```
+Collections
+- This class consists exclusively of static methods that operate on or return collections. 
+- It contains polymorphic algorithms that operate on collections, "wrappers", which return a new collection backed by a specified collection, and a few other odds and ends.
+Arrays
+- This class contains various methods for manipulating arrays (such as sorting and searching). 
+- This class also contains a static factory that allows arrays to be viewed as lists.
+```
+
+```
+```
+```
+
+
+
+
+
+```
+
 ## Usage of common builtin functions
+
 
 ### Using Comparable Interface
 Sort using a type’s natural order.

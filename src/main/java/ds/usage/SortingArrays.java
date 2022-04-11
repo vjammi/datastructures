@@ -4,6 +4,25 @@ import java.util.*;
 
 public class SortingArrays {
 
+    private static class IntegerComparator implements Comparator<Integer>{
+        @Override
+        public int compare(Integer a, Integer b){
+            return Integer.valueOf(a).compareTo(Integer.valueOf(b));
+        }
+    }
+
+    public void sortArrayOfNumbers(int[] nums){
+        ArrayList<Integer> list = new ArrayList();
+        for (Integer num: nums)
+            list.add(num);
+        Collections.sort(list, new IntegerComparator());
+        System.out.println(list);
+
+        Arrays.sort(nums);
+        System.out.println(nums); //
+    }
+
+
     static class StringComparator implements Comparator<String>{
         public int compare(String a, String b) {
             //return (b + a).compareTo(a + b);
@@ -75,11 +94,11 @@ public class SortingArrays {
 
     public static void main(String[] args) {
         SortingArrays obj = new SortingArrays();
-        obj.sortStringTest("algorithm");
-        obj.sortIntArraysTest();
+        //obj.sortStringTest("algorithm");
+        //obj.sortIntArraysTest();
         //obj.sortStringArraysTest();
         //obj.sortListTest();
+        obj.sortArrayOfNumbers(new int[]{6,5, 7,4, 9});
     }
-
 
 }
