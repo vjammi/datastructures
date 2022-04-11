@@ -81,5 +81,8 @@ public class ThreeSum {
         int[] nums = {-4,-1,-1, 0,1,2};
         System.out.println(obj.threeSumNaive(nums));
         System.out.println(obj.threeSum(nums));
+
+        Queue<Integer>  queue = new PriorityQueue<>();
     }
+
 }
