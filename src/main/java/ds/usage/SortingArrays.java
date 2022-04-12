@@ -12,18 +12,24 @@ public class SortingArrays {
     }
 
     public void sortArrayOfNumbers(int[] nums){
-        ArrayList<Integer> list = new ArrayList();
-        for (Integer num: nums)
-            list.add(num);
+        Arrays.sort(nums);
+        System.out.println(nums);
+    }
+
+    public void sortArrayOfNumbers(Integer[] nums){
+        Arrays.sort(nums);
+        System.out.println(nums);
+    }
+
+    public void sortArrayOfIntegers(List<Integer> list){
+        Collections.sort(list);
         Collections.sort(list, new IntegerComparator());
         System.out.println(list);
-
-        Arrays.sort(nums);
-        System.out.println(nums); //
     }
 
 
-    static class StringComparator implements Comparator<String>{
+
+    private static class StringComparator implements Comparator<String>{
         public int compare(String a, String b) {
             //return (b + a).compareTo(a + b);
             return Character.valueOf(b.charAt(0)).compareTo(a.charAt(0));
@@ -46,6 +52,8 @@ public class SortingArrays {
             System.out.print(str +" ");
     }
 
+
+
     class IntervalComparator implements Comparator<int[]>{
         public int compare(int[] a, int[] b){
             return a[0]-b[0];
@@ -57,6 +65,7 @@ public class SortingArrays {
             return Integer.valueOf(arr1[0]).compareTo(arr2[0]);
         }
     }
+
     private void sortIntArraysTest() {
         int[][] intArrays = new int[][]{{5, 4}, {1,4}, {8,1}, {9,2}, {2,2}};
         //Arrays.sort(intArrays, new IntArrComparator());
@@ -65,6 +74,7 @@ public class SortingArrays {
         for (int[] arr: intArrays)
             System.out.println(arr[0] +", "+arr[1] +"   ");
     }
+
 
 
     private class ListComparator implements Comparator<Interval>{
@@ -99,6 +109,7 @@ public class SortingArrays {
         //obj.sortStringArraysTest();
         //obj.sortListTest();
         obj.sortArrayOfNumbers(new int[]{6,5, 7,4, 9});
+        obj.sortArrayOfNumbers(new Integer[]{6,5, 7,4, 9});
     }
 
 }
