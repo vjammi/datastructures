@@ -2,7 +2,7 @@ package ds.usage;
 
 import java.util.*;
 
-public class InitializeJavaCollectionsWithValues {
+public class InitializeDataStructureWithValues {
 
     public static void main(String[] args) {
         // Initialize a HashMap with Values
@@ -23,5 +23,9 @@ public class InitializeJavaCollectionsWithValues {
         };
 
         List<String> strings = new ArrayList<>(Arrays.asList("a","b","c"));
+
+        Integer[] integerArray = new Integer[] {1,2,3,4,5,6};
+        int[] intArray = new int[] {1,2,3,4,5,6};
+        String[] stringArray = new String[]{"cat", "in", "the", "hat"};
     }
 }
