@@ -1,5 +1,6 @@
 package ds.usage;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +23,12 @@ public class HashMapUsage {
         Set<Integer> keySet = map.keySet();
         for (Integer key: keySet){
             System.out.println(key + " " +map.get(key));
+        }
+
+        System.out.println("Iterating over Values...");
+        Collection<Integer> values = map.values();
+        for (Integer value: values){
+            System.out.println(" " +value);
         }
 
         System.out.println("Iterating over EntrySet...");
