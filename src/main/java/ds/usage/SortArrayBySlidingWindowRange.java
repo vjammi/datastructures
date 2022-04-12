@@ -5,25 +5,25 @@ public class SortArrayBySlidingWindowRange {
     public static void main(String[] args) {
 
         int[] arr = {10,9,8,7,6,5,4,3,2,1};
-        //                i
-        //            j
-        // windowSize = 3
+        //                j
+        //            i
+        // currWinSize = 3
 
-        int j = 0;
-        int windowSize = 0;
-        for (int i=0; i< arr.length; i++){
-            windowSize ++;
+        int i = 0;
+        int currWinSize = 0;
+        for (int j=0; j< arr.length; j++){
+            currWinSize ++;
 
-            while(windowSize == 3){
-                for (int k=j; k<=i; k++){
+            while(currWinSize == 3){
+                for (int k=i; k<=j; k++){
                     System.out.print(arr[k] +" ");
                 }
-                sortRange(arr, j, i);
-                for (int k=j; k<=i; k++){
+                sortRange(arr, i, j);
+                for (int k=i; k<=j; k++){
                     System.out.print(arr[k] +" ");
                 }
-                j++;
-                windowSize--;
+                i++;
+                currWinSize--;
                 System.out.println();
             }
         }
