@@ -3,38 +3,32 @@ package ds.usage;
 public class SortArrayBySlidingWindowRange {
 
     public static void main(String[] args) {
-
         int[] arr = {10,9,8,7,6,5,4,3,2,1};
         //                j
         //            i
         // currWinSize = 3
-
         int i = 0;
         int currWinSize = 0;
         for (int j=0; j< arr.length; j++){
             currWinSize ++;
-
             while(currWinSize == 3){
-                for (int k=i; k<=j; k++){
-                    System.out.print(arr[k] +" ");
-                }
+                print(arr);
                 sortRange(arr, i, j);
-                for (int k=i; k<=j; k++){
-                    System.out.print(arr[k] +" ");
-                }
                 i++;
                 currWinSize--;
-                System.out.println();
             }
         }
-
-        System.out.println("");
-        for (int k=0; k<arr.length; k++){
-            System.out.print(arr[k] +" ");
-        }
+        print(arr);
     }
 
+    private static void print(int[] arr) {
+        for (int k = 0; k< arr.length; k++){
+            System.out.print(arr[k] +" ");
+        }
+        System.out.println();
+    }
 
+    // Insertion Sort
     private static void sortRange(int[] arr, int i, int j){
         for (int l=i+1; l<=j; l++){
             for (int k=l; k>0; k--) {
