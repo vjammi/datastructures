@@ -7,13 +7,15 @@ public class SortArrayBySlidingWindowRange {
         //                j
         //            i
         // currWinSize = 3
+
+        print(arr);
         int i = 0;
         int currWinSize = 0;
         for (int j=0; j< arr.length; j++){
             currWinSize ++;
             while(currWinSize == 3){
-                print(arr);
                 sortRange(arr, i, j);
+                print(arr);
                 i++;
                 currWinSize--;
             }
