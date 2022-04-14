@@ -63,10 +63,12 @@ public class SubarraySumEqualsK {
                                  |  7   |  7   |
                                  |  sum = 14   |
             nums        =        [3,    4,     7,    2,     -3,    1,     4,     2]      k = 7
-            cumSumMap   = {{0,1} {3,1} {7,1} {14,1} {16,1} {13,1} {14,2} {18,1} {20,1}
+            index       =         0     1      2     3       4     5      6      7
+            cumSumMap   = {{0:1} {3:1} {7:1} {14:1} {16:1} {13:1} {14:2} {18:1} {20:1}
             sum         =         3     7     14     16     13     14     18     20
-            sum-k       =        -4     0     7      9      6      7      11     13
+            sum-k       =        -4     0     7[1-2] 9      6      7[2-5] 11     13
             count       =         0     1     2      2      2      3      3      4
+
 
       Solution:
           The idea behind this approach is as follows: If the cumulative sum(represented by sum[i] for sum up to ith index)
