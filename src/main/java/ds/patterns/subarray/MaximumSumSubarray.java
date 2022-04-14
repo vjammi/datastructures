@@ -48,7 +48,7 @@ public class MaximumSumSubarray {
                                                 |---------|
               nums                = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
               currSubArraySum     =  -2  1  -2  4   3  5  6  1   5
-              maxSubArraySumSoFar =   0  1   1  4   4  5  6  6   6
+              maxSubArraySumSoFar =  -2  1   1  4   4  5  6  6   6
 
                          -2 +  1 >  1  [F]
                          1 + -3 > -3  [T]
