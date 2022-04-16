@@ -38,13 +38,32 @@ All possible subarrays are
     }
 ```
 
-## 53. Maximum Subarray [Kadane's Algorithm]
+## 53. Maximum Subarray 
 Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
 A subarray is a contiguous part of an array.
 ```
-     Kadane's Algorithm: https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm
-         Runtime O(n)
-         Space   O(1)
+    // Runtime O(n^2) - 2 for loops
+    // Space   O(1)
+    public int maxSubArrayNaive(int[] nums) {
+        int maxSumSoFar = 0;
+        for (int i=0; i<nums.length; i++){
+            int sum = 0;
+            for (int j=i; j<nums.length; j++){  // here j == i - if a single element is equal to the sum
+                sum = sum + nums[j];
+                if (sum > maxSumSoFar){
+                    maxSumSoFar = sum;
+                }
+                System.out.println("[" +nums[i] +", " +nums[j] +"]    MaxSum =" +maxSumSoFar);
+            }
+            System.out.println("");
+        }
+        return maxSumSoFar;
+    }
+
+```
+Kadane's Algorithm
+```
+     https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm
      Approach
           nums                = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
                                             |---------|          
@@ -55,7 +74,11 @@ A subarray is a contiguous part of an array.
               Add the a[k] to the existing subarray
          else
               Discard the subarray, and start a new one starting a[k]
+     Runtime O(n)
+     Space   O(1)
+              
 ```
+
 
 ```
     public int maxSubArray(int[] nums) {
