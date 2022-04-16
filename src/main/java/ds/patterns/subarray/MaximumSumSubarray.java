@@ -66,7 +66,7 @@ public class MaximumSumSubarray {
     */
     public int maxSubArray(int[] nums) {
 
-        int maxSubArraySumSoFar = nums[0];
+        int maxSubArraySumSoFar = nums[0]; // should it be initialized to 0 ???
         int currSubArraySum = nums[0];
 
         for (int i=1; i < nums.length; i++){
