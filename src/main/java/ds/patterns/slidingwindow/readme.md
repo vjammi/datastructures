@@ -3,7 +3,7 @@
 ### Overview
 Used within an iterable / sequential data structures such as an array or String.
 Problems can be solved naively using quadratic time complexity, but sliding window reduces the time complexity to linear time.
-You have a window over a section of an array and you slide the window from start to the end. As you do that, you change the size of the window.
+You have a window over a section of an array, you slide the window from start to the end. As you do that, you change the size of the window.
 
 ### Type of Problems
 1. Minimum Size SubArray Sum
@@ -14,7 +14,7 @@ You have a window over a section of an array and you slide the window from start
 
 ### Sliding Window Technique
 This technique shows how a nested for loop in some problems can be converted to a single for loop to reduce the time complexity.
-We can take a problem to illustrate the technique
+We can take a problem to illustrate the technique.
 Given an array of integers of size n, calculate the max sum of k consecutive elements in the array.
 ```
 Input  : arr[] = {100, 200, 300, 400}
@@ -29,9 +29,8 @@ Output : 39
 ```
 Notice how we get maximum sum by adding sub-array {4, 2, 10, 23} of size 4.
 
-### Solution using nested loop - O((n-k)*k)
-```
-    // Return maximum sum in a sub-array of size k.
+#### Return maximum sum in a sub-array of size k - Using nested loop - O((n-k)*k).  
+```    
     //    int arr[] = {1, 4, 2, 10, 2, 3, 1, 0, 20}, n = 9, k = 4
     //                 0  1  2  3   4  5  6  7  8
     //                                 |--------|
@@ -55,8 +54,8 @@ Notice how we get maximum sum by adding sub-array {4, 2, 10, 23} of size 4.
         return maxSum;
     }
 ```
+#### Solution using Sliding Window - O(n)
 
-### Solution using Sliding Window - O(n)
 The time complexity of this solution is O(n) because each element is visited at most twice.
 In the worst case scenario, all elements will be visited once by the start pointer and another time by the end pointer.
 The space complexity would be O(1) because the solution does not create new data structures.
@@ -94,12 +93,12 @@ The space complexity would be O(1) because the solution does not create new data
         return maxSum;
     }
 ```
-### Sliding Window Vs Two Pointers
+## Sliding Window Vs Two Pointers
 In sliding window typically we use all the elements within the window for the problem (for eg - sum of all elements in the window).
 In a two pointer technique we compare the value at the both pointers instead of taking the elements between the pointers.
+Compare the approach with SubarrayMaxSum and SubArrayMaxProduct  
 
-
-##  209. Minimum Size Subarray Sum
+## 209 Minimum Size Subarray Sum
  Given an array of positive integers nums and a positive integer target, return the minimal length of a contiguous
  subarray [numsl, numsl+1, ..., numsr-1, numsr] of which the sum is greater than or equal to target. If there is no
  such subarray, return 0 instead.
