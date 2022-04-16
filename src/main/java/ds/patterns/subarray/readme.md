@@ -124,6 +124,7 @@ A subarray is a contiguous subsequence of the array.
 ```
 
 ```
+    //  int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
     public int maxProduct(int[] nums) {
         int maxSoFar  = nums[0];
         int minSoFar  = nums[0];
@@ -139,14 +140,7 @@ A subarray is a contiguous subsequence of the array.
         }
         return globalMax;
     }
-
-    public static void main(String[] args) {
-        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-        MaximumProductSubarray obj = new MaximumProductSubarray();
-        System.out.println(obj.maxProduct(nums));
-    }
 ```
-
 
 ## Difference between subarray, subset & subsequence
 ```
