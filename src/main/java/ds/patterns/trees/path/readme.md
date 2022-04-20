@@ -56,12 +56,13 @@ Solution
             if (node == null)
                 return;
     
-            // Push node into the stack going uphill
+            // Push node into the stack
             stack.push(node.val);
     
             // Add the node value to the sum
             sum = sum + node.val;
-            // Check if the the current node is a leaf node. l & r nodes are nulls. 
+            
+            // Check if the the current node is a leaf node. l & r nodes are null. 
             // if yes check if the sum so far is the target we are looking for
             if (node.left == null && node.right==null && sum == targetSum){
                 result.add(new ArrayList(stack));
@@ -69,10 +70,8 @@ Solution
     
             pathSum(node.left, sum, stack, result);
             pathSum(node.right, sum, stack, result);
-    
-            // To backtrack we need to pop the node out of the stack going downhill
-            stack.pop();
-            // Ideally you should subtract the node val from the sum, but since we are not returning the sum we do not care.
+                
+            stack.pop(); // To backtrack we pop the node out of the stack            
             sum = sum - node.val;
         }
     }
@@ -164,6 +163,7 @@ A path in a binary tree is a sequence of nodes where each pair of adjacent nodes
 A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
 The path sum of a path is the sum of the node's values in the path.
 Given the root of a binary tree, return the maximum path sum of any path.
+
 Remember that in your recursive function, you almost always have to do something with the current node's value.
 Combining or modifying it w3ith the solution from its children. 
 You need to know how to combine those intermediate solutions into the current solution and you need to pass it back up 

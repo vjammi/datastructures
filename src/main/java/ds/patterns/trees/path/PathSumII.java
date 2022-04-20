@@ -78,7 +78,7 @@ public class PathSumII {
         if (node == null)
             return;
 
-        // Push node into the stack going uphill
+        // Push node into the stack
         stack.push(node.val);
 
         // Add the node value to the sum
@@ -92,14 +92,12 @@ public class PathSumII {
         pathSum(node.left, sum, stack, result);
         pathSum(node.right, sum, stack, result);
 
-        // To backtrack we need to pop the node out of the stack going downhill
+        // To backtrack we pop the node out of the stack
         stack.pop();
-        // Ideally you should subtract the node val from the sum, but since we are not returning the sum we do not care.
         sum = sum - node.val;
     }
 
     private void pathSum() {
-
         TreeNode  root = new TreeNode();
         root.val = 1;
         TreeNode rootLeft = new TreeNode();

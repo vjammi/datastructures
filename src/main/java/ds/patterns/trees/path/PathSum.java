@@ -1,6 +1,5 @@
 package ds.patterns.trees.path;
 
-
 // 115 out of 116 Tests Cases pass
 public class PathSum {
 
@@ -32,7 +31,7 @@ public class PathSum {
             return false;
 
         sum = sum - node.val;
-        if (node!=null && node.left == null && node.right == null && sum == 0)
+        if (node.left == null && node.right == null && sum == 0)
             return true;
 
         boolean left  = pathSum(node.left, sum);
