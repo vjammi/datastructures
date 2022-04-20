@@ -1,4 +1,4 @@
-package ds.usage;
+package ds.util.bytes;
 
 import java.nio.charset.StandardCharsets;
 
