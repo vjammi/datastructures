@@ -3,6 +3,7 @@ package ds.bst;
 public class SortedListToBST {
 
     public class ListNode { int val; ListNode next; ListNode(int x) { val = x; } }
+
     public class TreeNode { int val; TreeNode left; TreeNode right; TreeNode(int x) { val = x; } }
 
     public TreeNode sortedListToBST(ListNode head) {
@@ -13,7 +14,7 @@ public class SortedListToBST {
         }
 
         // Find the middle element for the list.
-        ListNode mid = this.findMid(head);
+        ListNode mid = findMid(head);
 
         // The mid becomes the root of the BST.
         TreeNode node = new TreeNode(mid.val);
@@ -26,8 +27,8 @@ public class SortedListToBST {
         }
 
         // Recursively form balanced BSTs using the left and right halves of the original list.
-        node.left = this.sortedListToBST(head);
-        node.right = this.sortedListToBST(mid.next);
+        node.left = sortedListToBST(head);
+        node.right = sortedListToBST(mid.next);
         return node;
     }
 

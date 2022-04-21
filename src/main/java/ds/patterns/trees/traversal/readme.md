@@ -509,7 +509,7 @@ the left half of the linked list by passing the original head of the list and on
         }
 
         // Find the middle element for the list.
-        ListNode mid = this.findMid(head);
+        ListNode mid = findMid(head);
 
         // The mid becomes the root of the BST.
         TreeNode node = new TreeNode(mid.val);
@@ -522,8 +522,8 @@ the left half of the linked list by passing the original head of the list and on
         }
 
         // Recursively form balanced BSTs using the left and right halves of the original list.
-        node.left = this.sortedListToBST(head);
-        node.right = this.sortedListToBST(mid.next);
+        node.left = sortedListToBST(head);
+        node.right = sortedListToBST(mid.next);
         return node;
     }
 
