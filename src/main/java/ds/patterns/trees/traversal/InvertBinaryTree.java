@@ -1,21 +1,23 @@
 package ds.patterns.trees.traversal;
 /**
-    // https://leetcode.com/problems/invert-binary-tree/
+    https://leetcode.com/problems/invert-binary-tree/
     226. Invert Binary Tree
     Given the root of a binary tree, invert the tree, and return its root.
-    Input: root = [4,2,7,1,3,6,9]
-                4
-            2      7
-          1  3   6   9
-    Output: [4,7,2,9,6,3,1]
-                4
-            7       2
-          9   6   3   1
 
- Input: root = [2,1,3]
-    Output: [2,3,1]
-    Input: root = []
-    Output: []
+    //    Input: root = [4,2,7,1,3,6,9]
+    //                4
+    //            2      7
+    //          1  3   6   9
+    //
+    //    Output: [4,7,2,9,6,3,1]
+    //                4
+    //            7       2
+    //          9   6   3   1
+
+     Input: root = [2,1,3]
+        Output: [2,3,1]
+        Input: root = []
+        Output: []
 */
 public class InvertBinaryTree {
 
@@ -35,24 +37,38 @@ public class InvertBinaryTree {
         }
     }
 
+    //         [4,2,7,1,3,6,9]
+    //                4
+    //            2      7
+    //          1  3   6   9
+
+    //         [4,7,2,9,6,3,1]
+    //                4
+    //            7       2
+    //          9   6   3   1
+
     public TreeNode invertTree(TreeNode root) {
         if (root == null)
             return root;
-        return invert(root);
+
+        invert(root);
+        return root;
     }
 
-    private TreeNode invert(TreeNode node) {
+    public void invert(TreeNode node){
         if (node == null)
-            return null;
+            return;
 
-        node.left  = invert(node.left);
-        node.right  = invert(node.right);
+        swapNodes(node);    // Inverted at pre-order
+        invert(node.left);
+        invert(node.right);
+        //swapNodes(node);  // Can also be inverted in post-order
 
-        TreeNode tempNode = node.left;
-        node.left   = node.right;
-        node.right  = tempNode;
-
-        return node;
     }
 
+    public void swapNodes(TreeNode node){
+        TreeNode safe = node.left;
+        node.left = node.right;
+        node.right = safe;
+    }
 }
