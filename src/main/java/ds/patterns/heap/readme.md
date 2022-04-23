@@ -386,7 +386,7 @@ Create a Map of dist to points[][] - O(N)
         map.put(new Coordinate(coord[0], coord[1], dist), dist);
     }
 ```
-Build a MinDistComparator
+Build a MaxDistComparator
 ```
     class MinDistComparator implements Comparator<Coordinate> {
         public int compare(Coordinate coord1, Coordinate coord2){
@@ -400,9 +400,9 @@ Build a MinDistComparator
         }
     }
 ```
-Load the elements of the map in a PQ using MinDistComparator - n + nlog(n)???
+Load the elements of the map in a heap using MinDistComparator - N log(N)
 ```
-    // Load the elements of the map in a PQ using minOrder Comparator n + nlog(n)???
+    // Load the elements of the map in a PQ using minOrder Comparator - Nlog(N)
     Queue<Coordinate> priorityQueue = new PriorityQueue(new MinDistComparator());
     Set<Map.Entry<Coordinate, Double>> entrySet = map.entrySet();
     for (Map.Entry entry: entrySet){
@@ -412,9 +412,9 @@ Load the elements of the map in a PQ using MinDistComparator - n + nlog(n)???
         priorityQueue.add(coord);
     }
 ```
-Return the top k min distance - k log K ???
+Return the top k min distance - N log(K)
 ```
-    // Return the top k min distance - k log K ???
+    // Return the top k min distance - N log(K)
     int[][] kClosestPoints = new int[k][2];
     for(int i=0; i<k; i++){
         Coordinate coordinate = priorityQueue.poll();
