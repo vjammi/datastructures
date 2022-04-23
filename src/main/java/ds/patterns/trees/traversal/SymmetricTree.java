@@ -1,11 +1,15 @@
 package ds.patterns.trees.traversal;
 
 /**
-https://leetcode.com/problems/symmetric-tree/
-101. Symmetric Tree
+    https://leetcode.com/problems/symmetric-tree/
+    101. Symmetric Tree
     Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
     Input: root = [1,2,2,3,4,4,3]
     Output: true
+     //                     1
+     //                  2     2
+     //                3  4  4   3
+
     Input: root = [1,2,2,null,3,null,3]
     Output: false
 */
@@ -33,6 +37,9 @@ public class SymmetricTree {
         return symmetric(root.left, root.right);
     }
 
+    //                     1
+    //                  2     2
+    //                3  4  4   3
     private boolean symmetric(TreeNode p, TreeNode q){
         if ( p == null && q == null)
             return true;
@@ -48,8 +55,8 @@ public class SymmetricTree {
 
         if (left && right)
             return true;
-        else
-            return false;
+
+        return false;
     }
 
     /*

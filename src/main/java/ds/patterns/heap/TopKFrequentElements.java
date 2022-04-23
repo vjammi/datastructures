@@ -32,6 +32,18 @@ import java.util.*;
 
 public class TopKFrequentElements {
 
+    class FrequencyComparator implements Comparator<Integer>{
+
+        @Override
+        public int compare(Integer n1, Integer n2) {
+            //return charToFreqMap.get(n2) - charToFreqMap.get(n1);             // ascending
+            //return charToFreqMap.get(n2).compareTo(charToFreqMap.get(n1));    // ascending
+
+            //return charToFreqMap.get(n1) - charToFreqMap.get(n2);             // descending
+            return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));      // descending
+        }
+    }
+
     Map<Integer, Integer> charToFreqMap;
     public int[] topKFrequent(int[] nums, int k) {
         // O(1) time
@@ -63,28 +75,6 @@ public class TopKFrequentElements {
             topKFrequentElements[i] = heap.poll();
         }
         return topKFrequentElements;
-    }
-
-    class FrequencyComparator implements Comparator<Integer>{
-        @Override
-        public int compare(Integer n1, Integer n2) {
-            //return charToFreqMap1.get(n1) - charToFreqMap1.get(n2); //    descending
-            //int diff = charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));
-            //System.out.print(diff +" "); // 1 1 0 -1 -1
-
-            //int diff11 = charToFreqMap.get(n1) - charToFreqMap.get(n2); //    descending
-            //System.out.print(diff11 +" "); // 1 4 0 -2 -1
-            //
-            //return charToFreqMap.get(n2) - charToFreqMap.get(n1); //    ascending
-            //int diff2 = charToFreqMap.get(n2).compareTo(charToFreqMap.get(n1));
-            //return  diff2;
-            //System.out.print(diff2 +" "); // -1 -1 -1 1 1
-            //int diff22 = charToFreqMap.get(n2) - charToFreqMap.get(n1);
-            //System.out.print(diff22 +" "); // -1 -3 -1 3 2
-
-            //return charToFreqMap.get(n1) - charToFreqMap.get(n2);             //    descending
-            return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));  // descending
-        }
     }
 
     public static void main(String[] args) {

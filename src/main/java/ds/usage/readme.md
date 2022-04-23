@@ -10,34 +10,31 @@
 - This interface is typically used to pass collections around and manipulate them where maximum generality is desired.
 
 
+        
+Interfaces                                                         Iterable
+                                                                      | [ext]
+                                                                  Collection
+                                                                      | [ext]
+                                    ------------------------------------------------------------                                  
+                                   | [impl]           | [ext]         | [ext]                   | [ext]          
+                                   |                 List            Set                      Queue            
+                                   |                  |               |                         |
+                                   |                  |           SortedSet                  Dequeue      
 
-Interfaces
-                                                      Iterable
-                                                         | [extends]
-                                                     Collection
-                                                         | [extends]
-                        --------------------------------------------------                                   
-                       | [implements]     | [extends]     | [extends]     | [extends]          
-                       |                 List            Set            Queue            
-                       |                  |               |               |
-                       |                  |           SortedSet        Dequeue
-                       
-Abstract Classes 
-                       | [implements]     |                             
-                  AbstractCollection      |    
-                       | [extends]        | [implements]
-                        -----------------   
-                               |
-                           AbstractList               AbstractSet
-                  | [extends]            |            |        |                    | [extends]
-        AbstractSequentialList           |
-                                              
-Implementations                
-                  |                      |            |         |                  |               
-                  |                   ArrayList    HashSet      |             PriorityQueue               
-              LinkedList               Vector         |         |              ArrayQueue
-                                       Stack    LinkedHashSet TreeSet          LinkedList
-                                      
+Abstract Classes                   | [implements]     |               |                         
+                              AbstractCollection      |               |
+                                   | [extends]        | [impl]        |
+                                    -----------------                 |
+                                           |                          |
+                              ------AbstractList-----             AbstractSet
+                              | [extends]            |            |         |                   | [ext]
+                    AbstractSequentialList           |            |         |                   |
+                    
+Implementations               |                      |            |         |                   |               
+  Classes                     |                   ArrayList    HashSet      |              PriorityQueue               
+                          LinkedList               Vector         |         |               ArrayQueue
+                                                   Stack    LinkedHashSet TreeSet           LinkedList
+                                          
 
 
 Interfaces

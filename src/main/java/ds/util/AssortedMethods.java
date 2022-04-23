@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class AssortedMethods {
+
 	public static int randomInt(int n) {
 		return (int) (Math.random() * n);
 	}
@@ -19,7 +20,7 @@ public class AssortedMethods {
 		return randomInt(max + 1 - min) + min;
 	}
 
-	public static boolean randomBoolean() {
+	public static boolean aBoolean() {
 		return randomIntInRange(0, 1) == 0;
 	}
 

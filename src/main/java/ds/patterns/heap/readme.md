@@ -1,7 +1,8 @@
 # Heaps
 
 ## Min Heap
-[heap-representation](img\heap-representations.png)
+
+### Heap Representation
 
 MinHeap [ insert(x) at the end ] UsesSwim Operation 
 Exchange with the parent and swim up until the heap order is restored
@@ -270,18 +271,25 @@ Exchange with the last element and sink it until heap order is restored.
 
 ### Top K Frequent Elements
 Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
-Input: nums = [1,1,1,2,2,3], k = 2
-Output: [1,2]
-Solution
-1. Setup the PQ with the custom comparator to order the elements based on the highest frequencies [descending order of the frequencies]
 ```
-    class FrequencyComparator implements Comparator<Integer>{
-        public int compare(Integer n1, Integer n2) {
-            return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));  // descending
-        }
-    }
+    Input: nums = {11,11,11,22,22,22,33,33,44,55,55,55,55,55,55}; 
+    int k = 2;
+    
+            charToFreqMap =  size = 5
+                 33 -> 2
+                 22 -> 3
+                 55 -> 6    <
+                 11 -> 3    <
+                 44 -> 1
+             heap =  size = 2
+                 0 = 11
+                 1 = 55
+             topKFrequentElements
+                 0 = 55
+                 1 = 11
 ```
-2. Build the HashMap
+#### Solution
+1. Create a HashMap - to store frequencies of the elements
 ```
     // build hash map character and its frequency - O(N) time
     charToFreqMap = new HashMap();
@@ -290,13 +298,27 @@ Solution
         else charToFreqMap.put(num, 1);
     }
 ```
-3. Add all frequencies from the HaspMap into the PQ.
-   PQ will order the elements based on the comparator logic [charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2))]
-   Poll the elements from PQ, when the size of the PQ grows beyond k elements[??? can keep all the frequencies and return only the top k elements]
+2. Create a PQ with a custom comparator - to order the elements based on the lowest frequency* [ascending order of the frequencies]
 ```
+    class MinFrequencyComparator implements Comparator<Integer>{
+        public int compare(Integer n1, Integer n2) {
+            return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));  // ascending
+        }
+    }
+```
+3. Add all frequencies from the HaspMap into the heap, which will order the elements based on frequency of the elements in ascending order
+   - Since we want top K elements, we will maintain a min heap.
+   - While adding the elements into the heap in ascending order, we also poll from the heap when the size of the heap grows beyond k elements.
+   - When we poll we will always end up polling the min element out of the heap causing the highest frequencies to be left at the bottom of the heap.
+   - We store only top k elements which results in O(N log k) time complexity
+```
+    // Min Heap (Ascending)   charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2)) // n1 - n2 
+    // Max Heap (Descending)  charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2)) // n2 - n1
+   
    // Init the heap the less frequent element first
-   Queue<Integer> heap = new PriorityQueue<>(new FrequencyComparator());
-   // keep k top frequent elements in the heap - O(N log k) < O(N log N) time
+   Queue<Integer> heap = new PriorityQueue<>(new MinFrequencyComparator());
+   
+   // keep k top frequent elements in the heap in ascending order of frequency O(N log k) < O(N log N) time
    for (int key: charToFreqMap.keySet()) {
        heap.add(key);
        if (heap.size() > k) heap.poll();
