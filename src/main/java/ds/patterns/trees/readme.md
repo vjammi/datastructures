@@ -232,7 +232,7 @@ https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/
 - Nodes which are not leaves are called internal nodes. 
 - Nodes with the same parent are called siblings.
 
-### Depth and Height of a Node in a Binary Tree 
+### Depth and Height  
 - Depth of a node
   - The depth of a node is the number of edges from the root to the node.
 - Height of a node

@@ -64,7 +64,7 @@ public class KClosestPointsToOrigin {
             map.put(new Coordinate(coord[0], coord[1], dist), dist);
         }
 
-        // Load the elements of the map in a PQ using a minimum distance from origin comparator - n + nlog(n)???
+        // Load the elements of the map in a heap using a MinDistanceFromOriginComparator - n + nlog()
         Queue<Coordinate> priorityQueue = new PriorityQueue(new MinDistFromOriginComparator());
         Set<Map.Entry<Coordinate, Double>> entrySet = map.entrySet();
         for (Map.Entry entry: entrySet){
@@ -79,6 +79,7 @@ public class KClosestPointsToOrigin {
             int[] coord = new int[2];
             coord[0] = coordinate.x;
             coord[1] = coordinate.y;
+            System.out.println(coordinate.x +" " +coordinate.y +" " +coordinate.distFromOrigin +" ");
             kClosestPoints[i] =  coord;
         }
 
@@ -88,7 +89,7 @@ public class KClosestPointsToOrigin {
     public static void main(String[] args) {
         KClosestPointsToOrigin obj = new KClosestPointsToOrigin();
         int k = 2;
-        int[][] points = {{3,3},{5,-1},{-2,4}};
+        int[][] points = {{5,-1},{-2,4},{3,3}};
         obj.kClosest(points, k);
     }
 }
