@@ -332,9 +332,11 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
 
 ##### Property 4: Number of internal nodes in a perfect binary tree of height h = 2^h − 1
 - Number of nodes in a perfect binary tree of height h = 2^(h+1) − 1   (see Property 2)
-- Number of leaf nodes in a perfect binary tree of height h = 2^h   (see Property 3)
+- Number of leaf nodes in a perfect binary tree of height h = 2^h      (see Property 3)
 - The other nodes are internal nodes (i.e., with at least 1 child node).
-- So the number of internal nodes in a perfect binary tree of height h = (2^(h+1) − 1) − 2^h = 2^h − 1
+- So the number of internal nodes in a perfect binary tree of height h is
+  - [Total number of nodes] - [Number of nodes at height h] 
+  - [(2^(h+1)−1)] − [2^h = 2^h − 1]
 
 REFERENCE: 
 https://www.andrew.cmu.edu/course/15-121/lectures/Trees/trees.html
