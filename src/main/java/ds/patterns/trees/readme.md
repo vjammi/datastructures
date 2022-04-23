@@ -224,52 +224,44 @@ https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/
 ```
 
 ## Binary Tree
-A tree where each parent node can have at most 2 children either 0,1,2 children only
-each node is either a leaf node with no children or is a node with 2 children
-if a node is a leaf node its left and right children are null
+- A binary tree is made of nodes, where each node contains a "left" reference, a "right" reference, and a data element.
+- The topmost node in the tree is called the root.
+- Every node (excluding root) in a tree is connected by a directed edge from exactly one other node. This node is called a parent. 
+- On the other hand, each node can be connected to arbitrary number of nodes, called children.
+- Nodes with no children are called leaves, or external nodes.
+- Nodes which are not leaves are called internal nodes. 
+- Nodes with the same parent are called siblings.
 
-A binary tree is made up of a finite set of elements called nodes. This set either is empty or consists of a node called the root together with two binary trees,
-called the left and right subtrees, which are disjoint from each other and from the root. (Disjoint means that they have no nodes in common.)
-The roots of these subtrees are children of the root. There is an edge from a node to each of its children, and a node is said to be the parent of its children.
-
-If n1,n2,...,nk is a sequence of nodes in the tree such that ni is the parent of ni+1 for 1≤i<k, then this sequence is called a path from n1 to nk.
-The length of the path is k−1. If there is a path from node R to node M, then R is an ancestor of M, and M is a descendant of R.
-Thus, all nodes in the tree are descendants of the root of the tree, while the root is the ancestor of all nodes. The depth of a node M in the tree is the length of
-the path from the root of the tree to M. The height of a tree is the depth of the deepest node in the tree. All nodes of depth d are at level d in the tree.
-The root is the only node at level 0, and its depth is 0. A leaf node is any node that has two empty children. An internal node is any node that has at least one non-empty child.
-Reference: https://opendsa-server.cs.vt.edu/ODSA/Books/CS3/html/BinaryTree.html
-
-## Binary Tree Vs Binary Search Tree
-### Binary Tree
-- Nodes are unordered, due to which insertion, deletion, and searching are slower
-- Each node can have atmost two child nodes
-
-### Binary Search Tree
-- Nodes are ordered, due to which insertion, deletion, searching of an element are faster
-- The left subtree has elements less than the node and the right subtree has elements greater than the node
-
-### Depth, Height, Level in a Binary Tree
-- The depth of a node M in the tree is the length of the path from the root of the tree to M.
-- The height of a tree is the depth of the deepest node in the tree.
-- All nodes of depth d are at level d in the tree.
-- The root is the only node at level 0, and its depth is 0.
-- A leaf node is any node that has two empty children.
-- An internal node is any node that has at least one non-empty child.
+### Depth and Height of a Node in a Binary Tree 
+- Depth of a node
+  - The depth of a node is the number of edges from the root to the node.
+- Height of a node
+  - The height of a node is the number of edges from the node to the deepest leaf.
+- Height of a tree
+  - The height of a tree is a height of the root.
+- A full binary tree
+  - A full binary tree is a binary tree in which each node has exactly zero or two children.
+- A complete binary tree
+  - A complete binary tree is a binary tree, which is completely filled, with the possible exception of the bottom level, which is filled from left to right.
 
 ### Binary Tree Classifications
-1. Full Binary Tree
-Each node in a full binary tree is either
-- an internal node with exactly two non-empty children or
-- a leaf.
+
+### Full Binary Tree
+A full binary tree is a binary tree in which each node has exactly zero or two children.
 ```
                  1
            2          3
         4     5
            6     7
-            Figure (a)
+   
+          Figure (a)
 ```
-2. Complete Binary Tree *
-In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible.
+
+### Complete Binary Tree
+A complete binary tree is very special tree, it provides the best possible ratio between the number of nodes and the height. The height h of a complete binary tree with N nodes is at most O(log N). We can easily prove this by counting nodes on each level, starting with the root, assuming that each level has the maximum number of nodes:
+    n = 1 + 2 + 4 + ... + 2^(h-1) + 2^(h) = 2^(h+1) - 1
+Solving this with respect to h, we obtain
+    h = O(log n)
 ```
                     1
             2               3
@@ -277,9 +269,9 @@ In a complete binary tree every level, except possibly the last, is completely f
       8   9   10  11  12
                 Figure (b)
 ```
-3. Perfect Binary Tree *
-A Binary tree is a Perfect Binary Tree in which all the internal nodes have two children and all leaf nodes are at the same level.
-Number of Nodes =  [(2^levels) - 1]
+
+### Perfect Binary Tree and its properties
+A binary tree where each level contains the maximum number of nodes. i.e., every level is completely* full* of nodes.
 ```
                    18
                 /     \
@@ -288,19 +280,63 @@ Number of Nodes =  [(2^levels) - 1]
           40    50    100   40
                 Figure (c)
 ```
+##### Property 1: The number of nodes at depth d in a perfect binary tree = 2^d
+- There is only 1 node (= the root node) at depth 0: 2^0 = 1
+- In a perfect binary tree, every node has 2 children nodes
+```
+                                1                                           depth 0     2^0 nodes
+                      2                    3                                      1     2^1 nodes
+                4           5         6          7                                2     2^2 nodes
+             8       9   10    11   12   13   14    15                            3     2^3 nodes
+```
+- So:
+```
+         Depth (d)   Number of nodes at depth d      Num of child nodes
+         -----------------------------------------------------------------------
+            0        1 = 2^0                       2 (each node has 2 children)                               1
+            1        2 = 2^1                       4 (each node has 2 children)                     2                    3
+            2        4 = 2^2                       8 (each node has 2 children)               4           5         6          7
+            3        8 = 2^2                       16                                      8       9   10    11   12   13   14    15
+```
+- i.e. 
+  - The number of nodes doubles every time the depth increases by 1!
+- Therefore, 
+  - nodes at depth d = 2^d
 
+##### Property 2: A perfect binary tree of height h has [2^(h+1) - 1] nodes
+- Total number of nodes in a perfect binary tree of height h
+    Number of nodes = 2^0 + 2^1 + ... 2^h = 2^(h+1) − 1
+```
+                                1                                           depth h=0     2^0 nodes
+                      2                    3                                      h=1     2^1 nodes
+                4           5         6          7                                h=2     2^2 nodes
+             8       9   10    11   12   13   14    15                      depth h=3     2^3 nodes
+```
 
-### Differences between full and complete binary trees
-There is no particular relationship between these two tree shapes; that is, the tree of Figure (a) is full but not complete while the tree of Figure (b) is complete but not full.
-- The heap data structure is an example of a complete binary tree.
-- while, the Huffman coding tree is an example of a full binary tree.
+```
+      S =     1 + 2 + 2^2 + 2^3 + ... + 2^h   
+    2xS =         2 + 2^2 + 2^3 + ... + 2^h + 2^(h+1)   - (subtract)
+    ------------------------------------------------------------    
+       2xS - S = 2^(h+1) - 1  
+    <==>     S = 2^(h+1) - 1
+```
+##### Property 3: Number of leaf nodes in a perfect binary tree of height h = 2^h
+- Number of leaf nodes in a perfect binary tree of height h = 2^h
+- Number of nodes at depth d in a perfect binary tree = 2^d
+- All the leaf nodes in a perfect binary tree of height h has a depth equal to h:
+- Number of nodes at depth h in a perfect binary tree = 2^h
+- Therefore, Number of leaf nodes in a perfect binary tree of height h = 2^h
 
-While these definitions for full and complete binary tree are the ones most commonly used, they are not universal.
-Because the common meaning of the words "full" and "complete" are quite similar, there is little that you can do to distinguish between them other than to memorize the definitions.
+##### Property 4: Number of internal nodes in a perfect binary tree of height h = 2^h − 1
+- Number of nodes in a perfect binary tree of height h = 2^(h+1) − 1   (see Property 2)
+- Number of leaf nodes in a perfect binary tree of height h = 2^h   (see Property 3)
+- The other nodes are internal nodes (i.e., with at least 1 child node).
+- So the number of internal nodes in a perfect binary tree of height h = (2^(h+1) − 1) − 2^h = 2^h − 1
 
-Note: Here is a memory aid that you might find useful:
-"Complete" is a wider word than "full", and complete binary trees tend to be wider than full binary trees because each level of a complete binary tree is as wide as possible.
-
+REFERENCE: 
+https://www.andrew.cmu.edu/course/15-121/lectures/Trees/trees.html
+http://www.mathcs.emory.edu/~cheung/Courses/171/Syllabus/9-BinTree/bin-tree.html
+https://opendsa-server.cs.vt.edu/ODSA/Books/CS3/html/BinaryTree.html
 
 
 ## Relationship between - Level, Height & Nodes in a Binary Tree
@@ -314,45 +350,6 @@ Level in a Binary Tree
 
 ```??? Number of Nodes =  2^0 + 2^1 + 2^2 + 2^3 + 2^4 ... 2^h = (2^(h+1))-1```
 
-In a Binary Tree with n nodes
-- Max number of nodes in a Binary tree = [(2^h) - 1]
-- Min height or min levels = log base2(N+1)
-
-Therefore, the min and max number of nodes for a binary tree for a given height is
-    Min number of nodes = h + 1         [For a skewed Binary Tree]
-    Max number of nodes = (2^ (h+1))-1  [For a complete and full Binary Tree]
-
-    For example, when h = 2
-        (2^2+1)-1 = (2^3)-1 = 8-1 = 7
-
-#### How can we calculate the min and max height of a tree for a given number of nodes?
-Height of a binary tree is the max depth of a tree or the longest path to the left node.
-If it a full binary tree
-```(2^(h+1)) - 1 = n (Number of Nodes)```
-(2^(h+1))     = n + 1
-log(2^(h+1))  = log(n + 1)
-log2(n+1)-1   = h
-
-Therefore, the height of a binary tree, when given the number of nodes is
-```Height = log2(n+1)-1```
-```Min Height = Floor(log2(n))```
-```Max height = n-1```
-
-For example, when n = 7
-    h = log2 (7+1) - 1
-        log2 (8) - 1
-        log2 (8) - 1
-        3 - 1
-    h = 2
-
-Note: To find
-    log2(8), think of 2^? = 8  [2^3 = 8]
-    log3(9), think of 3^? = 9  [3^2 = 9]
-
-#### Takeaway
-- We like to keep the height of the tree as mimimal as we can
-- If it is a perfect binary tree then the runtime to reach a node will be the height of the binary tree.
-- Greater the height, greater the time needed. So we try to keep a tree balanced so that the height stays minimal
 
 ## Balanced  Binary Tree
 Difference between the left and right subtree is not more than k.
