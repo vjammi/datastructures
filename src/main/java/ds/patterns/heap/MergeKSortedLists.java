@@ -8,17 +8,18 @@ import java.util.Queue;
      23. Merge k Sorted Lists
      You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
      Merge all the linked-lists into one sorted linked-list and return it.
+
      Example 1:
-     Input: lists = [[1,4,5],[1,3,4],[2,6]]
-     Output: [1,1,2,3,4,4,5,6]
-     Explanation: The linked-lists are:
-     [
-     1->4->5,
-     1->3->4,
-     2->6
-     ]
-     merging them into one sorted list:
-     1->1->2->3->4->4->5->6
+         Input: lists = [[1,4,5],[1,3,4],[2,6]]
+         Output: [1,1,2,3,4,4,5,6]
+         Explanation: The linked-lists are:
+         [
+         1->4->5,
+         1->3->4,
+         2->6
+         ]
+         merging them into one sorted list:
+         1->1->2->3->4->4->5->6
  */
 
 public class MergeKSortedLists {
@@ -66,9 +67,8 @@ public class MergeKSortedLists {
     // next          ^
     // pq      1  4  1  3  4  2  6
     //         1 > 1 > 2 > 3 > 4 > 4 > 5 > 6
-    Queue<ListNode> pq;
     public ListNode mergeKLists(ListNode[] lists) {
-        pq = new PriorityQueue<ListNode>(new MinComparator());
+        Queue<ListNode> pq = new PriorityQueue<>(new MinComparator());
 
         for (int i=0;i<lists.length; i++){
             ListNode current = lists[i];
@@ -81,30 +81,27 @@ public class MergeKSortedLists {
             // current == null
         }
 
-        /**
-        Note on pq.iterator()
-        Returns an iterator over the elements in this collection.  There are no guarantees concerning the order in which the
-        elements are returned (unless this collection is an instance of some class that provides a guarantee).
-
-        ListNode head = null;
-        ListNode tail = null;
-         Iterator<Integer> iterator = pq.iterator();
-         while(iterator.hasNext()){
-             //ListNode node = iterator.next();
-             Integer nodeVal = iterator.next();
-             ListNode node   = new ListNode(nodeVal);
-             node.next = null;       // Should not be necessary
-             if (i==0) {
-                 head = node;
-                 tail = node;
-             }else{
-                 tail.next = node;
-                 tail = node;
-                 tail.next = null;
-             }
-             i++;
-         }
-     */
+        //    Note on pq.iterator()
+        //    Returns an iterator over the elements in this collection.  There are no guarantees concerning the order in which the
+        //    elements are returned (unless this collection is an instance of some class that provides a guarantee).
+        //        ListNode head = null;
+        //        ListNode tail = null;
+        //         Iterator<Integer> iterator = pq.iterator();
+        //         while(iterator.hasNext()){
+        //             //ListNode node = iterator.next();
+        //             Integer nodeVal = iterator.next();
+        //             ListNode node   = new ListNode(nodeVal);
+        //             node.next = null;       // Should not be necessary
+        //             if (i==0) {
+        //                 head = node;
+        //                 tail = node;
+        //             }else{
+        //                 tail.next = node;
+        //                 tail = node;
+        //                 tail.next = null;
+        //             }
+        //             i++;
+        //         }
 
         // int i=0;
         // pq      1  4  1  3  4  2  6
@@ -114,6 +111,7 @@ public class MergeKSortedLists {
         // head    ^
         // tail                      ^
         // i=1
+
         ListNode tail = null;
         ListNode head = null;
         int i = 0;
