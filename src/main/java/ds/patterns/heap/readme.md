@@ -537,10 +537,10 @@ Return the top k min distance
     // next          ^
     // pq      1  4  1  3  4  2  6
     //         1 > 1 > 2 > 3 > 4 > 4 > 5 > 6
-    Queue<ListNode> pq;
+    
     public ListNode mergeKLists(ListNode[] lists) {
-        pq = new PriorityQueue<ListNode>(new MinComparator());
-
+        Queue<ListNode> pq = new PriorityQueue<>(new MinComparator());
+        
         for (int i=0;i<lists.length; i++){
             ListNode current = lists[i];
             while(current!=null){
@@ -584,35 +584,6 @@ Return the top k min distance
             i++;
         }
         return head;
-    }
-
-    private void testMergeLists() {
-        //         1->4->5
-        //               ^
-        //         1->3->4,
-        //         ^
-        //         2->6
-        ListNode head1 = new ListNode(1);
-        head1.next =  new ListNode(4);
-        head1.next.next =  new ListNode(5);
-
-        ListNode head2 = new ListNode(1);
-        head2.next =  new ListNode(3);
-        head2.next.next =  new ListNode(4);
-
-        ListNode head3 = new ListNode(2);
-        head3.next =  new ListNode(6);
-
-        ListNode[] lists = new ListNode[3];
-        lists[0] = head1;
-        lists[1] = head2;
-        lists[2] = head3;
-        ListNode mergedList = mergeKLists(lists);
-
-        while(mergedList!=null){
-            System.out.print(mergedList.val +" ");
-            mergedList = mergedList.next;
-        }
     }
 ```
 
