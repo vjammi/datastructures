@@ -55,7 +55,7 @@ public class KClosestPointsToOrigin {
     // Distance for point [1,3] from origin [0,0] = Math.sqrt((1-0)^2 + (3-0)^2)
     public int[][] kClosest(int[][] points, int k) {
 
-        // Create a Map of dist to points[][]   - O(N)
+        // Create a Map of dist to points[][]   - n log(n)
         Map<Coordinate, Double> map = new HashMap<>();
         for(int i=0; i<points.length; i++){
             int[] coord = points[i];
@@ -64,26 +64,44 @@ public class KClosestPointsToOrigin {
             map.put(new Coordinate(coord[0], coord[1], dist), dist);
         }
 
-        // Load the elements of the map in a heap using a MinDistanceFromOriginComparator - n + nlog()
-        Queue<Coordinate> priorityQueue = new PriorityQueue(new MinDistFromOriginComparator());
+        // Load the elements of the map in a PQ using minOrder Comparator - n log(k)
+        Queue<Coordinate> priorityQueue = new PriorityQueue(new MaxDistComparator());
         Set<Map.Entry<Coordinate, Double>> entrySet = map.entrySet();
         for (Map.Entry entry: entrySet){
             Coordinate coord = (Coordinate) entry.getKey();
+            Double     distFromOrigin  = (Double) entry.getValue();
             priorityQueue.add(coord);
+            if (priorityQueue.size() > k)
+                priorityQueue.poll();
         }
 
-        // Return the top k min distance - k log K ???
-        int[][] kClosestPoints = new int[k][2];
-        for(int i=0; i<k; i++){
+        // Return the top k min distance
+
+        // Option 1 [n log(n)] - Storing all elements in the heap
+        // While using MinDistance Comparator,  reading all elements from the map, and storing all* the elements into the heap based on their min distance from the origin
+        int[][] kClosestPoints1 = new int[k][2];
+         for(int i=0; i<k; i++){
+             Coordinate coordinate = priorityQueue.poll();
+             int[] coord = new int[2];
+             coord[0] = coordinate.x;
+             coord[1] = coordinate.y;
+             System.out.println(coordinate.x +" " +coordinate.y +" " +coordinate.distFromOrigin +" ");
+             kClosestPoints1[i] =  coord;
+         }
+
+        // Option 2 [Preferred - nlog(k)] - Storing only min k elements in the heap, less heap storage]
+        // While using MaxDistance Comparator, reading all elements from the map, but storing only* max k elements into the heap based on their max distance from the origin
+        int[][] kClosestPoints2 = new int[k][2];
+        for (int i=k-1; i>=0; i--){
             Coordinate coordinate = priorityQueue.poll();
             int[] coord = new int[2];
             coord[0] = coordinate.x;
             coord[1] = coordinate.y;
+            kClosestPoints2[i] =  coord;
             System.out.println(coordinate.x +" " +coordinate.y +" " +coordinate.distFromOrigin +" ");
-            kClosestPoints[i] =  coord;
         }
 
-        return kClosestPoints;
+        return kClosestPoints2;
     }
 
     public static void main(String[] args) {

@@ -335,9 +335,9 @@ Given an integer array nums and an integer k, return the k most frequent element
 ```
 
 ### 973 K Closest Points to Origin
-Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
-The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
-You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
+    Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
+    The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
+    You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
     Input: points = [[1,3],[-2,2]], k = 1
     Output: [[-2,2]]
     Explanation:
@@ -386,94 +386,273 @@ Create a Map of dist to points[][] - O(N)
         map.put(new Coordinate(coord[0], coord[1], dist), dist);
     }
 ```
-Build a MaxDistComparator
+Create a MaxDistComparator
 ```
     class MinDistComparator implements Comparator<Coordinate> {
         public int compare(Coordinate coord1, Coordinate coord2){
-            return coord1.dist.compareTo(coord2.dist); // or // return (int) (coord1.dist - coord2.dist);
+            return coord1.dist.compareTo(coord2.dist); // or return (int) (coord1.dist - coord2.dist);
         }
     }
 
     class MaxDistComparator implements Comparator<Coordinate> {
         public int compare(Coordinate coord1, Coordinate coord2){
-            return coord2.dist.compareTo(coord1.dist);
+            return coord2.dist.compareTo(coord1.dist); // or return (int) (coord2.dist - coord1.dist);
         }
     }
 ```
 Load the elements of the map in a heap using MinDistComparator - N log(N)
 ```
-    // Load the elements of the map in a PQ using minOrder Comparator - Nlog(N)
+    // Option 1: Load the elements of the map intp heap using MinDistComparator - Nlog(N)
     Queue<Coordinate> priorityQueue = new PriorityQueue(new MinDistComparator());
     Set<Map.Entry<Coordinate, Double>> entrySet = map.entrySet();
     for (Map.Entry entry: entrySet){
         Coordinate coord = (Coordinate) entry.getKey();
+        Double     dist  = (Double) entry.getValue();        
+        priorityQueue.add(coord);
+    }
+    
+    // Option 2: Load the elements of the map into heap using MaxDistComparator - Nlog(k)
+    Queue<Coordinate> priorityQueue = new PriorityQueue(new MaxDistComparator());
+    Set<Map.Entry<Coordinate, Double>> entrySet = map.entrySet();
+    for (Map.Entry entry: entrySet){
+        Coordinate coord = (Coordinate) entry.getKey();
         Double     dist  = (Double) entry.getValue();
-        // if (priorityQueue.size() > k) priorityQueue.poll();
+        if (priorityQueue.size() > k) 
+            priorityQueue.poll();
         priorityQueue.add(coord);
     }
 ```
-Return the top k min distance - N log(K)
+Return the top k min distance 
 ```
-    // Return the top k min distance - N log(K)
-    int[][] kClosestPoints = new int[k][2];
-    for(int i=0; i<k; i++){
+    // Return the top k min distance
+    
+    // Option 1: [n log(n)] - Storing all elements in the heap
+    // While using MinDistance Comparator,  reading all elements from the map, and storing all* the elements into the heap based on their min distance from the origin
+    int[][] kClosestPoints1 = new int[k][2];
+     for(int i=0; i<k; i++){
+         Coordinate coordinate = priorityQueue.poll();
+         int[] coord = new int[2];
+         coord[0] = coordinate.x;
+         coord[1] = coordinate.y;
+         System.out.println(coordinate.x +" " +coordinate.y +" " +coordinate.distFromOrigin +" ");
+         kClosestPoints1[i] =  coord;
+     }
+
+    // Option 2: [Preferred - nlog(k)] - Storing only min k elements in the heap, less heap storage]
+    // While using MaxDistance Comparator, reading all elements from the map, but storing only* max k elements into the heap based on their max distance from the origin
+    int[][] kClosestPoints2 = new int[k][2];
+    for (int i=k-1; i>=0; i--){
         Coordinate coordinate = priorityQueue.poll();
         int[] coord = new int[2];
         coord[0] = coordinate.x;
         coord[1] = coordinate.y;
-        kClosestPoints[i] =  coord;
+        kClosestPoints2[i] =  coord;
+        System.out.println(coordinate.x +" " +coordinate.y +" " +coordinate.distFromOrigin +" ");
     }
+    
+    return kClosestPoints2;
+```
+### Important Consideration for returning the top k elements
+```
+    // Option 1: [n log(n)] - Storing all elements in the heap
+    // While using MinDistance Comparator,  reading all elements from the map, and storing all* the elements into the heap based on their min distance from the origin
+    int[][] kClosestPoints1 = new int[k][2];
+     for(int i=0; i<k; i++){
+         Coordinate coordinate = priorityQueue.poll();
+         int[] coord = new int[2];
+         coord[0] = coordinate.x;
+         coord[1] = coordinate.y;
+         System.out.println(coordinate.x +" " +coordinate.y +" " +coordinate.distFromOrigin +" ");
+         kClosestPoints1[i] =  coord;
+     }
 
-    return kClosestPoints;
+    // Option 2: [Preferred - nlog(k)] - Storing only min k elements in the heap, less heap storage]
+    // While using MaxDistance Comparator, reading all elements from the map, but storing only* max k elements into the heap based on their max distance from the origin
+    int[][] kClosestPoints2 = new int[k][2];
+    for (int i=k-1; i>=0; i--){
+        Coordinate coordinate = priorityQueue.poll();
+        int[] coord = new int[2];
+        coord[0] = coordinate.x;
+        coord[1] = coordinate.y;
+        kClosestPoints2[i] =  coord;
+        System.out.println(coordinate.x +" " +coordinate.y +" " +coordinate.distFromOrigin +" ");
+    }
 ```
 
 ### 23 Merge k Sorted Lists
-You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
-Merge all the linked-lists into one sorted linked-list and return it.
-Input: lists = [[1,4,5],[1,3,4],[2,6]]
-Output: [1,1,2,3,4,4,5,6]
-Explanation: The linked-lists are:
-    [
-      1->4->5,
-      1->3->4,
-      2->6
-    ]
-merging them into one sorted list:
-    1->1->2->3->4->4->5->6
+    You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+    Merge all the linked-lists into one sorted linked-list and return it.
+    Input: lists = [[1,4,5],[1,3,4],[2,6]]
+    Output: [1,1,2,3,4,4,5,6]
+    Explanation: The linked-lists are:
+        [
+          1->4->5,
+          1->3->4,
+          2->6
+        ]
+    merging them into one sorted list:
+        1->1->2->3->4->4->5->6
+
+```
+    public class ListNode {
+        int val;
+        ListNode next;
+        ListNode() {
+        }
+        ListNode(int val) {
+            this.val = val;
+        }
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    class MinComparator implements Comparator<ListNode>{
+        public int compare(ListNode node1, ListNode node2){
+            Integer val1 = node1.val;
+            Integer val2 = node2.val;
+            return val1.compareTo(val2); // Ascending
+        }
+    }
+
+    class MinIntegerComparator implements Comparator<Integer>{
+        public int compare(Integer val1, Integer val2){
+            return val2.compareTo(val1); // Ascending
+        }
+    }
+
+    //         1->4->5>null
+    // current          ^
+    // next             ^
+    // pq      1  4
+
+    //         1->3->4>null
+    // current          ^
+    // next             ^
+    // pq      1  4  1   3  4
+
+    //         2->6>null
+    // current       ^
+    // next          ^
+    // pq      1  4  1  3  4  2  6
+    //         1 > 1 > 2 > 3 > 4 > 4 > 5 > 6
+    Queue<ListNode> pq;
+    public ListNode mergeKLists(ListNode[] lists) {
+        pq = new PriorityQueue<ListNode>(new MinComparator());
+
+        for (int i=0;i<lists.length; i++){
+            ListNode current = lists[i];
+            while(current!=null){
+                ListNode next = current.next;  // Next is safe
+                current.next = null;           // Free up the current node
+                pq.add(current);               // Adding listNode to pq instead of the copy - pq.add(new ListNode(current.val));
+                current = next;
+            }
+            // current == null
+        }
+
+        /**
+            Note on pq.iterator()
+            Returns an iterator over the elements in this collection.  There are no guarantees concerning the order in which the
+            elements are returned (unless this collection is an instance of some class that provides a guarantee).
+        */
+
+        // int i=0;
+        // pq      1  4  1  3  4  2  6
+        // pq      1  1  2  3  4  4  6
+        // node                      ^
+        // head    1> 1> 2> 3> 4> 4> 6 > null
+        // head    ^
+        // tail                      ^
+        // i=1
+        ListNode tail = null;
+        ListNode head = null;
+        int i = 0;
+        while (!pq.isEmpty()) {
+            ListNode node = pq.poll();
+            System.out.print(node.val +" > ");
+            if (i == 0) {
+                head = node;
+                tail = node;
+                node.next = null;
+            } else {
+                tail.next = node;
+                tail = node;
+                node.next = null;
+            }
+            i++;
+        }
+        return head;
+    }
+
+    private void testMergeLists() {
+        //         1->4->5
+        //               ^
+        //         1->3->4,
+        //         ^
+        //         2->6
+        ListNode head1 = new ListNode(1);
+        head1.next =  new ListNode(4);
+        head1.next.next =  new ListNode(5);
+
+        ListNode head2 = new ListNode(1);
+        head2.next =  new ListNode(3);
+        head2.next.next =  new ListNode(4);
+
+        ListNode head3 = new ListNode(2);
+        head3.next =  new ListNode(6);
+
+        ListNode[] lists = new ListNode[3];
+        lists[0] = head1;
+        lists[1] = head2;
+        lists[2] = head3;
+        ListNode mergedList = mergeKLists(lists);
+
+        while(mergedList!=null){
+            System.out.print(mergedList.val +" ");
+            mergedList = mergedList.next;
+        }
+    }
+```
 
 ### 295. Find Median from Data Stream
-The Median is the "middle" of a sorted list of numbers.
-The median is the middle value in an ordered integer list.
-    Odd List: [3, 5, 7, 12, 13, 14, 21, 23, 23, 23, 23, 29, 39, 40, 56]
-    Median:   23
-The median value of this set of numbers is 23.
-If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
-    Even List: [3, 5, 7, 12, 13, 14, 21, 23, 23, 23, 23, 29, 40, 56]
-    Median:     21 + 23 = 44, then 44/2 = 22
-For example,
-- arr = [2,3,4], the median is 3.
-- arr = [2,3], the median is (2 + 3) / 2 = 2.5.
-Implement the MedianFinder class:
-- MedianFinder() initializes the MedianFinder object.
-- void addNum(int num) adds the integer num from the data stream to the data structure.
-- double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
-Example 1
-Input
-["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
-[[], [1], [2], [], [3], []]
-Output
-[null, null, null, 1.5, null, 2.0]
-Explanation
-MedianFinder medianFinder = new MedianFinder();
-medianFinder.addNum(1);    // arr = [1]
-medianFinder.addNum(2);    // arr = [1, 2]
-medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
-medianFinder.addNum(3);    // arr[1, 2, 3]
-medianFinder.findMedian(); // return 2.0
+    The Median is the "middle" of a sorted list of numbers.
+    The median is the middle value in an ordered integer list.
+        Odd List: [3, 5, 7, 12, 13, 14, 21, 23, 23, 23, 23, 29, 39, 40, 56]
+        Median:   23
+    The median value of this set of numbers is 23.
+    If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
+        Even List: [3, 5, 7, 12, 13, 14, 21, 23, 23, 23, 23, 29, 40, 56]
+        Median:     21 + 23 = 44, then 44/2 = 22
 
-Median is the number that is in the middle of an ordered list. If there are two medians, then it is the average value of the two.
-2,3,5 -   Median = 3
-2,3,4,5 - Median = (3+4)/2 = 3.5
+    For example,
+         - arr = [2,3,4], the median is 3.
+         - arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+        Implement the MedianFinder class:
+         - MedianFinder() initializes the MedianFinder object.
+         - void addNum(int num) adds the integer num from the data stream to the data structure.
+         - double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
+    
+    Example 1
+        Input
+        ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+        [[], [1], [2], [], [3], []]
+        Output
+        [null, null, null, 1.5, null, 2.0]
+        Explanation
+        MedianFinder medianFinder = new MedianFinder();
+        medianFinder.addNum(1);    // arr = [1]
+        medianFinder.addNum(2);    // arr = [1, 2]
+        medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+        medianFinder.addNum(3);    // arr[1, 2, 3]
+        medianFinder.findMedian(); // return 2.0
+
+    Median is the number that is in the middle of an ordered list. If there are two medians, then it is the average value of the two.
+        2,3,5 -   Median = 3
+        2,3,4,5 - Median = (3+4)/2 = 3.5
+
+
 ```
     public class MedianFinderApproach2 {
 

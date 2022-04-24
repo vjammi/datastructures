@@ -1,4 +1,4 @@
-package ds.usage.oop;
+package ds.oop.passby;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -29,7 +29,7 @@ import java.util.function.Consumer;
       https://www.cs.virginia.edu/~jh2jf/courses/cs2110/java-pass-by-value.html#:~:text=Java%20is%20officially%20always%20pass,the%20reference%20for%20reference%20types.
       https://www.andrew.cmu.edu/course/15-121/lectures/Class%20Design/classes.html
  */
-public class PassByValueANDReference {
+public class PassByValue_PassByReference {
 
     /** Pass by Value */
     public void testPassingPrimitiveTypes() {
@@ -213,7 +213,8 @@ public class PassByValueANDReference {
 
             @Override
             public Item next() {
-                if (!hasNext()) throw new NoSuchElementException();
+                if (!hasNext())
+                    throw new NoSuchElementException();
                 Item item = current.value;
                 current =  current.next;
                 return item;
@@ -236,7 +237,7 @@ public class PassByValueANDReference {
     }
 
     public static void main(String[] args) {
-        PassByValueANDReference obj = new PassByValueANDReference();
+        PassByValue_PassByReference obj = new PassByValue_PassByReference();
 
         obj.testPassingPrimitiveTypes();
         obj.testPassingString();

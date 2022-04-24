@@ -1,6 +1,6 @@
 package ds.usage;
 
-public class AGenericPair {
+public class KeyValuePairUsage {
 
     class MyPair<K, V> {
         private K key;
@@ -23,7 +23,7 @@ public class AGenericPair {
     }
 
     public static void main(String[] args) {
-        new AGenericPair().usage();
+        new KeyValuePairUsage().usage();
     }
 
 }
