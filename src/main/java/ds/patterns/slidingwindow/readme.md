@@ -29,7 +29,9 @@ Output : 39
 ```
 Notice how we get maximum sum by adding sub-array {4, 2, 10, 23} of size 4.
 
-#### Return maximum sum in a sub-array of size k - Using nested loop - O((n-k)*k).  
+### Return maximum sum in a sub-array of size k
+
+#### Solution using nested loops - O(n * k)
 ```    
     //    int arr[] = {1, 4, 2, 10, 2, 3, 1, 0, 20}, n = 9, k = 4
     //                 0  1  2  3   4  5  6  7  8
@@ -37,25 +39,28 @@ Notice how we get maximum sum by adding sub-array {4, 2, 10, 23} of size 4.
     //           i     ->              ^
     //           j     ->                       ^
 
-    // Runtime O((n-k)*k)
+    // Runtime O(n * k)
     public int maxSumNestedLoop(int arr[], int n, int k) {
         int maxSum = Integer.MIN_VALUE;
-        // O(n-k) - This loop runs for n-k iterations
+        
+        // O(n) - This loop runs for n iterations
         for (int i=0; i<n-k+1; i++) {
             int sum = 0;
-            // O(k) - This loop of k iterations run n-k times.
-            // Hence overall time complexity is O((n-k)*k)
+        
+            // O(k) - This loop of k iterations runs n*k times
             for (int j=i; j<i+k; j++) {
                 sum = sum + arr[j];
             }
+            
             maxSum = Math.max(sum, maxSum);
             System.out.println("MaxSum:" +maxSum +" @ Window i: " +i +" j:" +(i+k));
         }
+        
         return maxSum;
     }
 ```
-#### Solution using Sliding Window - O(n)
 
+#### Solution using Sliding Window - O(n)
 The time complexity of this solution is O(n) because each element is visited at most twice.
 In the worst case scenario, all elements will be visited once by the start pointer and another time by the end pointer.
 The space complexity would be O(1) because the solution does not create new data structures.
