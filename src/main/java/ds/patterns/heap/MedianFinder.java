@@ -16,7 +16,7 @@ public class MedianFinder {
     }
     */
 
-/*
+    /*
     295. Find Median from Data Stream
         The median is the middle value in an ordered integer list.
         If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
@@ -47,7 +47,8 @@ public class MedianFinder {
             medianFinder.findMedian(); // return 2.0
 
 */
-    public class MedianFinderApproach1 {
+
+    public static class MedianFinderApproach1 {
         List<Integer> list;
 
         public MedianFinderApproach1() {
@@ -96,7 +97,7 @@ public class MedianFinder {
         }
     }
 
-    public class MedianFinderApproach2 {
+    public static class MedianFinderApproach2 {
 
         Queue<Integer> maxHeap;
         Queue<Integer> minHeap;
@@ -163,4 +164,12 @@ public class MedianFinder {
         }
     }
 
+    public static void main(String[] args) {
+        MedianFinderApproach1 medianFinder = new MedianFinderApproach1();
+        medianFinder.addNum(1);    // arr = [1]
+        medianFinder.addNum(2);    // arr = [1, 2]
+        medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+        medianFinder.addNum(3);    // arr[1, 2, 3]
+        System.out.println(medianFinder.findMedian()); // return 2.0
+    }
 }
