@@ -1,4 +1,4 @@
-package ds.usage;
+package ds.usage.comparable;
 
 import java.util.ArrayList;
 import java.util.Collections;

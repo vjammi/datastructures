@@ -1,4 +1,4 @@
-package ds.usage;
+package ds.usage.comparators;
 
 import java.util.*;
 import java.util.Map.Entry;
