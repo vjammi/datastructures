@@ -48,7 +48,7 @@ An Adjacency List is usually a Hashmap, or a List of Lists
         4   [2]
 ```
 
-#### Adjacency List Representation
+#### Adjacency Matrix Representation
 ```
     // Array of linked lists - adjacency list representation
     private LinkedList<Integer>[] adj;
@@ -91,7 +91,7 @@ public class Graph {
 
     private ArrayList<Integer> traverse(int vertices, int[][] edges) {
         adjList = new HashMap();
-
+        
         for (int i=0; i<vertices; i++){
             adjList.put(i, new LinkedList());
         }
@@ -100,18 +100,12 @@ public class Graph {
             adjList.get(edge[0]).add(edge[1]);
             adjList.get(edge[1]).add(edge[0]);
         }
-        for (Map.Entry<Integer, List<Integer>> entry: adjList.entrySet()){
-            Integer key          = entry.getKey();
-            List<Integer>  value = entry.getValue();
-            System.out.println("Key(vertex) " + key +" Value(neighbors) " + value);
-        }
-
+        
         int[] visited = new int[vertices];
         ArrayList<Integer> path = new ArrayList<>();
 
         dfs(0, adjList, visited, path); // DFS connected graph
-
-        System.out.println(path);
+        
         return path;
     }
 
@@ -205,16 +199,17 @@ Time Complexity
 - The time complexity of DFS if the entire tree is traversed is O(V) where V is the number of nodes.
 - The time complexity of DFS actually depends on the data structure being used to represent the graph.
 
-Graph represented as adjacency list
-- Each node maintains a list of all its adjacent edges.
+##### Graph representation as adjacency list
+- Each node maintains a list of all its adjacent edges within a list.
 - If we assume that there are ```V number of nodes``` and ```E number of edges``` in the graph.
 - For each node, we discover all its neighbors by traversing its adjacency list just once in linear time.
 - Directed graph - For a directed graph, the sum of the sizes of the adjacency lists of all the nodes is E. So, the time complexity in this case is ```O(V) + O(E) = O(V + E)```
 - Undirected graph - For an undirected graph, each edge appears twice. Once in the adjacency list of either end of the edge. The time complexity for this case will be ```O(V) + O (2E) ~ O(V + E)```.
 
-Graph represented as an adjacency matrix (V x V array)
-- For each node, we will have to traverse an entire row of length V in the matrix to discover all its outgoing edges.
-- Each row in an adjacency matrix corresponds to a node in the graph and that row stores information about edges emerging from the node.
+##### Graph representation as an adjacency matrix (v x v matrix)
+- Each node maintains a list of all its adjacent edges within an array.
+- Each row in the adjacency matrix corresponds to a node in the graph and that row stores information about the edges emerging from the node.
+- We traverse the entire row of length V in the matrix to discover all its outgoing edges.
 - Hence, the time complexity of DFS in this case is ```O(V * V) = O(V^2)```.
 
 Space Complexity
@@ -226,9 +221,9 @@ Time Complexity
 - The time complexity of BFS if the entire tree is traversed is O(V) where V is the number of nodes.
 - The time complexity of BFS actually depends on the data structure being used to represent the graph.
 
-Graph represented as Adjacency List
+##### Graph representation as an Adjacency List
 - Here, each node maintains a list of all its adjacent edges.
-- If assume that there are V number of nodes and E number of edges in the graph.
+- If we assume that there are V number of nodes and E number of edges in the graph.
 - For each node, we discover all its neighbors by traversing its adjacency list just once in linear time.
 
 Directed Graph
@@ -280,36 +275,37 @@ Code
 - We then we iterate thru the input pairs and populate the adjacency list with edges.
 - Since the graph is undirected, we need to add each edge twice, since a is b's neighbors. Then b is a's neighbor too.
 - After this we need to iterate thru each node and explore all its neighbors.
-- As we encounter nodes we use this boolean visited array to make the nodes that we have seen.
+- As we encounter nodes we use a boolean visited array to mark the nodes that we have seen.
 - As we finish exploring all the connected components, we increment by 1.
-- Visited array prevents us from double counting a connected components and
-- the for loop prevents from missing one of the connected component.
-- Within the DFS, you mark the current node as visited and then you get the list of neighbors from the adjacency list.
-- We DFS into the one we have not seen.
-- Once all of them are visited. the DFS calls will automatically stop and then we are done.
+- Visited array prevents us from double counting a connected components and the for loop prevents from missing one of the connected component.
+
+- Within the DFS, we mark the current node as visited and then get the list of neighbors from the adjacency list.
+- We then DFS into the node we have not seen.
+- Once all the nodes are visited, the DFS calls will stop. We are done.
+
 - Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
 
 Implementation
 ```
     public int countComponents(int n, int[][] edges) {
-        if(n==0)
-            return 0;
+        if(n==0) return 0;
 
-        // Initialize adjList
+        // Initialize the adj lists to be empty 
         Map<Integer, List<Integer>> adjList = new HashMap<>();
         for (int i=0; i < n; i++){
             adjList.put(i, new ArrayList<Integer>());
         }
-
+        //  Iterate thru the input pairs to populate the adjacency list with edges, adding each edge twice - undirected graph
         for (int i=0;i<edges.length; i++){
             int[] edge = edges[i];
             adjList.get(edge[0]).add(edge[1]);
             adjList.get(edge[1]).add(edge[0]);
         }
-
+        // A boolean visited array to mark the nodes that we have seen.        
         int[] visited = new int[n];
 
         int connectedComponents = 0;
+        // visited array prevents us from double counting a connected components and the for loop prevents from missing one of the connected component
         for (int i=0; i<n; i++){
             if (visited[i] == 0) {
                 dfs(i, adjList, visited);
@@ -323,10 +319,13 @@ Implementation
     private void dfs(int vertex, Map<Integer, List<Integer>> adjList, int[] visited) {
         if (visited[vertex] == 1)
             return;
-
+        
+        // We mark the current node as visited and then get the list of neighbors from the adjacency list.      
         visited[vertex] = 1;
         List<Integer> neighbors = adjList.get(vertex);
-        for(Integer neighbor: neighbors){
+        
+        // We then DFS into the node we have not seen
+        for(Integer neighbor: neighbors){               
             if (visited[neighbor]==0) {
                 dfs(neighbor, adjList, visited);
             }
