@@ -342,10 +342,8 @@ Implementation
         int connectedComponents = 0;
         // visited array prevents us from double counting a connected components and the for loop prevents from missing one of the connected component
         for (int i=0; i<n; i++){
-            if (visited[i] == 0) {
-                dfs(i, adjList, visited);
-                connectedComponents++;
-            }
+            dfs(i, adjList, visited);
+            connectedComponents++;
         }
 
         return connectedComponents;
