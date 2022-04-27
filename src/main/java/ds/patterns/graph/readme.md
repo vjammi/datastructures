@@ -246,6 +246,10 @@ Adjacency list vs  Adjacency matrix - Space Complexity
 - In general, the space complexity of an adjacency list is O(V+E), and in the worst case, it is O(V2) when every node is connected to all the other nodes.
 - Here, V represents the number of vertices and E represents the number of edges in the graph.
 - The space complexity of the adjacency matrix is O(V2).
+- Benefits of Adjacency list over Adjacency matrix w.r.t space complexity 
+  - The real advantage of adjacency lists is that they allow save space for the graphs that are not really densely connected. 
+  - If the number of edges is much smaller than V^2, then adjacency lists will take O(V+E), and not O(V^2) space.
+
 
 # Graph Problems
 ## 323. Number of Connected Components in an Undirected Graph [Undirected Graph, Connected Components]
@@ -332,19 +336,23 @@ Calling DFS in a graph is no different from trees. It involves some setup with a
         for (int i=0; i < n; i++){
             adjList.put(i, new ArrayList<Integer>());
         }
+        
         //  Iterate thru the input pairs to populate the adjacency list with edges, adding each edge twice - undirected graph
+        //  O(E) time and O(E) space
         for (int i=0;i<edges.length; i++){
             int[] edge = edges[i];
             adjList.get(edge[0]).add(edge[1]);
             adjList.get(edge[1]).add(edge[0]);
         }
-        // A boolean visited array to mark the nodes that we have seen.        
-        int[] visited = new int[n];
+        // A boolean visited array to mark the nodes that we have seen.
+        // O(V) space        
+        int[] visited = new int[n]; 
 
         int connectedComponents = 0;
         // visited array prevents us from double counting a connected components and the for loop prevents from missing one of the connected component
+        // O (V) time
         for (int i=0; i<n; i++){
-            dfs(i, adjList, visited);
+            dfs(i, adjList, visited);   // Runtime stack - O(V) space
             connectedComponents++;
         }
 
