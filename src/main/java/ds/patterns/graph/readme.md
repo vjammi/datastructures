@@ -253,7 +253,7 @@ Return the number of connected components in the graph.
     Output: 2
 ```
 
-Solving the problem    
+### Solution
 First we will draw all the nodes as a graph from 0 to N-1, so that we visually see what we are working with.
 Then we can go thru the edges from the input and fill in the graph.
 These are undirected edges - 2 way streets.
@@ -266,7 +266,6 @@ Eventually we will visit all the nodes in that cluster, that would be 1 connecte
 The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array]
 so that we do not visit them again.
 
-Code
 We setup an adjacency list or a matrix  so that we can easily lookup each nodes neighbors.
 We will get the edges in as a list of pairs. You want to go thru each of the edges and list which nodes are adjacent in the adjacency list.
 We can use a hashmap, or a list of lists for the adjacency list.
@@ -285,8 +284,7 @@ Once all the nodes are visited, the DFS calls will stop. We are done.
 
 Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
 
-Implementation
-
+### Representation
 ```
         n     = 5
         edges = [[0,1],[1,2],[3,4]]
@@ -320,7 +318,7 @@ Implementation
                     | / |
                     2   4
 ```
-
+### Implementation
 ```
     public int countComponents(int n, int[][] edges) {
         if(n==0) return 0;
