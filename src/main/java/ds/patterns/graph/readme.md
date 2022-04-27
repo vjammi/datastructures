@@ -286,6 +286,41 @@ Code
 - Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
 
 Implementation
+
+```
+        n     = 5
+        edges = [[0,1],[1,2],[3,4]]
+
+        adjList
+                0 [1]
+                1 [0,2]
+                2 [1]
+                3 [4]
+                4 [3]
+        
+        Undirected Graph        
+                0 - 1   3
+                    |   |
+                    2   4
+```
+
+```
+        n     = 5
+        edges = [[0,1],[1,2],[2,3],[3,4]]
+        
+        adjList
+                0 [1]
+                1 [0,2]
+                2 [1,3]
+                3 [2,4]
+                4 [3]
+
+        Undirected Graph        
+                0 - 1   3
+                    | / |
+                    2   4
+```
+
 ```
     public int countComponents(int n, int[][] edges) {
         if(n==0) return 0;
