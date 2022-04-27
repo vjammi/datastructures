@@ -279,11 +279,11 @@ As we encounter nodes we use a boolean visited array to mark the nodes that we h
 As we finish exploring all the connected components, we increment by 1.
 Visited array prevents us from double counting a connected components and the for loop prevents from missing one of the connected component.
 
-- Within the DFS, we mark the current node as visited and then get the list of neighbors from the adjacency list.
-- We then DFS into the node we have not seen.
-- Once all the nodes are visited, the DFS calls will stop. We are done.
+Within the DFS, we mark the current node as visited and then get the list of neighbors from the adjacency list.
+We then DFS into the node we have not seen.
+Once all the nodes are visited, the DFS calls will stop. We are done.
 
-- Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
+Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
 
 Implementation
 
