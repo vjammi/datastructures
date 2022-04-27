@@ -242,6 +242,10 @@ Space Complexity
 - Since we are maintaining a queue (FIFO architecture) to keep track of the visited nodes, in worst case, the queue could take upto the size of the nodes (or vertices) in the graph.
 - Hence, the space complexity is ```O(V)```.
 
+Adjacency list vs  Adjacency matrix - Space Complexity
+- In general, the space complexity of an adjacency list is O(V+E), and in the worst case, it is O(V2) when every node is connected to all the other nodes.
+- Here, V represents the number of vertices and E represents the number of edges in the graph.
+- The space complexity of the adjacency matrix is O(V2).
 
 # Graph Problems
 ## 323. Number of Connected Components in an Undirected Graph [Undirected Graph, Connected Components]
