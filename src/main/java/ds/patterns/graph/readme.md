@@ -379,6 +379,11 @@ Space complexity ``` O(E+V)```
 - To keep track of visited vertices, an array of size O(V) is required.
 - Also, the run-time stack for DFS will use O(V) space.
 
+Adjacency list vs  Adjacency matrix - Space Complexity
+- In general, the space complexity of an adjacency list is O(V+E), and in the worst case, it is O(V2) when every node is connected to all the other nodes. 
+- Here, V represents the number of vertices and E represents the number of edges in the graph.
+- The space complexity of the adjacency matrix is O(V2).
+
 ## 207. Course Schedule  - Directed Graph + Cycle Detection (0 -1 1)
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
