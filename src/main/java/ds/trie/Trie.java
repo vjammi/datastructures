@@ -54,9 +54,6 @@ public class Trie {
         }
     }
 
-    /**
-     * Returns if there is any word in the trie that starts with the given prefix.
-     */
     public boolean startsWith(String prefix) {
         TrieNode current = root;
         for (int i = 0; i < prefix.length(); i++) {
@@ -66,11 +63,12 @@ public class Trie {
                 childOfCurrent = new TrieNode();
                 current.children.put(ch, childOfCurrent);
             }else{
-                System.out.println("Prefix " + prefix + " NOT found...");
-                return false;
+                //System.out.println("Prefix " + prefix + " NOT found...");
+                //return false;
             }
         }
-        System.out.println("Prefix " + prefix + " found...");
+        System.out.println("prefix " + prefix + " found...");
+        // current.endOfWord could be true (exact match) or false (letters present but not end of word)
         return true;
     }
 
@@ -86,9 +84,11 @@ public class Trie {
         trie.insert("doggy");
 
         trie.search("dog");
+        trie.search("dob");
         trie.search("doggy");
-        trie.startsWith("dogg");
-        trie.startsWith("dob");
+
+        trie.startsWith("doggy");
+        trie.startsWith("doc");
     }
 
 }
