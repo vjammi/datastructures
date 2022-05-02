@@ -30,7 +30,7 @@ public class ContainerWithMostWater {
 
     //    Approach 2: Two Pointer Approach
     //    The intuition behind this approach is that the area formed between the lines will always be limited by the height of the shorter line. Further, the farther the lines, the more will be the area obtained.
-    //    We take two pointers, one at the beginning and one at the end of the array constituting the length of the lines. Futher, we maintain a variable maxarea\text{maxarea}maxarea to store the maximum area obtained till now. At every step, we find out the area formed between them, update maxarea\text{maxarea}maxarea and move the pointer pointing to the shorter line towards the other end by one step.
+    //    We take two pointers, one at the beginning and one at the end of the array constituting the length of the lines. Further, we maintain a variable maxArea to store the maximum area obtained till now. At every step, we find out the area formed between them, update maxArea and move the pointer pointing to the shorter line towards the other end by one step.
     //    The algorithm can be better understood by looking at the example below:
     //
     //         height = [1,8,6,2,5,4,8,3,7]
