@@ -3,7 +3,7 @@ package ds.hashing;
 public class Hashing_SeperateChaining<Key, Value> {
 
     private int M ;                   // 5 or 97      Number of chains. A prime number.
-    private Node[] arrayOfchains;      // 0-4 or 0-96  Array of chains / list of Nodes
+    private Node[] arrayOfNodeChains;      // 0-4 or 0-96  Array of chains / list of Nodes
 
     private static class Node<Key, Value>   {
         private Object key; // Declare key and val of type Object
@@ -19,7 +19,7 @@ public class Hashing_SeperateChaining<Key, Value> {
 
     public Hashing_SeperateChaining(int buckets){
         M = buckets;
-        arrayOfchains = new Node[buckets];
+        arrayOfNodeChains = new Node[buckets];
     }
 
     /**
@@ -106,7 +106,7 @@ public class Hashing_SeperateChaining<Key, Value> {
             x = x.next;
         }
         */
-        for (Node x = arrayOfchains[bucketIndex]; x != null; x = x.next) {
+        for (Node x = arrayOfNodeChains[bucketIndex]; x != null; x = x.next) {
             if (key.equals(x.key)) {
                 Key k = (Key) x.key;
                 Value v = (Value) x.val;
@@ -148,16 +148,16 @@ public class Hashing_SeperateChaining<Key, Value> {
     public void put(Key key, Value val) {
         int bucketIndex = getBucketIndex(key);
         //Update Value [If Key exists]
-        for (Node x = arrayOfchains[bucketIndex]; x != null; x = x.next) {
+        for (Node x = arrayOfNodeChains[bucketIndex]; x != null; x = x.next) {
             if (key.equals(x.key)) {
                 x.val = val;
                 return;
             }
         }
         // Insert Key [since the key does not exist in the chain]
-        Node oldChain = arrayOfchains[bucketIndex];
+        Node oldChain = arrayOfNodeChains[bucketIndex];
         Node newChain = new Node(key, val, oldChain);
-        arrayOfchains[bucketIndex] = newChain;
+        arrayOfNodeChains[bucketIndex] = newChain;
     }
 
     public static void main(String args[]){

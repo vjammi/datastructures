@@ -124,7 +124,47 @@ Each bucket contains an array to store all the values in the same bucket initial
 If there are too many values in the same bucket, these values will be maintained in a height-balanced binary search tree instead.
 The average time complexity of both insertion and search is still O(1). And the time complexity in the worst case is O(logN) for both insertion and search by using height-balanced BST. It is a trade-off between insertion and search.
 
+#### Design HashSet using Separate Chaining
+There are two key questions that one should address, in order to implement the HashSet data structure, namely hash function and collision handling.
+- hash function: the goal of the hash function is to assign an address to store a given value. Ideally, each unique value should have a unique hash value.
+- collision handling: since the nature of a hash function is to map a value from a space A into a corresponding value in a smaller space B, 
+  it could happen that multiple values from space A might be mapped to the same value in space B. This is what we call collision. 
+  Therefore, it is indispensable for us to have a strategy to handle the collision.
 
+- Overall, there are several strategies to resolve the collisions:
+  - Separate Chaining: for values with the same hash key, we keep them in a bucket, and each bucket is independent of each other.
+  - Open Addressing: whenever there is a collision, we keep on probing on the main space with certain strategy until a free slot is found.
+  - 2-Choice Hashing: we use two hash functions rather than one, and we pick the generated address with fewer collision.
+
+We will use the strategy of separate chaining. Here is how it works overall.
+- Essentially, the primary storage underneath a HashSet is a continuous memory as Array. Each element in this array corresponds to a bucket that stores the actual values.
+- Given a value, first we generate a key for the value via the hash function. The generated key serves as the index to locate the bucket.
+- Once the bucket is located, we then perform the desired operations on the bucket, such as add, remove and contains.
+
+Approach 1: LinkedList as Bucket
+Intuition
+The common choice of hash function is the modulo operator, i.e. hash=valuemod  base\text{hash} = \text{value} \mod \text{base}hash=valuemodbase. Here, the base\text{base}base of modulo operation would determine the number of buckets that we would have at the end in the HashSet.
+Theoretically, the more buckets we have (hence the larger the space would be), the less likely that we would have collisions. The choice of base\text{base}base is a tradeoff between the space and the collision.
+In addition, it is generally advisable to use a prime number as the base of modulo, e.g. 769769769, in order to reduce the potential collisions.
+
+As to the design of bucket, again there are several options. One could simply use another Array as bucket to store all the values. However, one drawback with the Array data structure is that it would take O(N)\mathcal{O}(N)O(N) time complexity to remove or insert an element, rather than the desired O(1)\mathcal{O}(1)O(1).
+Since for any update operation, we would need to scan the entire bucket first to avoid any duplicate, a better choice for the implementation of bucket would be the LinkedList, which has a constant time complexity for the insertion as well as deletion, once we locate the position to update.
+
+Algorithm
+As we discussed in the above section, here we adopt the LinkedList to implement our bucket within the HashSet.
+Essentially, we are implementing a LinkedList that does not contain any duplicate.
+For each of the functions of add, remove and contains, we first generate the bucket index with the hash function. Then, we simply pass down the operation to the underlying bucket.
+
+For a value that was never seen before, we insert it to the head of the bucket, though we could also append it to the tail. It is a choice that we made, which could fit better the scenario where redundant values are operated in nearby time windows, since it is more likely that we spot the value at the head of the bucket rather than walking through the entire bucket.
+
+##### Complexity Analysis
+Time Complexity
+O(N/K) where N is the number of all possible values and K is the number of predefined buckets, which is 769.
+Assuming that the values are evenly distributed, thus we could consider that the average size of bucket is N/K.
+Since for each operation, in the worst case, we would need to scan the entire bucket, hence the time complexity is O(N/K).
+
+Space Complexity: 
+O(K+M) where K is the number of predefined buckets, and M is the number of unique values that have been inserted into the HashSet.
 
 REFERENCES
 https://algs4.cs.princeton.edu/34hash/
