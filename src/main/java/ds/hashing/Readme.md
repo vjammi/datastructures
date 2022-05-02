@@ -86,6 +86,17 @@ a % b returns the remainder after dividing a by b. For example, 7 % 3 == 1.
        (key.hashCode() & 0x7fffffff) % M
        Math.abs( key.hashCode() ) % M
   
+#### Runtime
+A hashtable is O(1). The problem is if two keys are not equal, however they result in the same hash.
+For example, if two strings string a and string b both resulted in a hash value 12345.
+When the first string is inserted, it's put in bucket 12345. 
+When the second string is inserted, it would see that a value already exists for bucket 12345. 
+It would then compare the new value to the existing value, and see they are not equal. 
+In this case, linked list is created for that key. 
+In the worst case, if too many elements were hashed into the same key, retrieving this key may take O(n) time.
+For this reason, when using a hash table, it's important to use a key with a good hash function that's both fast and doesn't often result in duplicate values for different objects.
+
+Now, as an optimization instead of using a linked list, a balanced tree can be used to achieve lg(n) retrieval. 
 
 ### 2. Collision Resolution
 Ideally, if our hash function is a perfect one-one mapping, we will not need to handle collisions. Unfortunately, in most cases, collisions are almost inevitable. For instance, in our previous hash function (y = x % 5), both 1987 and 2 are assigned to bucket 2. That is a collision.
