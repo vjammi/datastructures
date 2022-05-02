@@ -23,25 +23,26 @@ public class Hashing_SeperateChaining<Key, Value> {
     }
 
     /**
-     * Hash [hash(key)] To compute the Hash Value we will
-     * 1. Use the the system hashCode to compute the hash of the object
-     *      key.hashCode()
-     * 2. We will then make it positive by
-     *      Ending on the sign bit [ key.hashCode() & 0x7fffffff ]  or
-     *      Taking the absolute of the integer [ Math.abs( key.hashCode() )  ]
-     * 3. Take the Modulus of the above value by M to get a number between 0 and M-1
-     *      (key.hashCode() & 0x7fffffff) % M
-     *      Math.abs( key.hashCode() ) % M
-     *
+      Hash [hash(key)] To compute the Hash Value we will
+          1. Use the the system hashCode to compute the hash of the object
+               key.hashCode()
+          2. We will then make it positive by
+               Ending on the sign bit [ key.hashCode() & 0x7fffffff ]  or
+               Taking the absolute of the integer [ Math.abs( key.hashCode() )  ]
+          3. Take the Modulus of the above value by M to get a number between 0 and M-1
+               (key.hashCode() & 0x7fffffff) % M
+               Math.abs( key.hashCode() ) % M
+
      What does & 0x7fffffff mean?
-    The constant 0x7FFFFFFF is a 32-bit integer in hexadecimal with all but the highest bit set.
-    Despite the name, this method isn't getting the hashCode, rather looking for which bucket the key should appear in
-    for a getBucketIndex set or map. When you use % on negative value, you get a negative value. There are no negative buckets so
-    to avoid this you can remove the sign bit (the highest bit) and one way of doing this is to use a mask
-    e.g.  x & 0x7FFFFFFF which keeps all the bits except the top one. Another way to do this is to shift the output
-    x >>> 1 however this is slower.
-    A slightly better approach is to use "take the modulus and apply Math.abs". This uses all the bits of the hashCode
-    which might be better.
+        The constant 0x7FFFFFFF is a 32-bit integer in hexadecimal with all but the highest bit set.
+        Despite the name, this method isn't getting the hashCode, rather looking for which bucket the key should appear in
+        for a getBucketIndex set or map. When you use % on negative value, you get a negative value. There are no negative buckets so
+        to avoid this you can remove the sign bit (the highest bit) and one way of doing this is to use a mask
+        e.g.  x & 0x7FFFFFFF which keeps all the bits except the top one. Another way to do this is to shift the output
+        x >>> 1 however this is slower.
+        A slightly better approach is to use "take the modulus and apply Math.abs". This uses all the bits of the hashCode
+        which might be better.
+
      */ // Can also use the x = 31x + y rule
     private int getBucketIndex(Key key){
         return getBucketIndex1(key);
@@ -49,7 +50,7 @@ public class Hashing_SeperateChaining<Key, Value> {
         //return getBucketIndex3(key);
     }
     private int getBucketIndex1(Key key){
-        return (key.hashCode() & 0x7fffffff) % M;
+        return (key.hashCode() & 0x7fffffff) % M; // The constant 0x7FFFFFFF is a 32-bit integer in hexadecimal with all but the highest bit set.
     }
     /**
      *      Returns the absolute value of an {@code int} value.

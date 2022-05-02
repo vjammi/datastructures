@@ -35,6 +35,31 @@ It is an open problem to design a hash function. The idea is to try to assign th
 Ideally, a perfect hash function will be a one-one mapping between the key and the bucket. 
 However, in most cases a hash function is not perfect and it is a tradeoff between the amount of buckets and the capacity of a bucket.
 
+#### What does & 0x7fffffff mean?
+The constant 0x7FFFFFFF is a 32-bit integer in hexadecimal with all but the highest bit set.
+Despite the name, this method isn't getting the hashCode, rather looking for which bucket the key should appear in
+for a getBucketIndex set or map.
+When you use % on negative value, you get a negative value. There are no negative buckets so to avoid this
+you can remove the sign bit (the highest bit) and
+
+1. One way of doing this is to use a mask
+   e.g.  x & 0x7FFFFFFF which keeps all the bits except the top one.
+
+2. Another way to do this is to shift the output
+   x >>> 1 however this is slower.
+
+3. A slightly better approach is to use take the modulus and apply Math.abs.
+   This uses all the bits of the hashCode which might be better.
+```
+    public int hashCode(char[] a){
+        int hash = 17; // Start off with a prime number
+        for (int i = 0; i < a.length; i++) {
+            hash =  (31 * hash) + (int) a[i]; // Use the ascii value of the character at teh ith position of the array (a[])
+        }
+        return hash;
+    }
+```
+
 #### Compressing the hash code
 
     int hash = key.hashCode();      // get the hashcode of the key
@@ -48,6 +73,19 @@ a % b returns the remainder after dividing a by b. For example, 7 % 3 == 1.
     int compress(int hash) {
         return hash % numBuckets;
     }
+    
+#### Hash [hash(key)] To compute the Hash Value we will
+  1. Use the system hashCode to compute the hash of the object
+       key.hashCode()
+
+  2. We will then make it positive by
+       Ending on the sign bit [ key.hashCode() & 0x7fffffff ]  or
+       Taking the absolute of the integer [ Math.abs( key.hashCode() )  ]
+
+  3. Take the Modulus of the above value by M to get a number between 0 and M-1
+       (key.hashCode() & 0x7fffffff) % M
+       Math.abs( key.hashCode() ) % M
+  
 
 ### 2. Collision Resolution
 Ideally, if our hash function is a perfect one-one mapping, we will not need to handle collisions. Unfortunately, in most cases, collisions are almost inevitable. For instance, in our previous hash function (y = x % 5), both 1987 and 2 are assigned to bucket 2. That is a collision.
