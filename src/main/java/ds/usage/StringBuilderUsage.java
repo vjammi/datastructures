@@ -1,7 +1,5 @@
 package ds.usage;
 
-import java.util.*;
-
 public class StringBuilderUsage {
 
     private StringBuilder stringBuilderUsage() {

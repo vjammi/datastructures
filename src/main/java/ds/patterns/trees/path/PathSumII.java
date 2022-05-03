@@ -63,7 +63,7 @@ public class PathSumII {
         if (root == null)
             return result;
 
-        pathSum(root, 0, stack, result);
+        pathSum(root, 0, stack, new String(), new StringBuilder(), result);
 
         return result;
     }
@@ -73,28 +73,49 @@ public class PathSumII {
              2      5
           3     4  null  null
     */
-    public void pathSum(TreeNode node, int sum, Stack<Integer> stack, List<List<Integer>> result) {
+    public void pathSum(TreeNode node, int sum, Stack<Integer> stack, String str, StringBuilder strBuilder, List<List<Integer>> result) {
 
         if (node == null)
             return;
+
+        // Note: The stack reference is being passed as a value to the next stack frame, which has an effect similar to pass by reference.
+        // which will need to be later popped on the way back.
 
         // Push node into the stack
         stack.push(node.val);
 
         // Add the node value to the sum
+        // The current sum is being passed as value to the next call stack. On the way back we still have the same value at this node.
         sum = sum + node.val;
-        // Check if the the current node is a leaf node. l & r nodes are nulls.
-        // if yes check if the sum so far is the target we are looking for
-        if (node.left == null && node.right==null && sum == targetSum){
+        str = str +node.val;
+        strBuilder = strBuilder.append(node.val);
+
+        // Check if the current node is a leaf node. l & r nodes are nulls. Check if the sum so far is equal to the target we are looking for
+        if (node.left == null && node.right==null && sum == targetSum)
             result.add(new ArrayList(stack));
-        }
 
-        pathSum(node.left, sum, stack, result);
-        pathSum(node.right, sum, stack, result);
+        pathSum(node.left, sum, stack, str, strBuilder, result);
+        pathSum(node.right, sum, stack, str, strBuilder, result);
 
-        // To backtrack we pop the node out of the stack
+        show(stack);
+        show(sum, str, strBuilder);
+
+        // Notice:
+        // To backtrack we pop the node/value out of the stack/stringBuilder object but not for the primitives
+        // We do not remove the last added char from the sum or str variables. The values for primitives are being copied* [pass by value] up the call stack.
+        // We only delete/remove the last added char from the strBuilder and stack objects. The references for non-primitives are being copied* [pass by value] up the call stack, with the effect similar to call by reference.
+
+        // To backtrack we pop the node out of the stack and string builder
         stack.pop();
-        sum = sum - node.val;
+        strBuilder.deleteCharAt(strBuilder.length()-1);
+    }
+
+    private void show(Stack<Integer> stack) {
+        stack.stream().forEach(System.out::print);
+    }
+
+    private void show(int sum, String str, StringBuilder strBuilder) {
+        System.out.println(" | " + sum +" | "+ str +" | "+ strBuilder);
     }
 
     private void pathSum() {

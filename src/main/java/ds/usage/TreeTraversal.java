@@ -1,6 +1,12 @@
 package ds.usage;
 
+import java.util.Stack;
+
 public class TreeTraversal {
+    private TreeNode root;
+
+    public TreeTraversal() {
+    }
 
     public class TreeNode {
         int val;
@@ -16,55 +22,59 @@ public class TreeTraversal {
     }
 
     private TreeNode buildTree() {
-        TreeNode root = new TreeNode();
-        root.val = 16;
+        root = new TreeNode();
+        root.val = 1;
+        TreeNode rootLeft = new TreeNode();
+        rootLeft.val  = 2;
+        root.left = rootLeft;
+        TreeNode rootRight = new TreeNode();
+        rootRight.val = 5;
+        root.right = rootRight;
 
-        TreeNode left = new TreeNode();
-        root.left = left;
-        root.val = 10;
+        TreeNode rootLeftLeft = new TreeNode();
+        rootLeftLeft.val  = 3;
+        rootLeft.left = rootLeftLeft;
+        TreeNode rootLeftRight = new TreeNode();
+        rootLeftRight.val = 4;
+        rootLeft.right = rootLeftRight;
 
-        TreeNode right = new TreeNode();
-        root.right = right;
-        root.val = 22;
         return root;
     }
 
-    private StringBuilder stringBuilderUsage() {
-        StringBuilder sb = new StringBuilder();
-        String chosen = "Some Choice";
-
-        sb.append(chosen);
-        //dfs (...)
-        sb.deleteCharAt(sb.length()-1);
-
-        return sb;
-    }
-
     private void treeUsage() {
-        dfs_tree(buildTree(), new StringBuilder(), "");
+        TreeNode root = buildTree();
+        dfs_tree(root, "", new StringBuilder());
     }
 
-    private void dfs_tree(TreeNode node, StringBuilder tmpResult, String str) {
+    private void dfs_tree(TreeNode node, String str, StringBuilder strBuilder) {
         if (node == null)
             return;
 
-        tmpResult.append(node.val);
+        strBuilder.append(node.val);
         str = str + node.val;
 
-        dfs_tree(node.left, tmpResult, str);
-        tmpResult.deleteCharAt(tmpResult.length() - 1);
-        str = str.substring(0, str.length());
+        dfs_tree(node.left, str, strBuilder);
+        dfs_tree(node.right, str, strBuilder);
 
-        dfs_tree(node.right, tmpResult, str);
-        tmpResult.deleteCharAt(tmpResult.length() - 1);
-        str = str.substring(0, str.length());
+        show(str, strBuilder);
 
+        strBuilder.deleteCharAt(strBuilder.length() - 1);
+        str = str.substring(0, str.length()); // No effect seen
     }
+
+    private void show(Stack<Integer> stack) {
+        stack.stream().forEach(System.out::print);
+    }
+
+    private void show(String str, StringBuilder strBuilder) {
+        System.out.println(" | "+ str +" | "+ strBuilder);
+    }
+
 
     private void main() {
-        stringBuilderUsage();
         treeUsage();
     }
+
 
     public static void main(String[] args) {
         TreeTraversal obj = new TreeTraversal();
