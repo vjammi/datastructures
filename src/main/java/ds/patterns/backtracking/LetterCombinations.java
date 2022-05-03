@@ -28,6 +28,20 @@ import java.util.*;
  */
 
 /**
+                                               []
+
+            level0              a               b             c               2=abc
+                                0               1             2
+            level1          d   e   f       d   e   f     d     e   f         3=def
+                            0   1   2
+            level2         ghi ghi ghi     ghi ghi ghi   ghi   ghi ghi        4=ghi
+                           012
+
+    BaseCase  level3    [adg adh adi aeg aeh aei ....                       ]
+*
+* */
+
+/**
             234 L(0-a) []
                > 234 L(1-d) [a]
                >    > 234 L(2-g) [a, d]
@@ -127,16 +141,15 @@ public class LetterCombinations {
     }
 
     private void combinations2(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
-        String indent = get_indent(level);
+        //String indent = get_indent(level);
         if (level == input.length()) {
-            result.add(chosen.toString());
-            System.out.println(indent +input +" OUT(" +level +")" +chosen);
+            result.add(chosen.toString()); //System.out.println(indent +input +" OUT(" +level +")" +chosen);
             return;
         }
         String digit = String.valueOf(input.charAt(level));
         String charsForDigit = map.get(digit);
-        for(int i=0; i < charsForDigit.length(); i++){              //char character: charsForDigit.toCharArray()
-            System.out.println(indent +input +" L(" +level +"-"+charsForDigit.charAt(i)+") " +chosen);
+        for(int i=0; i < charsForDigit.length(); i++){ //char character: charsForDigit.toCharArray()
+            //System.out.println(indent +input +" L(" +level +"-"+charsForDigit.charAt(i)+") " +chosen);
             chosen.push(String.valueOf(charsForDigit.charAt(i)));
             combinations2(input, map, chosen, result,level+1);
             chosen.pop();
@@ -144,7 +157,7 @@ public class LetterCombinations {
     }
 
     private Map<String, String> buildNumToCharsMap() {
-        HashMap map = new HashMap<>();
+        HashMap<String, String> map = new HashMap<>();
         map.put("2", "abc");
         map.put("3", "def");
         map.put("4", "ghi");
