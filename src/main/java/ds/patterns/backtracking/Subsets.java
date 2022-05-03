@@ -5,24 +5,24 @@ import java.util.List;
 
 /**
      78. Subsets    https://leetcode.com/problems/subsets/
-     Given an integer array nums of unique elements, return all possible subsets (the power set).
-     The solution set must not contain duplicate subsets. Return the solution in any order.
+        Given an integer array nums of unique elements, return all possible subsets (the power set).
+        The solution set must not contain duplicate subsets. Return the solution in any order.
      Example 1:
-     Input: nums = [1,2,3]
-     Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+        Input: nums = [1,2,3]
+        Output: [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
  */
 public class Subsets {
+        /**
+                                                             []
+                 1
+                                             []                                   [1]
+                 2
+                                     []                [2]                 [1]                  [12]
+                 3
+                                []       [3]     [2]       [23]      [1]       [13]      [12]         [123]
 
-    //                                                         []
-    //             1
-    //                                         []                                   [1]
-    //             2
-    //                                 []                [2]                 [1]                  [12]
-    //             3
-    //                            []       [3]     [2]       [23]      [1]       [13]      [12]         [123]
-    //
-    //             BASE CASE: Add choices to the result when i == nums.length [when len=3, i would be 4]
-
+                 BASE CASE: Add choices to the result when i == nums.length [when len=3, i would be 4]
+        */
     public List<List<Integer>> subsets(int[] nums) {
 
         List<List<Integer>> result = new ArrayList<>();
