@@ -74,7 +74,7 @@ public class BinaryTreeLevelOrderTraversal {
 
             for (int i=0; i<size; i++) {                 // traverse all nodes of the same level
                 node = queue.poll();
-                level.add(node.val);                     // visit the root
+                level.add(node.val);                     // visit the node
 
                 if (node.left != null)
                     queue.offer(node.left);              // push left child to queue if it is not null
