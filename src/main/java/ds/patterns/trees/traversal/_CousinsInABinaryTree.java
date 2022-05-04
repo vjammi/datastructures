@@ -53,16 +53,12 @@ public class _CousinsInABinaryTree {
     }
 
     boolean cousinsFound = false;
-
-    public int dfs(TreeNode node, int x, int y) {
+    public void dfs(TreeNode node, int x, int y) {
         if (node == null)
-            return 0;
+            return ;
 
-        int leftDepth = dfs(node.left, x, y) + 1;
-        int rightDepth = dfs(node.right, x, y) + 1;
-
-        // if (cousinsFound)
-        //     return true;
+        dfs(node.left, x, y);
+        dfs(node.right, x, y);
 
         if (node.left != null && node.right != null) {
             TreeNode left = node.left;
@@ -87,9 +83,5 @@ public class _CousinsInABinaryTree {
             }
 
         }
-
-        return Math.max(leftDepth, rightDepth);
     }
-
-
 }
