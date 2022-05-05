@@ -1,4 +1,4 @@
-package ds.usage.collections;
+package ds.z.collections;
 
 import java.util.ArrayList;
 import java.util.List;
