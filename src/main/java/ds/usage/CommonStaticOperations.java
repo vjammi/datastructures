@@ -1,7 +1,5 @@
 package ds.usage;
 
-import java.nio.charset.StandardCharsets;
-
 public class CommonStaticOperations {
 
     public static void main(String[] args) {
@@ -13,8 +11,6 @@ public class CommonStaticOperations {
         Integer.valueOf("1");
         int size = Integer.SIZE;
         System.out.println("Integer.SIZE " + size);
-
-
 
     }
 }
