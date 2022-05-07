@@ -19,9 +19,14 @@ public class CharacterOperations {
             char chUpper = Character.toUpperCase(ch);
         }
 
+        // Check if the unicode value is a letter or a digit
         boolean isCodePoint10LetterOrDigit = Character.isLetterOrDigit(10);
         boolean isCodePoint97LetterOrDigit = Character.isLetterOrDigit(97);
         System.out.println("isCodePoint10LetterOrDigit "+ isCodePoint10LetterOrDigit +" isCodePoint97LetterOrDigit " +isCodePoint97LetterOrDigit);
+
+        // Unicode to char value
+        char[] charArr = Character.toChars(97);
+        System.out.println("What char is ascii 97? " + charArr[97-97] +" "+ (char) 97 + " " +Character.valueOf((char) 97));
 
         s = "abcdefghijklmnopqrstuvw";
         char[] chars = s.toCharArray();
