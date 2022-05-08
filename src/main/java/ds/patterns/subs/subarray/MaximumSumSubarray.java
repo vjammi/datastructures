@@ -27,7 +27,7 @@ public class MaximumSumSubarray {
         int maxSumSoFar = 0;
         for (int i=0; i<nums.length; i++){
             int sum = 0;
-            for (int j=i; j<nums.length; j++){  // here j == i - if a single element is equal to the sum
+            for (int j=0; j<nums.length; j++){  // here j == i - if a single element is equal to the sum
                 sum = sum + nums[j];
                 if (sum > maxSumSoFar){
                     maxSumSoFar = sum;
@@ -40,47 +40,58 @@ public class MaximumSumSubarray {
     }
 
     /**
-         Kadane's Algorithm: https://en.wikipedia.org/wiki/Maximum_subarray_problem#Kadane's_algorithm
+         Insight from Kadane's Algorithm could help [https://youtu.be/86CQq3pKSUw?t=259]
              Runtime O(n)
              Space   O(1)
 
          Approach
                                                 |---------|
-              nums                = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-              currSubArraySum     =  -2  1  -2  4   3  5  6  1   5
-              maxSubArraySumSoFar =  -2  1   1  4   4  5  6  6   6
+              nums                =  [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+              subArray at k       =   -2  1  -2  4   3  5  6  1   5
+              maxSubArray at k-1  =   -2  1   1  4   4  5  6  6   6
+                                    [-2, 1, -3]+[4]
+                                                [4]
 
-                         -2 +  1 >  1  [F]
-                         1 + -3 > -3  [T]
-                         -2 +  4 >  4  [F]
-                         4 + -1 > -1  [T]
-                         3 +  2 >  2  [T]
-                         5 +  1 >  1  [T]
-                         6 + -5 > -5  [T]
-                         1 +  4 >  4  [T]
+                                     if max subarray upto a[k-1] + subarray at a[k] > subarray at a[k]
+                                        Add the a[k] to the existing subarray
+                                     else
+                                        Discard the previous max subarray, and start a new one starting a[k]
 
-              if   subarray upto a[k-1] + a[k] > a[k]
-                    // Add the a[k] to the existing subarray
-              else
-                    // Discard the subarray, and start a new one starting a[k]
+                                     -2 +  1 >  1  [F]
+                                     1 + -3 > -3  [T]
+                                     -2 +  4 >  4  [F]
+                                     4 + -1 > -1  [T]
+                                     3 +  2 >  2  [T]
+                                     5 +  1 >  1  [T]
+                                     6 + -5 > -5  [T]
+                                     1 +  4 >  4  [T]
+        Why does this work?
+
+
+
     */
     public int maxSubArray(int[] nums) {
 
         int maxSubArraySumSoFar = nums[0]; // should it be initialized to 0 ???
-        int currSubArraySum = nums[0];
+        int maxSubArrayAtKMinus1 = nums[0];
 
-        for (int i=1; i < nums.length; i++){
+        for (int k=1; k < nums.length; k++){
+            int subArrayAtK = nums[k];
 
-            int num = nums[i];
-            // Check to add num at current index to existing subarray [positive subArray + positive num or positive subArray + negative num
-            //      or
-            // To discard the existing subarray and start new subarray [negative subarray + positive current num]
-            if ( currSubArraySum + num > num ){
-                currSubArraySum = currSubArraySum + num;
+            //    if max subarray upto a[k-1] + subarray at a[k] > subarray at a[k] -  [positive subArray + positive subArrayAtK or positive subArray + negative subArrayAtK
+            //    Add the a[k] to the existing subarray
+            //                             else
+            //    Discard the previous max subarray, and start a new one starting a[k] [negative subarray + positive current subArrayAtK]
+            //  indexes                 0   1   2   3   4  5  6   7   8
+            //  nums                =  [-2, 1, -3,  4, -1, 2, 1, -5, 4]
+            //  maxsum until k-1 + k   [         ]+[4]
+            //      here k=3                       [4]
+            if ( maxSubArrayAtKMinus1 + subArrayAtK > subArrayAtK ){
+                maxSubArrayAtKMinus1 = maxSubArrayAtKMinus1 + subArrayAtK;
             }else{
-                currSubArraySum = num; // Not resetting or keeping track of the start index
+                maxSubArrayAtKMinus1 = subArrayAtK; // Not resetting or keeping track of the start index
             }
-            maxSubArraySumSoFar = Math.max(maxSubArraySumSoFar, currSubArraySum);
+            maxSubArraySumSoFar = Math.max(maxSubArraySumSoFar, maxSubArrayAtKMinus1);
         }
         return maxSubArraySumSoFar;
     }
