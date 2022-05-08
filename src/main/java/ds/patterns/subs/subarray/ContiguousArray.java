@@ -1,4 +1,4 @@
-package ds.patterns.subarray;
+package ds.patterns.subs.subarray;
 
 /*
     525. Contiguous Array

@@ -1,4 +1,4 @@
-package ds.patterns.subarray;
+package ds.patterns.subs.subarray;
 
 public class SubArray101 {
 

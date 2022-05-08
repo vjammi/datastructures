@@ -1,4 +1,4 @@
-package ds.patterns.subarray;
+package ds.patterns.subs.subarray;
 
 /**
     nums = {9   7   8   4   6   5   2   3 }

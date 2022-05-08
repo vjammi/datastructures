@@ -1,4 +1,4 @@
-package ds.patterns.subarray;
+package ds.patterns.subs.subarray;
 
 import java.util.HashMap;
 import java.util.Map;

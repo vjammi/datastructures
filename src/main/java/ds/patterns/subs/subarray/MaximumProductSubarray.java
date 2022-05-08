@@ -1,4 +1,4 @@
-package ds.patterns.subarray;
+package ds.patterns.subs.subarray;
 
 /**
     152. Maximum Product Subarray
