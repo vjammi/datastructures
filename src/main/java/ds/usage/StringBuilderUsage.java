@@ -2,15 +2,22 @@ package ds.usage;
 
 public class StringBuilderUsage {
 
-    private StringBuilder stringBuilderUsage() {
+    private void stringBuilderUsage() {
         StringBuilder sb = new StringBuilder();
         String chosen = "Some Choice";
 
+        // Append Operations
+        for(int i=0; i<chosen.length(); i++)
+            sb.append(i);
+
+        // Get/Read char Operations
+        for(int i=0; i<sb.length(); i++)
+            System.out.println(sb.charAt(i));
+
+        // DFS using String Builder
         sb.append(chosen);
         //dfs (...)
         sb.deleteCharAt(sb.length()-1);
-
-        return sb;
     }
 
     public static void main(String[] args) {

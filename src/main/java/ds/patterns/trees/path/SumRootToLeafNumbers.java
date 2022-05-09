@@ -45,12 +45,15 @@ public class SumRootToLeafNumbers {
         this.list = new ArrayList<Integer>();
 
         // Option 1 Using StringBuilder - Need to remember the sb allowed operations
-        dfs_sb(root, new Stack<String>());
+        dfs_sb2(root, new StringBuilder());
 
-        // Option 2: Using List and inserting into the front of the list and removing from the front of the list (0th index)
+        // Option 2 Using List and StringBuilder - Need to remember the sb allowed operations
         dfs_sb(root, new ArrayList<String>());
 
-        // Option 3: Using Stack [FILO inserts create issues]. Required list of numbers to their Decimal Number Conversation [Undesired Complexity]
+        // Option 3: Using List and inserting into the front of the list and removing from the front of the list (0th index)
+        dfs_sb(root, new ArrayList<String>());
+
+        // Option 4: Using Stack [FILO inserts create issues]. Required list of numbers to their Decimal Number Conversation [Undesired Complexity]
         dfs_stack(root, new Stack<Integer>());
 
         System.out.println(list);
@@ -76,6 +79,24 @@ public class SumRootToLeafNumbers {
         dfs_sb(node.right, chosen);
 
         chosen.remove(chosen.size()-1);
+    }
+
+
+    public void dfs_sb2(TreeNode node, StringBuilder chosen) {
+        if (node == null)
+            return;
+
+        chosen.append(node.val);
+
+        if (node.left==null && node.right==null){
+            totalSum = totalSum + Integer.valueOf(chosen.toString());
+            list.add(Integer.valueOf(chosen.toString()));
+        }
+
+        dfs_sb2(node.left, chosen);
+        dfs_sb2(node.right, chosen);
+
+        chosen.deleteCharAt(chosen.length()-1);
     }
 
     public void df_list(TreeNode node, List<Integer> chosen) {
