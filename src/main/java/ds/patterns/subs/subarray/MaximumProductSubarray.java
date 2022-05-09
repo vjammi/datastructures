@@ -50,19 +50,58 @@ public class MaximumProductSubarray {
     */
 
     public int maxProduct(int[] nums) {
-        int maxSoFar  = nums[0];
-        int minSoFar  = nums[0];
-        int globalMax = nums[0];
-        System.out.println(minSoFar +" " +maxSoFar +" " +globalMax);
+
+        int subarrayMaxSumAtKMinusOne  = nums[0];
+        int subarrayMinSumAtKMinusOne  = nums[0];
+        int globalMaxSubarraySum       = nums[0];
+        System.out.println(subarrayMinSumAtKMinusOne +" " +subarrayMaxSumAtKMinusOne +" " +globalMaxSubarraySum);
+
+        for(int i=1; i<nums.length; i++){
+            int subArrayAtK = nums[i];
+
+            int subarrayMaxSumWithKthVal = 0;
+            //subarrayMaxSumAtKMinusOne = Math.max(nums[i], subarrayMaxSumWithKthVal);
+            if (Math.max(subArrayAtK * subarrayMaxSumAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne) > subArrayAtK){
+                subarrayMaxSumWithKthVal = Math.max(subArrayAtK * subarrayMaxSumAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne);
+            }else{
+                subarrayMaxSumWithKthVal = subArrayAtK;
+            }
+
+            int subArrayMinSumWithKthVal = 0;
+            //subarrayMinSumAtKMinusOne = Math.min(nums[i], subArrayMinSumWithKthVal);
+            if (Math.min(subArrayAtK * subarrayMaxSumAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne) < subArrayAtK){
+                subArrayMinSumWithKthVal = Math.min(subArrayAtK * subarrayMaxSumAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne); //subArrayMinSumWithKthVal;
+            }else{
+                subArrayMinSumWithKthVal = subArrayAtK;
+            }
+
+            globalMaxSubarraySum = Math.max(globalMaxSubarraySum, subarrayMaxSumWithKthVal);
+            subarrayMaxSumAtKMinusOne = subarrayMaxSumWithKthVal;
+            subarrayMinSumAtKMinusOne = subArrayMinSumWithKthVal;
+        }
+
+        return globalMaxSubarraySum;
+    }
+
+    public int maxProductConcise(int[] nums) {
+
+        int subarrayMaxSumWithAtKMinusOne  = nums[0];
+        int subarrayMinSumAtKMinusOne      = nums[0];
+        int globalMaxSubarraySum           = nums[0];
+        System.out.println(subarrayMinSumAtKMinusOne +" " +subarrayMaxSumWithAtKMinusOne +" " +globalMaxSubarraySum);
 
         for(int i = 1; i < nums.length; ++i){
-            int tmp = maxSoFar;
-            maxSoFar = Math.max(nums[i], Math.max(nums[i]*maxSoFar, nums[i]*minSoFar));
-            minSoFar = Math.min(nums[i], Math.min(nums[i]*tmp, nums[i]*minSoFar));
-            globalMax = Math.max(globalMax, maxSoFar);
-            System.out.println(minSoFar +" " +maxSoFar +" " +globalMax);
+            int subArrayAtK = nums[i];
+            int subarrayMaxSumAtK = Math.max(subArrayAtK * subarrayMaxSumWithAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne);
+            int subArrayMinSumAtK = Math.min(subArrayAtK * subarrayMaxSumWithAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne);
+
+            subarrayMaxSumWithAtKMinusOne = Math.max(subArrayAtK, subarrayMaxSumAtK);
+            subarrayMinSumAtKMinusOne = Math.min(subArrayAtK, subArrayMinSumAtK);
+
+            globalMaxSubarraySum = Math.max(globalMaxSubarraySum, subarrayMaxSumWithAtKMinusOne);
+            System.out.println(subarrayMinSumAtKMinusOne +" " +subarrayMaxSumWithAtKMinusOne +" " +globalMaxSubarraySum);
         }
-        return globalMax;
+        return globalMaxSubarraySum;
     }
 
     public static void main(String[] args) {

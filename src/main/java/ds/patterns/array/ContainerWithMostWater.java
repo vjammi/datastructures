@@ -18,19 +18,24 @@ public class ContainerWithMostWater {
     public int maxAreaNaive(int[] height) {
         int maxArea = 0;
         for (int i=0; i<height.length; i++){
-            for (int j=0; j<height.length; j++){
-                int minHeight = Math.min(height[i], height[j]);    // shortest of the two heights
-                int width = j-i;                                   // width between the 2 endpoints
-                int area = minHeight * width;                      // area within the 2 endpoints
-                maxArea = Math.max(maxArea, area);                 // global max area update
+            for (int j=i+1; j<height.length; j++){
+                int minHeight = Math.min(height[i], height[j]);
+                int length = j-i;
+                int area = minHeight * length;
+                maxArea = Math.max(area, maxArea);
             }
         }
         return maxArea;
     }
 
     //    Approach 2: Two Pointer Approach
-    //    The intuition behind this approach is that the area formed between the lines will always be limited by the height of the shorter line. Further, the farther the lines, the more will be the area obtained.
-    //    We take two pointers, one at the beginning and one at the end of the array constituting the length of the lines. Further, we maintain a variable maxArea to store the maximum area obtained till now. At every step, we find out the area formed between them, update maxArea and move the pointer pointing to the shorter line towards the other end by one step.
+    //    The intuition behind this approach is that the area formed between the lines will always be limited by the height of the shorter line.
+    //    Further, the farther the lines, the more will be the area obtained.
+    //
+    //    We take two pointers, one at the beginning and one at the end of the array constituting the length of the lines.
+    //    Further, we maintain a variable maxArea to store the maximum area obtained till now.
+    //
+    //    At every step, we find out the area formed between them, update maxArea and move the pointer pointing to the shorter line towards the other end by one step.
     //    The algorithm can be better understood by looking at the example below:
     //
     //         height = [1,8,6,2,5,4,8,3,7]
