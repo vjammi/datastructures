@@ -89,9 +89,8 @@
                 stack.push(current);
                 current = current.left;             // A
             } else { // When iterating to the left of a node, when current becomes null, we process the topmost element in the stack.
-                // At this point, we pop the top most element from the stack,
-                TreeNode poppedNode = stack.pop();
-                // and Print it
+                // At this point, we pop the top most element from the stack, and Print it
+                TreeNode poppedNode = stack.pop();  // +                
                 inOrderedList.add(poppedNode.val);  // +
                 // and then assign its right node to the current, to traverse its left subtree
                 current = poppedNode.right;         // B

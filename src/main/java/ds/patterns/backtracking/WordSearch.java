@@ -9,7 +9,8 @@ package ds.patterns.backtracking;
     Input: board = [["A","B","C","E"],
                     ["S","F","C","S"],
                     ["A","D","E","E"]],
-            word = "ABCCED"
+
+    word = "ABCCED"
     Output: true
 
     Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "SEE"
@@ -27,11 +28,11 @@ public class WordSearch {
 
         char[][] visited = new char[m][n];
 
-
         for (int i=0; i<board.length; i++){
             for (int j=0; j<board[0].length; j++){
                 char ch = board[i][j];
-                if (ch == word.charAt(0) ) {
+                char firstCharOfWord = word.charAt(0);
+                if (ch == firstCharOfWord) {
                     boolean wordMatchFound = dfs(i, j, board, visited, word, 0);
                     if (wordMatchFound)
                         return true;
@@ -48,29 +49,31 @@ public class WordSearch {
                    r+1, c
     */
 
-    //              N, S, E, W
-    int[] rows  = {-1, 1, 0, 0};
-    int[] cols  = { 0, 0, 1,-1};
+    //    //              N, S, E, W
+    //    int[] rows  = {-1, 1, 0, 0};
+    //    int[] cols  = { 0, 0, 1,-1};
 
     private boolean dfs(int row, int col, char[][] board, char[][] visited, String word, int index){
-        if (index == word.length() )
+        if (index > word.length()-1)
             return true;
 
-        if ( row < 0 || col < 0 || row >= board.length || col >= board[0].length || visited[row][col] == 1 || board[row][col] != word.charAt(index) )
+        if ( row < 0 || col < 0 || row > board.length-1 || col > board[0].length-1
+                || visited[row][col] == 1 || board[row][col] != word.charAt(index) )
             return false;
 
 
-        visited[row][col] = 1; // visit
+        visited[row][col] = 1;  // visit
         boolean north = dfs(row-1, col,   board, visited, word, index+1);
         boolean south = dfs(row+1, col,   board, visited, word, index+1);
         boolean east  = dfs(row,   col+1, board, visited, word, index+1);
         boolean west  = dfs(row,   col-1, board, visited, word, index+1);
-        visited[row][col] = 0; // unvisit
+        visited[row][col] = 0;  // unvisit
 
         if (north || south || east || west)
             return true;
 
         return false;
     }
+
 
 }

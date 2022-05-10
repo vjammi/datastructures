@@ -1,5 +1,18 @@
 package ds.patterns.trees.path;
 
+/**
+ * 298. Binary Tree Longest Consecutive Sequence
+ * Given the root of a binary tree, return the length of the longest consecutive sequence path.
+ * The path refers to any sequence of nodes from some starting node to any node in the tree along the parent-child connections.
+ * The longest consecutive path needs to be from parent to child (cannot be the reverse).
+ *
+ * Example 1:
+ * Input: root = [1,null,3,2,4,null,null,null,5]
+ * Output: 3
+ * Explanation: Longest consecutive sequence path is 3-4-5, so return 3.
+ *
+ * */
+
 public class BinaryTreeLongestConsecutiveSequence {
 
     private int result = 0;
@@ -39,12 +52,12 @@ public class BinaryTreeLongestConsecutiveSequence {
 
         int max =1; // LongestConsecutive path at the current node
 
-        // Checking if the value of the current node is one more than its left child [one less than its left child]. If yes then they can form  a consecutive sequence.
-        // Checking if the value of the current node one more than its right child or one less than its right child or. If yes then they can form  a consecutive sequence.
+        // Checking if the value of the current node is one less than its left child. If yes then they can form  a consecutive sequence.
         // We keep the longest we get - either from teh left or from teh right child.
         if (node.left == null || node.left.val == node.val + 1) {
             max = Math.max(left+1, max); // max at teh current node
         }
+        // Checking if the value of the current node one less than its right child. If yes then they can form  a consecutive sequence.
         if (node.right == null || node.right.val == node.val + 1)
             max = Math.max(right+1, max); // max at the current node
 

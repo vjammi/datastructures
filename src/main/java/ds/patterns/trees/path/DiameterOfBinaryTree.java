@@ -57,6 +57,14 @@ public class DiameterOfBinaryTree {
         return diameter;
     }
 
+
+    /**
+     *  if node is None, we have reached the end of the tree, hence we should return 0;
+     *  we want to recursively explore node's children, so we call longestPath again with node's left and right children.
+     *  In return, we get the longest path of its left and right children leftPath and rightPath;
+     *  if leftPath plus rightPath is longer than the current longest diameter found, then we need to update diameter;
+     *  finally, we return the longer one of leftPath and rightPath. Remember to add 111 as the edge connecting it with its parent.
+     **/
     int diameter;
     private int dfs(TreeNode node){
         if (node == null )
@@ -65,12 +73,13 @@ public class DiameterOfBinaryTree {
         int left  = dfs(node.left);
         int right = dfs(node.right);
 
-        // Largest diameter of the left or right child
+
+        // We get the longest path of the nodes left and right children leftPath and rightPath;
+        // if leftPath plus rightPath is longer than the current longest diameter found, then we need to update diameter;
         diameter = Math.max(diameter, left + right);
 
-        // longest of the left or right child, plus 1 for the path connecting the parent
-        int maxOfLeftOrRightPlusCurrent = Math.max(left, right) + 1;
-        return maxOfLeftOrRightPlusCurrent;
+        // To bubble up the path, we return the longest of the leftPath/rightPath, adding 1 as the edge connecting this node with its parent.
+        return Math.max(left, right) + 1;
     }
 
 }

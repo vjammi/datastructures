@@ -57,17 +57,17 @@ public class NumberOfIslands {
     // N  S  E  W
     int[] x = {-1, 1, 0, 0};
     int[] y = { 0, 0, 1,-1};
-    private void dfs(int i, int j, char[][] grid, int[][] visitedGrid){
-        if (i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j] == '0' || visitedGrid[i][j] == 9 )
+    private void dfs(int r, int c, char[][] grid, int[][] visitedGrid){
+        if (r<0 || c<0 || r>=grid.length || c>=grid[0].length || grid[r][c] == '0' || visitedGrid[r][c] == 9 )
             return;
 
         // For a list of choices - N, S, E, W
-        visitedGrid[i][j] = 9;
-        System.out.println("Visited Cell: "+ i +", " +j);
-        dfs(i-1, j, grid, visitedGrid);   // N  i+x[i], j+x[j]
-        dfs(i+1, j, grid, visitedGrid);   // S
-        dfs(i,   j+1, grid, visitedGrid); // E
-        dfs(i,   j-1, grid, visitedGrid); // W
+        visitedGrid[r][c] = 9;
+        System.out.println("Visited Cell: "+ r +", " +c);
+        dfs(r-1, c, grid, visitedGrid);   // N  r+x[r], c+x[c]
+        dfs(r+1, c, grid, visitedGrid);   // S
+        dfs(r,   c+1, grid, visitedGrid); // E
+        dfs(r,   c-1, grid, visitedGrid); // W
     }
 
 }

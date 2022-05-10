@@ -63,11 +63,11 @@ public class Trie {
                 childOfCurrent = new TrieNode();
                 current.children.put(ch, childOfCurrent);
             }else{
-                //System.out.println("Prefix " + prefix + " NOT found...");
-                //return false;
+                System.out.println("Prefix " + prefix + " found..." +childOfCurrent.children.entrySet().size());
+                return false;
             }
+            current = current.children.get(ch); // ???
         }
-        System.out.println("prefix " + prefix + " found...");
         // current.endOfWord could be true (exact match) or false (letters present but not end of word)
         return true;
     }
@@ -87,7 +87,7 @@ public class Trie {
         trie.search("dob");
         trie.search("doggy");
 
-        trie.startsWith("doggy");
+        trie.startsWith("dogg");
         trie.startsWith("doc");
     }
 
