@@ -37,6 +37,7 @@ public class SameTree {
     //      1               1
     //    2   3           2   3
     public boolean isSameTree(TreeNode p, TreeNode q) {
+
         return dfs(p,q);
     }
 
@@ -55,8 +56,9 @@ public class SameTree {
 
         if (leftSame && rightSame)
             return true;
+        else
+            return false;
 
-        return false;
-    }
+        }
 
 }

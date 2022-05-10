@@ -32,12 +32,12 @@ public class LowestCommonAncestorBST {
     }
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        lca(root, p, q, null);
+        lca(root, p, q);
         return lca;
     }
 
     TreeNode   lca;
-    void lca(TreeNode node, TreeNode p, TreeNode q, TreeNode parent){
+    void lca(TreeNode node, TreeNode p, TreeNode q){
         if (node == null)
             return;
 
@@ -55,9 +55,9 @@ public class LowestCommonAncestorBST {
             lca = q;
             return;
         }else if (pVal < nodeVal && qVal < nodeVal ){ // P and Q are either in the left or right subtree
-            lca(node.left, p, q, parent);
+            lca(node.left, p, q);
         }else if (pVal > nodeVal && qVal > nodeVal){ // P and Q are either in the left or right subtree
-            lca(node.right, p, q, parent);
+            lca(node.right, p, q);
         }
     }
 }
