@@ -36,6 +36,17 @@ public class LowestCommonAncestorBST {
         return lca;
     }
 
+    /**
+     *
+     *   Scenario 1:
+     *      P and Q are to the left and right of the node, node is the lca
+     *
+     *   Scenario 2:
+     *      If we ever reach a node P or Q, it will be the ancestor of itself and the other node.
+     *
+     *
+     */
+
     TreeNode   lca;
     void lca(TreeNode node, TreeNode p, TreeNode q){
         if (node == null)
@@ -45,18 +56,30 @@ public class LowestCommonAncestorBST {
         int pVal = p.val;
         int qVal = q.val;
 
-        if( (nodeVal > pVal && nodeVal < qVal) || (nodeVal<pVal && nodeVal>qVal) ){ // P and Q are to the left and right of the node, node is the lca
+        // Scenario 1: P and Q are to the left and right of the node, node is the lca
+        if( (nodeVal > pVal && nodeVal < qVal) || (nodeVal<pVal && nodeVal>qVal) ){
             lca = node;
             return;
-        }else if (nodeVal == pVal){ // P found and Q is on the left or right subtree. Regardless, P is the lca
+        }
+
+        // Scenario 2: If we ever reach a node P or Q, it will be the ancestor of itself and the other node.
+        // P found and Q is either on the left or right subtree. Regardless, P is the lca
+        if (nodeVal == pVal){ // P found and Q is on the left or right subtree. Regardless, P is the lca
             lca = p;
             return;
-        }else if (nodeVal == qVal){ // Q found and P is on the left or right subtree. Regardless, Q is the lca
+        }
+        // Q found and P is on the left or right subtree. Regardless, Q is the lca
+        else if (nodeVal == qVal){
             lca = q;
             return;
-        }else if (pVal < nodeVal && qVal < nodeVal ){ // P and Q are either in the left or right subtree
+        }
+
+        // P and Q are either in the left or right subtree
+        if (pVal < nodeVal && qVal < nodeVal ){
             lca(node.left, p, q);
-        }else if (pVal > nodeVal && qVal > nodeVal){ // P and Q are either in the left or right subtree
+        }
+        // P and Q are either in the left or right subtree
+        if (pVal > nodeVal && qVal > nodeVal){
             lca(node.right, p, q);
         }
     }
