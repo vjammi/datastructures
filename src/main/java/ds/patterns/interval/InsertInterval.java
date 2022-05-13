@@ -8,7 +8,8 @@ public class InsertInterval {
 
     /**
      57. Insert Interval
-     You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
+     You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti.
+     You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
      Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).
      Return intervals after the insertion.
 
@@ -48,23 +49,40 @@ public class InsertInterval {
         for (int i=0; i<intervals.length; i++){
 
             int[] interval = intervals[i];
-            if (newInterval[0] > interval[1]) {             // Case 1: newInterval is greater than the current interval
+            // Case 1: newInterval is greater than the current interval
+            if (newInterval[0] > interval[1]) {
 
                 resultList.add(interval);
                 if (i == intervals.length-1) resultList.add(newInterval); // If current interval is the last of the intervals
 
-            }else if (newInterval[1] < interval[0]) {       // Case 2: newInterval is before the current interval
+            }
+            // Case 2: newInterval is before the current interval
+            else if (newInterval[1] < interval[0]) {
                 resultList.add(newInterval);                // 2a) Since newInterval is before the current interval. we first insert the newinterval
                 for (int j=i; j<intervals.length; j++)      // 2b) We then add the remainder intervals to the result and return
                     resultList.add(intervals[j]);
                 break;
-            }else{                                          // Case 3: Overlapping intervals. We will take the min of the two start and max of the two end
 
+            // Case 3: Overlapping intervals. We will take the min of the two start and max of the two end
+            // Check to determine if the intervals overlap
+            // NewInterval NOT before the current
+                //  Is the end value of the newInterval < than the start value of the current interval
+            // NewInterval NOT after the current
+                // Is the start value of the newInterval > than the end of the current  interval
+            // So we take a min of the 2 starts and the max of the 2 ends
+            // We do not add this newer merged interval yet to our list.
+            // We will save it temporarily, look at the next interval.
+            //      If it overlaps with the next current interval we will merge this with that and wait again until we have no overlapping intervals
+            // Finally when there is no overlapping interval, we first insert this merged interval and then add any intervals after it.
+
+            // The implmentation needs to change
+            }else{
                 int start = Math.min(interval[0], newInterval[0]);
                 int end   = Math.max(interval[1], newInterval[1]);
-                newInterval = new int[]{start, end};        // rewrite newInterval
+                newInterval = new int[]{start, end};        // rewrite newInterval and not add it yet
 
-                if (i==intervals.length-1) resultList.add(newInterval); // If current interval is the last of the intervals
+                if (i==intervals.length-1)
+                    resultList.add(newInterval); // If current interval is the last of the intervals
             }
         }
 

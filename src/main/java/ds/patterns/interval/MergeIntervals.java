@@ -31,7 +31,7 @@ Scenario 1: [[1,3],[2,6],[8,10],[15,18]]
 Scenario 2: [[1,4],[2,3]]
 
 Complexity Analysis
-    Time complexity : O(nlog n)
+    Time complexity : O(nlog n) because we are sorting
     Other than the sort invocation, we do a simple linear scan of the list, so the runtime is dominated by the O(n log n) ) complexity of sorting.
 
     Space complexity : O(log N) (or O(n))
@@ -47,6 +47,17 @@ public class MergeIntervals {
         }
     }
 
+    /**
+     * Input list of intervals, Sort the intervals based on start time,
+     * Creating a number line and place the intervals on the number line will help with these ionterval oroblems
+     * We will iterate through the intervals to see
+     *    Overlapping: Does the current interval overlap the previous interval
+     *          Then we can merge them into a single interval
+     *          If the current start is <= previous end
+     *          merge them based on min of the 2 start and max of the 2 end vals
+     *    Not overlapping
+     *
+     */
     public int[][] merge(int[][] intervals) {
         Arrays.sort(intervals, new IntervalsComparator());
 
@@ -57,8 +68,8 @@ public class MergeIntervals {
             int[] interval = intervals[i];
             if(mergedIntervals.size() == 0){
                 mergedIntervals.add(interval);
-            }else{
 
+            }else{
                 boolean intervalToMergeFound = false;
                 for(int j=0; j<mergedIntervals.size(); j++){
                     int[] mergedInterval = mergedIntervals.get(j);

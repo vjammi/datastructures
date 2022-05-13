@@ -35,12 +35,12 @@ import java.util.List;
              .. 2
 
     Approach#2 - Optimization
-                       0  5  10  15  20  25  30
-         interval #1   |----------------------|
-         interval #2      |---|
-         interval #3             |----|
+                           0  5  10  15  20  25  30
+         interval #1 - 1   |----------------------|
+         interval #2 - 2      |---|
+         interval #3 - 2              |----|
 
-         int[] startTimes = {1, 5, 15};                     count = 2
+         int[] startTimes = {0, 5, 15};                     count = 2
                                 ^
                                 i
          int[] endTimes   = {10, 20, 30}
@@ -48,14 +48,19 @@ import java.util.List;
                              j
          ...
 
-         int[] startTimes = {1, 5, 15};                     count = 2
+         int[] startTimes = {0, 5, 15};                     count = 2
                                    ^
                                    i
          int[] endTimes   = {10, 20, 30}
                                  ^
                                  j
 
-         Approach: Sort the intervals by startTime and endTime, resulting in 2 arrays.
+        We iterate thry the 2 arrays take min of the end and start time. and increment ???
+        Once we get thru all start times, we do not iterate thru any of the end time
+
+        Approach:
+         What is the max number of overlapping intervals at any given point in time
+         Sort the intervals by startTime and endTime, resulting in 2 arrays.
                    Now scan the 2 arrays in parallel
                         If startTime[i] > endTime[j] - increment the meeting room count
                         else if (startTime[i] < endTime[j]) - decrement the meeting room count
@@ -69,6 +74,7 @@ import java.util.List;
                     j++; count--; maxCount = Math.max(maxCount, count);
 
  */
+
 public class MeetingRoomsII {
 
     class IntervalComparator implements Comparator<int[]> {

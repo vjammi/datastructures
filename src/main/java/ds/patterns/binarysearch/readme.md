@@ -1,5 +1,7 @@
 ## Binary Search
 
+
+
 ```
     // a = [0, 11, 22, 33, 44, 55, 66, 66, 66, 66, 66, 66, 66, 66, 109, 119, 120]
     // i    0  1   2   3   4   5   6   7   8   9   10  11  12  13  14   15   16
@@ -176,5 +178,10 @@
 
 References:
 - https://youtube.com/playlist?list=PL2_aWCzGMAwL3ldWlrii6YeLszojgH77j
-- https://youtu.be/U66U1-umNbQ
-- Search element in a circular sorted array: https://youtu.be/uufaK2uLnSI?list=PL2_aWCzGMAwL3ldWlrii6YeLszojgH77j&t=597
+- Binary Search 
+  - Part 1: https://youtu.be/U66U1-umNbQ
+  - Part 2: https://youtu.be/V343UXw4P3Y
+- Search element in a circular sorted array 
+  - https://youtu.be/uufaK2uLnSI?list=PL2_aWCzGMAwL3ldWlrii6YeLszojgH77j&t=597
+- Binary Search CodeSchool
+  - https://youtu.be/4qjprDkJrjY

@@ -16,11 +16,11 @@ package ds.patterns.binarysearch;
  *  3. Binary Search O(log(n)): find rightMostIndex, find leftMostIndex, return the difference + 1.
  *      Find the leftMostIndex:
  *          Using binary search find the target value in the array
- *          Once you find it save it as the leftmost and go further left to find the next left occurrence of it.
+ *          Once you find it, save it as the leftmost index, reduce the search range and go further left of mid to find the next occurrence of it.
  *          Repeat until low > high
  *      Find the rightMostIndex index:
  *          Using binary search find the target value in the array
- *          Once you find it save it as the rightmost index and go further right to find the next occurrence of it.
+ *          Once you find it, save it as the rightmost index, reduce the search range and go further right of mid to find the next occurrence of it.
  *          Repeat until low > high
  *      Return
  *          rightMostIndex - leftMostIndex + 1

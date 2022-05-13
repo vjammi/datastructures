@@ -173,6 +173,7 @@ Iterative Solution
             next.next = runner.next; // 1 Point the next to runners next
             walker.next = runner;    // 2 Point the walker's next to runner
             runner.next = next;      // 3 Point the runner's next to next
+            
             // After the swap of the nodes, advance the runner 1 step to point to the end of the current pair
             runner =  runner.next;
             
@@ -243,7 +244,7 @@ Iterative Solution
     //                                                          head
 
     public ListNode reverseList_iterative(ListNode head) {
-        if (head == null || head.next == null)
+        if (head == null)
             return head;
 
         ListNode previous = null; // Important for the first node, that needs to be turned to last
@@ -258,8 +259,8 @@ Iterative Solution
             previous = current;
             current = next;
         }
-        this.head = previous;   // Set head to the previous 
-        return previous;        // Why return previous but not current? Because the current becomes null
+        head = previous;   // Set head to the previous 
+        return previous;   // Why return previous but not current? Because the current becomes null
     }
 ```
 Recursive Solution        
@@ -274,19 +275,34 @@ Recursive Solution
             0    1      2           null
             return 1
          */
-        private ListNode reverse(ListNode node) {
-            if (node.next == null) {
-                head = node;
-                return node;
-            }
-            ListNode next = node.next; // Same as the below previous node
+
+    public ListNode reverseList(ListNode head) {
+        if (head == null) return head;
+        ListNode tail = reverseListRecurssive(head);
+        tail.next = null;
+        System.out.println("New Tail val " +tail.val);
+        return newHead;
+    }
     
-            ListNode previous = reverse(node.next);
-            previous.next = node;
-            node.next = null; // The effect of this might not be visible except on the last node [the first turned to last].
-    
+    ListNode newHead;
+    public ListNode reverseListRecurssive(ListNode node) {
+        if (node.next == null){
+            newHead = node;               
             return node;
-        }
+        }        
+        
+        ListNode previous =  reverseListRecurssive(node.next);                    
+
+        if (previous.next == null)
+            newHead = previous;                
+
+         // Change direction
+         previous.next = node;
+         //current.next = null;  // WE do not do this????
+
+        return node;
+    }
+
 ```
 
 ## 2.2 Middle of a LinkedList
@@ -457,12 +473,12 @@ Implementation
             ListNode walker = dummy;
             ListNode runner = dummy;
     
-            // Detect if there is a cycle
+            // Detect if there is a cycle and break
             boolean cyle = false;
             while(runner !=null && walker != null){
                 walker = walker.next;
                 if (runner.next==null) // ***
-                    return null;
+                    return null; // No cycle
                 else
                     runner = runner.next.next;
                 if (walker == runner){

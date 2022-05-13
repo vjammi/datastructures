@@ -66,16 +66,29 @@ public class ReverseLinkedList {
         Null
 
      */
-    private ListNode reverse(ListNode node) {
-        if (node.next == null) {
-            head = node;
+    public ListNode reverseList(ListNode head) {
+        if (head == null) return head;
+
+        ListNode tail = reverse(head);
+        tail.next = null;
+        System.out.println("New Head " +newHead.val +" New Tail " +tail.val);
+
+        return newHead;
+    }
+
+    ListNode newHead;
+    public ListNode reverse(ListNode node) {
+        if (node.next == null){
+            newHead = node;
             return node;
         }
-        ListNode next = node.next; // Same as the below previous node
 
-        ListNode previous = reverse(node.next);
-        previous.next = node;
-        node.next = null; // The effect of this might not be visible except on the last node [the first turned to last].
+        ListNode previous =  reverse(node.next);
+
+        if (previous.next == null)
+            newHead = previous;
+
+        previous.next = node; // Change direction
 
         return node;
     }
