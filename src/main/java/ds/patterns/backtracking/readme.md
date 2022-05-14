@@ -70,7 +70,7 @@ The predecessor function call does some work, and pass the output to the current
 ## Print all Decimal
 Observation: When the set of digit choices available is large, using a loop to enumerate, results in shorter code (this is okay!)
 Note: loop over choices, not decisions.
-If the number of choices is variable, will need to use a loop, e.g., chess game.
+If the number of choices is variable, will need to use a loop, e.g., chess ds.z.game.
 ```
     public void printAllDecimal(int digits){
         printAllDecimal(digits, new ArrayList<Integer>() );

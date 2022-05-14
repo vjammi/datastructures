@@ -1,6 +1,6 @@
 package ds.patterns.backtracking;
 
-import ds.util.IndentUtil;
+import ds.z.misc.IndentUtil;
 
 import java.util.ArrayList;
 import java.util.List;

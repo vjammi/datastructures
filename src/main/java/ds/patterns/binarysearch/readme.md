@@ -1,7 +1,5 @@
 ## Binary Search
 
-
-
 ```
     // a = [0, 11, 22, 33, 44, 55, 66, 66, 66, 66, 66, 66, 66, 66, 109, 119, 120]
     // i    0  1   2   3   4   5   6   7   8   9   10  11  12  13  14   15   16
@@ -23,7 +21,8 @@
 ### Search Recursively
 ```
     private int search(int[] arr, int key, int low, int high) {
-        if (low > high) // ***
+        // When low > high, we exit out of the recursive loop, return -1 since the element was not found in the array
+        if (low > high) // ***  ~ while (low <= high) { 
             return -1;
 
         int mid = low + (high-low) / 2;
@@ -45,7 +44,7 @@
 ```
     private int search(int[] a, int key, int low, int high) {
 
-        while (low <= high) {           // ***
+        while (low <= high) {    // *** ~ if (low > high)
             int mid = (low + high) / 2;
             if (a[mid] == key) {
                 System.out.println("Found the key [" + key + "] at mid[" + mid + "] Low[" + low + "] High[" + high + "]");
@@ -63,37 +62,50 @@
 
 ## Search in a Rotated Array
 ```
+         num     33
+         nums   [44, 55, 66, 77, 88, 99, 1, 11, 22, 33  33]
+            i    0   1   2   3   4   5   6  7   8   9   10
+                 ^                                      ^
+          mid                        ^
+                                                ^
+                                                    ^ 
+                                                 33 found
+        0+(11-0)/2   = 0+11/2   = 5
+        6+(10-6)/2   = 6+4/2    = 8
+        9+(10-9)/2   = 9+1/2    = 9
+```
+
+```
     public int search(int[] nums, int target, int low, int high) {
         if (low > high)
             return -1;
 
         int mid = low + (high-low)/2;
 
-        if (nums[mid] == target){
+        if (nums[mid] == target){                           // At some point mid will contain the target
             return mid;
-
-        }else if (nums[low] <= nums[mid]){ // should the left half be sorted
-
-            // if the target is within the left half sorted range go left, else go right
-            if (target >= nums[low] && target < nums[mid])
-                return search(nums, target, low, mid-1);
-            else
+        }
+        else if (nums[low] <= nums[mid]){                   //  else - Search space to the left of mid is sorted
+        
+            // Determine if the target is within the left sorted space, or right rotated search space
+            if (target >= nums[low] && target < nums[mid])  //  if - num is in the left sorted search space
+                return search(nums, target, low, mid-1);    
+            else                                            //  else - num is in the right rotated/sorted search space
+                return search(nums, target, mid+1, high);   // We eleminate the left sorted space (similar to searching in the original mixed search space)
+        }
+        else{ //  else - (nums[mid+1] > nums[high]) - Search space to the right of mid is sorted
+            // Determine if the target is within the right sorted space, or left rotated search space
+            if (target > nums[mid] && target <= nums[high]) //  if - num is in the right sorted search space
                 return search(nums, target, mid+1, high);
-
-        }else{ //(nums[mid+1] > nums[high]) // should the right half be sorted
-
-            // if the target is within the right half sorted range, go right else go left
-            if (target > nums[mid] && target <= nums[high])
-                return search(nums, target, mid+1, high);
-            else
-                return search(nums, target, low, mid-1);
+            else                                            // else - num is in the left rotated/sorted search space. 
+                return search(nums, target, low, mid-1);    //  We eleminate the right sorted space (similar to searching in the original mixed search space)
         }
     }
 ```
 
 ## Binary Search Patterns
 
-### 1 Given an array of integers nums sorted in ascending order, find the frequency of a given target value
+### 1 Given an array of integers sorted in ascending order, find the frequency of a given target value
 ```
 
     nums = [1,2,2,2,2,2,3,4,5,6,7,8], target = 2
@@ -111,7 +123,7 @@
                         ^
                               ^
 ```
-### 2 Given a sorted array of integers nums, find the number of times the array has been rotated.
+### 2 Given a sorted array of integers, find the number of times the array has been rotated.
 ```
             0   1   2   3   4   5   6   7   8   9
     nums = [15, 16, 17, 18, 19, 20, 21, 12, 13, 14]
@@ -184,4 +196,6 @@ References:
 - Search element in a circular sorted array 
   - https://youtu.be/uufaK2uLnSI?list=PL2_aWCzGMAwL3ldWlrii6YeLszojgH77j&t=597
 - Binary Search CodeSchool
+  - https://youtu.be/4qjprDkJrjY
+- How many times an array has been rotated?
   - https://youtu.be/4qjprDkJrjY

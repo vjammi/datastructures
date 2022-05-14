@@ -1,11 +1,30 @@
 package ds.patterns.binarysearch;
 
-// How many times is a sorted array rotated?
-// https://youtu.be/4qjprDkJrjY
+/**
+ * ### 2 Given a sorted array of integers, find the number of times the array has been rotated.
+ *             0   1   2   3   4   5   6   7   8   9
+ *     nums = [15, 16, 17, 18, 19, 20, 21, 12, 13, 14]
+ *                             ^
+ *                                     ^
+ *             --------------------------  ^   ------
+ *  An important property to note is that
+ *     	The pivot element is lesser than its left and right
+ *
+ *     	For example here is a normal sorted array
+ *			[	 /	]
+ *			[  / 	]
+ *			[/		]
+ *
+ * 		But here is the same array rotated.
+ *  		[  /   ]
+ *  		[/	/  ]
+ *
+ *      To find the number of times it has been sorted, we find the peak/pivot where the pivot element is lesser than its left and right
+ * */
 public class NumberOfTimesArrayHasBeenRotated {
 
 	// runtime O(n)
-	private int numberOfTimesNaiveLinearSearch(int[] a) {
+	private int timesArrayHasBeenRotated_NaiveLinearSearch(int[] a) {
 		int min = a[0];
 		int minIndex = 0;		
 		for (int i=1; i<a.length; i++){
@@ -18,8 +37,27 @@ public class NumberOfTimesArrayHasBeenRotated {
 		return minIndex;
 	}
 
+	public int timesArrayHasBeenRotated_BinarySearchRecursive(int[] a, int low, int high) {
+		if (low > high)
+			return 0;
+
+		int mid = low + (high - low) / 2;
+
+		if (a[mid] < a[mid-1] && a[mid] < a[mid+1]) {
+			return mid;
+		} else if (a[low] < a[mid]) {
+			timesArrayHasBeenRotated_BinarySearchRecursive(a, mid + 1, high);
+		} else  if (a[mid] < a[high]) {
+			timesArrayHasBeenRotated_BinarySearchRecursive(a, low, mid - 1);
+		}else {
+			System.out.println("????");
+		}
+
+		return -1;
+	}
+
 	// O(log(n)) - Number of times the array has been rotated ? It turns out that it is the index of the element. In other words we need to find the index of the min element in the array.
-	private int numberOfTimesBinarySearch(int[] a) {
+	private int timesArrayHasBeenRotated_BinarySearchIterative(int[] a) {
 		int low = 0 ;
 		int size = a.length;
 		int high = size -1;
@@ -52,15 +90,18 @@ public class NumberOfTimesArrayHasBeenRotated {
 		NumberOfTimesArrayHasBeenRotated obj = new NumberOfTimesArrayHasBeenRotated();
 		int arr1[] = {11, 12, 15, 18,  22, 25, 9, 10};
 
-		int minIndex1 = obj.numberOfTimesNaiveLinearSearch(arr1);
-		System.out.println("Number of times array has been rotated [Naive] - Min Index: " +minIndex1 +" Min Index Value: " + arr1[minIndex1]);
-		
-		int minIndex2 = obj.numberOfTimesBinarySearch(arr1);
-		System.out.println("Number of times array has been rotated [BinarySearch] - Min Index: " +minIndex2 +" Min Index Value: " + arr1[minIndex2]);
+		//		int minIndex1 = obj.timesArrayHasBeenRotated_NaiveLinearSearch(arr1);
+		//		System.out.println("Number of times array has been rotated [Naive] - Min Index: " +minIndex1 +" Min Index Value: " + arr1[minIndex1]);
+		//
+		//		int minIndex2 = obj.timesArrayHasBeenRotated_BinarySearchIterative(arr1);
+		//		System.out.println("Number of times array has been rotated [BinarySearch] - Min Index: " +minIndex2 +" Min Index Value: " + arr1[minIndex2]);
+		//
+		//		int arr2[] = {9, 10, 11, 12, 15, 18,  22, 25};
+		//		int minIndex3 = obj.timesArrayHasBeenRotated_BinarySearchIterative(arr2);
+		//		System.out.println("Number of times array has been rotated [BinarySearch] - Min Index: " +minIndex3 +" Min Index Value: " + arr2[minIndex3]);
 
-		int arr2[] = {9, 10, 11, 12, 15, 18,  22, 25};
-		int minIndex3 = obj.numberOfTimesBinarySearch(arr2);
-		System.out.println("Number of times array has been rotated [BinarySearch] - Min Index: " +minIndex3 +" Min Index Value: " + arr2[minIndex3]);
+		int times = obj.timesArrayHasBeenRotated_BinarySearchRecursive(arr1, 0, arr1.length-1);
+		System.out.println("Times an array has been rotated: " +times);
 
 	}
 
