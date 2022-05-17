@@ -60,7 +60,10 @@
     }
 ```
 
-## Search in a Rotated Array
+## Search in a Rotated Array / Search in a Circular Sorted Array
+Notice the fact that in any segment of the array, at least one half is sorted, 
+so we can use it to decide which half to continue with, 
+reducing the search space by 2 in each step, as required.
 ```
          num     33
          nums   [44, 55, 66, 77, 88, 99, 1, 11, 22, 33  33]
@@ -74,7 +77,6 @@
         6+(10-6)/2   = 6+4/2    = 8
         9+(10-9)/2   = 9+1/2    = 9
 ```
-
 ```
     public int search(int[] nums, int target, int low, int high) {
         if (low > high)
@@ -106,6 +108,7 @@
 ## Binary Search Patterns
 
 ### 1 Given an array of integers sorted in ascending order, find the frequency of a given target value
+
 ```
 
     nums = [1,2,2,2,2,2,3,4,5,6,7,8], target = 2
@@ -134,7 +137,7 @@
 
 ```
 
-### 3  Given a sorted roted array of integers nums, find the target number.
+### 3  Given a sorted roted array of integers, find the target number.
 ```
               0   1   2   3   4   5   6   7   8   9
       nums = [15, 16, 17, 18, 19, 20, 21, 12, 13, 14]
