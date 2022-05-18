@@ -1,4 +1,4 @@
-package ds.strings;
+package ds.strings.patternmatching;
 
 
 /*
@@ -19,5 +19,5 @@ package ds.strings;
 
 
 **/
-public class PatternMatchingRabinKarp {
+public class RabinKarpPatternMatching {
 }

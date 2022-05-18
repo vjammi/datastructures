@@ -1,4 +1,4 @@
-package ds.patterns.linkedList;
+package ds.usage.iterators;
 
 import java.util.ArrayList;
 import java.util.Iterator;
