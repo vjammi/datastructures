@@ -1,6 +1,6 @@
-package ds.bst;
+package ds.bst.arc;
 
-public class BalancedBSTRedBlack {
+public class RedBlackBST2 {
 
     private Node root = null;
     private static final boolean RED = true;
@@ -182,7 +182,7 @@ public class BalancedBSTRedBlack {
         }
     }
 
-    private static void testPut(BalancedBSTRedBlack bst) {
+    private static void testPut(RedBlackBST2 bst) {
         bst.put(1015, "Sam1015");
         bst.put(1013, "Sam1013");
         bst.put(1017, "Sam1017");
@@ -192,7 +192,7 @@ public class BalancedBSTRedBlack {
         bst.put(1018, "Sam1018");
     }
 
-    private static void testPutAscendingOrder(BalancedBSTRedBlack bst) {
+    private static void testPutAscendingOrder(RedBlackBST2 bst) {
         bst.put(1012, "Sam1012");
         bst.put(1013, "Sam1013");
         bst.put(1014, "Sam1014");
@@ -202,7 +202,7 @@ public class BalancedBSTRedBlack {
         bst.put(1018, "Sam1018");
     }
 
-    private static void testPutDescendingOrder(BalancedBSTRedBlack bst) {
+    private static void testPutDescendingOrder(RedBlackBST2 bst) {
         bst.put(1018, "Sam1018");
         bst.put(1017, "Sam1017");
         bst.put(1016, "Sam1016");
@@ -213,7 +213,7 @@ public class BalancedBSTRedBlack {
     }
 
     public static void main(String[] args){
-        BalancedBSTRedBlack bst = new BalancedBSTRedBlack();
+        RedBlackBST2 bst = new RedBlackBST2();
 
         //testPut(bst);
         //testPutAscendingOrder(bst);

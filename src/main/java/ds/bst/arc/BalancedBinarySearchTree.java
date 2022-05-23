@@ -1,4 +1,4 @@
-package ds.bst;
+package ds.bst.arc;
 /**
  * Created by Vijay Jammi on 06/04/2018.
  */
@@ -25,7 +25,6 @@ public class BalancedBinarySearchTree {
         if (x == null) return false;
         return x.color == RED;
     }
-
     private Node rotateLeft(Node h)    {
         assert isRed(h.right);
         Node x = h.right;
@@ -57,11 +56,48 @@ public class BalancedBinarySearchTree {
         Node x = root;
         while (x != null) {
             //int cmp = key.compareTo(x.key);
-            if (key < x.key) x = x.left;
+            if (key <= x.key) x = x.left;
             else if (key > x.key) x = x.right;
             else if (key == x.key) return x.val;
         }
         return null;
+    }
+
+    public void testPut(BalancedBinarySearchTree bbst) {
+        System.out.println("--------testPut--------");
+        root = put(root, 1015, "Sam1015");
+        root = put(root,1013, "Sam1013");
+        root = put(root,1014, "Sam1014");
+        root = put(root,1012, "Sam1012");
+        root = put(root,1017, "Sam1017");
+        root = put(root,1016, "Sam1016");
+        root =  put(root,1018, "Sam1018");
+    }
+
+    public void testPutUnOrdered(BalancedBinarySearchTree bbst) {
+        System.out.println("----------------");
+
+        System.out.println("1018");
+        put(root,1018, "Sam1018");
+
+        System.out.println("1012");
+        put(root,1012, "Sam1012");
+
+        System.out.println("1016");
+        put(root,1016, "Sam1016");
+
+        System.out.println("1013");
+        put(root,1013, "Sam1013");
+
+        System.out.println("1017");
+        put(root,1017, "Sam1017");
+
+        System.out.println("1014");
+        put(root,1014, "Sam1014");
+
+        System.out.println("1015");
+        bbst.put(root, 1015, "Sam1015");
+
     }
 
     private Node put(Node h, int key, String val) {
@@ -94,88 +130,29 @@ public class BalancedBinarySearchTree {
         return h;
     }
 
-    public void testPut(BalancedBinarySearchTree bbst) {
-        System.out.println("----------------");
-        System.out.println("1015");
-        root = put(root, 1015, "Sam1015");
-
-        System.out.println("1013");
-        root = put(root,1013, "Sam1013");
-
-        System.out.println("1014");
-        root = put(root,1014, "Sam1014");
-
-        System.out.println("1012");
-        root = put(root,1012, "Sam1012");
-
-        //--------
-
-        System.out.println("1017");
-        root = put(root,1017, "Sam1017");
-
-        System.out.println("1016");
-        root = put(root,1016, "Sam1016");
-
-        System.out.println("1018");
-        root =  put(root,1018, "Sam1018");
-    }
-
-    public void testPutUnOrdered(BalancedBinarySearchTree bbst) {
-        System.out.println("----------------");
-
-        System.out.println("1018");
-        put(root,1018, "Sam1018");
-
-        System.out.println("1012");
-        put(root,1012, "Sam1012");
-
-        System.out.println("1016");
-        put(root,1016, "Sam1016");
-
-        System.out.println("1013");
-        put(root,1013, "Sam1013");
-
-        System.out.println("1017");
-        put(root,1017, "Sam1017");
-
-        System.out.println("1014");
-        put(root,1014, "Sam1014");
-
-        System.out.println("1015");
-        bbst.put(root, 1015, "Sam1015");
-
+    public void testInorder(BalancedBinarySearchTree bst){
+        System.out.println("\n--------testInorder--------");
+        bst.inorder(root, "root node");
+        System.out.println("\n--------testInorder--------");
     }
 
     public void inorder(Node x, String comment){
-        if (x == null) {
-            System.out.println("Return (x==null) "+comment +" " +x);
+        if (x == null)
             return;
-        }else{
-            System.out.println("Traversing node x!=null "+comment +" " +x.key);
-        }
         inorder(x.left, "left");
-        System.out.println("x.key = " + x.key);
+        System.out.print(" x.key = " + x.key + " ");
         inorder(x.right, "right");
-    }
-
-    public void testInorder(BalancedBinarySearchTree bbst){
-        System.out.println("--------testInorder--------");
-        bbst.inorder(root, "root node");
     }
 
     public static void main(String[] args){
 
-        BalancedBinarySearchTree bbst = new BalancedBinarySearchTree();
-        bbst.testPut(bbst);
-        bbst.testInorder(bbst);
-        //bbst.testPreOrder(bst);
-        //bbst.testPostOrder(bst);
+        BalancedBinarySearchTree bst1 = new BalancedBinarySearchTree();
+        bst1.testPut(bst1);
+        bst1.testInorder(bst1);
 
-        System.out.println("+++++++++++++++++++++++++++++++++++++++++++");
-
-        BalancedBinarySearchTree bbst2 = new BalancedBinarySearchTree();
-        bbst2.testPutUnOrdered(bbst);
-        bbst2.testInorder(bbst);
+        BalancedBinarySearchTree bst2 = new BalancedBinarySearchTree();
+        bst2.testPutUnOrdered(bst1);
+        bst2.testInorder(bst1);
     }
 
 

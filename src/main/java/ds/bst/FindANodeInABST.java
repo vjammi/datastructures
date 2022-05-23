@@ -8,7 +8,7 @@ package ds.bst;
         Input: root = [4,2,7,1,3], val = 5
         Output: []
  */
-public class SearchInABinarySearchTree {
+public class FindANodeInABST {
 
     public class TreeNode {
         int val;

@@ -2,7 +2,20 @@ package ds.bst;
 
 import java.util.LinkedList;
 
-public class BinarySearchTree {
+/**
+                            1015
+                   1013               1017
+              1012     1014     1016        1018
+
+            bst.put(1015, "Sam1015");
+            bst.put(1013, "Sam1013");
+            bst.put(1017, "Sam1017");
+            bst.put(1012, "Sam1012");
+            bst.put(1014, "Sam1014");
+            bst.put(1016, "Sam1016");
+            bst.put(1018, "Sam1018");
+*/
+public class BST {
 
     Node root;
 
@@ -17,57 +30,25 @@ public class BinarySearchTree {
         }
     }
 
-    public void testSearch(int key){
-        Node node1 = search(root, key);
-        System.out.println("testSearch - search(...) - Key " +node1.key +" Value: "+ node1.value);
-
-        Node node2 = get(root, key);
-        System.out.println("testSearch - get(...) - Key " +node2.key +" Value: "+ node2.value);
-    }
-    // Recurssive search()/get()
-    // value associated with the given key in subtree rooted at x; null if no such key
-    public Node search(Node x, int key){
-        if (x == null) {
-            return null;
-        }
-        // Just like binary tree, reduce the search space at each step, which is why its running time is log n
-        if (key < x.key ){
-            return search(x.left, key); // or x = search(x.left, key) also works
-        }else if (key > x.key ){
-            return search(x.right, key); // or x = search(x.right, key) also works
-        }else {
-            return x;
+    public void testPut(BST bst) {
+        int[] arr = {11, 6, 8, 19, 4, 10, 5, 17, 43, 49, 31};
+        for(int i =0; i < arr.length; i++){
+            bst.put(arr[i], arr[i] +"");
         }
     }
-    // Iterative search()/get()
-    // value associated with the given key in subtree rooted at x; null if no such key
-    private Node get(Node x, int key) {
-        // Just like binary tree, reduce the search space at each step,  which is why its running time is log n
-        while (x != null) {
-            if (key < x.key) {
-                x = x.left;
-            }else if (key > x.key){
-                x = x.right;
-            }else{
-                return x;
-            }
-        }
-        return null;
-    }
-
     // Creating the root node
     public void put(int key, String value){
         root = put(root, key, value);
     }
-    // Recurssive put() - Creating the subsequent nodes after root
+    // Recursive put() - Creating the subsequent nodes after root
     // when x == null, create the new node. Until then reduce the search space to find the null node for put
     // O(log n)
-    public Node put(Node x, int key, String value){
+    private Node put(Node x, int key, String value){
         if (x == null){
             System.out.println("x == null [x.key: 0  New Key: "  + key);
             return new Node(key, value);
         }
-        if (key < x.key){
+        if (key <= x.key){
             System.out.println("key < x.key [x.key: " + x.key + " New Key: "  + key +"]");
             // When it gets to the leaf node where (node == null), a new node is created, returned and assigned to x.left
             x.left = put(x.left, key, value);
@@ -82,6 +63,45 @@ public class BinarySearchTree {
         return x;
     }
 
+    public void testSearch(int key){
+        Node node1 = search(root, key);
+        if (node1 != null)
+            System.out.println("testSearch - search(...) - Key " +node1.key +" Value: "+ node1.value);
+    }
+    // Recursive search()/get()
+    // value associated with the given key in subtree rooted at x; null if no such key
+    private Node search(Node x, int key){
+        if (x == null) {
+            return null;
+        }
+        // Just like binary tree, reduce the search space at each step, which is why its running time is log n
+        if (key <= x.key ){
+            return search(x.left, key); // or x = search(x.left, key) also works
+        }else if (key > x.key ){
+            return search(x.right, key); // or x = search(x.right, key) also works
+        }else {
+            return x;
+        }
+    }
+    public void testGet(int key){
+        Node node2 = get(root, key);
+        System.out.println("testSearch - get(...) - Key " +node2.key +" Value: "+ node2.value);
+    }
+    // Iterative search()/get()
+    // value associated with the given key in subtree rooted at x; null if no such key
+    private Node get(Node x, int key) {
+        // Just like binary tree, reduce the search space at each step,  which is why its running time is log n
+        while (x != null) {
+            if (key <= x.key) {
+                x = x.left;
+            }else if (key > x.key){
+                x = x.right;
+            }else{
+                return x;
+            }
+        }
+        return null;
+    }
 
     /**
      * Removes the specified key and its associated value from this symbol table
@@ -160,13 +180,12 @@ public class BinarySearchTree {
         return x; // return 1017
     }
 
-    public void testReverseInorder(BinarySearchTree bst){
+    public void testReverseInorder(BST bst){
         System.out.println("\n--------testReverseInorder--------");
         bst.reverseInorder(root, "root node");
     }
-
     // Tree Traversals
-    public void reverseInorder(Node x, String comment){
+    private void reverseInorder(Node x, String comment){
         if (x == null) {
             return;
         }
@@ -175,8 +194,12 @@ public class BinarySearchTree {
         reverseInorder(x.left, "left");
     }
 
+    public void testInorder(BST bst){
+        System.out.println("\n--------testInorder--------");
+        bst.inorder(root, "root node");
+    }
     // Tree Traversals
-    public void inorder(Node x, String comment){
+    private void inorder(Node x, String comment){
         if (x == null) {
             //System.out.println("Return (x==null) "+comment +" " +x);
             return;
@@ -186,11 +209,11 @@ public class BinarySearchTree {
         inorder(x.right, "right");
     }
 
-    public void testInorder(BinarySearchTree bst){
-        System.out.println("\n--------testInorder--------");
-        bst.inorder(root, "root node");
+    public void testPreOrder(BST bst){
+        System.out.println("\n-------testPreOrder--------");
+        bst.preOrder(root, "root node");
     }
-    public void preOrder(Node x, String comment){
+    private void preOrder(Node x, String comment){
         if (x == null) {
             //System.out.println("Return (x==null) "+comment +" " +x);
             return;
@@ -199,12 +222,12 @@ public class BinarySearchTree {
         preOrder(x.left, "left");
         preOrder(x.right, "right");
     }
-    public void testPreOrder(BinarySearchTree bst){
-        System.out.println("\n-------testPreOrder--------");
-        bst.preOrder(root, "root node");
-    }
 
-    public void postOrder(Node x, String comment){
+    public void testPostOrder(BST bst){
+        System.out.println("\n--------testPostOrder--------");
+        bst.postOrder(root, "root node");
+    }
+    private void postOrder(Node x, String comment){
         if (x == null) {
             //System.out.println("Return (x==null) "+comment +" " +x);
             return;
@@ -213,13 +236,15 @@ public class BinarySearchTree {
         postOrder(x.right, "right");
         System.out.print(", " + x.key);
     }
-    public void testPostOrder(BinarySearchTree bst){
-        System.out.println("\n--------testPostOrder--------");
-        bst.postOrder(root, "root node");
-    }
 
+
+    public void testLevelOrder(BST bst){
+        //bst.levelOrder(root);
+        System.out.println("\n--------testLevelOrder--------");
+        bst.levelOrder_practice(root);
+    }
     // LevelOrder Traversal - Iterative method
-    public void levelOrder(Node root) {
+    private void levelOrder(Node root){
         if (root == null) return;
 
         java.util.Queue<Node> q = new LinkedList();
@@ -237,8 +262,7 @@ public class BinarySearchTree {
             q.remove(); // Remove TrieNode
         }
     }
-    public void levelOrder_practice(Node root){
-
+    private void levelOrder_practice(Node root){
         if (root == null) {
             //System.out.println("Nothing to print...");
             return;
@@ -265,12 +289,6 @@ public class BinarySearchTree {
             ((LinkedList<Node>) queue).remove();
         }
     }
-    public void testLevelOrder(BinarySearchTree bst){
-        //bst.levelOrder(root);
-        System.out.println("\n--------testLevelOrder--------");
-        bst.levelOrder_practice(root);
-    }
-
 
     // MyNotes.md: Implement the floor and ceil functionality
     public float floor(float key)    {
@@ -299,6 +317,24 @@ public class BinarySearchTree {
             return x;
     }
 
+    public static void main(String[] args){
+        BST bst = new BST();
+        bst.testPut(bst);
+
+        bst.testSearch(6);
+        bst.print("", bst.root, false);
+
+        bst.delete(11);
+        bst.print("", bst.root, false);
+
+        bst.testInorder(bst);
+        bst.testReverseInorder(bst);
+        bst.testPreOrder(bst);
+        bst.testPostOrder(bst);
+        bst.testLevelOrder(bst);
+        bst.floor(1013.5f);
+    }
+
     public void print(String prefix, Node node, boolean isLeft) {
         if (node != null) {
             print(prefix +"     ", node.right, false);
@@ -307,57 +343,21 @@ public class BinarySearchTree {
         }
     }
 
-    public void testPut(BinarySearchTree bst) {
-        /**
-                        1015
-               1013               1017
-          1012     1014     1016        1018
-
-        bst.put(1015, "Sam1015");
-        bst.put(1013, "Sam1013");
-        bst.put(1017, "Sam1017");
-        bst.put(1012, "Sam1012");
-        bst.put(1014, "Sam1014");
-        bst.put(1016, "Sam1016");
-        bst.put(1018, "Sam1018");
-        */
-
-        int[] arr = {11, 6, 8, 19, 4, 10, 5, 17, 43, 49, 31};
-        for(int i =0; i < arr.length; i++){
-            bst.put(arr[i], arr[i] +"");
-        }
-    }
-
-    public static void main(String[] args){
-        BinarySearchTree bst = new BinarySearchTree();
-        bst.testPut(bst);
-        //bst.testSearch(1012);
-        bst.print("", bst.root, false);
-        //bst.delete(11);
-        //bst.print("", bst.root, false);
-        bst.testInorder(bst);
-        bst.testReverseInorder(bst);
-        bst.testPreOrder(bst);
-        //bst.testPostOrder(bst);
-        //bst.testLevelOrder(bst);
-        //bst.floor(1013.5f);
-    }
-
 }
 
 // MyNotes.md: Implement Rank functionality
 /*
-*public int rank(Key key){
-    return rank(key, root);
-}
+    public int rank(Key key){
+        return rank(key, root);
+    }
 
-private int rank(Key key, TrieNode x){
-    if (x == null) return 0;
-    int cmp = key.compareTo(x.key);
-    if (cmp < 0) return rank(key, x.left);
-    else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
-    else if (cmp == 0) return size(x.left);
-}
+    private int rank(Key key, TrieNode x){
+        if (x == null) return 0;
+        int cmp = key.compareTo(x.key);
+        if (cmp < 0) return rank(key, x.left);
+        else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
+        else if (cmp == 0) return size(x.left);
+    }
 */
 
 // MyNotes.md: InOrder Traversal
@@ -374,3 +374,4 @@ private void inorder(TrieNode x, Queue1<Key> q)    {
     inorder(x.right, q);
 }
 */
+

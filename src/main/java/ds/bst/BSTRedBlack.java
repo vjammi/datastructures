@@ -34,7 +34,7 @@ import ds.queue.Queue;
 import java.util.NoSuchElementException;
 
 
-public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
+public class BSTRedBlack<Key extends Comparable<Key>, Value> {
 
     private static final boolean RED   = true;
     private static final boolean BLACK = false;
@@ -60,7 +60,7 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
     /**
      * Initializes an empty symbol table.
      */
-    public BalancedBSTRedBlackTree() {
+    public BSTRedBlack() {
     }
 
     /***************************************************************************
@@ -401,8 +401,13 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
         return height(root);
     }
     private int height(Node x) {
-        if (x == null) return -1;
-        return 1 + Math.max(height(x.left), height(x.right));
+        if (x == null)
+            return -1;
+
+        int left = height(x.left);
+        int right = height(x.right);
+
+        return 1 + Math.max(left, right);
     }
 
     /***************************************************************************
@@ -418,12 +423,13 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
         if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
         return min(root).key;
     }
-
     // the smallest key in subtree rooted at x; null if no such key
     private Node min(Node x) {
         // assert x != null;
-        if (x.left == null) return x;
-        else                return min(x.left);
+        if (x.left == null)
+            return x;
+        //else
+        return min(x.left);
     }
 
     /**
@@ -435,12 +441,13 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
         if (isEmpty()) throw new NoSuchElementException("calls max() with empty symbol table");
         return max(root).key;
     }
-
     // the largest key in the subtree rooted at x; null if no such key
     private Node max(Node x) {
         // assert x != null;
-        if (x.right == null) return x;
-        else                 return max(x.right);
+        if (x.right == null)
+            return x;
+        //else
+        return max(x.right);
     }
 
 
@@ -462,12 +469,19 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
     // the largest key in the subtree rooted at x less than or equal to the given key
     private Node floor(Node x, Key key) {
         if (x == null) return null;
+
         int cmp = key.compareTo(x.key);
-        if (cmp == 0) return x;
-        if (cmp < 0)  return floor(x.left, key);
+
+        if (cmp == 0)
+            return x;
+        if (cmp < 0)
+            return floor(x.left, key);
+
         Node t = floor(x.right, key);
-        if (t != null) return t;
-        else           return x;
+        if (t != null)
+            return t;
+        else
+            return x;
     }
 
     /**
@@ -559,8 +573,7 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
     }
 
     /**
-     * Returns all keys in the symbol table in the given range,
-     * as an {@code Iterable}.
+     * Returns all keys in the symbol table in the given range, as an {@code Iterable}.
      *
      * @param  lo minimum endpoint
      * @param  hi maximum endpoint
@@ -574,20 +587,24 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
         if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
 
         Queue<Key> queue = new Queue<Key>();
-        // if (isEmpty() || lo.compareTo(hi) > 0) return queue;
+        if (isEmpty() || lo.compareTo(hi) > 0) return queue;
         keys(root, queue, lo, hi);
         return queue;
     }
 
-    // add the keys between lo and hi in the subtree rooted at x
-    // to the queue
+    // add the keys between lo and hi in the subtree rooted at x to the queue
     private void keys(Node x, Queue<Key> queue, Key lo, Key hi) {
         if (x == null) return;
+
         int cmplo = lo.compareTo(x.key);
         int cmphi = hi.compareTo(x.key);
-        if (cmplo < 0) keys(x.left, queue, lo, hi);
-        if (cmplo <= 0 && cmphi >= 0) queue.enqueue(x.key);
-        if (cmphi > 0) keys(x.right, queue, lo, hi);
+
+        if (cmplo < 0)
+            keys(x.left, queue, lo, hi);
+        if (cmplo <= 0 && cmphi >= 0)
+            queue.enqueue(x.key);
+        if (cmphi > 0)
+            keys(x.right, queue, lo, hi);
     }
 
     /**
@@ -634,8 +651,7 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
         return isBST(root, null, null);
     }
 
-    // is the tree rooted at x a BST with all keys strictly between min and max
-    // (if min or max is null, treat as empty constraint)
+    // is the tree rooted at x a BST with all keys strictly between min and max (if min or max is null, treat as empty constraint)
     // Credit: Bob Dondero's elegant solution
     private boolean isBST(Node x, Key min, Key max) {
         if (x == null) return true;
@@ -699,7 +715,7 @@ public class BalancedBSTRedBlackTree<Key extends Comparable<Key>, Value> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        BalancedBSTRedBlackTree<String, Integer> st = new BalancedBSTRedBlackTree<String, Integer>();
+        BSTRedBlack<String, Integer> st = new BSTRedBlack<String, Integer>();
 
         //for (int i = 1010; i<1018; i++) { //  Adding in an ascending order
         for (int i = 1018; i>1010; i--) {   //  Adding in descending order
