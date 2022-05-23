@@ -1,6 +1,8 @@
 package ds.bst;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.Queue;
 
 /**
                             1015
@@ -247,7 +249,7 @@ public class BST {
     private void levelOrder(Node root){
         if (root == null) return;
 
-        java.util.Queue<Node> q = new LinkedList();
+        Queue<Node> q = new LinkedList();
         //QueueImplementingIterable<TrieNode> q = new QueueImplementingIterable<>();
 
         // Enqueue root node
@@ -268,28 +270,55 @@ public class BST {
             return;
         }
 
-        java.util.Queue<Node> queue = new LinkedList();
+        Queue<Node> queue = new LinkedList();
 
-        ((LinkedList<Node>) queue).add(root);
+        queue.add(root);
         // queue.add(root); ???
 
         while(!queue.isEmpty()){
             // Read the node
-            Node node = ((LinkedList<Node>) queue).peek();
+            Node node =  queue.peek();
             System.out.print(", " + node.key);
 
-            if (node.left != null) {
-                ((LinkedList<Node>) queue).add(node.left);
-            }
-            if (node.right != null) {
-                ((LinkedList<Node>) queue).add(node.right);
-            }
+            if (node.left != null)
+                 queue.add(node.left);
+
+            if (node.right != null)
+                queue.add(node.right);
 
             // remove the node that we just read
-            ((LinkedList<Node>) queue).remove();
+            queue.remove();
         }
     }
 
+    /**
+     * Returns the largest key in the symbol table less than or equal to key.
+     */
+    //    public Key floor(Key key) {
+    //        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
+    //        if (isEmpty()) throw new NoSuchElementException("calls floor() with empty symbol table");
+    //        BSTRedBlack.Node x = floor(root, key);
+    //        if (x == null) return null;
+    //        else           return x.key;
+    //    }
+    //
+    //    // the largest key in the subtree rooted at x less than or equal to the given key
+    //    private BSTRedBlack.Node floor(BSTRedBlack.Node x, Key key) {
+    //        if (x == null) return null;
+    //
+    //        int cmp = key.compareTo(x.key);
+    //
+    //        if (cmp == 0)
+    //            return x;
+    //        if (cmp < 0)
+    //            return floor(x.left, key);
+    //
+    //        BSTRedBlack.Node t = floor(x.right, key);
+    //        if (t != null)
+    //            return t;
+    //        else
+    //            return x;
+    //    }
     // MyNotes.md: Implement the floor and ceil functionality
     public float floor(float key)    {
         Node x = floor(root, key);
@@ -316,6 +345,28 @@ public class BST {
         else
             return x;
     }
+
+    /**
+     * Returns the smallest key in the symbol table greater than or equal to key.
+     */
+    //    public Key ceiling(Key key) {
+    //        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
+    //        if (isEmpty()) throw new NoSuchElementException("calls ceiling() with empty symbol table");
+    //        BSTRedBlack.Node x = ceiling(root, key);
+    //        if (x == null) return null;
+    //        else           return x.key;
+    //    }
+    //
+    //    // the smallest key in the subtree rooted at x greater than or equal to the given key
+    //    private BSTRedBlack.Node ceiling(BSTRedBlack.Node x, Key key) {
+    //        if (x == null) return null;
+    //        int cmp = key.compareTo(x.key);
+    //        if (cmp == 0) return x;
+    //        if (cmp > 0)  return ceiling(x.right, key);
+    //        BSTRedBlack.Node t = ceiling(x.left, key);
+    //        if (t != null) return t;
+    //        else           return x;
+    //    }
 
     public static void main(String[] args){
         BST bst = new BST();
