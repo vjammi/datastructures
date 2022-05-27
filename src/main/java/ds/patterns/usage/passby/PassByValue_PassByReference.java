@@ -1,4 +1,4 @@
-package ds.oop.passby;
+package ds.patterns.usage.passby;
 
 import java.util.*;
 import java.util.function.Consumer;

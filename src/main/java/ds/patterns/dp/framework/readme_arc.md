@@ -447,7 +447,7 @@ say we're currently at the end of the
 string we have to consider all the
 indices before it and the substrings
 that they formed so we'd consider
-the substrings like food or oo or od
+the substrings like food or ds.patterns.z.oop.oo or od
 if any of those are valid words then we
 have a directed edge so in this case
 food is a valid word what i mean by this

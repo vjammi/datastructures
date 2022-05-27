@@ -1,4 +1,4 @@
-package ds.oop.generics;
+package ds.patterns.usage.generics;
 
 public class KeyValuePairUsage {
 
