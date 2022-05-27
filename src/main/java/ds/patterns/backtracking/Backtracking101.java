@@ -130,7 +130,7 @@ public class Backtracking101 {
     /**
      When the set of digit choices available is large, using a loop to enumerate, results in shorter code (this is okay!)
      Note: loop over choices, not decisions.
-     If the number of choices is variable, will need to use a loop, e.g., chess ds.z.game.
+     If the number of choices is variable, will need to use a loop, e.g., chess ds.patterns.z.game.
      */
     public void printAllDecimal(int digits, ArrayList<Integer> output, int n){
         String indent = get_indent(n);

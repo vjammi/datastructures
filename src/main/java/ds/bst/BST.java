@@ -297,13 +297,13 @@ public class BST {
     //    public Key floor(Key key) {
     //        if (key == null) throw new IllegalArgumentException("argument to floor() is null");
     //        if (isEmpty()) throw new NoSuchElementException("calls floor() with empty symbol table");
-    //        BSTRedBlack.Node x = floor(root, key);
+    //        Node x = floor(root, key);
     //        if (x == null) return null;
     //        else           return x.key;
     //    }
     //
     //    // the largest key in the subtree rooted at x less than or equal to the given key
-    //    private BSTRedBlack.Node floor(BSTRedBlack.Node x, Key key) {
+    //    private Node floor(Node x, Key key) {
     //        if (x == null) return null;
     //
     //        int cmp = key.compareTo(x.key);
@@ -313,7 +313,7 @@ public class BST {
     //        if (cmp < 0)
     //            return floor(x.left, key);
     //
-    //        BSTRedBlack.Node t = floor(x.right, key);
+    //        Node t = floor(x.right, key);
     //        if (t != null)
     //            return t;
     //        else
@@ -321,6 +321,7 @@ public class BST {
     //    }
     // MyNotes.md: Implement the floor and ceil functionality
     public float floor(float key)    {
+
         Node x = floor(root, key);
 
         if (x == null)
@@ -352,18 +353,18 @@ public class BST {
     //    public Key ceiling(Key key) {
     //        if (key == null) throw new IllegalArgumentException("argument to ceiling() is null");
     //        if (isEmpty()) throw new NoSuchElementException("calls ceiling() with empty symbol table");
-    //        BSTRedBlack.Node x = ceiling(root, key);
+    //        Node x = ceiling(root, key);
     //        if (x == null) return null;
     //        else           return x.key;
     //    }
     //
     //    // the smallest key in the subtree rooted at x greater than or equal to the given key
-    //    private BSTRedBlack.Node ceiling(BSTRedBlack.Node x, Key key) {
+    //    private Node ceiling(BSTRedBlack.Node x, Key key) {
     //        if (x == null) return null;
     //        int cmp = key.compareTo(x.key);
     //        if (cmp == 0) return x;
     //        if (cmp > 0)  return ceiling(x.right, key);
-    //        BSTRedBlack.Node t = ceiling(x.left, key);
+    //        Node t = ceiling(x.left, key);
     //        if (t != null) return t;
     //        else           return x;
     //    }
