@@ -130,6 +130,9 @@ public class LetterCombinations {
             System.out.println(indent +input +" OUT(" +level +")" +chosen);
             return;
         }
+        StringBuilder sb = new StringBuilder();
+
+
         String digit = String.valueOf(input.charAt(level));
         String characters = map.get(digit);
         for(char character: characters.toCharArray()){

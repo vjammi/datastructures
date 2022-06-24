@@ -97,15 +97,18 @@ public class PathSumII {
         pathSum(node.left, sum, stack, str, strBuilder, result);
         pathSum(node.right, sum, stack, str, strBuilder, result);
 
-        show(stack);
-        show(sum, str, strBuilder);
+        show(stack); show(sum, str, strBuilder);
 
-        // Notice:
-        // To backtrack we pop the node/value out of the stack/stringBuilder object but not for the primitives
-        // We do not remove the last added char from the sum or str variables. The values for primitives are being copied* [pass by value] up the call stack.
-        // We only delete/remove the last added char from the strBuilder and stack objects. The references for non-primitives are being copied* [pass by value] up the call stack, with the effect similar to call by reference.
+        // *** Backtracking for Primitives vs NonPrimitives ***
+        // While backtracking we pop the node or nodeValue out of the stack/stringBuilder/list object but not if we were using primitives.
+        // The values for primitives are being copied* [pass by value] up the call stack.
+        // We do not remove the last added char from the sum or str variables.
 
-        // To backtrack we pop the node out of the stack and string builder
+        // We only delete/remove the last added char from the strBuilder and stack objects.
+        // Here the references for non-primitives are being copied [pass by value] up the call stack, instead values being copied and sent up the call stack.
+        // This results in an effect similar to call by reference.
+
+        // To backtrack we pop the node out of the stack/string builder/list
         stack.pop();
         strBuilder.deleteCharAt(strBuilder.length()-1);
     }

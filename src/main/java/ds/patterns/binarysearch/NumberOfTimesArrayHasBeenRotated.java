@@ -16,11 +16,11 @@ package ds.patterns.binarysearch;
  *			[/		]
  *
  * 		But here is the same array rotated.
- *  		[  /   ]
- *  		[/	/  ]
+ *  		[   /    ]
+ *  		[ /	  /  ]
  *
  *      To find the number of times it has been sorted, we find the peak/pivot where the pivot element is lesser than its left and right
- * */
+ **/
 public class NumberOfTimesArrayHasBeenRotated {
 
 	// runtime O(n)

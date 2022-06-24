@@ -25,35 +25,15 @@ public class MaximumSumSubarray {
     // Runtime O(n^2) - 2 for loops
     // Space   O(1)
     public int maxSubArrayNaive1(int[] nums) {
-        int maxSumSoFar = 0;
-        for (int i = 0; i < nums.length; i++) {
-            int sum = 0;
-            for (int j = 0; j < nums.length; j++) {  // here j == i - if a single element is equal to the sum
-                sum = sum + nums[j];
-                if (sum > maxSumSoFar) {
-                    maxSumSoFar = sum;
-                }
-                System.out.println("[" + nums[i] + ", " + nums[j] + "]    MaxSum =" + maxSumSoFar);
-            }
-            System.out.println("");
-        }
-        return maxSumSoFar;
-    }
-
-    public int maxSubArrayNaive2(int[] nums) {
-        if (nums.length == 0)
-            return 0;
-
+        if (nums.length == 0) return 0;
         int maxSubarraySum = nums[0];
         for (int i = 0; i < nums.length; i++) {
-
-            // i - j(i to len-1) are various subarrays
+            // i - j(i-len-1) are various subarrays
             int subarraySum = 0;
             for (int j = i; j < nums.length; j++) {
                 subarraySum = subarraySum + nums[j];
                 maxSubarraySum = Math.max(maxSubarraySum, subarraySum);
             }
-
         }
         return maxSubarraySum;
     }

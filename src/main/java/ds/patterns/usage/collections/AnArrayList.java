@@ -16,7 +16,7 @@ public class AnArrayList {
         result.remove(1);
         result.add(1, 210);    // remove and add val at index
         // or
-        result.set(1, 200);    // Set val at index
+        result.set(2, 200);    // Set val at index
 
         System.out.println(result.toString());
     }

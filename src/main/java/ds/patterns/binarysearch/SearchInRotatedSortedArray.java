@@ -18,7 +18,7 @@ package ds.patterns.binarysearch;
 */
 public class SearchInRotatedSortedArray {
 
-        /*
+    /**
         Input: nums = [4,5,6,7,0,1,2], target = 0
         Output: 4
 
@@ -31,9 +31,6 @@ public class SearchInRotatedSortedArray {
         0       11      5       0+(11-0)/2
         6       11      8       6+(11-6)/2
         8       11      9       8+(11-8)/2
-
-
-
     */
 
     public int search(int[] nums, int target) {
@@ -44,26 +41,33 @@ public class SearchInRotatedSortedArray {
         if (low > high)
             return -1;
 
-        int mid = low + (high-low)/2;
+        //int mid = low + (high-low)/2;
+        int mid = (low + high) >>> 1;
 
         if (nums[mid] == target){
             return mid;
 
         }else if (nums[low] <= nums[mid]){ // should the left half be sorted
 
-            // if the target is within the left half sorted range go left, else go right
+            // if the target is within - left sorted half go left, else go right
             if (target >= nums[low] && target < nums[mid])
                 return search(nums, target, low, mid-1);
             else
                 return search(nums, target, mid+1, high);
 
-        }else{ //(nums[mid+1] > nums[high]) // should the right half be sorted
+        }else { // should the right half be sorted if(nums[mid] <= nums[high])
 
-            // if the target is within the right half sorted range, go right else go left
+            // if the target is within - right sorted half, go right else go left
             if (target > nums[mid] && target <= nums[high])
                 return search(nums, target, mid+1, high);
             else
                 return search(nums, target, low, mid-1);
         }
+
+    }
+
+    public static void main(String[] args) {
+        SearchInRotatedSortedArray obj = new SearchInRotatedSortedArray();
+        System.out.println(obj.search(new int[]{4,5,6,7,0,1,2},0));
     }
 }

@@ -47,18 +47,20 @@ public class NumberOfIslands {
         return numOfIslands;
     }
 
-    /*
+    /**
                                N
                      r-1,c-1  r-1, c    r-1,c+1
         W            r, c-1     r, c    r, c+1       E
                      r+1,c-1  r+1, c    r+1,c+1
                                S
+
+             //            N  S  E  W
+             //int[] x = {-1, 1, 0, 0};
+             //int[] y = { 0, 0, 1,-1};
     */
-    // N  S  E  W
-    int[] x = {-1, 1, 0, 0};
-    int[] y = { 0, 0, 1,-1};
+
     private void dfs(int r, int c, char[][] grid, int[][] visitedGrid){
-        if (r<0 || c<0 || r>=grid.length || c>=grid[0].length || grid[r][c] == '0' || visitedGrid[r][c] == 9 )
+        if (r<0 || c<0 || r>grid.length-1 || c>grid[0].length-1 || grid[r][c] == '0' || visitedGrid[r][c] == 9 )
             return;
 
         // For a list of choices - N, S, E, W

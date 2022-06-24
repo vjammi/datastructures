@@ -46,38 +46,39 @@ public class MaximumProductSubarray {
         //          nums = [-2  1 -3  4   -1  2   1  -5    4]
         //      minSoFar =  -2 -2 -3 -12 -24 -48 -48 -120 -480
         //      maxSoFar =  -2  1  6  24  12  24  24  240  960
+
         //     globalMax =  -2  1  6  24  24* 24  24  240  960   * Note that 24 is being carried from previous globalMax
     */
 
     public int maxProduct(int[] nums) {
 
-        int subarrayMaxSumAtKMinusOne  = nums[0];
-        int subarrayMinSumAtKMinusOne  = nums[0];
+        int maxProdAtKMinusOne  = nums[0];
+        int minProdAtKMinusOne  = nums[0];
         int globalMaxSubarraySum       = nums[0];
-        System.out.println(subarrayMinSumAtKMinusOne +" " +subarrayMaxSumAtKMinusOne +" " +globalMaxSubarraySum);
+        System.out.println(minProdAtKMinusOne +" " +maxProdAtKMinusOne +" " +globalMaxSubarraySum);
 
         for(int i=1; i<nums.length; i++){
-            int subArrayAtK = nums[i];
+            int current = nums[i];
 
-            int subarrayMaxSumWithKthVal = 0;
-            //subarrayMaxSumAtKMinusOne = Math.max(nums[i], subarrayMaxSumWithKthVal);
-            if (Math.max(subArrayAtK * subarrayMaxSumAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne) > subArrayAtK){
-                subarrayMaxSumWithKthVal = Math.max(subArrayAtK * subarrayMaxSumAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne);
+            int maxProdAtKthIndex = 0;
+            //maxProdAtKMinusOne = Math.max(nums[i], maxProdAtKthIndex);
+            if (Math.max(current * maxProdAtKMinusOne, current * minProdAtKMinusOne) > current){
+                maxProdAtKthIndex = Math.max(current * maxProdAtKMinusOne, current * minProdAtKMinusOne);
             }else{
-                subarrayMaxSumWithKthVal = subArrayAtK;
+                maxProdAtKthIndex = current;
             }
 
-            int subArrayMinSumWithKthVal = 0;
-            //subarrayMinSumAtKMinusOne = Math.min(nums[i], subArrayMinSumWithKthVal);
-            if (Math.min(subArrayAtK * subarrayMaxSumAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne) < subArrayAtK){
-                subArrayMinSumWithKthVal = Math.min(subArrayAtK * subarrayMaxSumAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne); //subArrayMinSumWithKthVal;
+            int minProdAtKthIndex = 0;
+            //minProdAtKMinusOne = Math.min(nums[i], minProdAtKthIndex);
+            if (Math.min(current * maxProdAtKMinusOne, current * minProdAtKMinusOne) < current){
+                minProdAtKthIndex = Math.min(current * maxProdAtKMinusOne, current * minProdAtKMinusOne); //minProdAtKthIndex;
             }else{
-                subArrayMinSumWithKthVal = subArrayAtK;
+                minProdAtKthIndex = current;
             }
 
-            globalMaxSubarraySum = Math.max(globalMaxSubarraySum, subarrayMaxSumWithKthVal);
-            subarrayMaxSumAtKMinusOne = subarrayMaxSumWithKthVal;
-            subarrayMinSumAtKMinusOne = subArrayMinSumWithKthVal;
+            globalMaxSubarraySum = Math.max(globalMaxSubarraySum, maxProdAtKthIndex);
+            maxProdAtKMinusOne = maxProdAtKthIndex;
+            minProdAtKMinusOne = minProdAtKthIndex;
         }
 
         return globalMaxSubarraySum;
@@ -85,27 +86,53 @@ public class MaximumProductSubarray {
 
     public int maxProductConcise(int[] nums) {
 
-        int subarrayMaxSumWithAtKMinusOne  = nums[0];
-        int subarrayMinSumAtKMinusOne      = nums[0];
-        int globalMaxSubarraySum           = nums[0];
-        System.out.println(subarrayMinSumAtKMinusOne +" " +subarrayMaxSumWithAtKMinusOne +" " +globalMaxSubarraySum);
+        int maxProdAtKMinusOne  = nums[0];
+        int minProdAtKMinusOne  = nums[0];
+        int globalMax           = nums[0];
 
         for(int i = 1; i < nums.length; ++i){
-            int subArrayAtK = nums[i];
-            int subarrayMaxSumAtK = Math.max(subArrayAtK * subarrayMaxSumWithAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne);
-            int subArrayMinSumAtK = Math.min(subArrayAtK * subarrayMaxSumWithAtKMinusOne, subArrayAtK * subarrayMinSumAtKMinusOne);
+            int current = nums[i];
+            int maxProdAtK = Math.max(current * maxProdAtKMinusOne, current * minProdAtKMinusOne);
+            int minProdAtK = Math.min(current * maxProdAtKMinusOne, current * minProdAtKMinusOne);
 
-            subarrayMaxSumWithAtKMinusOne = Math.max(subArrayAtK, subarrayMaxSumAtK);
-            subarrayMinSumAtKMinusOne = Math.min(subArrayAtK, subArrayMinSumAtK);
+            maxProdAtKMinusOne = Math.max(current, maxProdAtK);
+            minProdAtKMinusOne = Math.min(current, minProdAtK);
 
-            globalMaxSubarraySum = Math.max(globalMaxSubarraySum, subarrayMaxSumWithAtKMinusOne);
-            System.out.println(subarrayMinSumAtKMinusOne +" " +subarrayMaxSumWithAtKMinusOne +" " +globalMaxSubarraySum);
+            globalMax = Math.max(globalMax, maxProdAtKMinusOne);
+            System.out.println(minProdAtKMinusOne +" " +maxProdAtKMinusOne +" " +globalMax);
         }
-        return globalMaxSubarraySum;
+        return globalMax;
+    }
+
+
+    /**
+
+         Input: nums = [2, -5,  3,  1,  -4,   0, -10, 2,   8]
+                        ^   ^
+             current    2  -5   3   1   -4    0  -10  2    8
+             maxProd    2  -5   3   3   120   0   0   2    16
+             minProd    2  -10 -30 -30  -12   0  -10 -20  -160
+
+        globalMaxProd   2        3      120                     = 120
+     */
+    public int maxProductRefactored(int[] nums) {
+        int minProd =  nums[0]; // Min product at current minus-1 th index
+        int maxProd =  nums[0]; // Max product at current minus-1 th index
+        int globalMaxProd = maxProd;
+
+        for (int i=1; i<nums.length; i++){
+            int current = nums[i];
+            int maxProdCurrIndex = Math.max(current, Math.max(minProd * current, maxProd * current));
+            int minProdCurrIndex = Math.min(current, Math.min(minProd * current, maxProd * current));
+            maxProd = maxProdCurrIndex;
+            minProd = minProdCurrIndex;
+            if (maxProd > globalMaxProd)  globalMaxProd = maxProd;
+        }
+        return globalMaxProd;
     }
 
     public static void main(String[] args) {
-        int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+        int[] nums = {2, -5,  3,  1,  -4,   0, -10, 2, 8}; //{-2, 1, -3, 4, -1, 2, 1, -5, 4};
         MaximumProductSubarray obj = new MaximumProductSubarray();
         System.out.println(obj.maxProduct(nums));
     }

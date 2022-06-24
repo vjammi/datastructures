@@ -55,8 +55,8 @@ public class PathSum {
         return false;
     }
 
-
-    public boolean dfsDebug(TreeNode node, int targetSum, Stack<Integer> chosen, List<List<Integer>> result) {
+    // Using chosen as a Stack
+    public boolean dfs1(TreeNode node, int targetSum, Stack<Integer> chosen, List<List<Integer>> result) {
         if (node == null){
             return false;
         }
@@ -65,13 +65,12 @@ public class PathSum {
 
         if (node.left == null && node.right == null && (targetSum - node.val) == 0 ){
             result.add(new ArrayList(chosen));
-            System.out.println("Chosen " +chosen);
-            System.out.println("Result " +result);
+            System.out.println("Chosen " +chosen +" Result " +result);
             return true;
         }
 
-        boolean leftTrue = dfsDebug(node.left,  targetSum-node.val, chosen, result);
-        boolean rightTrue = dfsDebug(node.right, targetSum-node.val, chosen, result);
+        boolean leftTrue = dfs1(node.left,  targetSum-node.val, chosen, result);
+        boolean rightTrue = dfs1(node.right, targetSum-node.val, chosen, result);
 
         chosen.pop();
 
@@ -80,5 +79,30 @@ public class PathSum {
 
         return false;
     }
+
+    // Using chosen as a List
+    public boolean dfs2(TreeNode node, int targetSum, List<Integer> chosen, int runningSum) {
+        if (node == null){
+            return false;
+        }
+
+        runningSum = runningSum + node.val;
+        if (node.left == null && node.right == null && runningSum == targetSum)
+            return true;
+
+        chosen.add(node.val);
+        System.out.println(chosen.toString());
+
+        boolean left  = dfs2(node.left, targetSum, chosen, runningSum);
+        boolean right = dfs2(node.right, targetSum, chosen, runningSum);
+
+        chosen.remove(chosen.size()-1);
+
+        if (left || right)
+            return true;
+
+        return false;
+    }
+
 
 }

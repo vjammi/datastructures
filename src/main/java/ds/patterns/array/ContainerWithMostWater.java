@@ -43,8 +43,7 @@ public class ContainerWithMostWater {
     //                  left            right
     // Runtime: O(n)
     public int maxArea(int[] height) {
-        int left  = 0;
-        int right = height.length-1;
+        int left  = 0; int right = height.length-1;
         int maxArea = 0;
         while(left < right){
             int minHeight = Math.min(height[left], height[right]);  // shortest of the two heights
@@ -52,7 +51,10 @@ public class ContainerWithMostWater {
             int area      = minHeight * width;                      // area within the 2 endpoints
             maxArea       = Math.max(maxArea, area);                // global max area update
 
-            if (height[left] < height[right])                       // for the next iteration, determine either to increment the left index or decrement the right index
+            // At every step, we find out the area formed between them, update max area and
+            // move the pointer pointing to the shorter line towards the other end by one step.
+            // For the next iteration, determine either to increment the left index or decrement the right index
+            if (height[left] < height[right])
                 left++;
             else
                 right--;

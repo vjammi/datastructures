@@ -4,7 +4,7 @@ public class BitVector {
 
 	private static int DATA_SIZE = 64;
 	private int length;
-	private int[] vector;
+	private int[] arr;
 
 	public static void main(String[] args) {
 		BitVector obj = new BitVector(128);
@@ -14,9 +14,9 @@ public class BitVector {
 	public BitVector(int length) {
 		this.length = length;
 		if (length % DATA_SIZE == 0) {
-			vector = new int[length / DATA_SIZE];
+			arr = new int[length / DATA_SIZE];
 		} else {
-			vector = new int[length / DATA_SIZE + 1];
+			arr = new int[length / DATA_SIZE + 1];
 		}
 	}
 	
@@ -25,7 +25,7 @@ public class BitVector {
 	}
 	
 	public boolean get(int i) {
-		int b = vector[i / DATA_SIZE];
+		int b = arr[i / DATA_SIZE];
 		int bit_index = i % DATA_SIZE;
 
 		if (((b >> bit_index) & 1) == 1) {
@@ -36,7 +36,7 @@ public class BitVector {
 	}
 	
 	public void print() {
-		for (int k : vector) {
+		for (int k : arr) {
 			for (int i = 0; i < DATA_SIZE; i++) {
 				if ((k >> i & 1) == 1) {
 					System.out.print(1 +" ");
@@ -51,11 +51,11 @@ public class BitVector {
 	public void set(int i, boolean flag) {
 		if (i >= 0 && i < length) {
 			int mask = ~(1 << i);
-			int b = vector[i / DATA_SIZE] & mask;
+			int b = arr[i / DATA_SIZE] & mask;
 			if (flag) {
-				vector[i / DATA_SIZE] = b | (1 << i);
+				arr[i / DATA_SIZE] = b | (1 << i);
 			} else {
-				vector[i / DATA_SIZE] = b;
+				arr[i / DATA_SIZE] = b;
 			}
 		}
 	}
