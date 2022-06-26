@@ -252,7 +252,7 @@ Adjacency list vs  Adjacency matrix - Space Complexity
 
 
 # Graph Problems
-## 323. Number of Connected Components in an Undirected Graph - Undirected Graph, Connected Components
+## 323. Number of Connected Components in an Undirected Graph - Undirected Graph + Connected Components
 You have a graph of n nodes. You are given an integer n, and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
 Return the number of connected components in the graph.
 ```
@@ -394,7 +394,7 @@ Adjacency list vs  Adjacency matrix - Space Complexity
 - Here, V represents the number of vertices and E represents the number of edges in the graph.
 - The space complexity of the adjacency matrix is O(V2).
 
-## 207. Course Schedule  - Directed Graph + Cycle Detection (0 -1 1)
+## 207. Course Schedule  - Directed Graph + Cycle Detection (0,-1,1)
 There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
 For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
 Return true if you can finish all courses. Otherwise, return false.
@@ -585,7 +585,7 @@ Space Complexity: O(|E| + |V|), with the same denotation as in the above time co
 - Finally, since we implement the function in recursion, which would incur additional memory consumption on call stack. In the worst case where all nodes are chained up in a line, the recursion would pile up |V| times.
 - Hence, the overall space complexity of the algorithm would be O(|E| + 3.|V|) = O(|E| + |V|).
 
-## 261. Graph Valid Tree [Fully Connected Graph + No Cycles (parent current child)] 
+## 261. Graph Valid Tree - Fully Connected Graph + No Cycles (parent current child) 
 You have a graph of n nodes labeled from 0 to n - 1. You are given an integer n and a list of edges where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
 Return true if the edges of the given graph make up a valid tree, and false otherwise.
 
@@ -769,7 +769,6 @@ Time Complexity: O(V + E)
         result.add(0, vertex); // Add the vertices in the reverse order.
     }
 ```
-
 
 ## 886. Possible Bipartition [UnDirected Graph + Graph Coloring - Group A & B - visited[node] != visit]
 Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
