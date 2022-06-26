@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/*
+    /**
     323. Number of Connected Components in an Undirected Graph
     You have a graph of n nodes. You are given an integer n and an array edges where edges[i] = [ai, bi] indicates that there is an edge between ai and bi in the graph.
     Return the number of connected components in the graph.
@@ -31,7 +31,7 @@ import java.util.Map;
     Space complexity: O(E+V).\
         Building the adjacency list will take O(E) space. To keep track of visited vertices, an array of size O(V) is required.
         Also, the run-time stack for DFS will use O(V) space.
-*/
+    */
 public class NumOfConnectedComponents {
 
     public int countComponents(int n, int[][] edges) {
@@ -76,9 +76,7 @@ public class NumOfConnectedComponents {
         visited[vertex] = 1;
         List<Integer> neighbors = adjList.get(vertex);
         for(Integer neighbor: neighbors){
-            if (visited[neighbor]==0) {
-                dfs(neighbor, adjList, visited);
-            }
+            dfs(neighbor, adjList, visited);
         }
     }
 

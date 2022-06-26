@@ -344,6 +344,7 @@ Calling DFS in a graph is no different from trees. It involves some setup with a
             adjList.get(edge[0]).add(edge[1]);
             adjList.get(edge[1]).add(edge[0]);
         }
+        
         // A boolean visited array to mark the nodes that we have seen.
         // O(V) space        
         int[] visited = new int[n]; 
@@ -352,8 +353,10 @@ Calling DFS in a graph is no different from trees. It involves some setup with a
         // visited array prevents us from double counting a connected components and the for loop prevents from missing one of the connected component
         // O (V) time
         for (int i=0; i<n; i++){
-            dfs(i, adjList, visited);   // Runtime stack - O(V) space
-            connectedComponents++;
+            if (visited[i] == 0) {
+                dfs(i, adjList, visited);   // Runtime stack - O(V) space
+                connectedComponents++;
+            }
         }
 
         return connectedComponents;
@@ -362,19 +365,14 @@ Calling DFS in a graph is no different from trees. It involves some setup with a
     private void dfs(int vertex, Map<Integer, List<Integer>> adjList, int[] visited) {
         if (visited[vertex] == 1)
             return;
-        
-        // We mark the current node as visited and then get the list of neighbors from the adjacency list.      
+
         visited[vertex] = 1;
         List<Integer> neighbors = adjList.get(vertex);
-        
-        // We then DFS into the node we have not seen
-        for(Integer neighbor: neighbors){               
-            if (visited[neighbor]==0) {
-                dfs(neighbor, adjList, visited);
-            }
+        for(Integer neighbor: neighbors){
+            dfs(neighbor, adjList, visited);
         }
     }
-
+    
 ```
 
 Complexity Analysis

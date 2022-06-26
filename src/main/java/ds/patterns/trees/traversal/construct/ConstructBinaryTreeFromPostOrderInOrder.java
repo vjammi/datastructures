@@ -1,4 +1,4 @@
-package ds.patterns.trees.traversal;
+package ds.patterns.trees.traversal.construct;
 
 import java.util.HashMap;
 import java.util.Map;
