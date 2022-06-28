@@ -33,14 +33,9 @@ import java.util.*;
 public class TopKFrequentElements {
 
     class FrequencyComparator implements Comparator<Integer>{
-
         @Override
         public int compare(Integer n1, Integer n2) {
-            //return charToFreqMap.get(n2) - charToFreqMap.get(n1);             // ascending
-            //return charToFreqMap.get(n2).compareTo(charToFreqMap.get(n1));    // ascending
-
-            //return charToFreqMap.get(n1) - charToFreqMap.get(n2);             // descending
-            return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));      // descending
+            return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));  //
         }
     }
 
@@ -60,20 +55,28 @@ public class TopKFrequentElements {
                 charToFreqMap.put(num, 1);
         }
 
-        // init heap 'the less frequent element first'
-        Queue<Integer> heap = new PriorityQueue<>(new FrequencyComparator());
-        // 2. Keep K top frequent elements in the heap - O(K log N) < O(N log N) time [iterate over all elements N but keep only K elements]
+        //Note:
+        //For top k elements we will use a Min Heap of size k, iterating thru all the n elements,
+        //storing the less frequent elements first.
+        //When the heap size exceeds k, we will remove the minimum element,
+        //that will guarantee that we have the k largest elements left in the heap.
+
+        // Within the heap store the less frequent elements first -  O(N log K) solution
+        Queue<Integer> queue = new PriorityQueue<>(new FrequencyComparator());
+        // 2. Keep K top frequent elements in the heap iun reverse order using min heap
+        // O(K log N) < O(N log N) time [iterate over n elements keeping K elements in ascending order]
         for (int key: charToFreqMap.keySet()) {
-            heap.add(key);
-            if (heap.size() > k)
-                heap.poll();
+            queue.offer(key);
+            if (queue.size() > k)
+                queue.poll();
         }
 
-        // 3. build an output array - O(k log k) time. k = number of items to store in the pq
+        // 3. Build an output array - O(K log K) time. k = number of items to store in the pq
         int[] topKFrequentElements = new int[k];
         for (int i=k-1; i>=0; i--){
-            topKFrequentElements[i] = heap.poll();
+            topKFrequentElements[i] = queue.poll();
         }
+
         return topKFrequentElements;
     }
 

@@ -312,6 +312,7 @@ Given an integer array nums and an integer k, return the k most frequent element
    - When we poll we will always end up polling the min element out of the heap causing the highest frequencies to be left at the bottom of the heap.
    - We store only top k elements which results in O(N log k) time complexity
 ```
+    // Note: 
     // Min Heap (Ascending)   charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2)) // n1 - n2 
     // Max Heap (Descending)  charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2)) // n2 - n1
    
