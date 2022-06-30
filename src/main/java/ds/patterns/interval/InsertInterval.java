@@ -38,7 +38,7 @@ public class InsertInterval {
      */
 
     // Implementation 1:
-    public int[][] insert(int[][] intervals, int[] newInterval) {
+    public int[][] insert1(int[][] intervals, int[] newInterval) {
 
         List<int[]> resultList = new ArrayList<>();
 
@@ -88,8 +88,10 @@ public class InsertInterval {
         return resultList.toArray(result);
     }
 
-    // Implementation 2: Using a stack to hold the overlapping interval
-    public int[][] insert2(int[][] intervals, int[] newInterval) {
+    /**
+     * Insert interval implementation using a stack to hold the overlapping interval
+     */
+    public int[][] insert(int[][] intervals, int[] newInterval) {
 
         List<int[]> resultList = new ArrayList<>();
         Stack<int[]> stack = new Stack<>();
@@ -99,29 +101,42 @@ public class InsertInterval {
 
         for (int i=0; i<intervals.length; i++){
 
-            int[] interval = intervals[i];
-            if (newInterval[0] > interval[1]) {            // Case 1: newInterval is greater than the current interval
-                resultList.add(interval);
-                if (i == intervals.length-1) resultList.add(newInterval); // If current interval is the last of the intervals
+            int[] currentInterval = intervals[i];
 
-            }else if (newInterval[1] < interval[0]) {       // Case 2: newInterval is before the current interval
+            // Case 1: newInterval is before the currentInterval
+            if (newInterval[1] < currentInterval[0]) {
+                resultList.add(newInterval);                        // a) Since newInterval is before the current interval. we first insert the newinterval
 
-                resultList.add(newInterval);                // 2a) Since newInterval is before the current interval. we first insert the newinterval
-                for (int j=i; j<intervals.length; j++)      // 2b) We then add the remainder intervals to the result and return
+                for (int j=i; j<intervals.length; j++)              // b) We then add the remainder intervals to the result and return
                     resultList.add(intervals[j]);
                 break;
-            }else{                                          // Case 3: Overlapping intervals. We will take the min of the two start and max of the two end
-                int start = Math.min(interval[0], newInterval[0]);
-                int end   = Math.max(interval[1], newInterval[1]);
-                newInterval = new int[]{start, end};        // rewrite new interval
+
+            }
+
+            // Case 2: newInterval is after than the currentInterval
+            else if (newInterval[0] > currentInterval[1]) {
+                resultList.add(currentInterval);
+
+                if (i == intervals.length-1)                        // If current interval is the last of the intervals
+                    resultList.add(newInterval);
+            }
+
+            // Case 3: Overlapping intervals. We will take the min of the two start and max of the two end
+            else{
+                int start = Math.min(currentInterval[0], newInterval[0]);
+                int end   = Math.max(currentInterval[1], newInterval[1]);
+                newInterval = new int[]{start, end};                // rewrite new interval
 
                 if (!stack.isEmpty()) stack.pop();
                 stack.push(newInterval);
-                if (i==intervals.length-1) resultList.add(stack.pop()); // If current interval is the last of the intervals
+
+                if (i==intervals.length-1)
+                    resultList.add(stack.pop());                    // If current interval is the last of the intervals
             }
         }
 
         int[][] result = new int[resultList.size()][2];
+
         return resultList.toArray(result);
     }
 
