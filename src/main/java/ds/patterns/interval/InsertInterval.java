@@ -35,7 +35,6 @@ public class InsertInterval {
                                                              [4,8]
          Case 3: newInterval overlapping currentInterval     [[1,3],[6,9]...]        [[1,    5]...]
                                                                 [2,6]                   [2,4]
-
      */
 
     // Implementation 1:
@@ -47,17 +46,16 @@ public class InsertInterval {
             return new int[][] {newInterval};
 
         for (int i=0; i<intervals.length; i++){
+            int[] currentInterval = intervals[i];
 
-            int[] interval = intervals[i];
             // Case 1: newInterval is greater than the current interval
-            if (newInterval[0] > interval[1]) {
-
-                resultList.add(interval);
+            if (newInterval[0] > currentInterval[1]) {
+                resultList.add(currentInterval);
                 if (i == intervals.length-1) resultList.add(newInterval); // If current interval is the last of the intervals
-
             }
+
             // Case 2: newInterval is before the current interval
-            else if (newInterval[1] < interval[0]) {
+            else if (newInterval[1] < currentInterval[0]) {
                 resultList.add(newInterval);                // 2a) Since newInterval is before the current interval. we first insert the newinterval
                 for (int j=i; j<intervals.length; j++)      // 2b) We then add the remainder intervals to the result and return
                     resultList.add(intervals[j]);
@@ -75,10 +73,10 @@ public class InsertInterval {
             //      If it overlaps with the next current interval we will merge this with that and wait again until we have no overlapping intervals
             // Finally when there is no overlapping interval, we first insert this merged interval and then add any intervals after it.
 
-            // The implmentation needs to change
+            // The implementation needs to change
             }else{
-                int start = Math.min(interval[0], newInterval[0]);
-                int end   = Math.max(interval[1], newInterval[1]);
+                int start = Math.min(currentInterval[0], newInterval[0]);
+                int end   = Math.max(currentInterval[1], newInterval[1]);
                 newInterval = new int[]{start, end};        // rewrite newInterval and not add it yet
 
                 if (i==intervals.length-1)

@@ -25,32 +25,41 @@ import java.util.Map;
         Explanation: There are a total of 2 courses to take.
 
         To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.
-    */
 
-//    /**
-//         Graph needs to be directed, connected??? with NO Cycles
-//         i.e. [2->1] [1->0]
-//         Here,
-//         numCourses: Nodes of the graph
-//         prerequisites: Edges between the nodes of the graph
-//
-//         numCourses = 9
-//         prerequisites: [[8,7],[7,6],[6,5],[5,4],[4,3],[3,2],[2,1],[1,0]]
-//         adjList: {  0:[],   1:[0],  2:[1],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
-//         canFinish: true
-//           7       5       3      1
-//          /  \   /   \   /   \  /  \
-//         8     6        4      2     0
-//
-//         numCourses = 9
-//         prerequisites: [[8,7], [7,6], [6,5], [5,4], [4,3], [3,2], [2,1], [2,4], [1,0]]
-//         adjList: {  0:[],   1:[0],  2:[1,4],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
-//         canFinish: false
-//
-//            7       5       3      1
-//          /  \   /   \   /   \  /  \
-//         8     6        4   -  2     0
-//    */
+         Graph needs to be directed, connected??? with NO Cycles
+         i.e. [2->1] [1->0]
+         Here,
+         numCourses: Nodes of the graph
+         prerequisites: Edges between the nodes of the graph
+
+         numCourses = 9
+         prerequisites: [[8,7],[7,6],[6,5],[5,4],[4,3],[3,2],[2,1],[1,0]]
+         adjList: {  0:[],   1:[0],  2:[1],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
+         canFinish: true
+           7       5       3      1
+          /  \   /   \   /   \  /  \
+         8     6        4      2     0
+
+         numCourses = 9
+         prerequisites: [[8,7], [7,6], [6,5], [5,4], [4,3], [3,2], [2,1], [2,4], [1,0]]
+         adjList: {  0:[],   1:[0],  2:[1,4],  3:[2],  4:[3],  5:[4],  6:[5],  7:[6],  8:[7]   }
+         canFinish: false
+
+            7       5       3      1
+          /  \   /   \   /   \  /  \
+         8     6        4   -  2     0
+
+        20
+        [[0,10],[3,18],[5,5],[6,11],[11,14],[13,1],[15,1],[17,4]]
+        0 > 10
+        3 > 18
+        5 > 5        // Cycle
+        6 > 11 > 14
+        13 > 1
+        15 > 1
+        17 > 4
+
+    */
 
 public class CourseSchedule {
     // int[][] prerequisites = {{0,1},{1,2}, {3,2}, {4,3}, {2,4}};
@@ -74,7 +83,7 @@ public class CourseSchedule {
 
         // visited array where 0=not visited, 1= visited, -1= currently visiting
         int[] visited =  new int[numCourses];
-        // iterate thru the
+        // *** Iterate through the courses
         for (int i=0;i<numCourses; i++){
             boolean cycle = dfs(adjacencyList, visited, i);
             // if a cycle is found return false else continue;
@@ -88,12 +97,12 @@ public class CourseSchedule {
 
     private boolean dfs(Map<Integer, ArrayList<Integer>> adjacencyList, int[] visited, int node){
 
-        // if we run into a node that visited in the current dfs traversal, then there is a cycle
+        // *** if we run into a node that visited in the current dfs traversal, then there is a cycle
         if (visited[node] == -1 ){
             return false;
         }
 
-        // if we run into a node that we have already seen in an previous dfs traversal
+        // *** if we run into a node that we have already seen in an previous dfs traversal
         if (visited[node] == 1){
             return true;
         }
