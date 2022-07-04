@@ -1,9 +1,9 @@
 ## Managing Spring Beans and Dependencies
-Learn how to use annotations to direct Spring to manage beans and autowire dependencies.
-    @Component
-    @Autowired
-    @ComponentScan
-    @SpringBootApplication
+Using annotations to direct Spring to manage beans and autowire dependencies.
+- @Component
+- @Autowired
+- @ComponentScan
+- @SpringBootApplication
 
 So far, we have created objects of RecommenderImplementation class and two classes implementing the Filter interface. We are binding the objects together in the constructor. Our code is now loosely coupled as we are passing the name of the filter to be used as a constructor argument.
 Spring automates the above process of creating objects and binding them together. It takes the responsibility of creating instances of classes and binding instances based on their dependencies. The instances or objects that Spring manages are called beans. To manage objects and dependencies, Spring requires information about three things:
@@ -11,13 +11,11 @@ Spring automates the above process of creating objects and binding them together
 - Dependencies
 - Location of beans
 
-
 1. For the code example shown in this lesson, we have created a sub-package called lesson3 inside the package io.datajek.spring.basics.movierecommendersystem.
 The package contains MovieRecommenderSystemApplication.java, RecommenderImplementation.java, ContentBasedFilter.java, and CollaborativeFilter.java files from the previous lesson.
 
 ###  @Component
 If we want Spring to create and manage objects, we can do so by adding the @Component annotation at the beginning of the class and importing org.springframework.stereotype.Component.
-
 For now, we want Spring to manage objects of RecommenderImplementation and ContentBasedFilter class only, so we will add the @Component annotation at two places in the code:
 
     import org.springframework.stereotype.Component;
