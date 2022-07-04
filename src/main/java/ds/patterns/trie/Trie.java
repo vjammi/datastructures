@@ -5,12 +5,6 @@ import java.util.Map;
 
 public class Trie {
 
-    private TrieNode root;
-
-    public Trie(){
-        this.root = new TrieNode();
-    }
-
     class TrieNode{
         Map<Character, TrieNode> children;
         boolean endOfWord;
@@ -19,6 +13,12 @@ public class Trie {
             this.children = new HashMap();
             endOfWord = false;
         }
+    }
+
+    private TrieNode root;
+
+    public Trie(){
+        this.root = new TrieNode();
     }
 
     public void insert(String word) {
