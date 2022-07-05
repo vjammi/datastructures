@@ -1,4 +1,4 @@
-package ds.patterns.dp.problems;
+package ds.patterns.dp;
 
 /*
 Problem:

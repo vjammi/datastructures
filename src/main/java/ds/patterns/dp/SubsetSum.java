@@ -1,4 +1,4 @@
-package ds.patterns.dp.problems;
+package ds.patterns.dp;
 
 import java.util.ArrayList;
 import java.util.List;
