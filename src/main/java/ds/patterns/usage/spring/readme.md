@@ -1,5 +1,6 @@
 # Dependency Injection and Inversion of Control
 https://martinfowler.com/articles/injection.html
+https://www.educative.io/module/page/Y6GKZ1ipY4VA9DQQG/10370001/5079044300734464/5043481057165312
 
 
 ## Managing Spring Beans and Dependencies
