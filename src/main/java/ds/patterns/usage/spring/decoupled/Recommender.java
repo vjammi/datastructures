@@ -1,11 +1,11 @@
 package ds.patterns.usage.spring.decoupled;
 
-public class RecommenderImplementation {
+public class Recommender {
 
     // Use filter interface to select filter
     private Filter filter;
 
-    public RecommenderImplementation(Filter filter) {
+    public Recommender(Filter filter) {
         super();
         this.filter = filter;
     }

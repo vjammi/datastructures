@@ -1,6 +1,6 @@
 package ds.patterns.usage.spring.coupled;
 
-public class RecommenderImplementation {
+public class Recommender {
 
     public String[] recommendMovies(String movie) {
         //use content based filter to find similar movies

@@ -10,6 +10,7 @@ package ds.patterns.usage.spring.di;
 
 import org.springframework.stereotype.Component;
 
+@Component
 public class CollaborativeFilter implements Filter{
     public String[] getRecommendations(String movie) {
         //logic of collaborative filter

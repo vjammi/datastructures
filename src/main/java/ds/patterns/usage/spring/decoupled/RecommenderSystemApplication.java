@@ -12,7 +12,7 @@ public class RecommenderSystemApplication {
 
     public static void main(String[] args) {
         //passing name of the filter as constructor argument
-        RecommenderImplementation recommender = new RecommenderImplementation(new ContentBasedFilter());
+        Recommender recommender = new Recommender(new ContentBasedFilter());
         //RecommenderImplementation recommender = new RecommenderImplementation(new CollaborativeFilter());
 
         //call method to get recommendations

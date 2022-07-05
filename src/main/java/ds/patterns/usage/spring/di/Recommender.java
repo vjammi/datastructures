@@ -6,27 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-//public class RecommenderImplementation {
-//    // Use filter interface to select filter
-//    private Filter filter;
-//
-//    public RecommenderImplementation(Filter filter) {
-//        super();
-//        this.filter = filter;
-//    }
-//
-//    // Use a filter to find recommendations
-//    public String [] recommendMovies (String movie) {
-//        // Print the name of interface implementation being used
-//        System.out.println("Name of the filter in use: " + filter + "\n");
-//        String[] results = filter.getRecommendations("Finding Dory");
-//        return results;
-//    }
-//}
-
 /**
- *
- *
  * Marks a constructor, field, setter method, or config method as to be autowired by
  * Spring's dependency injection facilities. This is an alternative to the JSR-330
  * {@link javax.inject.Inject} annotation, adding required-vs-optional semantics.
@@ -105,13 +85,13 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class RecommenderImplementation {
+public class Recommender {
 
     //Filter is a dependency of RecommenderImplementation
     @Autowired
     private Filter filter;
 
-    public RecommenderImplementation(Filter filter) {
+    public Recommender(Filter filter) {
         super();
         this.filter = filter;
     }
@@ -124,3 +104,22 @@ public class RecommenderImplementation {
         return results;
     }
 }
+
+
+//public class RecommenderImplementation {
+//    // Use filter interface to select filter
+//    private Filter filter;
+//
+//    public RecommenderImplementation(Filter filter) {
+//        super();
+//        this.filter = filter;
+//    }
+//
+//    // Use a filter to find recommendations
+//    public String [] recommendMovies (String movie) {
+//        // Print the name of interface implementation being used
+//        System.out.println("Name of the filter in use: " + filter + "\n");
+//        String[] results = filter.getRecommendations("Finding Dory");
+//        return results;
+//    }
+//}
