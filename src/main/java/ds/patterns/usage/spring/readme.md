@@ -1,3 +1,7 @@
+# Dependency Injection and Inversion of Control
+https://martinfowler.com/articles/injection.html
+
+
 ## Managing Spring Beans and Dependencies
 Using annotations to direct Spring to manage beans and autowire dependencies.
 - @Component
