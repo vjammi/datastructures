@@ -5,76 +5,84 @@ import java.util.Map;
 
 public class PrefixTree {
 
-    class TrieNode {
-        Map<Character, TrieNode> charMap;
-        boolean endOfWord;
-        public TrieNode() {
-            this.charMap = new HashMap();
-            endOfWord = false;
+    TrieNode root;
+
+    private class TrieNode {
+        Map<Character, TrieNode> map;
+        boolean isWord;
+
+        public TrieNode(){
+            map = new HashMap();
+            isWord = false;
         }
     }
 
-    private TrieNode root;
-
-    public PrefixTree() {
-        this.root = new TrieNode();
+    public PrefixTree(){
+        root = new TrieNode();
     }
 
-    public void insert(String word) {
-        TrieNode current = root;
-        for (int i = 0; i < word.length(); i++) {
-            Character ch = word.charAt(i);
-            //TrieNode charTrieNode = current.charMap.get(ch);
-            if (current.charMap.get(ch) == null){
-                //charTrieNode = new TrieNode();
-                current.charMap.put(ch, new TrieNode());
-            }
-            current = current.charMap.get(ch);
-        }
-        current.endOfWord = true;
-    }
+    private void add(String word){
+        TrieNode currentNode = root;
 
-    public boolean search(String word){
-        TrieNode current = root;
         for (int i=0; i<word.length(); i++){
-            Character ch = word.charAt(i);
-            //TrieNode node = current.charMap.get(ch);
-            if (current.charMap.get(ch) == null){
-                System.out.println("Word " +word +" NOT found..." );
-                return false;
+            char ch = word.charAt(i);
+            TrieNode childNode  = currentNode.map.get(ch);
+            if ( childNode == null)
+                currentNode.map.put(ch, new TrieNode());
+            // CANNOT assign the childNode to the currentNode.
+            // It has to be currentNode.map.get(ch), in case childNode null, we end up creating it prior to
+            currentNode = currentNode.map.get(ch);
+        }
+        currentNode.isWord = true;
+    }
+
+
+    private boolean search(String word){
+        TrieNode currentNode = root;
+        StringBuilder builder = new StringBuilder();
+
+        for(int i=0; i<word.length(); i++){
+            char ch = word.charAt(i);
+            builder.append(ch);
+            TrieNode childNode = currentNode.map.get(ch);
+
+            if (childNode == null){
+                System.out.println("Word Prefix Found: " +builder.toString());
             }
-            current = current.charMap.get(ch);
+            currentNode = childNode;
         }
 
-        if (current.endOfWord == true) {
-            System.out.println("Word " + word + " found..." +true);
+        if (currentNode.isWord) {
+            System.out.println("Word Found: " + builder.toString());
             return true;
         }
 
-        System.out.println("Word " + word + " found..." +false);
+        System.out.println("Word NOT Found: " + builder.toString());
         return false;
     }
 
     public boolean startsWith(String prefix) {
         TrieNode current = root;
-        for (int i = 0; i < prefix.length(); i++) {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i=0; i<prefix.length(); i++) {
             Character ch = prefix.charAt(i);
-            //TrieNode childOfCurrent = current.charMap.get(ch);
-            if (current.charMap.get(ch) == null){
-                //childOfCurrent = new TrieNode();
-                current.charMap.put(ch, new TrieNode());
+            if (current.map.get(ch) == null){
+                System.out.println("Prefix NOT found " + prefix +". Prefix found so far " +builder.toString());
+                return false;
             }
+            builder.append(ch);
+            current = current.map.get(ch);
         }
-        System.out.println("prefix " + prefix + " found...");
-        // current.endOfWord could be true (exact match) or false (letters present but not end of word)
+
+        System.out.println("Prefix found " + prefix);
         return true;
     }
 
     public static void main(String[] args) {
-        //Your Trie object will be instantiated and called as such:
-        PrefixTree obj = new PrefixTree();
-        obj.insert("apple");
-        boolean param_2 = obj.search("apple");
-        boolean param_3 = obj.startsWith("app");
+        PrefixTree trie = new PrefixTree();
+        trie.add("dog"); trie.add("dot"); trie.add("doting"); trie.add("drag"); trie.add("drastic"); trie.add("top"); trie.add("torn"); trie.add("trap");
+        trie.search("dot");
+        trie.startsWith("dotingg");
     }
 }

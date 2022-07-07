@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class WordBreak_TrieImpl {
+public class WordBreak {
     TrieNode root;
 
     private class TrieNode {
@@ -17,7 +17,7 @@ public class WordBreak_TrieImpl {
         }
     }
 
-    public WordBreak_TrieImpl(){
+    public WordBreak(){
         root = new TrieNode();
     }
 
@@ -62,7 +62,7 @@ public class WordBreak_TrieImpl {
     }
 
     public static void main(String[] args) {
-        WordBreak_TrieImpl wb = new WordBreak_TrieImpl();
+        WordBreak wb = new WordBreak();
         wb.add("dog"); wb.add("dot"); // wb.add("doting"); wb.add("drag"); wb.add("drastic"); wb.add("top"); wb.add("torn"); wb.add("trap");
         wb.search("dot");
     }
