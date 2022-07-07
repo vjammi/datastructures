@@ -1,10 +1,6 @@
-package ds.patterns.trie;
-
-import java.util.HashMap;
-import java.util.Map;
-
-
-public class WordBreak_TrieImpl {
+## Trie Implementation
+```
+public class Trie {
     TrieNode root;
 
     private class TrieNode {
@@ -17,7 +13,7 @@ public class WordBreak_TrieImpl {
         }
     }
 
-    public WordBreak_TrieImpl(){
+    public Trie(){
         root = new TrieNode();
     }
 
@@ -62,9 +58,14 @@ public class WordBreak_TrieImpl {
     }
 
     public static void main(String[] args) {
-        WordBreak_TrieImpl wb = new WordBreak_TrieImpl();
-        wb.add("dog"); wb.add("dot"); // wb.add("doting"); wb.add("drag"); wb.add("drastic"); wb.add("top"); wb.add("torn"); wb.add("trap");
-        wb.search("dot");
+        Trie trie = new Trie();
+        trie.add("dog"); wb.add("dot"); 
+        //trie.add("doting"); trie.add("drag"); trie.add("drastic"); trie.add("top"); trie.add("torn"); trie.add("trap");
+        trie.search("dot");
     }
 
 }
+```
+#### Reference
+https://courses.cs.duke.edu/fall12/cps100/Recitations/Recitation11.html
+
