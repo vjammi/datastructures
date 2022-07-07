@@ -3,7 +3,7 @@ package ds.patterns.trie;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WordBreakUsingTrie {
+public class WordBreak_TrieImpl {
     TrieNode root;
 
     private class TrieNode {
@@ -16,7 +16,7 @@ public class WordBreakUsingTrie {
         }
     }
 
-    public WordBreakUsingTrie(){
+    public WordBreak_TrieImpl(){
         root = new TrieNode();
     }
 
@@ -61,7 +61,7 @@ public class WordBreakUsingTrie {
     }
 
     public static void main(String[] args) {
-        WordBreakUsingTrie wb = new WordBreakUsingTrie();
+        WordBreak_TrieImpl wb = new WordBreak_TrieImpl();
         wb.add("dog"); wb.add("dot"); // wb.add("doting"); wb.add("drag"); wb.add("drastic"); wb.add("top"); wb.add("torn"); wb.add("trap");
         wb.search("dot");
     }
