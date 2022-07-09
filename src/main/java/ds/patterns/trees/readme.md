@@ -296,30 +296,32 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
 - Total number of nodes of a Perfect Binary Tree of height (h) = 2^(h+1) -1 
 
 ```
-                   18                       h       d            
-                /     \                     h       d
-             15         30                  h       d
-            /  \        /  \                h       d
-          40    50    100   40              h       d
+                                          Height   Depth
+                   18                       2        0             
+                /     \                             
+             15         30                  1        1
+            /  \        /  \                        
+          40    50    100   40              0        2
                 Figure (c)
 ```
 ##### Property 1: The number of nodes at depth d in a perfect binary tree = 2^d
 - There is only 1 node (= the root node) at depth 0: 2^0 = 1
 - In a perfect binary tree, every node has 2 children nodes
 ```
-                                1                                           depth 0     2^0 nodes
-                      2                    3                                      1     2^1 nodes
-                4           5         6          7                                2     2^2 nodes
-             8       9   10    11   12   13   14    15                            3     2^3 nodes
+                                                                                Depth  Nodes at level
+                                1                                                 0     2^0 
+                      2                    3                                      1     2^1 
+                4           5         6          7                                2     2^2 
+             8       9   10    11   12   13   14    15                            3     2^3 
 ```
 - So:
 ```
-         Depth (d)   Number of nodes at depth d      Num of child nodes
+         Depth (d)   Number of Nodes at depth    Num of child nodes
          -----------------------------------------------------------------------
-            0        1 = 2^0                       2 (each node has 2 children)                               1
-            1        2 = 2^1                       4 (each node has 2 children)                     2                    3
-            2        4 = 2^2                       8 (each node has 2 children)               4           5         6          7
-            3        8 = 2^2                       16                                      8       9   10    11   12   13   14    15
+            0        2^0=1                       2 (each node has 2 children)                               1
+            1        2^1=2                       4 (each node has 2 children)                     2                    3
+            2        2^2=4                       8 (each node has 2 children)               4           5         6          7
+            3        2^2=8                       16                                      8       9   10    11   12   13   14    15
 ```
 - i.e. 
   - The number of nodes doubles every time the depth increases by 1!
@@ -330,10 +332,11 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
 - Total number of nodes in a perfect binary tree of height h
     Number of nodes = 2^0 + 2^1 + ... 2^h = 2^(h+1) − 1
 ```
-                                1                                           depth h=0     2^0 nodes
-                      2                    3                                      h=1     2^1 nodes
-                4           5         6          7                                h=2     2^2 nodes
-             8       9   10    11   12   13   14    15                      depth h=3     2^3 nodes
+                                                                          Depth  Height   Number of Nodes at level/depth
+                                1                                           3       0       2^0
+                      2                    3                                2       1       2^1
+                4           5         6          7                          1       2       2^2
+             8       9   10    11   12   13   14    15                      0       3       2^3
 ```
 
 ```
