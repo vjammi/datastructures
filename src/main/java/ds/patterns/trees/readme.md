@@ -290,11 +290,11 @@ Solving this with respect to h, we obtain
                 Figure (b)
 ```
 
-#### Perfect Binary Tree and its properties
+#### Perfect Binary Tree
 A binary tree where each level contains the maximum number of nodes. i.e., every level is completely* full* of nodes.
 - Number of nodes of a Perfect Binary Tree at depth (d) is 2^d
 - Total number of nodes of a Perfect Binary Tree of height (h) = 2^(h+1) -1 
-- 
+
 ```
                    18                       h       d            
                 /     \                     h       d
