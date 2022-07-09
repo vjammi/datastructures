@@ -5,9 +5,11 @@ import java.util.Map;
 
 public class PrefixTree {
 
+
+
     TrieNode root;
 
-    private class TrieNode {
+    class TrieNode {
         Map<Character, TrieNode> map;
         boolean isWord;
 
@@ -21,13 +23,12 @@ public class PrefixTree {
         root = new TrieNode();
     }
 
-    private void add(String word){
+    public void insert(String word){
         TrieNode currentNode = root;
 
         for (int i=0; i<word.length(); i++){
             char ch = word.charAt(i);
-            TrieNode childNode  = currentNode.map.get(ch);
-            if ( childNode == null)
+            if ( currentNode.map.get(ch) == null)
                 currentNode.map.put(ch, new TrieNode());
             // CANNOT assign the childNode to the currentNode.
             // It has to be currentNode.map.get(ch), in case childNode null, we end up creating it prior to
@@ -37,27 +38,32 @@ public class PrefixTree {
     }
 
 
-    private boolean search(String word){
+    public boolean search(String word){
         TrieNode currentNode = root;
         StringBuilder builder = new StringBuilder();
 
         for(int i=0; i<word.length(); i++){
             char ch = word.charAt(i);
             builder.append(ch);
-            TrieNode childNode = currentNode.map.get(ch);
 
-            if (childNode == null){
-                System.out.println("Word Prefix Found: " +builder.toString());
+            if (currentNode == null){
+                System.out.println("Word NOT Found: " + word);
+                return false;
             }
-            currentNode = childNode;
+
+            if (currentNode.map.get(ch) == null){
+                System.out.println("Word NOT Found: " +word);
+                return false;
+            }
+            currentNode = currentNode.map.get(ch);
         }
 
-        if (currentNode.isWord) {
+        if (currentNode != null && currentNode.isWord) {
             System.out.println("Word Found: " + builder.toString());
             return true;
         }
 
-        System.out.println("Word NOT Found: " + builder.toString());
+        System.out.println("Word NOT Found: " + word);
         return false;
     }
 
@@ -81,8 +87,9 @@ public class PrefixTree {
 
     public static void main(String[] args) {
         PrefixTree trie = new PrefixTree();
-        trie.add("dog"); trie.add("dot"); trie.add("doting"); trie.add("drag"); trie.add("drastic"); trie.add("top"); trie.add("torn"); trie.add("trap");
         trie.search("dot");
-        trie.startsWith("dotingg");
+        //trie.insert("dog"); trie.insert("dot"); trie.insert("doting"); trie.insert("drag"); trie.insert("drastic"); trie.insert("top"); trie.insert("torn"); trie.insert("trap");
+        //trie.search("dot");
+        //trie.startsWith("dotingg");
     }
 }

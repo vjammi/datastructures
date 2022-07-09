@@ -12,6 +12,26 @@
 
            N   7
 ```
+
+```
+        PreOrder           
+           
+                N/+
+               /
+            A /___ B
+        
+        InOrder       
+              N/+
+              /\
+             /  \
+            A    B
+        
+        PostOrder       
+               N/+
+                 \
+            A ____\ B
+        
+```
 ```
  preorderTraversalList  [+AB] [16, 10, 8, 6, 7, 9, 12, 11, 13, 22, 20, 19, 21, 24, 23, 25]
  inOrderTraversalList   [A+B] [6, 7, 8, 9, 10, 11, 12, 13, 16, 19, 20, 21, 22, 23, 24, 25]

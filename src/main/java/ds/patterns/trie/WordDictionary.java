@@ -97,10 +97,10 @@ class WordDictionary {
                 // if the current character is '.' check all possible nodes at this level
                 if (ch == '.') {
                     for (char x : node.map.keySet()) {
-                        TrieNode child = node.map.get(x);
-                        boolean wordFound = searchInNode(word.substring(i + 1), child);
-                        if (wordFound)
-                            return true;
+                        TrieNode childNode = node.map.get(x);
+                        String childWord = word.substring(i + 1);
+                        boolean wordFound = searchInNode(childWord, childNode);
+                        if (wordFound) return true;
                     }
                 }
                 // if no nodes lead to answer or the current character != '.'
@@ -110,7 +110,11 @@ class WordDictionary {
                 node = node.map.get(ch);
             }
         }
-        return node.isWord;
+
+        if (node.isWord)
+            return true;
+
+        return false;
     }
 
     /** Returns if the word is in the data structure.
