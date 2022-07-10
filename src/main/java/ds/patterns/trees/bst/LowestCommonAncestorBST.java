@@ -42,8 +42,8 @@ public class LowestCommonAncestorBST {
      *      1.1 If P and Q are to the left and right of the node, node is the lca
      *  2. If we reach either P or Q,
      *      it would be the ancestor of itself and the other node.
-     *  3. Optionally we can guide the traversing of the nodes using BST properties
-     *      See also: https://www.youtube.com/watch?v=gs2LMfuOR9k
+     *  3. Traverse the nodes in PreOrder traversal.
+     *     Optimization: Since this is a BST, we could guide the traversal using BST properties
      *
      * Option 2
      * 1. Traverse the tree from the root node.
@@ -78,7 +78,13 @@ public class LowestCommonAncestorBST {
             return;
         }
 
+        // If p and q are NOT on either sides of the node (Scenario 1) && We have NOT found p or q yet (Scenario 2)
+        // Then, we will further traverse the tree.
+        //  We could traverse the tree using preorder traversal which would be an order of n runtime to find the lca in worst case
+        //  As an optimization since the tree is a BST, we could the use bst properties to guide the search in log(n) time
+        //
         // Optimization for log(n) search - Guide the search using BST properties
+
         // P and Q are either in the left or right subtree
         if (pVal < nodeVal && qVal < nodeVal ){
             lca(node.left, p, q);
@@ -87,6 +93,8 @@ public class LowestCommonAncestorBST {
         if (pVal > nodeVal && qVal > nodeVal){
             lca(node.right, p, q);
         }
+
+
     }
 
     /**
