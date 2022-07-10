@@ -31,22 +31,22 @@ public class ValidateBinarySearchTree {
       Space Complexity: O(N) - The space required by the recursion stack [in the worst case for a skewed tree], when we perform the tree traversal.
 
      The current node's value must be between low and high.
-                                      5
+                                      4
                                  2         6
-                             1      4   3      7
+                             1      3   5      7
 
       lower bound (node) upper bound
 
-                                  -inf(5)+inf
+                                  -inf(4)+inf
 
-                         -inf(2)5             5(6)+inf
+                         -inf(2)4             4(6)+inf
 
-                    -inf(1)2    2(4)5    5(3)6      6(7)+inf
+                    -inf(1)2    2(3)4    4(5)6      6(7)+inf
 
                          current  low      high     isValid
-                         5        null     null     true
-         Left Subtree    2        null     5
-         Right Subtree   3        5        6        false
+                         4        null              true
+         Left Subtree    2        null     4
+         Right Subtree   6        4                false
      */
     public boolean validate(TreeNode node, Integer lowerBound, Integer upperBound) {
         // Empty trees are valid BSTs.
@@ -88,7 +88,7 @@ public class ValidateBinarySearchTree {
         // if (left!=null && left.val >= node.val) isValid = false; // Not required any more with the introduction of previous
 
         // Inorder node check -  the value of the current node needs to be greater than the previous node we have already processed.
-        if (prevNode!=null && node.val <= prevNode.val)
+        if (prevNode!=null && node.val <= prevNode.val) // <= will work if there are no duplicates. to handle duplicates we can return false when node.val < prevNode.val
             isValid = false;
 
         // Inorder node assignment
