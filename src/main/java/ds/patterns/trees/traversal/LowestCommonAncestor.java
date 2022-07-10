@@ -73,19 +73,17 @@ public class LowestCommonAncestor {
             return null;
 
         // None of the two (p and q) are found
-        //If either one of them is true. then either p or q is found, so we cannot return from here yet
         if (node.val == p.val){
             pFound = true;
         }else if (node.val == q.val){
             qFound = true;
         }
 
-        // One of the two (p or q) found
-        // Once both p and q are found, we can now return
+        // One of the two (p or q) found, check if the other is the node
         if (pFound && node.val == q.val)
-            return q;
+            return q;           // Once both p and q are found, we can now return
         else if (qFound && node.val == p.val)
-            return p;
+            return p;           // Once both p and q are found, we can now return
 
         TreeNode left = lca(node.left, p, q);
         TreeNode right = lca(node.right, p, q);
@@ -110,12 +108,13 @@ public class LowestCommonAncestor {
             return lca;
         }
 
-        if (left == p || right == p)  // If p is being returned from either of the children bubble it up
+        // When qFound and pFound and LCA is yet determined, bubble up the child node [p or q]
+        if (left == p || right == p)        // If p is being returned from either of the children bubble it up
             return p;
-        else if(left == q || right == q) // If q is being returned from either of the children bubble it up
+        else if(left == q || right == q)    // If q is being returned from either of the children bubble it up
             return q;
-        else
-            return node;     //  else return the node itself
+
+        return node;                        //  else return the node itself
     }
 
     /**
