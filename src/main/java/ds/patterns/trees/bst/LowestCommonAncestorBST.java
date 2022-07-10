@@ -37,18 +37,62 @@ public class LowestCommonAncestorBST {
     }
 
     /**
+     *  Option 1
+     *  1. Traverse the tree from the root node.
+     *      1.1 If P and Q are to the left and right of the node, node is the lca
+     *  2. If we reach either P or Q,
+     *      it would be the ancestor of itself and the other node.
+     *  3. Optionally we can guide the traversing of the nodes using BST properties
+     *      See also: https://www.youtube.com/watch?v=gs2LMfuOR9k
      *
-     *   Scenario 1:
-     *      P and Q are to the left and right of the node, node is the lca
+     * Option 2
+     * 1. Traverse the tree from the root node.
+     *      1.1 If both the nodes p and q are in the right subtree, then continue the search the right subtree
+     *      1.2 If both the nodes p and q are in the left subtree, then continue the search the left subtree
+     * 2. If both step 1.1 & 1.2 are not true,
+     *      it would mean the current node is the lca, return node as the LCA.
      *
-     *   Scenario 2:
-     *      If we ever reach a node P or Q, it will be the ancestor of itself and the other node.
-     *
-     *   See also: https://www.youtube.com/watch?v=gs2LMfuOR9k
-     */
-
+     *  Runtime - log(n)
+     **/
     TreeNode   lca;
     void lca(TreeNode node, TreeNode p, TreeNode q){
+        if (node == null)
+            return;
+
+        int nodeVal = node.val;
+        int pVal = p.val;
+        int qVal = q.val;
+
+        // Scenario 1: P and Q are to the left and right of the node, node is the lca
+        if( (nodeVal > pVal && nodeVal < qVal) || (nodeVal<pVal && nodeVal>qVal) ){
+            lca = node;
+            return;
+        }
+
+        // Scenario 2: The first node that we reach P or Q, will be the ancestor of itself and the other node
+        if (nodeVal == pVal){ // P found and Q is either on the left or right subtree. Regardless, P is the lca
+            lca = p;
+            return;
+        }else if (nodeVal == qVal){ // Q found and P is on the left or right subtree. Regardless, Q is the lca
+            lca = q;
+            return;
+        }
+
+        // Optimization for log(n) search - Guide the search using BST properties
+        // P and Q are either in the left or right subtree
+        if (pVal < nodeVal && qVal < nodeVal ){
+            lca(node.left, p, q);
+        }
+        // P and Q are either in the left or right subtree
+        if (pVal > nodeVal && qVal > nodeVal){
+            lca(node.right, p, q);
+        }
+    }
+
+    /**
+     *  Runtime - n
+     * */
+    void lca1(TreeNode node, TreeNode p, TreeNode q){
         if (node == null)
             return;
 
@@ -74,13 +118,9 @@ public class LowestCommonAncestorBST {
             return;
         }
 
-        // P and Q are either in the left or right subtree
-        if (pVal < nodeVal && qVal < nodeVal ){
-            lca(node.left, p, q);
-        }
-        // P and Q are either in the left or right subtree
-        if (pVal > nodeVal && qVal > nodeVal){
-            lca(node.right, p, q);
-        }
+        lca1(node.left, p, q);
+        lca1(node.right, p, q);
+
     }
+
 }
