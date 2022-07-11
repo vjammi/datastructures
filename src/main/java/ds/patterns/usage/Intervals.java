@@ -32,25 +32,33 @@ public class Intervals {
     private static class StringComparator implements Comparator<String>{
         public int compare(String a, String b) {
             //return (b + a).compareTo(a + b);
-            return Character.valueOf(b.charAt(0)).compareTo(a.charAt(0));
+            return Character.valueOf(a.charAt(0)).compareTo(b.charAt(0));
         }
     }
 
     private String sortStringTest(String string){
         System.out.println(string);
-        char[] chars = string.toCharArray(); // method on input string to create a char array for input string.
-        Arrays.sort(chars); // method to sort char array.
-        String sortedString = new String(chars);  // Use String class constructor to create a sorted string from char array. String is immutable in java, hence in third step we have to create a new string.
+        char[] chars = string.toCharArray();        // method on input string to create a char array for input string.
+        Arrays.sort(chars);                         // method to sort char array.
+        String sortedString = new String(chars);    // Use String class constructor to create a sorted string from char array. String is immutable in java, hence in third step we have to create a new string.
         System.out.println(sortedString);
         return sortedString;
     }
 
-    private void sortStringArraysTest() {
+    private void sortStringArraysTest1() {
         String[] strArr = {"4", "81", "92", "12"};
         Arrays.sort(strArr, new StringComparator()); // (a, b) -> (b + a).compareTo(a + b)
         for (String str: strArr)
             System.out.print(str +" ");
     }
+
+    private void sortStringArraysTest2() {
+        String[] strArr = {"DEF", "JKL", "ABC", "GHI"};
+        Arrays.sort(strArr);
+        for (String str: strArr)
+            System.out.print(str +" ");
+    }
+
 
 
 
@@ -104,12 +112,17 @@ public class Intervals {
 
     public static void main(String[] args) {
         Intervals obj = new Intervals();
-        //obj.sortStringTest("algorithm");
+
+        obj.sortStringTest("algorithm");
+
+        obj.sortStringArraysTest1();
+        obj.sortStringArraysTest2();
+
         //obj.sortIntArraysTest();
         //obj.sortStringArraysTest();
         //obj.sortListTest();
-        obj.sortArrayOfNumbers(new int[]{6,5, 7,4, 9});
-        obj.sortArrayOfNumbers(new Integer[]{6,5, 7,4, 9});
+        //obj.sortArrayOfNumbers(new int[]{6,5, 7,4, 9});
+        //obj.sortArrayOfNumbers(new Integer[]{6,5, 7,4, 9});
     }
 
 }
