@@ -11,14 +11,21 @@ package ds.patterns.array;
 */
 public class LargestRectangleInHistogram {
 
-    // #1 BruteForce
-    //      Iterate over the array - At each index
-    //      Scan backwards while
-    //          heightOfTheBar >= heightOfTheBarAtTheCurrentIndex
-    //      Scan forwards while
-    //          heightOfTheBar >= heightOfTheBarAtTheCurrentIndex
-    //      Add up the rectangle that can be formed at the current index
-    //          areaAtCurrentIndex = areaToTheLeft + currentArea + areaToTheRight
+    /**
+        #1 BruteForce
+          Iterate over the array - At each index
+          Scan backwards while
+              heightOfTheBar >= heightOfTheBarAtTheCurrentIndex
+          Scan forwards while
+              heightOfTheBar >= heightOfTheBarAtTheCurrentIndex
+          Add up the rectangle that can be formed at the current index
+              areaAtCurrentIndex = areaToTheLeft + currentArea + areaToTheRight
+
+         #2 Keep track of the min height
+
+         #3 Using Stack
+    */
+    // TODO: [Hard] Need to come back and solve it in an optimal way - using stack [https://leetcode.com/problems/largest-rectangle-in-histogram/solution/]
     public int largestRectangleArea(int[] heights) {
 
         int largestArea = 0;

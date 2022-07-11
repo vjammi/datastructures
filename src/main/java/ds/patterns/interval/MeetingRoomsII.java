@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
     253. Meeting Rooms II
-    Given an array of meeting time intervals intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.
+    Given an array of meeting time intervals where intervals[i] = [starti, endi], return the minimum number of conference rooms required.
     Input: intervals = [[0,30],[5,10],[15,20]]    Output: 2
 
     Approach #1 Brute force:
@@ -24,29 +24,22 @@ import java.util.List;
              .. 2
              ... 2 15 20
 
-        Input: intervals = [[7,10],[2,4]]             Output: 1
-        Input: intervals = [[1,5],[8,9],[8,9]]        Output: 2
-             1, 5
-             8, 9
-             8, 9
+            Input: intervals = [[7,10],[2,4]]             Output: 1
+            Input: intervals = [[1,5],[8,9],[8,9]]        Output: 2
+                 1, 5
+                 8, 9
+                 8, 9
 
-             . 1 1 5
-             ... 1 8 9
-             .. 2
+                 . 1 1 5
+                 ... 1 8 9
+                 .. 2
 
-    Approach#2 - Optimization
+    Approach#2 - Optimization - Sorting the array by start and end times, scanning the 2 arrays in parallel
+
                            0  5  10  15  20  25  30
          interval #1 - 1   |----------------------|
          interval #2 - 2      |---|
          interval #3 - 2              |----|
-
-         int[] startTimes = {0, 5, 15};                     count = 2
-                                ^
-                                i
-         int[] endTimes   = {10, 20, 30}
-                             ^
-                             j
-         ...
 
          int[] startTimes = {0, 5, 15};                     count = 2
                                    ^
@@ -55,19 +48,18 @@ import java.util.List;
                                  ^
                                  j
 
-        We iterate thry the 2 arrays take min of the end and start time. and increment ???
-        Once we get thru all start times, we do not iterate thru any of the end time
-
         Approach:
          What is the max number of overlapping intervals at any given point in time
          Sort the intervals by startTime and endTime, resulting in 2 arrays.
-                   Now scan the 2 arrays in parallel
-                        If startTime[i] > endTime[j] - increment the meeting room count
-                        else if (startTime[i] < endTime[j]) - decrement the meeting room count
-                   Keep max meeting room count as we scan through both the arrays
+            Now scan the 2 arrays in parallel
+                If startTime[i] > endTime[j]
+                    increment the meeting room count
+                else if (startTime[i] < endTime[j])
+                    decrement the meeting room count
+            Keep max meeting room count as we scan through both the arrays
 
-             int maxCount = 0; int i=0; int j=0;
-             while( i < startTime.length && j < endTime.length)
+            int maxCount = 0; int i=0; int j=0;
+            while( i < startTime.length && j < endTime.length)
                 if (startTime[i] > endTime[j])
                     i++; count++; maxCount = Math.max(maxCount, count);
                 else if (startTime[i] < endTime[j])

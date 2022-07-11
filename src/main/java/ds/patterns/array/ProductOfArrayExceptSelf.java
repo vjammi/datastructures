@@ -9,14 +9,14 @@ public class ProductOfArrayExceptSelf {
      You must write an algorithm that runs in O(n) time and without using the division operation.
 
      Approach 1: BruteForce
-     For every index of the array, traverse the array backwards and traverse the array forwards
-     to find the product of the elemnts to the left of the index and to the right of the index
-     Runtime: O(n^2)
+         For every index of the array, traverse the array backwards and traverse the array forwards
+         to find the product of the elements to the left of the index and to the right of the index
+         Runtime: O(n^2)
 
      Approach 2: Traverse the array twice - once forwards and once backwards.
-     Traverse from front to bavk - To find the product at each index to its left
-     Traverse from back to front - to find the product at each index to its right
-     Runtime: O(n+n+n) = O(3n) = O(n)
+         Traverse from front to back - To find the product at each index to its left
+         Traverse from back to front - to find the product at each index to its right
+         Runtime: O(n+n+n) = O(3n) = O(n)
      */
     public int[] productExceptSelf(int[] nums) {
 

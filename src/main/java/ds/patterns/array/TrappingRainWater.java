@@ -12,7 +12,7 @@ package ds.patterns.array;
 public class TrappingRainWater {
 
     // Solution #1 Brute Force
-    // At each index, find the max(right) and max(left) by iterating left and right side of the index
+    // At each index, find the max(left) and max(right) by iterating left and right side of the index
     // Once the max values are determined, the water trapped at that index will be
     //      min(max(right), max(left)) - height[i]
 

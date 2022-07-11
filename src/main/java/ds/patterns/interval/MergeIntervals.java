@@ -5,39 +5,39 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-/*
-    56. Merge Intervals
-    Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of
-    the non-overlapping intervals that cover all the intervals in the input.
+    /**
+        56. Merge Intervals
+        Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of
+        the non-overlapping intervals that cover all the intervals in the input.
 
-    Example 1:
-    Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
-    Output: [[1,6],[8,10],[15,18]]
-    Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
+        Example 1:
+        Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+        Output: [[1,6],[8,10],[15,18]]
+        Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].
 
-    Example 2:
-    Input: intervals = [[1,4],[4,5]]
-    Output: [[1,5]]
-    Explanation: Intervals [1,4] and [4,5] are considered overlapping.
+        Example 2:
+        Input: intervals = [[1,4],[4,5]]
+        Output: [[1,5]]
+        Explanation: Intervals [1,4] and [4,5] are considered overlapping.
 
-    Constraints:
-        1 <= intervals.length <= 104
-        intervals[i].length == 2
-        0 <= starti <= endi <= 104
-*/
+        Constraints:
+            1 <= intervals.length <= 104
+            intervals[i].length == 2
+            0 <= starti <= endi <= 104
 
-/*
-Scenario 1: [[1,3],[2,6],[8,10],[15,18]]
-Scenario 2: [[1,4],[2,3]]
+        ----------------------------------------------------------------------------------------------------------------
 
-Complexity Analysis
-    Time complexity : O(nlog n) because we are sorting
-    Other than the sort invocation, we do a simple linear scan of the list, so the runtime is dominated by the O(n log n) ) complexity of sorting.
+        Scenario 1: [[1,3],[2,6],[8,10],[15,18]]
+        Scenario 2: [[1,4],[2,3]]
 
-    Space complexity : O(log N) (or O(n))
-    If we can sort intervals in place, we do not need more than constant additional space, the sorting itself takes O(log n) space.
-    Otherwise, we must allocate linear space to store a copy of intervals and sort that.
-*/
+        Complexity Analysis
+            Time complexity : O(nlog n) because we are sorting
+            Other than the sort invocation, we do a simple linear scan of the list, so the runtime is dominated by the O(n log n) ) complexity of sorting.
+
+            Space complexity : O(log N) (or O(n))
+            If we can sort intervals in place, we do not need more than constant additional space, the sorting itself takes O(log n) space.
+            Otherwise, we must allocate linear space to store a copy of intervals and sort that.
+    */
 
 public class MergeIntervals {
 
@@ -49,7 +49,7 @@ public class MergeIntervals {
 
     /**
      * Input list of intervals, Sort the intervals based on start time,
-     * Creating a number line and place the intervals on the number line will help with these ionterval oroblems
+     * Creating a number line and place the intervals on the number line will help with these interval problems
      * We will iterate through the intervals to see
      *    Overlapping: Does the current interval overlap the previous interval
      *          Then we can merge them into a single interval
@@ -90,10 +90,8 @@ public class MergeIntervals {
 
                 if (intervalToMergeFound == false)
                     mergedIntervals.add(interval);
-
             }
         }
-
 
         int[][] finalMergedIntervals = new int[mergedIntervals.size()][2];
         for(int j=0; j<mergedIntervals.size(); j++){

@@ -68,8 +68,8 @@ public class InsertInterval {
             // NewInterval NOT after the current
                 // Is the start value of the newInterval > than the end of the current  interval
             // So we take a min of the 2 starts and the max of the 2 ends
-            // We do not add this newer merged interval yet to our list.
-            // We will save it temporarily, look at the next interval.
+            //      We do not add this newer merged interval yet to our list.
+            //      We will save it temporarily, look at the next interval.
             //      If it overlaps with the next current interval we will merge this with that and wait again until we have no overlapping intervals
             // Finally when there is no overlapping interval, we first insert this merged interval and then add any intervals after it.
 
