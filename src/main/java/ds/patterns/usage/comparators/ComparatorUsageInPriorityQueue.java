@@ -3,6 +3,7 @@ package ds.patterns.usage.comparators;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class ComparatorUsageInPriorityQueue {
 
@@ -19,9 +20,9 @@ public class ComparatorUsageInPriorityQueue {
     }
 
     public void testPriorityQueueComparator(int[] nums) {
-        PriorityQueue<Integer> minHeap0 = new PriorityQueue<>(nums.length);                                          // Default - MinIntegerComparator
-        PriorityQueue<Integer> minHeap1 = new PriorityQueue<>(nums.length+1, new MinIntegerComparator()); // Default - MinIntegerComparator
-        PriorityQueue<Integer> maxHeap2 = new PriorityQueue<>(nums.length+1, new MaxIntegerComparator()); // MaxIntegerComparator
+        Queue<Integer> minHeap0 = new PriorityQueue<>(nums.length);                                          // Default - MinIntegerComparator
+        Queue<Integer> minHeap1 = new PriorityQueue<>(nums.length+1, new MinIntegerComparator()); // Default - MinIntegerComparator
+        Queue<Integer> maxHeap2 = new PriorityQueue<>(nums.length+1, new MaxIntegerComparator()); // MaxIntegerComparator
 
         for(int i = 1; i< nums.length; i++){
             minHeap0.add(nums[i]);

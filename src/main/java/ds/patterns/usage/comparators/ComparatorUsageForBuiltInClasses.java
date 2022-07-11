@@ -114,17 +114,23 @@ public class ComparatorUsageForBuiltInClasses {
         return sortedMap;
     }
 
-    private void testsortByKeys() {
-        Map<String, String> map = new LinkedHashMap<String, String>();
-        map.put("5", "aba");map.put("4", "jkl");map.put("3", "ghi");map.put("2", "def");map.put("1", "abc");
-        map = sortByKeys(map);
+    private void testSortByKeys() {
+        //Map<Integer, String> map = new LinkedHashMap<>();
+        Map<Integer, String> map = new TreeMap<>();
+        map.put(5, "aba");map.put(4, "jkl");map.put(3, "ghi");map.put(2, "def");map.put(11, "abc");
+        //map = sortByKeys(map);
+        //Map<String,String> sortedMap = new LinkedHashMap<>();
+
+        for(Map.Entry<Integer, String> entry : map.entrySet()){
+            System.out.println(entry.getKey() + " " +entry.getValue());
+        }
         System.out.println(map);
     }
 
     public static void main(String[] args) {
         ComparatorUsageForBuiltInClasses obj = new ComparatorUsageForBuiltInClasses();
         obj.testIntegerComparators();
-        obj.testsortByKeys();
+        obj.testSortByKeys();
     }
 }
 

@@ -1,18 +1,19 @@
 package ds.patterns.trees.bst;
 
 /**
- * Given the root of a binary search tree and a node p in it, return the in-order successor of that node in the BST. If the given node has no in-order successor in the tree, return null.
- * <p>
+ * Given the root of a binary search tree and a node p in it, return the in-order successor of that node in the BST.
+ * If the given node has no in-order successor in the tree, return null. *
  * The successor of a node p is the node with the smallest key greater than p.val.
  * [6,2,8,0,4,7,9,null,null,3,5]
- * 2
- * <p>
+ *  2
+ *
  * The successor of a node p is the node with the smallest key greater than p.val.
  * ** Successor of a node is the next max value of the node
- * 6                           Successor of 6 is 7
- * 2        8                       Successor of 2 is 3, Successor of 8 is 9
- * 0   4    7   9                     Successor of 9 is null
- * 3   5
+ *
+ *             6                 Successor of 6 is 7
+ *        2           8          Successor of 2 is 3, Successor of 8 is 9
+ *     0     4     7     9       Successor of 9 is null
+ *        3    5
  */
 
 
@@ -55,8 +56,8 @@ public class InOrderSuccessor {
 
     // https://gist.github.com/mycodeschool/6515e1ec66482faf9d79
     public TreeNode inorderSuccessor(TreeNode root, TreeNode pNode) {
-        // Fetch Node
-        //TreeNode pNode = search(root, p.val);
+        // Fetch Node - Not needed
+        // TreeNode pNodeFetched = search(root, pNode.val);
 
         // If node has a right child find the min of the right node
         if (pNode.right != null){
