@@ -76,14 +76,14 @@ public class KClosestPointsToOrigin {
         }
 
         // Load the elements of the map in a PQ using minOrder Comparator - n log(k)
-        Queue<Coordinate> priorityQueue = new PriorityQueue(new MaxDistComparator());
+        Queue<Coordinate> heap = new PriorityQueue(new MaxDistComparator());
         Set<Map.Entry<Coordinate, Double>> entrySet = map.entrySet();
         for (Map.Entry entry: entrySet){
             Coordinate coord = (Coordinate) entry.getKey();
             Double     distFromOrigin  = (Double) entry.getValue();
-            priorityQueue.add(coord);
-            if (priorityQueue.size() > k)
-                priorityQueue.poll();
+            heap.offer(coord);
+            if (heap.size() > k)
+                heap.poll();
         }
 
         // Return the top k min distance
@@ -93,7 +93,7 @@ public class KClosestPointsToOrigin {
         // heap based on their min distance from the origin
         int[][] kClosestPoints1 = new int[k][2];
          for(int i=0; i<k; i++){
-             Coordinate coordinate = priorityQueue.poll();
+             Coordinate coordinate = heap.poll();
              int[] coord = new int[2];
              coord[0] = coordinate.x;
              coord[1] = coordinate.y;
@@ -108,7 +108,7 @@ public class KClosestPointsToOrigin {
         // Load the heap into the output array
         int[][] kClosestPoints2 = new int[k][2];
         for (int i=k-1; i>=0; i--){
-            Coordinate coordinate = priorityQueue.poll();
+            Coordinate coordinate = heap.poll();
             int[] coord = new int[2];
             coord[0] = coordinate.x;
             coord[1] = coordinate.y;
