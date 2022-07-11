@@ -55,11 +55,11 @@ public class TopKFrequentElements {
                 charToFreqMap.put(num, 1);
         }
 
-        //Note:
-        //For top k elements we will use a Min Heap of size k, iterating thru all the n elements,
-        //storing the less frequent elements first.
-        //When the heap size exceeds k, we will remove the minimum element,
-        //that will guarantee that we have the k largest elements left in the heap.
+        // Note ***
+        //   For top k elements we will use a Min Heap of size k, iterating thru all the n elements,
+        //   storing the less frequent elements first.
+        //   When the heap size exceeds k, we will remove the minimum element,
+        //   that will guarantee that we have the k largest elements left in the heap.
 
         // Within the heap store the less frequent elements first -  O(N log K) solution
         Queue<Integer> queue = new PriorityQueue<>(new FrequencyComparator());

@@ -20,6 +20,18 @@ import java.util.*;
      Input: points = [[3,3],[5,-1],[-2,4]], k = 2
      Output: [[3,3],[-2,4]]
      Explanation: The answer [[-2,4],[3,3]] would also be accepted.
+
+    Distances - Euclidean vs Manhattan
+        The squaring and square rooting in the euclidean distance function is basically to get absolute values of each dimension assessed.
+        Manhattan distance just bypasses that and goes right to abs value (this may be a cheaper function call then pow'ing and sqrt'ing)
+
+        Using one way vs the other when it gets to higher level stuff, like comparing least squares or linear algebra (?).
+
+        Manhattan distance is easier to calculate by hand, bc you just subtract the values of a dimension then abs them and add all the results.
+        Euclidean distance is harder by hand bc you're squaring anf square rooting. So some of this comes down to what purpose you're using it for.
+
+        Reference: https://math.stackexchange.com/questions/139600/how-do-i-calculate-euclidean-and-manhattan-distance-by-hand
+                   *** https://youtu.be/p3HbBlcXDTE
  */
 
 public class KClosestPointsToOrigin {
@@ -38,7 +50,6 @@ public class KClosestPointsToOrigin {
 
     class MinDistFromOriginComparator implements Comparator<Coordinate> {
         public int compare(Coordinate coord1, Coordinate coord2){
-            // return (int) (coord1.dist - coord2.dist); or
             return coord1.distFromOrigin.compareTo(coord2.distFromOrigin);
         }
     }
@@ -78,7 +89,8 @@ public class KClosestPointsToOrigin {
         // Return the top k min distance
 
         // Option 1 [n log(n)] - Storing all elements in the heap
-        // While using MinDistance Comparator,  reading all elements from the map, and storing all* the elements into the heap based on their min distance from the origin
+        // While using MinDistance Comparator, reading all elements from the map, and storing all* the elements into the
+        // heap based on their min distance from the origin
         int[][] kClosestPoints1 = new int[k][2];
          for(int i=0; i<k; i++){
              Coordinate coordinate = priorityQueue.poll();
@@ -88,9 +100,12 @@ public class KClosestPointsToOrigin {
              System.out.println(coordinate.x +" " +coordinate.y +" " +coordinate.distFromOrigin +" ");
              kClosestPoints1[i] =  coord;
          }
+        // Option 2 [Preferred - nlog(k)] - Storing only k elements in the heap, using max distance comparator]
+        // While using MaxDistance Comparator, reading all elements from the map, but storing only* max of k elements
+        // into the heap based on their max distance from the origin. which will leave us with k min distances in reverse order.
+        // TODO: To be implemented as an optimization
 
-        // Option 2 [Preferred - nlog(k)] - Storing only min k elements in the heap, less heap storage]
-        // While using MaxDistance Comparator, reading all elements from the map, but storing only* max k elements into the heap based on their max distance from the origin
+        // Load the heap into the output array
         int[][] kClosestPoints2 = new int[k][2];
         for (int i=k-1; i>=0; i--){
             Coordinate coordinate = priorityQueue.poll();
