@@ -43,11 +43,14 @@ public class BinarySearchTreeIterator {
      *  and we will flatten the binary search tree into an array. Since we need the elements to be in a sorted order,
      *  we will do an inorder traversal over the tree and store the elements in a new array and then build the iterator
      *  functions using this new array.
-     *     1. Initialize an empty array that will contain the nodes of the binary search tree in the sorted order.
-     *     2. We traverse the binary search tree in the inorder fashion and for each node that we process, we add it to our array nodes.
+     *
+     *  1. Initialize an empty array that will contain the nodes of the binary search tree in the sorted order.
+     *
+     *  2. We traverse the binary search tree in the inorder fashion and for each node that we process, we add it to our array nodes.
      *     Note that before processing a node, its left subtree has to be processed (or recursed upon) and after processing a node,
      *     its right subtree has to be recursed upon.
-     *     3. Once we have all the nodes in an array, we simply need a pointer or an index in that array to implement the two functions next and hasNext.
+     *
+     *  3. Once we have all the nodes in an array, we simply need a pointer or an index in that array to implement the two functions next and hasNext.
      *     Whenever there's a call to hasNext, we simply check if the index has reached the end of the array or not. For the call to next function,
      *     we simply return the element pointed by the index. Also, after a the next function call is made, we have to move the index one step forward
      *     to simulate the progress of our iterator.
@@ -56,9 +59,11 @@ public class BinarySearchTreeIterator {
 
     /**
      * Approach #2: Iterative Inorder Traversal
-     *     Load/Constructor: Pushing the elements into stack until we encounter a null to the left
-     *     next():           Waiting for the element to be popped from within next()
-     *                       We add back the right of the element into the stack when an element is popped off the stack.
+     *     Load within the Constructor
+     *          Pushing the elements into stack until we encounter a null to the left
+     *     next()
+     *          Waiting for the element to be popped from within next()
+     *          We add back the right of the element into the stack when an element is popped off the stack.
      **/
 
 }
