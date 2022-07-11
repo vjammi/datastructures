@@ -38,7 +38,7 @@ public class BinarySearch {
 
     private int searchIteratively(int[] a, int key, int low, int high) {
 
-        while (low <= high) {
+        while (low <= high) { // *** low <= high. // When low > high, we exit out of the while loop, return -1 since the element was not found in the array.
             int mid = (low + high) / 2;
             if (a[mid] == key) {
                 System.out.println("Found the key [" + key + "] at mid[" + mid + "] Low[" + low + "] High[" + high + "]");
@@ -49,7 +49,7 @@ public class BinarySearch {
                 low = mid + 1;
             }
         }
-        // When low > high, we exit out of the while loop, return -1 since the element was not found in the array.
+        // When low > high, we exit out of the while loop, returning -1 since the element was not found in the array.
         return -1;
     }
 
@@ -58,8 +58,7 @@ public class BinarySearch {
             return;
 
         // Could result in an integer overflow - When low and high are both at integer max.
-        //int mid = (low + high) / 2;
-
+        // int mid = (low + high) / 2;
         int mid = low + (high - low)/2;
 
         // Note: while searching for the first occurrence if you go too far left passing the first occurrence, you will still be bought back
@@ -81,7 +80,7 @@ public class BinarySearch {
 
         int mid = low + (high - low)/2;
 
-        // Note: while searching for the last occurrence if you go too far right passing the last occurrence,
+        // Note: While searching for the last occurrence if you go too far right passing the last occurrence,
         // you will still be bought back
         if (key == a[mid]) {
             result = a[mid];
@@ -111,14 +110,12 @@ public class BinarySearch {
         //int[] a = {10,15,17,19,20,31,44,55,77,99, 100, 101,102, 106, 109, 110};
                 // 0  1   2   3   4   5   6   7   8   9   10  11  12  13  14   15   16
         int[] a = {0, 11, 22, 33, 44, 55, 66, 66, 66, 66, 66, 66, 66, 66, 109, 119, 120};
-        //                                ^        ^
+        //                                ^       ^
         //                               mid      mid
 
         int low = 0; int high = a.length - 1;
-
         System.out.println("result: " +search.search(a, 119, low, high));
         //search.searchIteratively(a, 66, low, high);
-
         //search.searchFirstOccurrence(a, 66, low, high);
         //search.searchLastOccurrence(a, 66, low, high);
     }

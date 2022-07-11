@@ -1,21 +1,33 @@
 ## Binary Search
 
+### Calculating Mid - Avoiding integer overflow
 ```
     // a = [0, 11, 22, 33, 44, 55, 66, 66, 66, 66, 66, 66, 66, 66, 109, 119, 120]
     // i    0  1   2   3   4   5   6   7   8   9   10  11  12  13  14   15   16
     //                             ^       ^                   ^
     //                            first   mid                 last
-```
+    // *** Could result in an integer overflow - When low and high are both at integer max at the same time.
+    //  int mid = (low + high) / 2;
 
+    // A better approach would be,
+    //  mid=low+(high-low)/2;
+    //      0+(16-0)/2   = 0+8      = 8
+    //      8+(16-8)/2   = 8+4      = 12
+    //      12+(16-12)/2 = 12+(4)/2 = 14
 ```
-        // Could result in an integer overflow - When low and high are both at integer max at the same time.
-        //  int mid = (low + high) / 2;
+### Recursive Base Condition && Iterative loop Condition
+```
+    Recurssive Base Condition
+      // When low > high, we exit out of the recursive loop, return -1 since the element was not found in the array
+      if (low > high) {       // ***  ~  while (low <= high) 
+          return -1;
+      }
 
-        // A better approach would be,
-        //  mid=low+(high-low)/2;
-        //      0+(16-0)/2   = 0+8      = 8
-        //      8+(16-8)/2   = 8+4      = 12
-        //      12+(16-12)/2 = 12+(4)/2 = 14
+    Iterative loop Condition  
+        while (low <= high){ // ~ if (low > high)
+          ...
+        } 
+        return -1;           // ~ if (low > high)
 ```
 
 ### Search Recursively
@@ -60,10 +72,9 @@
     }
 ```
 
-## Search in a Rotated Array / Search in a Circular Sorted Array
-Notice the fact that in any segment of the array, at least one half is sorted, 
-so we can use it to decide which half to continue with, 
-reducing the search space by 2 in each step, as required.
+### Search in a Rotated Array / Search in a Circular Sorted Array
+Notice the fact that in any segment of the array, at least one half is sorted, so we can use it to decide 
+which half to continue with, reducing the search space by half at each step
 ```
          num     33
          nums   [44, 55, 66, 77, 88, 99, 1, 11, 22, 33  33]
@@ -84,24 +95,31 @@ reducing the search space by 2 in each step, as required.
 
         int mid = low + (high-low)/2;
 
-        if (nums[mid] == target){                           // At some point mid will contain the target
+        // At some point mid will contain the target
+        if (nums[mid] == target){                           
             return mid;
         }
-        else if (nums[low] <= nums[mid]){                   //  else - Search space to the left of mid is sorted
+                
+        //  *** Search space to the left of mid is sorted
+        else if (nums[low] <= nums[mid]){                   
         
-            // Determine if the target is within the left sorted space, or right rotated search space
+            // *** Determine if the target is within the left sorted space, or right rotated search space
             if (target >= nums[low] && target < nums[mid])  //  if - num is in the left sorted search space
                 return search(nums, target, low, mid-1);    
             else                                            //  else - num is in the right rotated/sorted search space
                 return search(nums, target, mid+1, high);   // We eleminate the left sorted space (similar to searching in the original mixed search space)
-        }
-        else{ //  else - (nums[mid+1] > nums[high]) - Search space to the right of mid is sorted
+        }        
+        
+        //  *** Search space to the right of mid is sorted - (nums[mid+1] > nums[high]) 
+        else{                      
+         
             // Determine if the target is within the right sorted space, or left rotated search space
             if (target > nums[mid] && target <= nums[high]) //  if - num is in the right sorted search space
                 return search(nums, target, mid+1, high);
             else                                            // else - num is in the left rotated/sorted search space. 
                 return search(nums, target, low, mid-1);    //  We eleminate the right sorted space (similar to searching in the original mixed search space)
         }
+        
     }
 ```
 
