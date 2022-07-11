@@ -74,7 +74,6 @@ public class ComparatorUsageInHashMap {
         ComparatorUsageInHashMap obj = new ComparatorUsageInHashMap();
         obj.sortByHashMapKey();
         obj.showByHashMapValue();
-        PriorityQueue
     }
 }
 

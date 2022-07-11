@@ -147,15 +147,14 @@ public class PassByValue_PassByReference {
         ListNode tail;
 
         class ListNode{
-
             Item value;
             ListNode next;
             void ListNode(Item value){
                 this.value = value;
                 this.next = null;
             }
-
         }
+
         public void add(Item value){
             if (head == null){
                 ListNode node = new ListNode();

@@ -6,7 +6,6 @@ public class CharacterOperations {
         String s = "RA;c'ec;ar ";
 
         for (int i=0; i< s.length(); i++) {
-
             char ch = s.charAt(i);
             Character.toLowerCase(ch);
             boolean isDigit = Character.isDigit(ch);
@@ -17,6 +16,16 @@ public class CharacterOperations {
             Character.isLetterOrDigit(ch);
             char chLower = Character.toLowerCase(ch);
             char chUpper = Character.toUpperCase(ch);
+            // See also
+            //     isDigit(char),
+            //     isJavaIdentifierStart(char),
+            //     isJavaLetter(char),
+            //     isJavaLetterOrDigit(char),
+            //     isLetterOrDigit(char),
+            //     isLowerCase(char),
+            //     isTitleCase(char),
+            //     isUnicodeIdentifierStart(char),
+            //     isUpperCase(char)
         }
 
         // Check if the unicode value is a letter or a digit

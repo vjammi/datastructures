@@ -115,21 +115,26 @@ public class ComparatorUsageForBuiltInClasses {
     }
 
     private void testSortByKeys() {
-        //Map<Integer, String> map = new LinkedHashMap<>();
-        Map<Integer, String> map = new TreeMap<>();
-        map.put(5, "aba");map.put(4, "jkl");map.put(3, "ghi");map.put(2, "def");map.put(11, "abc");
-        //map = sortByKeys(map);
-        //Map<String,String> sortedMap = new LinkedHashMap<>();
-
-        for(Map.Entry<Integer, String> entry : map.entrySet()){
+        // Ordering by the natural key
+        Map<Integer, String> treeMap = new TreeMap<>();
+        treeMap.put(5, "aba");treeMap.put(4, "jkl");treeMap.put(3, "ghi");treeMap.put(2, "def");treeMap.put(11, "abc");
+        System.out.println(treeMap);
+        for(Map.Entry<Integer, String> entry : treeMap.entrySet()){
             System.out.println(entry.getKey() + " " +entry.getValue());
         }
-        System.out.println(map);
+
+        // Retains Insertion Order
+        Map<Integer, String> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put(5, "aba");linkedHashMap.put(4, "jkl");linkedHashMap.put(3, "ghi");linkedHashMap.put(2, "def");linkedHashMap.put(11, "abc");
+        System.out.println(linkedHashMap);
+        for(Map.Entry<Integer, String> entry : linkedHashMap.entrySet()){
+            System.out.println(entry.getKey() + " " +entry.getValue());
+        }
     }
 
     public static void main(String[] args) {
         ComparatorUsageForBuiltInClasses obj = new ComparatorUsageForBuiltInClasses();
-        obj.testIntegerComparators();
+        //obj.testIntegerComparators();
         obj.testSortByKeys();
     }
 }

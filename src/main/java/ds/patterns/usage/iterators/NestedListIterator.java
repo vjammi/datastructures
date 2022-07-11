@@ -151,27 +151,33 @@ public class NestedListIterator {
         public Integer next() {
             if (!hasNext())
                 throw new NoSuchElementException(); // Adding import
-
             return stack.removeFirst().getInteger();
         }
 
         @Override
         public boolean hasNext() {
             if (stack.size() > 0){
-                if (!stack.peekFirst().isInteger()){
-                    loadList();
+                NestedInteger nestedInteger = stack.peekFirst();           // stack.peekFirst(); // stack.peek();
+                if (!nestedInteger.isInteger()){
+                    // Remove the list from the top/front of the stack,
+                    // and load the integers from the list, back into the stack
+                    // Maintain the stack order - The first element of the list being on the front/top of the stack
+                    load();
                 }
                 return true;
             }
             return false;
         }
 
-        public void loadList(){
-
+        // Remove the list from the top/front of the stack,
+        // and load the integers from the list, back into the stack
+        // Maintain the stack order - The first element of the list being on the front/top of the stack
+        public void load(){
             while (!stack.isEmpty() && !stack.peekFirst().isInteger()) {
-                List<NestedInteger> subList = stack.removeFirst().getList();
-                for (int i=subList.size()-1; i>=0; i--){
-                    stack.addFirst(subList.get(i));
+                NestedInteger nestedInteger = stack.removeFirst();          // stack.removeFirst();
+                List<NestedInteger> list = nestedInteger.getList();
+                for (int i=list.size()-1; i>=0; i--){
+                    stack.addFirst(list.get(i));                            // stack.addFirst(list.get(i))
                 }
             }
         }
