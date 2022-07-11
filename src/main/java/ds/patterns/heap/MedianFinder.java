@@ -2,51 +2,38 @@ package ds.patterns.heap;
 
 import java.util.*;
 
+    /**
+     295. Find Median from Data Stream
+     The median is the middle value in an ordered integer list.
+     If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
+
+     For example, for arr = [2,3,4], the median is 3.
+     For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
+     Implement the MedianFinder class:
+
+     MedianFinder() initializes the MedianFinder object.
+     void addNum(int num) adds the integer num from the data stream to the data structure.
+     double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
+
+
+     Example 1:
+
+     Input
+     ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
+     [[], [1], [2], [], [3], []]
+     Output
+     [null, null, null, 1.5, null, 2.0]
+
+     Explanation
+     MedianFinder medianFinder = new MedianFinder();
+     medianFinder.addNum(1);    // arr = [1]
+     medianFinder.addNum(2);    // arr = [1, 2]
+     medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+     medianFinder.addNum(3);    // arr[1, 2, 3]
+     medianFinder.findMedian(); // return 2.0
+
+     */
 public class MedianFinder {
-
-    /*
-    public static void main(String[] args) {
-        //Your MedianFinder object will be instantiated and called as such:
-        MedianFinderApproach1 obj = new MedianFinderApproach1();
-        obj.addNum(1);    // arr = [1]
-        obj.addNum(2);    // arr = [1, 2]
-        System.out.println(obj.findMedian()); // return 1.5 (i.e., (1 + 2) / 2)
-        obj.addNum(3);    // arr[1, 2, 3]
-        System.out.println(obj.findMedian()); // return 2.0
-    }
-    */
-
-    /*
-    295. Find Median from Data Stream
-        The median is the middle value in an ordered integer list.
-        If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
-
-        For example, for arr = [2,3,4], the median is 3.
-        For example, for arr = [2,3], the median is (2 + 3) / 2 = 2.5.
-        Implement the MedianFinder class:
-
-        MedianFinder() initializes the MedianFinder object.
-        void addNum(int num) adds the integer num from the data stream to the data structure.
-        double findMedian() returns the median of all elements so far. Answers within 10-5 of the actual answer will be accepted.
-
-
-       Example 1:
-
-        Input
-            ["MedianFinder", "addNum", "addNum", "findMedian", "addNum", "findMedian"]
-                    [[], [1], [2], [], [3], []]
-        Output
-            [null, null, null, 1.5, null, 2.0]
-
-        Explanation
-            MedianFinder medianFinder = new MedianFinder();
-            medianFinder.addNum(1);    // arr = [1]
-            medianFinder.addNum(2);    // arr = [1, 2]
-            medianFinder.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
-            medianFinder.addNum(3);    // arr[1, 2, 3]
-            medianFinder.findMedian(); // return 2.0
-
-*/
 
     public static class MedianFinderApproach1 {
         List<Integer> list;
@@ -59,14 +46,14 @@ public class MedianFinder {
             list.add(num);
             if (list.size() > 1) {
                 // Collections.sort(list);      // We do not need to sort the whole array.
-                sort(list, list.size() - 1);  // Insertion sort should do the job
+                sort(list, list.size()-1);  // Insertion sort should do the job
             }
         }
 
         public void sort(List<Integer> list, int i) {
             //for (int i = 1; i < list.size(); i++){
             for (int j = i; j > 0; j--) {
-                if (less(list.get(j), list.get(j - 1)))
+                if (less(list.get(j), list.get(j-1)))
                     exch(list, j, j - 1);
                 else
                     break;
@@ -87,7 +74,7 @@ public class MedianFinder {
         public double findMedian() {
             int currentSize = list.size();
             if (currentSize % 2 != 0) {
-                int index = currentSize / 2;
+                int index = currentSize / 2; // integer divide 3/2 = 1.5 (1)
                 return list.get(index);
             } else {
                 int index1 = currentSize / 2;
@@ -96,6 +83,8 @@ public class MedianFinder {
             }
         }
     }
+
+
 
     public static class MedianFinderApproach2 {
 
@@ -118,7 +107,8 @@ public class MedianFinder {
             maxHeap = new PriorityQueue<>(new MaxElementComparator());
             minHeap = new PriorityQueue<>(new MinElementComparator());
         }
-
+            // Even: [MaxHeap] 1 2 3   |  7 8 9 [MinHeap]
+            // Odd:  [MaxHeap] 1 2 3 4 |  7 8 9 [MinHeap]
         public void addNum(int num) {
             int maxHeapMaxValue=0;
             if (maxHeap.size()>0)
@@ -172,4 +162,17 @@ public class MedianFinder {
         medianFinder.addNum(3);    // arr[1, 2, 3]
         System.out.println(medianFinder.findMedian()); // return 2.0
     }
+
+
+    /*
+    public static void main(String[] args) {
+        //Your MedianFinder object will be instantiated and called as such:
+        MedianFinderApproach1 obj = new MedianFinderApproach1();
+        obj.addNum(1);    // arr = [1]
+        obj.addNum(2);    // arr = [1, 2]
+        obj.findMedian(); // return 1.5 (i.e., (1 + 2) / 2)
+        obj.addNum(3);    // arr[1, 2, 3]
+        obj.findMedian(); // return 2.0
+    }
+    */
 }

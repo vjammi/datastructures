@@ -1,9 +1,9 @@
-package ds.patterns.usage.collections;
+package ds.patterns.usage.operations;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnArrayList {
+public class ArrayListOperations {
 
     public static void main(String[] args) {
         List<Integer> result = new ArrayList<>();
@@ -19,5 +19,11 @@ public class AnArrayList {
         result.set(2, 200);    // Set val at index
 
         System.out.println(result.toString());
+    }
+
+    private void exch(List<Integer> list, int j, int i) {
+        Integer tmp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, tmp);
     }
 }
