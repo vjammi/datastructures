@@ -29,6 +29,9 @@ public class Graph101 {
         System.out.println(chosen1);
 
         System.out.println("------------------dfsAllPaths----------------------");
+        //[0, 1, 3, 2, 4, 5]
+        //[0, 1, 3, 5, 4, 2]
+        //[0, 2, 4, 5, 3, 1]
         ArrayList<Integer> chosen2 = new ArrayList<>();
         int[] visited2 = new int[vertices];
         chosen2.add(0);
@@ -53,7 +56,8 @@ public class Graph101 {
 
     private void dfsAllPaths(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, /*Stack<Integer>*/ List<Integer> chosen, List<List<Integer>> result) {
         if (chosen.size() == adjList.size()) {
-            result.add(new ArrayList(chosen)); System.out.println(chosen);
+            List<Integer> path = new ArrayList<Integer>(chosen);
+            result.add(path); System.out.println(path);
             return;
         }
 
@@ -62,6 +66,7 @@ public class Graph101 {
         }
 
         visited[vertex] = 1;
+
         List<Integer>  neighbors = adjList.get(vertex);
         for(int neighbor: neighbors){
             if (visited[neighbor] == 0){

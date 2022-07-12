@@ -56,7 +56,8 @@ public class NumberOfTimesArrayHasBeenRotated {
 		return -1;
 	}
 
-	// O(log(n)) - Number of times the array has been rotated ? It turns out that it is the index of the element. In other words we need to find the index of the min element in the array.
+	// O(log(n)) - Number of times the array has been rotated ?
+	// It turns out that it is the index of the smallest element. In other words we need to find the index of the min element in the array.
 	private int timesArrayHasBeenRotated_BinarySearchIterative(int[] a) {
 		int low = 0 ;
 		int size = a.length;

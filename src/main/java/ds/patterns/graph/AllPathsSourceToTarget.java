@@ -25,60 +25,58 @@ public class AllPathsSourceToTarget {
 
         List<List<Integer>> result = new ArrayList();
         Stack<Integer> stack = new Stack<>();
-        boolean[] visited = new boolean[graph.length];
 
         stack.push(0);
-        dfs(graph, 0, visited, stack, result);
+        dfs(0, graph, stack, result);
         System.out.println(result);
 
         return result;
     }
 
-    private void dfs(int[][] graph, int v, boolean[] visited, Stack<Integer> stack, List<List<Integer>> result) {
-
-        if (v == graph.length-1){
-            result.add(new ArrayList(stack));
+    private void dfs(int v, int[][] edges, Stack<Integer> stack, List<List<Integer>> result) {
+        // target node = n-1 or edges.length-1
+        if (v == edges.length-1){
+            result.add(new ArrayList<>(stack));
             return;
         }
 
-        visited[v] = true;
-        int[] neighbors = graph[v];
+        int[] neighbors = edges[v];
         for (int neighbor : neighbors) {
-            if (!visited[neighbor]) {
-                stack.push(neighbor);
-                dfs(graph, neighbor, visited, stack, result);
-                stack.pop();
-            }
+            stack.push(neighbor);
+            dfs(neighbor, edges, stack, result);
+            stack.pop();
         }
-        visited[v] = false;
     }
 
     public List<List<Integer>> allPathsSourceTarget2(int[][] graph) {
         List<List<Integer>> result = new ArrayList();
         List<Integer> path = new ArrayList<>();
-        boolean[] visited = new boolean[graph.length];
 
-        dfs2(graph, 0, visited, path, result);
+        // Source = 0, target = n-1/graph.length-1
+        path.add(0);
+        dfs2(0, graph, path, result);
         System.out.println(result);
 
         return result;
     }
 
 
-    private void dfs2(int[][] graph, int v, boolean[] visited, List<Integer> path, List<List<Integer>> result) {
-        path.add(v);
-        if (v == graph.length-1){
+    private void dfs2(int v, int[][] edges, List<Integer> path, List<List<Integer>> result) {
+
+        //path.add(v);
+        // target node = n-1 or edges.length-1
+        if (v == edges.length-1){
+            System.out.println(">"+v);
             result.add(new ArrayList(path));
             return;
         }
 
-        visited[v] = true;
-        int[] neighbors = graph[v];
+        int[] neighbors = edges[v];
         for (int neighbor : neighbors) {
-            dfs2(graph, neighbor, visited, path, result);
+            path.add(neighbor);
+            dfs2(neighbor, edges, path, result);
             path.remove(path.size()-1);
         }
-        visited[v] = false;
     }
 
     public static void main(String[] args) {
