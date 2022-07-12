@@ -34,7 +34,7 @@ public class GroupAnagrams {
                 int asciiValOfChar = (int) anagram.charAt(j);
                 charSet[asciiValOfChar-97] = charSet[asciiValOfChar-97] + 1;
             }
-
+            // TODO: Use StringBuilder
             StringBuffer buffer = new StringBuffer();
             for (int k=0; k<charSet.length; k++){
                 // Adding a delimiter # to differentiate between [1#11...] vs [11#1...]

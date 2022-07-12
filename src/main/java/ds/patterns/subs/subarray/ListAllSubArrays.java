@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * nums = [1,2,3,4,5]
+ *
  * 0
  * 0-0 :  1
  * 0-1 :  1 2

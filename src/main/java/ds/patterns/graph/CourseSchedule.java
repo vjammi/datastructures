@@ -68,24 +68,23 @@ public class CourseSchedule {
         if (numCourses == 0 || prerequisites == null || prerequisites.length ==0)
             return true;
 
-        Map<Integer, ArrayList<Integer>> adjacencyList = new HashMap<>();
-        // initialize the adjacencyList
+        Map<Integer, ArrayList<Integer>> adjList = new HashMap<>();
+        // initialize the adjList
         for (int i=0; i<numCourses; i++){
-            adjacencyList.put(i, new ArrayList<>());
+            adjList.put(i, new ArrayList<>());
         }
 
-        // populate the adjacencyList - directed graph one side only populated
+        // populate the adjList - directed graph one side only populated
         for (int i=0; i<prerequisites.length; i++){
             int[] prerequisite = prerequisites[i];
-            adjacencyList.get(prerequisite[0]).add(prerequisite[1]);    // intutive
-            //adjacencyList.get(prerequisite[1]).add(prerequisite[0]);  // Not intutive
+            adjList.get(prerequisite[0]).add(prerequisite[1]);    // intuitive
         }
 
         // visited array where 0=not visited, 1= visited, -1= currently visiting
         int[] visited =  new int[numCourses];
         // *** Iterate through the courses
         for (int i=0;i<numCourses; i++){
-            boolean cycle = dfs(adjacencyList, visited, i);
+            boolean cycle = dfs(adjList, visited, i);
             // if a cycle is found return false else continue;
             if(!cycle)
                 return false;
@@ -102,7 +101,7 @@ public class CourseSchedule {
             return false;
         }
 
-        // *** if we run into a node that we have already seen in an previous dfs traversal
+        // *** if we run into a node that we have already seen in a previous dfs traversal
         if (visited[node] == 1){
             return true;
         }

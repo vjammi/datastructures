@@ -88,7 +88,8 @@ public class SubarraySumEqualsK {
       */
      public int subarraySumWithCumulativeSum(int[] nums, int k) {
          int count = 0;  int sum = 0;
-         Map<Integer, Integer> cummulativeSumMap = new HashMap<>(); cummulativeSumMap.put(0, 1); // {sum, count}
+         Map<Integer, Integer> cummulativeSumMap = new HashMap<>();
+         cummulativeSumMap.put(0, 1); // {sum, count}
          for (int i=0; i<nums.length; i++){
              sum = sum + nums[i];
              if (cummulativeSumMap.containsKey(sum-k))

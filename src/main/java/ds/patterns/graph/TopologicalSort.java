@@ -20,7 +20,7 @@ public class TopologicalSort {
         ArrayList<Integer> result = new ArrayList<>();
         int[] visited = new int[vertices];
 
-        for (int i=0; i<adjList.size(); i++) {
+        for (int i=0; i<adjList.size(); i++) { // TODO: adjList.size() / v ?
             if (visited[i] != 1) dfs(0, adjList, visited, result);
         }
 

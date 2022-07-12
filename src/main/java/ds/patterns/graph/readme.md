@@ -770,7 +770,7 @@ Time Complexity: O(V + E)
     }
 ```
 
-## 886. Possible Bipartition [UnDirected Graph + Graph Coloring - Group A & B - visited[node] != visit]
+## 886. Possible BiPartition [UnDirected Graph + Graph Coloring - Group A & B - visited[node] != visit]
 Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
 Each person may dislike some other people, and they should not go into the same group.
 Formally, if dislikes[i] = [a, b], it means it is not allowed to put the people numbered a and b into the same group.

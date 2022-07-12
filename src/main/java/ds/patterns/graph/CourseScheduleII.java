@@ -68,14 +68,18 @@ public class CourseScheduleII {
         if (visited[i] == 1)
             return true;
 
+        //path.add(i);
+
         visited[i] = -1;
         List<Integer> neighbors = adjList.get(i);
         for (Integer neighbor: neighbors){
             boolean canFinish = dfs(neighbor, adjList, visited, path);
+
             if (canFinish == false)
                 return canFinish;
         }
         visited[i] = 1;
+
         // Gives the order [0 1 2 3]  for numCourses 4 with prerequisites [[1,0],[2,0],[3,1],[3,2]]
         path.add(i);
 

@@ -1,5 +1,7 @@
 package ds.patterns.usage.hashing;
 
+import java.util.Arrays;
+
 public class HashCode {
 
     private static final int M = 5;
@@ -33,7 +35,7 @@ public class HashCode {
         System.out.println("5 " +5%2);
 
         System.out.println(HashCode.hash("Java"));
-
     }
+
 }
 

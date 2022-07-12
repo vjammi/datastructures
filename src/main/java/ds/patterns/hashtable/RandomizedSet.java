@@ -4,6 +4,34 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+/**
+ * 380. Insert Delete GetRandom O(1)
+ * Implement the RandomizedSet class:
+ * RandomizedSet() Initializes the RandomizedSet object.
+ * bool insert(int val) Inserts an item val into the set if not present. Returns true if the item was not present, false otherwise.
+ * bool remove(int val) Removes an item val from the set if present. Returns true if the item was present, false otherwise.
+ * int getRandom() Returns a random element from the current set of elements (it's guaranteed that at least one element exists when
+ * this method is called). Each element must have the same probability of being returned.
+ * You must implement the functions of the class such that each function works in average O(1) time complexity.
+ *
+ * Solution
+ * we have two good candidates with O(1) average insert time:
+ *      Hashmap (or Hashset, the implementation is very similar): Java HashMap
+ *      Array List: Java ArrayList / Python list
+ *
+ * Hashmap provides Insert and Delete in average constant time, al though has problems with GetRandom.
+ * The idea of GetRandom is to choose a random index and then to retrieve an element with that index.
+ * There is no indexes in hashmap, and hence to get true random value, one has first to convert hashmap keys in a list,
+ * that would take linear time. The solution here is to build a list of keys aside and to use this list to compute GetRandom in constant time.
+ * Array List has indexes and could provide Insert and GetRandom in average constant time, though has problems with Delete.
+ * To delete a value at arbitrary index takes linear time. The solution here is to always delete the last value:
+ * Swap the element to delete with the last one.
+ * Pop the last element out.
+ * For that, one has to compute an index of each element in constant time, and hence needs a hashmap which stores element -> its index dictionary.
+ * Both ways converge into the same combination of data structures:
+ * Hashmap element -> its index.
+ * Array List of elements.
+ **/
 class RandomizedSet {
 
     Map<Integer, Integer> map;  // val, index           5:1, 10:2, 25:3

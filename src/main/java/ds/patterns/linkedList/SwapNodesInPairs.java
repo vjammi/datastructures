@@ -28,7 +28,7 @@ public class SwapNodesInPairs {
 
         // Advance the runner so that the runner is 2 steps ahead of walker
         int i = 0;
-        while (runner != null && i < 2) {
+        while (i < 2) {
             runner = runner.next;
             i++;
         }
@@ -52,7 +52,7 @@ public class SwapNodesInPairs {
             // For swapping the next pair, advance the runner and walker 2 steps
             walker = runner;               // Advance the walker to take the runner's position
             int j = 0;
-            while (runner != null && j < 2) {  // Advance the runner 2 steps ahead
+            while (j < 2) {  // Advance the runner 2 steps ahead
                 runner = runner.next;
                 j++;
             }

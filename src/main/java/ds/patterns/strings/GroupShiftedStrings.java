@@ -12,7 +12,7 @@ public class GroupShiftedStrings {
      *     For example, "abc" can be shifted to be "bcd".
      * We can keep shifting the string to form a sequence.
      *     For example, we can keep shifting "abc" to form the sequence: "abc" -> "bcd" -> ... -> "xyz".
-     * Given an array of strings strings, group all strings[i] that belong to the same shifting sequence. You may return the answer in any order.
+     * Given an array of strings, group all strings[i] that belong to the same shifting sequence. You may return the answer in any order.
 
      * Example 1:
      * Input: strings = ["abc","bcd","acef","xyz","az","ba","a","z"]
@@ -64,7 +64,8 @@ public class GroupShiftedStrings {
          For example, 'abc' maps to (1,1) because ord('b') - ord('a') = 1 and ord('c') - ord('b') = 1
          We need to watch out for the "wraparound" case - for example, 'az' and 'ba' should map to the same "shift group" as a + 1 = b and z + 1 = a.
          Given the above point, the respective tuples would be (25,) (122 - 97) and (-1,) (79 - 80) and az and ba would map to different groups. This is incorrect.
-         To account for this case, we add 26 to the difference between letters (smallest difference possible is -25, za) and mod by 26. So, (26 + 122 - 97) % 26 and (26 + 79 - 80) % 26 both equal (25,)
+         To account for this case, we add 26 to the difference between letters (smallest difference possible is -25, za) and mod by 26.
+         So, (26 + 122 - 97) % 26 and (26 + 79 - 80) % 26 both equal (25,)
         {
           (1, 1): ['abc', 'bcd', 'xyz'],
           (2, 2, 1): ['acef'],
@@ -80,26 +81,27 @@ public class GroupShiftedStrings {
 
         for (String str: strings){
 
-            List<Integer> diffList = new ArrayList();
+            List<Integer> adjCharDiffs = new ArrayList();
+
             char[] chars = str.toCharArray();
             for (int i=0; i<chars.length; i++){
                 if (chars.length > 1 && i>0){
                     int diff = (int)chars[i] - (int)chars[i-1];
                     if (diff < 0)
                         diff = diff + 26;
-                    diffList.add(diff);
+                    adjCharDiffs.add(diff);
                 }
                 if (chars.length == 1){
-                    // An empty diffList for instance for input strings like  [a], [b]
+                    // An empty adjCharDiffs for instance for input strings like  [a], [b]
                 }
             }
 
-            if (map.containsKey(diffList)){
-                map.get(diffList).add(str);
+            if (map.containsKey(adjCharDiffs)){
+                map.get(adjCharDiffs).add(str);
             }else{
                 List<String> list = new ArrayList();
                 list.add(str);
-                map.put(diffList, list);
+                map.put(adjCharDiffs, list);
             }
         }
 
