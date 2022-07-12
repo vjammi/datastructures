@@ -1,5 +1,7 @@
 package ds.patterns.linkedList;
 
+
+
 public class LinkedListCycleII {
     SwapNodesInPairs.ListNode head;
 
@@ -12,14 +14,6 @@ public class LinkedListCycleII {
     }
 
     public ListNode detectCycle(ListNode head) {
-
-        if (head == null)
-            return head;
-        if (head.next == null)
-            return null;
-        if (head.next.next==null)
-            return null;
-
         ListNode dummy = new ListNode(0);
         dummy.next = head;
 
@@ -30,10 +24,15 @@ public class LinkedListCycleII {
         boolean cyle = false;
         while(runner !=null && walker != null){
             walker = walker.next;
-            if (runner.next==null) // ***
-                return null;
+
+            // Note: If there is no cycle runner will at some point will be null.
+            //       If runner == null, it means we have no cycle, hence return null
+            if (runner !=null && runner.next!=null)
+                runner = runner.next.next; //
             else
-                runner = runner.next.next;
+                return null; // no cycle
+
+            // if walker and runner meet, we have a cycle. we break out of here
             if (walker == runner){
                 cyle = true;
                 break;
@@ -44,13 +43,16 @@ public class LinkedListCycleII {
         if (cyle){
             walker = dummy;
             // runner stays where it was last
+
             while(walker != runner)    {
                 walker = walker.next;
                 runner = runner.next;
             }
             return walker;
+
         }else{
             return null;
         }
     }
+
 }
