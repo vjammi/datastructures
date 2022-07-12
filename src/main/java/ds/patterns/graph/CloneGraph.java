@@ -52,6 +52,7 @@ public class CloneGraph {
 
         return visited.get(node);
     }
+
     // 1. Create a copy of each node of the Graph
     // 2. Store the mapping of the node and its clone in a map
     // 3. Connect the nodes of the cloned nodes (graph)
@@ -70,22 +71,6 @@ public class CloneGraph {
             // 3. Connect the nodes of the cloned nodes (graph)
             clone.neighbors.add(map.get(neighbor)); // Add the neighbor's clone to the clone of the current node.
         }
-    }
-
-    public Node dfs2(Node node, Map<Node, Node> visited) {
-        if (visited.containsKey(node))
-            return visited.get(node); // Return the current node's clone
-
-        Node clone = new Node(node.val);
-        visited.put(node, clone);
-
-        List<Node> neighbors = node.neighbors;
-        for (Node neighbor: neighbors){
-            Node cloneOfNeighbor = dfs2(neighbor, visited); // the neighbor's clone is being returned
-            clone.neighbors.add(cloneOfNeighbor);
-        }
-
-        return visited.get(node);   // Return the current node's clone
     }
 
     public static void main(String[] args) {

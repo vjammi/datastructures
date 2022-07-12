@@ -22,24 +22,15 @@ public class Graph101 {
             System.out.println("Key(vertex) " + key +" Value(neighbors) " + value);
         }
 
-        System.out.println("--------------------dfs--------------------------");
-        ArrayList<Integer> chosen1 = new ArrayList<>();
+        ArrayList<Integer> chosen = new ArrayList<>();
         int[] visited1 = new int[vertices];
-        dfs(0, adjList, visited1, chosen1); // Connected graph
-        System.out.println(chosen1);
-
-        System.out.println("------------------dfsAllPaths----------------------");
-        //[0, 1, 3, 2, 4, 5]
-        //[0, 1, 3, 5, 4, 2]
-        //[0, 2, 4, 5, 3, 1]
-        ArrayList<Integer> chosen2 = new ArrayList<>();
-        int[] visited2 = new int[vertices];
-        chosen2.add(0);
-        dfsAllPaths(0, adjList, visited2, chosen2, new ArrayList());
+        dfsNeedsWork(0, adjList, visited1, chosen); // Connected graph
+        System.out.println(chosen);
     }
 
-    private void dfs(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, List<Integer> path) {
-        if (visited[vertex] == 1) {
+    private void dfsNeedsWork(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, List<Integer> path) {
+        if (visited[vertex] == path.size()) {
+            System.out.println(path);
             return;
         }
 
@@ -49,40 +40,28 @@ public class Graph101 {
         List<Integer>  neighbors = adjList.get(vertex);
         for(int neighbor: neighbors){
             if (visited[neighbor] == 0){
-                dfs(neighbor, adjList, visited, path);
+                dfsNeedsWork(neighbor, adjList, visited, path);
             }
         }
     }
 
-    private void dfsAllPaths(int vertex, Map<Integer, List<Integer>> adjList, int[] visited, /*Stack<Integer>*/ List<Integer> chosen, List<List<Integer>> result) {
-        if (chosen.size() == adjList.size()) {
-            List<Integer> path = new ArrayList<Integer>(chosen);
-            result.add(path); System.out.println(path);
-            return;
-        }
+    //private void dfsAllPaths(int vertex, int target, Map<Integer, List<Integer>> adjList, List<Integer> chosen, List<List<Integer>> result) {
+    //    chosen.add(vertex);
+    //    if (vertex == adjList.size()) { // or vertex == target
+    //        result.add(new ArrayList<Integer>(chosen)); System.out.println(new ArrayList<Integer>(chosen));
+    //        return;
+    //    }
+    //
+    //    List<Integer>  neighbors = adjList.get(vertex);
+    //    for(int neighbor: neighbors){
+    //        dfsAllPaths(neighbor, target, adjList, chosen, result);
+    //        chosen.remove(chosen.size() - 1);
+    //    }
+    //}
 
-        if (visited[vertex] == 1) {
-            return;
-        }
-
-        visited[vertex] = 1;
-
-        List<Integer>  neighbors = adjList.get(vertex);
-        for(int neighbor: neighbors){
-            if (visited[neighbor] == 0){
-                chosen.add(neighbor);
-                dfsAllPaths(neighbor, adjList, visited, chosen, result);
-                chosen.remove(chosen.size() - 1);
-            }
-        }
-        visited[vertex] = 0;
-    }
-
-    /**
-          /  1 -  3 \
-        0       /    5
-          \  2 -  4 /
-    */
+    //      /  1 -  3 \
+    //    0       /    5
+    //      \  2 -  4 /
 
     public static void main(String[] args) {
         int vertices = 6;
