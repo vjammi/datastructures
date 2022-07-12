@@ -29,11 +29,12 @@ public class ReverseLinkedList {
             // current
             ListNode next = current.next;
 
-            current.next = previous; // Turning the direction of next
+            current.next = previous; // Turning the direction of the next. tail.next==null
 
             previous = current;
             current = next;
         }
+
         this.head = previous;   // Set head to the previous
         return previous;        // Why return previous but not current? Because the current becomes null and no longer go inside while
     }
@@ -65,6 +66,13 @@ public class ReverseLinkedList {
         |
         Null
 
+    //                         head
+    //                      1   >   2   >   3   >   4   >   5   >   null
+
+    //                 (tail.next==null)
+    //                     tail                  newHead
+    //             null  <  1   <   2   <   3   <   4   <   5
+    //                          x>      x>      x>      x>
      */
     public ListNode reverseList(ListNode head) {
         if (head == null) return head;
@@ -84,10 +92,6 @@ public class ReverseLinkedList {
         }
 
         ListNode previous =  reverse(node.next);
-
-        if (previous.next == null)
-            newHead = previous;
-
         previous.next = node; // Change direction
 
         return node;

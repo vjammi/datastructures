@@ -48,23 +48,20 @@ public class PartitionList {
 
     public ListNode partition(ListNode head, int x) {
 
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+
         ListNode list1Head = new ListNode(0);
         ListNode list1Tail = list1Head;
 
         ListNode list2Head = new ListNode(0);
         ListNode list2Tail = list2Head;
 
-        ListNode list0Dummy = new ListNode(0);
-        list0Dummy.next = head;
-
-        ListNode back = list0Dummy;
-        ListNode front = null;
-        if (back.next != null)  front  = back.next.next;
-
-        while (back.next != null) {
-            ListNode current = back.next;
+        ListNode previous = dummy;
+        ListNode current = head;
+        while (current != null) {
+            ListNode next = current.next;
             current.next = null;
-            back.next = front;
 
             if (current.val < x){
                 list1Tail.next = current;
@@ -73,13 +70,12 @@ public class PartitionList {
                 list2Tail.next = current;
                 list2Tail = list2Tail.next;
             }
-            if (front != null)
-                front = front.next;
+
+            previous.next = next;
+            current = next;
         }
-
         list1Tail.next = list2Head.next;
-
-        return list1Head.next;
+        return head; // or can also return list1Head.next
     }
 
     public static void main(String[] agrs){
