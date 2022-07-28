@@ -161,9 +161,7 @@ public class Permutations {
 
             chosen.add(choice);
             input.remove(i);
-
             backtrack2(input, chosen, result);
-
             chosen.remove(chosen.size()-1);
             input.add(i, choice);
         }

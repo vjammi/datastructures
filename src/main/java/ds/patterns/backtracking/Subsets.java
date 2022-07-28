@@ -42,6 +42,7 @@ public class Subsets {
         }
 
         int choice = nums[i];
+
         backtrack(nums, i+1, chosen, result);
 
         chosen.add(choice);

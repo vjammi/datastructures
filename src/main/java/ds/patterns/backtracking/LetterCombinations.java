@@ -32,12 +32,14 @@ import java.util.*;
 
             level0              a               b             c               2=abc
                                 0               1             2
+
             level1          d   e   f       d   e   f     d     e   f         3=def
                             0   1   2
+
             level2         ghi ghi ghi     ghi ghi ghi   ghi   ghi ghi        4=ghi
                            012
 
-    BaseCase  level3    [adg adh adi aeg aeh aei ....                       ]
+    BaseCase  level3    [adg adh adi   aeg aeh aei ....                       ]
 *
 * */
 
@@ -118,9 +120,24 @@ public class LetterCombinations {
             return new ArrayList<String>();
         Map<String, String> map = buildNumToCharsMap();
         List<String> result = new ArrayList<>();
-        //combinations(digits, map, new Stack<String>(), result, 0);
         combinations2(digits, map, new Stack<String>(), result, 0);
+        //combinations(digits, map, new Stack<String>(), result, 0);
         return result;
+    }
+
+    private void combinations2(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
+        if (level == input.length()) {
+            result.add(chosen.toString()); //System.out.println(indent +input +" OUT(" +level +")" +chosen);
+            return;
+        }
+
+        String digit = String.valueOf(input.charAt(level));
+        String charsForDigit = map.get(digit);
+        for(int i=0; i < charsForDigit.length(); i++){ //char character: charsForDigit.toCharArray()
+            chosen.push(String.valueOf(charsForDigit.charAt(i)));
+            combinations2(input, map, chosen, result,level+1);
+            chosen.pop();
+        }
     }
 
     private void combinations(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
@@ -130,8 +147,6 @@ public class LetterCombinations {
             System.out.println(indent +input +" OUT(" +level +")" +chosen);
             return;
         }
-        StringBuilder sb = new StringBuilder();
-
 
         String digit = String.valueOf(input.charAt(level));
         String characters = map.get(digit);
@@ -139,22 +154,6 @@ public class LetterCombinations {
             System.out.println(indent +input +" L(" +level +"-"+character+") " +chosen);
             chosen.push(String.valueOf(character));
             combinations(input, map, chosen, result,level+1);
-            chosen.pop();
-        }
-    }
-
-    private void combinations2(String input, Map<String, String> map, Stack<String> chosen, List<String> result, int level) {
-        //String indent = get_indent(level);
-        if (level == input.length()) {
-            result.add(chosen.toString()); //System.out.println(indent +input +" OUT(" +level +")" +chosen);
-            return;
-        }
-        String digit = String.valueOf(input.charAt(level));
-        String charsForDigit = map.get(digit);
-        for(int i=0; i < charsForDigit.length(); i++){ //char character: charsForDigit.toCharArray()
-            //System.out.println(indent +input +" L(" +level +"-"+charsForDigit.charAt(i)+") " +chosen);
-            chosen.push(String.valueOf(charsForDigit.charAt(i)));
-            combinations2(input, map, chosen, result,level+1);
             chosen.pop();
         }
     }

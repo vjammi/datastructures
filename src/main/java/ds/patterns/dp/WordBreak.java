@@ -33,7 +33,7 @@ public class WordBreak {
      *        "unhappy".substring(2) returns "happy"
      *        "Harbison".substring(3) returns "bison"
      *        "emptiness".substring(9) returns ""       (an empty string)
-     **/
+     **///GOLD
     private boolean dfs2(String currentSegment, List<String> wordDict){
 
         if (currentSegment.equals(""))

@@ -1,13 +1,21 @@
 package ds.patterns.usage.iterators;
 
 /**
- * 173. Binary Search Tree Iterator
- * Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):
- *     BSTIterator(TreeNode root) Initializes an object of the BSTIterator class. The root of the BST is given as part of the constructor. The pointer should be initialized to a non-existent number smaller than any element in the BST.
- *     boolean hasNext() Returns true if there exists a number in the traversal to the right of the pointer, otherwise returns false.
- *     int next() Moves the pointer to the right, then returns the number at the pointer.
- * Notice that by initializing the pointer to a non-existent smallest number, the first call to next() will return the smallest element in the BST.
- * You may assume that next() calls will always be valid. That is, there will be at least a next number in the in-order traversal when next() is called.
+ *  173. Binary Search Tree Iterator
+ *  Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):
+ *
+ *      BSTIterator(TreeNode root)
+ *          Initializes an object of the BSTIterator class. The root of the BST is given as part of the constructor.
+ *          The pointer should be initialized to a non-existent number smaller than any element in the BST.
+ *     boolean hasNext()
+ *          Returns true if there exists a number in the traversal to the right of the pointer, otherwise returns false.
+ *     int next()
+ *          Moves the pointer to the right, then returns the number at the pointer.
+ *
+ *  Notice that by initializing the pointer to a non-existent smallest number,
+ *     the first call to next() will return the smallest element in the BST.
+ *  You may assume that next() calls will always be valid.
+ *     That is, there will be at least a next number in the in-order traversal when next() is called.
  *
  * Example 1:
  * Input
@@ -65,5 +73,32 @@ public class BinarySearchTreeIterator {
      *          Waiting for the element to be popped from within next()
      *          We add back the right of the element into the stack when an element is popped off the stack.
      **/
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+        TreeNode() {}
+        TreeNode(int val) { this.val = val; }
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    public BinarySearchTreeIterator(TreeNode root) {
+
+    }
+
+    public int next() {
+        return 0;
+    }
+
+    public boolean hasNext() {
+        return false;
+    }
+
+
 
 }

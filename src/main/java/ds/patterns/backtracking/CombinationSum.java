@@ -82,9 +82,7 @@ public class CombinationSum {
         // We make an initial choice, update the sum. We then make the same choice again and update the sum until the base case passes/fails
         chosen.push(nums[index]);               // 2  2  2 | 2  2  3
         sum = sum + nums[index];
-
         backtrack0(nums, target, sum, index, chosen, result);
-
         chosen.pop();                           // 2  2
         sum = sum - nums[index];
 
