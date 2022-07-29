@@ -33,10 +33,23 @@ import java.util.*;
  *     1 <= nestedList.length <= 500
  *     The values of the integers in the nested list is in the range [-106, 106].
  **/
-public class NestedListIterator {
+public class NestedListIterator implements Iterable<Integer>{
+
+    public static void main(String[] args) {
+        NestedListIterator obj = new NestedListIterator();
+        Iterator<Integer> iterator = obj.iterator();
+        while(iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        List<NestedInteger> nestedList = new ArrayList<>();
+        return new NestedIterator_Naive(nestedList);
+    }
 
     public interface NestedInteger {
-
         // @return true if this NestedInteger holds a single integer, rather than a nested list.
         public boolean isInteger();
 
@@ -55,29 +68,29 @@ public class NestedListIterator {
      **/
     class NestedIterator_Naive implements Iterator<Integer> {
 
-        private List<Integer> list;
+        private List<Integer> flattenedList;
         private int position = 0;
 
         public NestedIterator_Naive(List<NestedInteger> nestedList) {
-            this.list = new ArrayList<>();
+            this.flattenedList = new ArrayList<>();
             // Recursively flatten/unpack the nested list  in dfs order.
             // Onetime unpacking of the nested list to a flattened list.
             // Time Limit Exceeded
             flattenList(nestedList);
-            System.out.println(hasNext() + " " + list.size());
+            System.out.println(hasNext() + " " + flattenedList.size());
         }
 
         @Override
         public Integer next() {
             if (hasNext()) {
-                return this.list.get(position);
+                return this.flattenedList.get(position);
             }
             return null;
         }
 
         @Override
         public boolean hasNext() {
-            return this.list.size() > 0;
+            return this.flattenedList.size() > 0;
         }
 
         // Time Limit Exceeded
@@ -86,7 +99,7 @@ public class NestedListIterator {
             for (NestedInteger obj : nestedList) {
                 if (obj.isInteger()) {                           // obj instanceof Integer
                     Integer nextInteger = obj.getInteger();
-                    list.add(nextInteger);                      // (int)obj
+                    flattenedList.add(nextInteger);                      // (int)obj
                     System.out.println(nextInteger);
                 } else {                                         // if (!obj instanceof List)
                     flattenList(obj.getList());                 // (List<NestedInteger>) obj
@@ -196,7 +209,6 @@ public class NestedListIterator {
      * */
     public class NestedIteratorUsingStack implements Iterator<Integer> {
 
-
         // In Java, the Stack class is considered deprecated. Best practice is to use
         // a Deque instead. We'll use addFirst() for push, and removeFirst() for pop.
         private Deque<NestedInteger> stack;
@@ -219,7 +231,7 @@ public class NestedListIterator {
         public boolean hasNext() {
             // While stack is not empty and If there are no integers on the top,
             // then we try to load integer to the top
-            bringAnIntegerToTheTop();
+            loadIntegerToTheTopOfTheStack();
             // If the stack is still empty
             if (stack.isEmpty()) {
                 return false;
@@ -227,16 +239,15 @@ public class NestedListIterator {
             return true;
         }
 
-        public void bringAnIntegerToTheTop() {
+        public void loadIntegerToTheTopOfTheStack() {
             // While there are items remaining on the stack and the front of
             // stack is a list (i.e. not integer), keep unpacking.
             while (!stack.isEmpty() && !stack.peekFirst().isInteger()) {
                 // Put the NestedIntegers onto the stack in reverse order.
                 List<NestedInteger> subList = stack.removeFirst().getList();
-                for (int i = subList.size() - 1; i >= 0; i--) {
+                for (int i = subList.size()-1; i >= 0; i--) {
                     stack.addFirst(subList.get(i));
                 }
-
             }
         }
 
@@ -298,4 +309,5 @@ public class NestedListIterator {
             }
         }
     }
+
 }
