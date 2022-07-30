@@ -1,6 +1,6 @@
 package ds.patterns.design;
 
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * 588 Design In-Memory File System
@@ -47,7 +47,7 @@ public class InMemoryFileSystem {
 
     class File {
         HashMap <String, File> files = new HashMap<>();
-        boolean isfile = false;
+        boolean isFile = false;
         String content;
     }
 
@@ -57,8 +57,67 @@ public class InMemoryFileSystem {
         root = new File();
     }
 
+    public List < String > ls(String path) {
+        File current = root;
+        List<String> files = new ArrayList<>();
 
+        if (!path.equals("/")) {
+            String[] dirs = path.split("/");
+            for (int i = 1; i < dirs.length; i++) {
+                String dir = dirs[i];
 
+                current = current.files.get(dir);
+            }
+            if (current.isFile) {
+                files.add(dirs[dirs.length - 1]);
+                return files;
+            }
+        }
 
+        List<String> filesToReturn = new ArrayList<>(current.files.keySet());
+        Collections.sort(filesToReturn);
+
+        return filesToReturn;
+    }
+
+    public void mkdir(String path) {
+        File current = root;
+        String[] dirs = path.split("/");
+        for (int i = 1; i < dirs.length; i++) {
+            String dir = dirs[i];
+            if (!current.files.containsKey(dir))
+                current.files.put(dir, new File());
+            current = current.files.get(dir);
+        }
+    }
+
+    public void addContentToFile(String filePath, String content) {
+        File current = root;
+        String[] dirs = filePath.split("/");
+
+        for (int i = 1; i < dirs.length - 1; i++) {
+            String dir = dirs[i];
+            current = current.files.get(dir);
+        }
+
+        String dir = dirs[dirs.length - 1];
+        if (!current.files.containsKey(dir)) {
+            current.files.put(dir, new File());
+        }
+
+        current = current.files.get(dir);
+        current.isFile = true;
+        current.content = current.content + content; // append to existing content
+    }
+
+    public String readContentFromFile(String filePath) {
+        File current = root;
+        String[] dirs = filePath.split("/");
+        for (int i = 1; i < dirs.length - 1; i++) {
+            current = current.files.get(dirs[i]);
+        }
+        String dir = dirs[dirs.length - 1];
+        return current.files.get(dir).content;
+    }
 
 }

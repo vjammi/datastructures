@@ -7,12 +7,13 @@ import java.util.NoSuchElementException;
 public class Flatten2DArray {
 
     // Constructor will put all the nums into this list.
-    private List<Integer> nums = new ArrayList<>();
+    private List<Integer> nums; // = new ArrayList<>();
 
     // Keep track of where the Iterator is up to.
     private int position = 0;
 
     public Flatten2DArray(int[][] v) {
+        nums = new ArrayList<>();
         // We need to iterate over the 2D array, getting all the integers
         // out of it and putting them into nums (a field).
         for (int[] innerArray : v) {

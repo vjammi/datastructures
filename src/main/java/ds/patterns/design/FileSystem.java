@@ -48,16 +48,16 @@ public class FileSystem {
     FileNode root; // /leet/code/
 
     class FileNode{
-        Map<String, FileNode> children;
+        Map<String, FileNode> files;
         String name;
         int value;
         boolean isDir;
 
         public FileNode(String name, int value){
+            this.files = new HashMap();
             this.name  = name;
             this.value = value;
             this.isDir = true; // For now we are just dealing with all folders
-            this.children = new HashMap();
         }
 
     }
@@ -73,10 +73,10 @@ public class FileSystem {
         // Note that the path.split("/") for path "/leet/code" will return an array {"", "leet", "code"}
         for (int i=1; i<dirs.length; i++){
             String dir = dirs[i];
-            if(current.children.get(dir) == null){
-                current.children.put(dir, new FileNode(dir, value));
+            if(current.files.get(dir) == null){
+                current.files.put(dir, new FileNode(dir, value));
             }
-            current = current.children.get(dir);
+            current = current.files.get(dir);
         }
         return true;
     }
@@ -87,10 +87,10 @@ public class FileSystem {
         FileNode current = root;
         for (int i=1; i<dirs.length; i++){
             String dir = dirs[i];
-            if(current.children.get(dir) == null){
+            if(current.files.get(dir) == null){
                 return -1;
             }
-            current = current.children.get(dir);
+            current = current.files.get(dir);
         }
         return current.value;
     }
