@@ -1,58 +1,14 @@
-package ds.patterns.usage.iterators;
+package ds.patterns.design;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Consumer;
 
-/**
- * objects = {ArrayList@673}  size = 2
- * <p>
- * 0 = {ArrayList@674}  size = 3
- * 0 = {Integer@681} 1
- * 1 = {Integer@682} 2
- * 2 = {Integer@683} 3
- * <p>
- * 1 = {ArrayList@675}  size = 2
- * 0 = {ArrayList@676}  size = 3
- * 0 = {Integer@687} 21
- * 1 = {Integer@688} 22
- * 2 = {Integer@689} 23
- * 1 = {ArrayList@677}  size = 3
- * 0 = {Integer@688} 22
- * 1 = {Integer@689} 23
- * 2 = {Integer@691} 24
- * ---------------------------------
- * <p>
- * list1 = {ArrayList@674}  size = 3
- * 0 = {Integer@681} 1
- * 1 = {Integer@682} 2
- * 2 = {Integer@683} 3
- * <p>
- * list2 = {ArrayList@675}  size = 2
- * 0 = {ArrayList@676}  size = 3
- * 0 = {Integer@687} 21
- * 1 = {Integer@688} 22
- * 2 = {Integer@689} 23
- * 1 = {ArrayList@677}  size = 3
- * 0 = {Integer@688} 22
- * 1 = {Integer@689} 23
- * 2 = {Integer@691} 24
- * <p>
- * list21 = {ArrayList@676}  size = 3
- * 0 = {Integer@687} 21
- * 1 = {Integer@688} 22
- * 2 = {Integer@689} 23
- * list22 = {ArrayList@677}  size = 3
- * 0 = {Integer@688} 22
- * 1 = {Integer@689} 23
- * 2 = {Integer@691} 24
- **/
-public class NestedList<T> implements Iterable<T> {
+public class NestedList_Msft<T> implements Iterable<T> {
 
     private List<T> nestedList;
 
-    public NestedList(List<T> nestedList) {
+    public NestedList_Msft(List<T> nestedList) {
         this.nestedList = nestedList;
     }
 
@@ -93,15 +49,6 @@ public class NestedList<T> implements Iterable<T> {
             return null;
         }
 
-        @Override
-        public void remove() {
-            Iterator.super.remove();
-        }
-
-        @Override
-        public void forEachRemaining(Consumer<? super T> action) {
-            Iterator.super.forEachRemaining(action);
-        }
     }
 
     public static void main(String[] args) {
@@ -128,7 +75,7 @@ public class NestedList<T> implements Iterable<T> {
 
         objects.add(list2);
 
-        NestedList<Integer> nestedList = new NestedList(objects);
+        NestedList_Msft<Integer> nestedList = new NestedList_Msft(objects);
         Iterator iterator = nestedList.iterator();
         while (iterator.hasNext()) {
             System.out.println(iterator.next());

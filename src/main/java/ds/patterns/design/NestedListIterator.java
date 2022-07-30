@@ -1,4 +1,4 @@
-package ds.patterns.usage.iterators;
+package ds.patterns.design;
 
 import java.util.*;
 
@@ -46,7 +46,7 @@ public class NestedListIterator implements Iterable<Integer>{
     @Override
     public Iterator<Integer> iterator() {
         List<NestedInteger> nestedList = new ArrayList<>();
-        return new NestedIterator_Naive(nestedList);
+        return new NestedIterator_RecursivelyFlattenNestedListWhileLoading(nestedList);
     }
 
     public interface NestedInteger {
@@ -64,14 +64,14 @@ public class NestedListIterator implements Iterable<Integer>{
 
     /**
      * Approach #1: Recursively unpack the nested list in DFS order.
-     * Time Limit Exceeded
+     *              Time Limit Exceeded
      **/
-    class NestedIterator_Naive implements Iterator<Integer> {
+    class NestedIterator_RecursivelyFlattenNestedListWhileLoading implements Iterator<Integer> {
 
         private List<Integer> flattenedList;
         private int position = 0;
 
-        public NestedIterator_Naive(List<NestedInteger> nestedList) {
+        public NestedIterator_RecursivelyFlattenNestedListWhileLoading(List<NestedInteger> nestedList) {
             this.flattenedList = new ArrayList<>();
             // Recursively flatten/unpack the nested list  in dfs order.
             // Onetime unpacking of the nested list to a flattened list.
@@ -107,48 +107,6 @@ public class NestedListIterator implements Iterable<Integer>{
             }
         }
     }
-
-    // Solution #2: Duplicate of solution 1 ???
-    // If the current element is a list, load the list into a stack
-    // Time Limit Exceeded
-    //    class NestedIterator_Optimized1 implements Iterator<Integer> {
-    //
-    //        private List<Integer> list;
-    //        private int position = 0;
-    //
-    //        public NestedIterator_Optimized1(List<NestedInteger> nestedList) {
-    //            this.list = new ArrayList<>();
-    //            flattenList(nestedList);
-    //            System.out.println(hasNext() + " " + list.size());
-    //        }
-    //
-    //        @Override
-    //        public Integer next() {
-    //            if (hasNext()) {
-    //                return this.list.get(position);
-    //            }
-    //            return null;
-    //        }
-    //
-    //        @Override
-    //        public boolean hasNext() {
-    //            return this.list.size() > 0;
-    //        }
-    //
-    //        // Recursively unpacks a nested list in DFS order.
-    //        // Time Limit Exceeded
-    //        public void flattenList(List<NestedInteger> nestedList) {
-    //            for (NestedInteger obj : nestedList) {
-    //                if (obj.isInteger()) {                           // obj instanceof Integer
-    //                    Integer nextInteger = obj.getInteger();
-    //                    list.add(nextInteger);                      // (int)obj
-    //                    System.out.println(nextInteger);
-    //                } else {                                         // if (!obj instanceof List)
-    //                    flattenList(obj.getList());                 // (List<NestedInteger>) obj
-    //                }
-    //            }
-    //        }
-    //    }
 
     /**
      * Solution # 2: Optimization - Using a Stack
@@ -207,13 +165,13 @@ public class NestedListIterator implements Iterable<Integer>{
      *         list = nestedInteger.getList()
      *         push all items in list onto stack, in reverse order
      * */
-    public class NestedIteratorUsingStack implements Iterator<Integer> {
+    public class NestedListIterator_TopItemsFromNestedListIntoAStack implements Iterator<Integer> {
 
         // In Java, the Stack class is considered deprecated. Best practice is to use
         // a Deque instead. We'll use addFirst() for push, and removeFirst() for pop.
         private Deque<NestedInteger> stack;
 
-        public NestedIteratorUsingStack(List<NestedInteger> nestedList) {
+        public NestedListIterator_TopItemsFromNestedListIntoAStack(List<NestedInteger> nestedList) {
             stack = new ArrayDeque(nestedList); //// puts them in the reverse order
         }
 
@@ -252,6 +210,56 @@ public class NestedListIterator implements Iterable<Integer>{
         }
 
     }
+    public class NestedListIterator_TopItemsFromNestedListIntoAStack2 implements Iterator<Integer> {
+
+        // In Java, the Stack class is considered deprecated. Best practice is to use. However, not using a Deque here.
+        // We'll use stack.push() instead of stack.addFirst() and stack.pop() instead of stack.removeFirst()
+        private Stack<NestedInteger> stack;
+
+        public NestedListIterator_TopItemsFromNestedListIntoAStack2(List<NestedInteger> nestedList) {
+            stack = new Stack<>();
+            // Loads the items from the list in the reverse order
+            for (int i=nestedList.size()-1; i>=0; i--){
+                stack.push(nestedList.get(i));
+            }
+        }
+
+        @Override
+        public Integer next() {
+            // throw an exception if there's no elements left.
+            if (!hasNext()) throw new NoSuchElementException();
+
+            // hasNext ensures the stack top is now an integer.
+            // Pop and return this integer.
+            return stack.pop().getInteger();
+        }
+
+        @Override
+        public boolean hasNext() {
+            // While stack is not empty and If there are no integers on the top,
+            // then we try to load integer to the top
+            bringAnIntegerToTheTop();
+            // If the stack is still empty
+            if (stack.isEmpty()){
+                return false;
+            }
+            return true;
+        }
+
+        public void bringAnIntegerToTheTop(){
+            // While there are items remaining on the stack and the front of
+            // stack is a list (i.e. not integer), keep unpacking.
+            while (!stack.isEmpty() && !stack.peek().isInteger()) {
+                // Put the NestedIntegers onto the stack in reverse order.
+                List<NestedInteger> subList = stack.pop().getList();
+                for (int i=subList.size()-1; i>=0; i--){
+                    stack.push(subList.get(i));
+                }
+
+            }
+        }
+    }
+
 
     /**
      * Approach 3: Two Stacks - Instead of reversing the list to put them onto the stack

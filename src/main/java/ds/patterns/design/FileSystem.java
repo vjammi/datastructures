@@ -1,6 +1,4 @@
-package ds.patterns.trie;
-
-import org.w3c.dom.ls.LSOutput;
+package ds.patterns.design;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,10 +48,10 @@ public class FileSystem {
     FileNode root; // /leet/code/
 
     class FileNode{
+        Map<String, FileNode> children;
         String name;
         int value;
         boolean isDir;
-        Map<String, FileNode> children;
 
         public FileNode(String name, int value){
             this.name  = name;
@@ -65,33 +63,34 @@ public class FileSystem {
     }
 
     public FileSystem() {
-        root = new FileNode("root", 0);
+        root = new FileNode("root", 0); // We initialize the file system with an empty root
     }
 
     public boolean createPath(String path, int value) {
-        String[] parents = path.split("/");
-
         FileNode current = root;
-        for (int i=1; i<parents.length; i++){
-            String nodeName = parents[i];
-            if(current.children.get(nodeName) == null){
-                current.children.put(nodeName, new FileNode(nodeName, value));
+
+        String[] dirs = path.split("/");
+        // Note that the path.split("/") for path "/leet/code" will return an array {"", "leet", "code"}
+        for (int i=1; i<dirs.length; i++){
+            String dir = dirs[i];
+            if(current.children.get(dir) == null){
+                current.children.put(dir, new FileNode(dir, value));
             }
-            current = current.children.get(nodeName);
+            current = current.children.get(dir);
         }
         return true;
     }
 
     public int get(String path) {         // /leet/code
-        String[] parents = path.split("/");
+        String[] dirs = path.split("/");
 
         FileNode current = root;
-        for (int i=1; i<parents.length; i++){
-            String nodeName = parents[i];
-            if(current.children.get(nodeName) == null){
+        for (int i=1; i<dirs.length; i++){
+            String dir = dirs[i];
+            if(current.children.get(dir) == null){
                 return -1;
             }
-            current = current.children.get(nodeName);
+            current = current.children.get(dir);
         }
         return current.value;
     }

@@ -5,8 +5,6 @@ import java.util.Map;
 
 public class PrefixTree {
 
-
-
     TrieNode root;
 
     class TrieNode {
@@ -23,6 +21,31 @@ public class PrefixTree {
         root = new TrieNode();
     }
 
+    /**
+     *
+     *  An Empty Trie initialized with an empty TrieNode with isWord = False
+     *
+     *                   [_ _ _ _ _ _ _ _ _ _ _ _]                                   // root = new TrieNode());
+     *
+     *
+     *  Adding the word DOG to the Trie
+     *
+     *                   [_ _ _ D _ _ _ _ _ _ _  _]                                  // currentNode.map.put('D', new TrieNode());
+     *                          *
+     *                          |___________
+     *                                      |
+     *         [_ _ _ _ _ _ _ _ _ _ _ _ _ _ O _   _]                                 // currentNode.map.put('O', new TrieNode());
+     *                                      *
+     *                                      |__________
+     *                                                |
+     *                                   [_ _ _ _ _ _ G _   _ _ _ _ _ _ _ _ _ _]     // currentNode.map.put('G', new TrieNode());
+     *                                                *
+     *                                                |
+     *                                   [_ _ _ _ _ _ _ _ _ _ _ _ _   _]
+     *                                         isWord = True                        // currentNode.isWord = true;
+     *
+     *        Note: Within the new/empty TrieNode we insert for the last letter of the word, we set isWord to true
+     */
     public void insert(String word){
         TrieNode currentNode = root;
 

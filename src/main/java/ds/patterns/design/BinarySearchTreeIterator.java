@@ -1,4 +1,4 @@
-package ds.patterns.usage.iterators;
+package ds.patterns.design;
 
 /**
  *  173. Binary Search Tree Iterator
