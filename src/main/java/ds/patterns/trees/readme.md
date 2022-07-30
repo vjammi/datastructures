@@ -61,7 +61,7 @@
         Stack<TreeNode> stack = new Stack<>();
         stack.push(node);
 
-        // Note that right child is pushed first so that left is processed first
+        // Note that right child is pushed first so that left child can be processed first
         // +AB (Node Left Right)
         while (!stack.empty()) {
 
@@ -96,19 +96,18 @@
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> inOrderedList = new ArrayList<>();
 
-        Stack<TreeNode> stack = new Stack(); // We are not adding the node to the stack, since we need to traverse to the leftmost node first
-        TreeNode current = root; // *** We add the node to the current to traverse to the leftmost node before printing the node.
+        Stack<TreeNode> stack = new Stack();        // We are not adding the node to the stack, since we need to traverse to the leftmost node first
+        TreeNode current = root;                    // *** We add the node to the current to traverse to the leftmost node before printing the node.
 
         // A+B (Left Node Right)
-        while (current != null || !stack.empty()) {
+        while (current != null || !stack.empty()) {            
             // When current != null - Push current element into stack & update current pointer
             // When the left of Node (L/A) is null, traverse the right Node.
             // For the right node, traverse again its left side until its left is null
-            // When left and right are null then ???
-            if (current != null) {
-                stack.push(current);
-                current = current.left;             // A
-            } else { // When iterating to the left of a node, when current becomes null, we process the topmost element in the stack.
+            if (current != null) {                                
+                stack.push(current);                // We push the element to the stack, to be processed when current is null                                 
+                current = current.left;             // A                            
+            }else{ // While iterating to the left of a node, when current becomes null, we process the topmost element in the stack
                 // At this point, we pop the top most element from the stack, and Print it
                 TreeNode poppedNode = stack.pop();  // +                
                 inOrderedList.add(poppedNode.val);  // +
