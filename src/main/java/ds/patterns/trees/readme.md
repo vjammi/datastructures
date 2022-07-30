@@ -105,12 +105,12 @@
             // When the left of Node (L/A) is null, traverse the right Node.
             // For the right node, traverse again its left side until its left is null
             if (current != null) {                                
-                stack.push(current);                // We push the element to the stack, to be processed when current is null                                 
+                stack.push(current);                // *** We push the element to the stack, to be processed when current is null                                 
                 current = current.left;             // A                            
             }else{ // While iterating to the left of a node, when current becomes null, we process the topmost element in the stack
                 // At this point, we pop the top most element from the stack, and Print it
-                TreeNode poppedNode = stack.pop();  // +                
-                inOrderedList.add(poppedNode.val);  // +
+                TreeNode poppedNode = stack.pop();  // +              
+                inOrderedList.add(poppedNode.val);  
                 // and then assign its right node to the current, to traverse its left subtree
                 current = poppedNode.right;         // B
             }
