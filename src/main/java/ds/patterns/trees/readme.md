@@ -80,6 +80,10 @@
         return preOrderedList;
     }
 ```
+#### Use of PreOrder Traversal
+- Preorder traversal is used to create a copy of the tree.
+- Preorder traversal is also used to get prefix expression on an expression tree [http://en.wikipedia.org/wiki/Polish_notation]
+
 ### Inorder Traversal
 ```
     // inorder A+B
@@ -118,7 +122,9 @@
         return inOrderedList;
     }
 ```
-Note: In a binary search tree, we can retrieve all the data in sorted order using in-order traversal.
+#### Use of InOrder Traversal
+- In a binary search tree, we can retrieve all the data in sorted order using in-order traversal.
+- 
 
 ### Postorder Traversal
 
@@ -164,13 +170,19 @@ Iterative
         return postOrderList;
     }
 ```
-Note:
-1. When you delete nodes in a tree, deletion process will be in post-order. That is to say, when you delete a node,
-   you will delete its left child and its right child before you delete the node itself.
+#### Use of Postorder
+- PostOrder traversal is used to delete the tree. When we delete nodes in a tree, deletion process will be in post-order. 
+  That is to say, when we delete a node, we will delete its left child and its right child before you delete the node itself.
+- Post-order is widely used to get mathematical postfix expression of an expression tree [http://en.wikipedia.org/wiki/Reverse_Polish_notation]
+  It is easier to write a program to parse a post-order expression. We can easily figure out the original expression using the inorder traversal.
+  However, it is not easy for a program to handle this expression since you have to check the priorities of operations.
+  If we handle this tree in postorder, you can easily handle the expression using a stack.
+  Each time when you meet an operator, you can just pop 2 elements from the stack, calculate the result and push the result back into the stack.
 
-2. Post-order is widely use in mathematical expression.
+References: 
+https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
+https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
 ```
-
                             +
 
                     *               5
@@ -178,19 +190,17 @@ Note:
                 4       -
 
                     7       2
-
+                    
+        PostOrder:  [Null, Null, 4, 7, 2, -, *, 5, +]
+        Visualizing the expression is easier using InOrder 
+            4 * (7-2) + 5
+        Writing a program to parse the expression is easier via Post Order. 
+        Each time we meet an operator, we can just pop 2 elements from the stack, 
+        calculate the result and push the result back into the stack.
+                [ [4, [7, 2, -], *], 5, +] 
+        
+4  
 ```
-   It is easier to write a program to parse a post-order expression. We You can easily figure out the original expression using the inorder traversal.
-   However, it is not easy for a program to handle this expression since you have to check the priorities of operations.
-
-   If you handle this tree in postorder, you can easily handle the expression using a stack.
-   Each time when you meet a operator, you can just pop 2 elements from the stack, calculate the result and push the
-   result back into the stack.
-
-References
-https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
-
-
 
 ### Level Order Traversal
 ```
@@ -229,7 +239,7 @@ https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/
             return;
 
         if (levelOrderTraversalRecursiveList.size() == level) { // For instance, initially at level 0 the size of the result list will be 0. Same with other levels.
-            List<Integer> list = new ArrayList<>();
+            List<Integer> list = new ArrayList<>();             // Since we do not have a list for this level yet (1st in above), we will then create a new list for the this level [level index 0 == index 0 of the list]. 
             list.add(node.val);
             levelOrderTraversalRecursiveList.add(list); // Note: list.get(level).add(node.val) will throw IndexOutOfBoundsException: Index: 0, Size: 0
         }else {
