@@ -261,6 +261,14 @@ https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
 - Nodes with the same parent are called siblings.
 
 ### Depth and Height  
+```
+                                          Height   Depth
+                   18                       2        0             
+                /     \                             
+             15         30                  1        1
+            /  \        /  \                        
+          40    50    100   40              0        2                
+```
 - Depth of a node
   - The depth of a node is the number of edges from the root to the node.
 - Height of a node
