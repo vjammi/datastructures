@@ -260,7 +260,7 @@ https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
 - Nodes which are not leaves are called internal nodes. 
 - Nodes with the same parent are called siblings.
 
-### Depth and Height  
+### Height and Depth  
 ```
                                           Height [from a Node the deepest Leaf]           Depth [From Root to the X Node]
                    18                       2                                                   0             
