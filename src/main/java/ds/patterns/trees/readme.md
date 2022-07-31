@@ -281,7 +281,7 @@ https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
 
 ### Binary Tree Classifications
     
-#### Full Binary Tree
+#### Full Binary Tree [zero or two children]
 A full binary tree is a binary tree in which each node has exactly zero or two children.
 ```
                  1
@@ -292,14 +292,16 @@ A full binary tree is a binary tree in which each node has exactly zero or two c
           Figure (a)
 ```
 
-#### Complete Binary Tree
+#### Complete Binary Tree [Completely filled from left to right]
 A complete binary tree is a binary tree, which is completely filled, with the possible exception of the bottom level, which is filled from left to right. 
-The data structure Heap is a good example of a complete binary tree.
-A complete binary tree is very special tree, it provides the best possible ratio between the number of nodes and the height. 
-The height h of a complete binary tree with N nodes is at most O(log N). We can easily prove this by counting nodes on each level, 
-starting with the root, assuming that each level has the maximum number of nodes:
-    n = 1 + 2 + 4 + ... + 2^(h-1) + 2^(h) = 2^(h+1) - 1
-Solving this with respect to h, we obtain
+The Heap data structure is a good example of a complete binary tree.
+A complete binary tree provides the best possible ratio between the number of nodes and the height.
+- The height h of a complete binary tree with N nodes is at most O(log N). 
+- We can easily prove this by counting nodes on each level, starting with the root, assuming that each level has the maximum number of nodes:
+        n = 1 + 2 + 4 + ... + 2^(h-1) + 2^(h)
+    which is
+        n = 2^(h+1)-1
+- Solving this with respect to h, we obtain
     h = O(log n)
 ```
                     1
@@ -309,11 +311,13 @@ Solving this with respect to h, we obtain
                 Figure (b)
 ```
 
-#### Perfect Binary Tree
-A binary tree where each level contains the maximum number of nodes. i.e., every level is completely* full* of nodes.
+#### Perfect Binary Tree [Completely Full Binary Tree: Each level contains max num. of nodes]
+A binary tree where each level contains the maximum number of nodes. i.e., every level is completely* full* of nodes [full and complete binary tree].
 - Number of nodes of a Perfect Binary Tree at depth (d) is 2^d
-- Total number of nodes of a Perfect Binary Tree of height (h) = 2^(h+1) -1 
-
+- Total number of nodes of a Perfect Binary Tree of height h is 
+   n = 2^(h+1)-1 
+- Total number of nodes of a Perfect Binary Tree of height h=2 is 
+   n = 2^(2+1)-1 = 7 
 ```
                                           Height   Depth
                    18                       2        0             
@@ -323,8 +327,9 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
           40    50    100   40              0        2
                 Figure (c)
 ```
-##### Property 1: The number of nodes at depth d in a perfect binary tree = 2^d
-- There is only 1 node (= the root node) at depth 0: 2^0 = 1
+##### Property 1: The number of nodes of a perfect binary tree at depth (d) is 2^d nodes
+- There is only 1 node (= the root node) at depth 0 
+     2^0 = 1
 - In a perfect binary tree, every node has 2 children nodes
 ```
                                                                                 Depth  Nodes at level
@@ -343,11 +348,11 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
             3        2^2=8                       16                                      8       9   10    11   12   13   14    15
 ```
 - i.e. 
-  - The number of nodes doubles every time the depth increases by 1!
+  - The number of nodes doubles every time the depth increases by 1.
 - Therefore, 
   - nodes at depth d = 2^d
 
-##### Property 2: A perfect binary tree of height h has [2^(h+1) - 1] nodes
+##### Property 2: The number of nodes of a perfect binary tree of height (h) is 2^(h+1)-1
 - Total number of nodes in a perfect binary tree of height h
     Number of nodes = 2^0 + 2^1 + ... 2^h = 2^(h+1) − 1
 ```
@@ -365,23 +370,26 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
        2xS - S = 2^(h+1) - 1  
     <==>     S = 2^(h+1) - 1
 ```
-##### Property 3: Number of leaf nodes in a perfect binary tree of height h = 2^h
+##### Property 3: Number of leaf nodes in a perfect binary tree of height h is 2^(h)
 - Number of leaf nodes in a perfect binary tree of height h = 2^h
 - Number of nodes at depth d in a perfect binary tree = 2^d
 - All the leaf nodes in a perfect binary tree of height h has a depth equal to h:
 - Number of nodes at depth h in a perfect binary tree = 2^h
 - Therefore, Number of leaf nodes in a perfect binary tree of height h = 2^h
 
-##### Property 4: Number of internal nodes in a perfect binary tree of height h = 2^h − 1
-- Number of nodes in a perfect binary tree of height h = 2^(h+1) − 1   (see Property 2)
+##### Property 4: Number of internal nodes in a perfect binary tree of height h is 2^(h)−1
+- Number of nodes in a perfect binary tree of height h = 2^(h+1)−1     (see Property 2)
 - Number of leaf nodes in a perfect binary tree of height h = 2^h      (see Property 3)
-- The other nodes are internal nodes (i.e., with at least 1 child node).
+- The other nodes are internal nodes (i.e., with at least 1 child node)
 - So the number of internal nodes in a perfect binary tree of height h is
   - [Total number of nodes] - [Number of nodes at height h] 
-  - [(2^(h+1)−1)] − [2^h = 2^h − 1]
+  - [(2^(h+1)−1)] − [2^h = 2^(h) − 1]
 
 ### Other properties of a Binary Tree
-1. Number of nodes in a complete binary tree is between 2^(h) and 2^(h+1)-1
+1. Number of nodes in a complete binary tree is between 
+    (2^(h)−1)+1 [internal nodes + 1] 
+    and
+    2^(h+1)-1  [Completely full / Perfect Binary Tree]
 2. Number of nodes in a perfect binary tree 2^(h+1)-1
 3. Min height of a binary tree is log2(n+1)-1 or floor( (log2(n+1) )
 
@@ -399,7 +407,8 @@ https://www.educative.io/edpresso/what-is-the-difference-between-the-height-and-
 Difference between the left and right subtree is not more than k.
         | leftHeight - rightHeight | = 1
 The absolute difference between the height of the left and right subtree must not more than K.
-K in this case of a balanced binary tree is 1. For example, if we remove the node 5 from the below tree, it becomes unbalanced.
+K in this case of a balanced binary tree is 1. 
+For example, if we remove the node 5 from the below tree, it becomes unbalanced.
 ```
               1
           2       3
