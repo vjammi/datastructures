@@ -262,27 +262,25 @@ https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
 
 ### Depth and Height  
 ```
-                                          Height   Depth
-                   18                       2        0             
+                                          Height [from a Node the deepest Leaf]           Depth [From Root to the X Node]
+                   18                       2                                                   0             
                 /     \                             
-             15         30                  1        1
+             15         30                  1                                                   1
             /  \        /  \                        
-          40    50    100   40              0        2                
+          40    50    100   40              0                                                   2                
 ```
-- Depth of a node
-  - The depth of a node is the number of edges from the root to the node.
 - Height of a node
   - The height of a node is the number of edges from the node to the deepest leaf.
 - Height of a tree
   - The height of a tree is a height of the root.
-- A full binary tree
-  - A full binary tree is a binary tree in which each node has exactly zero or two children.
-- A complete binary tree
-  - A complete binary tree is a binary tree, which is completely filled, with the possible exception of the bottom level, which is filled from left to right. 
-  - The data structure Heap is a good example of a complete binary tree.
+
+
+- Depth of a node
+    - The depth of a node is the number of edges from the root to the node.
+    - Depth is in relation to nodes 
 
 ### Binary Tree Classifications
-
+    
 #### Full Binary Tree
 A full binary tree is a binary tree in which each node has exactly zero or two children.
 ```
@@ -295,7 +293,11 @@ A full binary tree is a binary tree in which each node has exactly zero or two c
 ```
 
 #### Complete Binary Tree
-A complete binary tree is very special tree, it provides the best possible ratio between the number of nodes and the height. The height h of a complete binary tree with N nodes is at most O(log N). We can easily prove this by counting nodes on each level, starting with the root, assuming that each level has the maximum number of nodes:
+A complete binary tree is a binary tree, which is completely filled, with the possible exception of the bottom level, which is filled from left to right. 
+The data structure Heap is a good example of a complete binary tree.
+A complete binary tree is very special tree, it provides the best possible ratio between the number of nodes and the height. 
+The height h of a complete binary tree with N nodes is at most O(log N). We can easily prove this by counting nodes on each level, 
+starting with the root, assuming that each level has the maximum number of nodes:
     n = 1 + 2 + 4 + ... + 2^(h-1) + 2^(h) = 2^(h+1) - 1
 Solving this with respect to h, we obtain
     h = O(log n)
