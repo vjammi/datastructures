@@ -8,10 +8,17 @@ package ds.patterns.trees.path;
  *
  * Example 1:
  * Input: root = [1,null,3,2,4,null,null,null,5]
+ *                          1
+ *                      /      \
+ *                  null        3
+ *                           /     \
+ *                         2        4
+ *                       /  \     /   \
+ *                    null  null null  5
  * Output: 3
  * Explanation: Longest consecutive sequence path is 3-4-5, so return 3.
  *
- * */
+ **/
 
 public class BinaryTreeLongestConsecutiveSequence {
 
