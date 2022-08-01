@@ -26,6 +26,7 @@ public class BinaryTreeDepthAndHeight {
         return maxDepthSeenSofar;
     }
 
+    // TODO: Needs to be revisited. Does not look right
     //Input: root = [3,9,20,null,null,15,7]
     //       depth(node, 0)
     //    3                 1                 +1      1
@@ -70,6 +71,7 @@ public class BinaryTreeDepthAndHeight {
 
         int maxHeightSeenSoFar = Math.max(leftHeight, rightHeight) + 1; // Adding 1 for the current depth
         System.out.println(maxHeightSeenSoFar);
+
         return maxHeightSeenSoFar;
     }
 

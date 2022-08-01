@@ -108,7 +108,7 @@ public class LowestCommonAncestor {
             return lca;
         }
 
-        // When qFound and pFound and LCA is yet determined, bubble up the child node [p or q]
+        // When qFound and pFound and LCA is NOT yet determined, bubble up the child node [p or q]
         if (left == p || right == p)        // If p is being returned from either of the children bubble it up
             return p;
         else if(left == q || right == q)    // If q is being returned from either of the children bubble it up
@@ -126,8 +126,12 @@ public class LowestCommonAncestor {
      Algorithm
      Start from the root node and traverse the tree.
      Until we find p and q both, keep storing the parent pointers in a dictionary.
+
      Once we have found both p and q, we get all the ancestors for p using the parent dictionary and add to a set called ancestors.
-     Similarly, we traverse through ancestors for node q. If the ancestor is present in the ancestors set for p, this means this is the first ancestor common between p and q (while traversing upwards) and hence this is the LCA node.
+     Similarly, we traverse through ancestors for node q.
+
+     If the ancestor is present in the ancestors set for p, this means this is the first ancestor common between p and q (while traversing upwards)
+     and hence this is the LCA node.
      */
     public TreeNode lca_borrowed(TreeNode root, TreeNode p, TreeNode q) {
 

@@ -1,22 +1,5 @@
 package ds.patterns.trees.traversal;
 
-/**
-     <---------Negative Cols---   -------------Positive Cols------->
-     -3      -2      -1         0          1      2       3
-
-                                A
-                              [0,0]                                Row/Level 0
-
-                     B                     C
-                   [1,-1]                [1,1]                     Row/Level 1
-
-             D               E     F              G
-          [2,-2]           [2,0] [2,0]          [2,2]              Row/Level 2
-
-     H               I                    J               K
-    [3,-3]         [3,-1]                [3,1]          [3,3]      Row/Level 3
-*/
-
 import java.util.*;
 
 /**
@@ -46,6 +29,22 @@ import java.util.*;
      Column 1: Only node 3 is in this column.
      Column 2: Only node 7 is in this column.
 
+
+     //     <---------Negative Cols---   -------------Positive Cols------->
+     //     -3      -2      -1         0          1      2       3
+     //
+     //                                A
+     //                              [0,0]                                Row/Level 0
+     //
+     //                     B                     C
+     //                   [1,-1]                [1,1]                     Row/Level 1
+     //
+     //             D               E     F              G
+     //          [2,-2]           [2,0] [2,0]          [2,2]              Row/Level 2
+     //
+     //     H               I                    J               K
+     //    [3,-3]         [3,-1]                [3,1]          [3,3]      Row/Level 3
+
  */
 public class BinaryTreeVerticalOrderTraversal {
 
@@ -61,9 +60,9 @@ public class BinaryTreeVerticalOrderTraversal {
         @Override
         public int compare(Cell a,  Cell  b){
             if (a.row.equals(b.row))
-                return a.value.compareTo(b.value);  // Same rows - return the smaller value
+                return a.value.compareTo(b.value);  // *** Same rows - return the smaller value
             else
-                return a.row.compareTo(b.row);      // Not same rows - return the smaller row
+                return a.row.compareTo(b.row);      // *** Not same rows - return the smaller row
         }
     }
 
@@ -99,15 +98,12 @@ public class BinaryTreeVerticalOrderTraversal {
             }
             result.add(listOfInts);
         }
-
         return result;
     }
 
     //Map of - Col, ListOfCell
     Map<Integer, List<Cell>> map = new TreeMap();
-
     public void dfs(TreeNode node, int row, int col) {
-
         if (node == null)
             return;
 
@@ -121,7 +117,6 @@ public class BinaryTreeVerticalOrderTraversal {
 
         dfs(node.left, row+1, col-1);
         dfs(node.right, row+1, col+1);
-
     }
 
 }

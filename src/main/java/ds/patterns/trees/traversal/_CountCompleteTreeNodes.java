@@ -5,7 +5,8 @@ package ds.patterns.trees.traversal;
     Given the root of a complete binary tree, return the number of the nodes in the tree.
     According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree,
     and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
-    Design an algorithm that runs in less than O(n) time complexity.
+
+    *** Design an algorithm that runs in less than O(n) time complexity.
 
     Input: root = [1,2,3,4,5,6]
     Output: 6
@@ -16,12 +17,10 @@ package ds.patterns.trees.traversal;
     Input: root = [1]
     Output: 1
 
-*/
-/**
-                    1
-            2               3
-        4       5       6       7
-      8   9   10  11  12   N  N    N
+    //                    1
+    //            2               3
+    //        4       5       6       7
+    //      8   9   10  11  12   N  N    N
 
 */
 // Note: 12 / 18 test cases passed.
