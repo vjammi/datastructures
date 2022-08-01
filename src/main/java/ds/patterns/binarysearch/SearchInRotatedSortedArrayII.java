@@ -78,23 +78,28 @@ public class SearchInRotatedSortedArrayII {
 
         if (nums[mid] == target){
             return true;
+        }
 
-        /**
-            //    3 3 3 4 5 3 3 3 3 3
-            //    0 1 2 3 4 5 6 7 8 9
-            //    ^         ^       ^
-        */
-        }else if(nums[low] == nums[mid] && nums[high] == nums[mid]) { // Additional logic to handle duplicates
+         // Additional logic to handle duplicates
+         //    3 3 3 4 5 3 3 3 3 3
+         //    0 1 2 3 4 5 6 7 8 9
+         //    ^         ^       ^
+        else if(nums[low] == nums[mid] && nums[high] == nums[mid]) {
             return search(nums, target, low+1, high-1);
+        }
 
-        }else if (nums[low] <= nums[mid]){ // left side is sorted -- nums[low] <= nums[mid
+        // should the left half be sorted, we will try to search in that sorted half, else it must be in the other half
+        else if (nums[low] <= nums[mid]){ // left side is sorted -- nums[low] <= nums[mid
             if (target >= nums[low] && target < nums[mid]){
                 return search(nums,target,low, mid-1);
             }else{
                 return search(nums,target,mid+1, high);
             }
 
-        }else { //if right side is sorted -- nums[high] >= nums[mid]
+        }
+
+        // should the right half be sorted if(nums[mid] <= nums[high]), we will try to search in that sorted half, else it must be in the other half
+        else { //if right side is sorted -- nums[high] >= nums[mid]
             if (target > nums[mid] && target <= nums[high]){
                 return search(nums,target,mid+1, high);
             }else{

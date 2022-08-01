@@ -5,8 +5,8 @@ package ds.patterns.binarysearch;
 public class OccuranceOfAnElementInSortedArray {
 
 	private int numberOfOccurances(int[] a) {
-		int firstOccurance = searchFirst(a, 5); 	// returns first occurance
-		int lastOccurance = searchLast(a, 5);   	// returns last occurance
+		int firstOccurance = searchFirst(a, 5); 	// returns first occurrence
+		int lastOccurance = searchLast(a, 5);   	// returns last occurrence
 		int numberOfOccurrences = lastOccurance - firstOccurance;
 		System.out.println("First Occurrence: " +firstOccurance +" Last Occurrence: "+lastOccurance + " Number of Occurrences: " + numberOfOccurrences);
 		return numberOfOccurrences;

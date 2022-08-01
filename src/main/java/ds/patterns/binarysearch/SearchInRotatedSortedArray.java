@@ -41,13 +41,15 @@ public class SearchInRotatedSortedArray {
         if (low > high)
             return -1;
 
-        //int mid = low + (high-low)/2;
-        int mid = (low + high) >>> 1;
+        int mid = low + (high-low)/2;
+        //int mid = (low + high) >>> 1;
 
         if (nums[mid] == target){
             return mid;
 
-        }else if (nums[low] <= nums[mid]){ // should the left half be sorted
+        }
+        // should the left half be sorted, we will try to search in that sorted half, else it must be in the other half
+        else if (nums[low] <= nums[mid]){
 
             // if the target is within - left sorted half go left, else go right
             if (target >= nums[low] && target < nums[mid])
@@ -55,8 +57,10 @@ public class SearchInRotatedSortedArray {
             else
                 return search(nums, target, mid+1, high);
 
-        }else { // should the right half be sorted if(nums[mid] <= nums[high])
+        }
 
+        // should the right half be sorted if(nums[mid] <= nums[high]), we will try to search in that sorted half, else it must be in the other half
+        else {
             // if the target is within - right sorted half, go right else go left
             if (target > nums[mid] && target <= nums[high])
                 return search(nums, target, mid+1, high);
@@ -68,6 +72,6 @@ public class SearchInRotatedSortedArray {
 
     public static void main(String[] args) {
         SearchInRotatedSortedArray obj = new SearchInRotatedSortedArray();
-        System.out.println(obj.search(new int[]{4,5,6,7,0,1,2},0));
+        System.out.println(obj.search(new int[]{4,5,6,7,0,1,2},1));
     }
 }

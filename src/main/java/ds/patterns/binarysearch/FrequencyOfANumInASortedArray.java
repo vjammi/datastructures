@@ -11,7 +11,7 @@ package ds.patterns.binarysearch;
  *  1. Go from left to right counting the occurrences of the num
  *
  *  2. Two Pointer O(logn): Go from left to right, right to left. find the left and right most occurrence of the number.
- *     The frequency would be (right - left +1)
+ *     The frequency would be (right-left +1)
  *
  *  3. Binary Search O(log(n)): find rightMostIndex, find leftMostIndex, return the difference + 1.
  *      Find the leftMostIndex:
