@@ -5,18 +5,21 @@ import java.util.Queue;
 
 /**
  * 297. Serialize and Deserialize Binary Tree
- * */
+ *  Input: [1,2,3,null,null,4,5]
+ *
+ *  1,2,3,NULL,NULL,4,5,NULL,NULL,NULL,NULL
+ *
+ */
 public class SerializeDeserializeBinaryTree {
 
 
-      // Definition for a binary tree node.
-      public class TreeNode {
-          int val;
-          TreeNode left;
-          TreeNode right;
-          TreeNode(int x) { val = x; }
-      }
-
+     // Definition for a binary tree node.
+     public class TreeNode {
+         int val;
+         TreeNode left;
+         TreeNode right;
+         TreeNode(int x) { val = x; }
+     }
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
@@ -27,11 +30,11 @@ public class SerializeDeserializeBinaryTree {
         while(!queue.isEmpty()){
             TreeNode node = queue.poll();
             if (node!= null) {
-                serializedTree = serializedTree + node.val +";" ;
+                serializedTree = serializedTree + node.val +"," ;
                 queue.add(node.left);
                 queue.add(node.right);
             }else{
-                serializedTree = serializedTree + "-9999" + ";" ;
+                serializedTree = serializedTree + "NULL" + "," ;
             }
         }
         System.out.println(serializedTree.substring(0, serializedTree.length()-1));
@@ -40,7 +43,7 @@ public class SerializeDeserializeBinaryTree {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String serializedData) {
-        String[] data = serializedData.split(";");
+        String[] data = serializedData.split(",");
         for (String element: data) {
             System.out.print(element +" ");
         }
@@ -55,21 +58,21 @@ public class SerializeDeserializeBinaryTree {
             int end = Math.min(totalNodes + nodesInLevel, data.length);
             for(int i = totalNodes; i< end; i++){
                 if (level == 0){
-                    if (!data[i].equals("-9999")) {
+                    if (!data[i].equals("NULL")) {
                         root = new TreeNode(Integer.parseInt(data[i]));
                         queue.add(root);
                         System.out.print("Root-" + data[i] + ", ");
                     }
                 }else {
                     TreeNode levelNode = queue.poll();
-                    if (!data[i].equals("-9999")) {
+                    if (!data[i].equals("NULL")) {
                         TreeNode leftNode = new TreeNode(Integer.parseInt(data[i]));
                         queue.add(leftNode);
                         levelNode.left = leftNode;
                         System.out.print("Left-" + data[i] + ", ");
                     }
                     i++;
-                    if (!data[i].equals("-9999")) {
+                    if (!data[i].equals("NULL")) {
                         TreeNode rightNode = new TreeNode(Integer.parseInt(data[i]));
                         queue.add(rightNode);
                         levelNode.right = rightNode;

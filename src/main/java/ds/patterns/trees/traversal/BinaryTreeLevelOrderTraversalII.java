@@ -49,10 +49,13 @@ public class BinaryTreeLevelOrderTraversalII {
                 TreeNode node = queue.poll();
                 if (node != null)
                     levelStack.add(node.val);
+
                 if (node != null && node.left != null)
                     queue.offer(node.left);
+
                 if(node != null && node.right != null)
                     queue.offer(node.right);
+
                 size--;
             }
             result.add(0, levelStack);

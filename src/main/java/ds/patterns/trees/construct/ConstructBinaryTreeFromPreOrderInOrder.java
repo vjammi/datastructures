@@ -1,4 +1,4 @@
-package ds.patterns.trees.traversal.construct;
+package ds.patterns.trees.construct;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,32 +73,32 @@ public class ConstructBinaryTreeFromPreOrderInOrder {
         this.preorder = preorder;
         this.inorder = inorder;
 
-        for(int i = 0 ; i < inorder.length; i++){
+        for(int i = 0 ; i < inorder.length; i++)
             inOrderMap.put(inorder[i], i);
-        }
 
         int leftIndex = 0; int rightIndex = preorder.length - 1;
         return buildTree(leftIndex, rightIndex);
     }
 
     // https://youtu.be/FBaSrNSf9po?list=PLFj4kIJmwGu2WedpHdv1p_LrLGvwqDvjZ
-    // Inorder  - H D P L A Z C E
     // PreOrder - A D H L P Z C E
+    // Inorder  - H D P L A Z C E
     private TreeNode buildTree(int leftIndex, int rightIndex) {
-        if (leftIndex > rightIndex){ // or we could also say (rightIndex < leftIndex){
+        if (leftIndex > rightIndex) // or we could also say (rightIndex < leftIndex){
             return null;
-        }
 
         // Select the next preorder node as the current root and increment it preorder index
         int preorderNodeVal = preorder[preorderIndex++];
-        TreeNode currNode = new TreeNode(preorderNodeVal); // node on the stack
+        int inorderNodeIndex = inOrderMap.get(preorderNodeVal); // lookup the index of the preOrderNodeVal within the inorder map.
+
+        // Create the node, on the stack. The mid becomes the root of the subtree.
+        TreeNode node = new TreeNode(preorderNodeVal);
 
         // A/Left of +AB & B/Right of +AB
-        int inorderIndexForCurrNode = inOrderMap.get(preorderNodeVal); // lookup the index of the preOrderNodeVal within the inorder map.
-        currNode.left  = buildTree(leftIndex, inorderIndexForCurrNode - 1 );  // On your way back, add the returned node to the left of the current root node
-        currNode.right = buildTree(inorderIndexForCurrNode + 1, rightIndex ); // On your way back, add the returned node to the right of the current root node
+        node.left  = buildTree(leftIndex, inorderNodeIndex-1 );  // On your way back, add the returned node to the left of the current root node
+        node.right = buildTree(inorderNodeIndex+1, rightIndex ); // On your way back, add the returned node to the right of the current root node
 
-        return currNode; // Return the current node to be added to the left or the right side of the parent node.
+        return node; // Return the current node to be added to the left or the right side of the parent node.
     }
 
     private void buildTree() {

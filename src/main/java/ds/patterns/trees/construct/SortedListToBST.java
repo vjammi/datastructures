@@ -1,4 +1,4 @@
-package ds.patterns.trees.bst;
+package ds.patterns.trees.construct;
 
 public class SortedListToBST {
 
@@ -9,9 +9,8 @@ public class SortedListToBST {
     public TreeNode sortedListToBST(ListNode head) {
 
         // If the head doesn't exist, then the linked list is empty
-        if (head == null) {
+        if (head == null)
             return null;
-        }
 
         // Find the middle element for the list.
         ListNode mid = findMid(head);
@@ -22,13 +21,15 @@ public class SortedListToBST {
         // Another base case - when there is just one element in the linked list
         // When the node has no left and right siblings (only 1 element left) - head will be the mid.
         // Then, we will no longer need to traverse its left and right subtree
-        if (head == mid) {
+        if (head == mid)
             return node;
-        }
+
 
         // Recursively form balanced BSTs using the left and right halves of the original list.
         node.left = sortedListToBST(head);
         node.right = sortedListToBST(mid.next);
+
+        // Return the current node
         return node;
     }
 

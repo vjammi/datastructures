@@ -1,4 +1,4 @@
-package ds.patterns.trees.bst;
+package ds.patterns.trees.construct;
 
 /**
     108. Convert Sorted Array to Binary Search Tree   https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
@@ -37,7 +37,7 @@ package ds.patterns.trees.bst;
         That will generate different BSTs but both solutions will be accepted.
 
  */
-public class ConvertSortedArrayToBST {
+public class SortedArrayToBST {
 
 
     public class TreeNode {
@@ -61,13 +61,16 @@ public class ConvertSortedArrayToBST {
 
     public TreeNode buildTree(int[] nums, int start, int end) {
 
-        if (start>end){
+        if (start>end)
             return null;
-        }
 
+        // Find the middle element for the arr.
         int mid = (start+end)/2;
+
+        // create the node. The mid becomes the root of the BST subtree.
         TreeNode node = new TreeNode(nums[mid]);
 
+        // Recursively form balanced BSTs using the left and right halves of the original arr
         node.left  = buildTree(nums, start, mid-1);
         node.right = buildTree(nums, mid+1, end);
 
