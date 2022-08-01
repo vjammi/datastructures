@@ -9,14 +9,11 @@ package ds.patterns.trees.bst;
  *
  * The successor of a node p is the node with the smallest key greater than p.val.
  * ** Successor of a node is the next max value of the node
- *
- *             6                 Successor of 6 is 7
- *        2           8          Successor of 2 is 3, Successor of 8 is 9
- *     0     4     7     9       Successor of 9 is null
- *        3    5
+    //                   6                Successor of 6 is 7
+    //             2           8          Successor of 2 is 3, Successor of 8 is 9
+    //         0      4     7     9       Successor of 9 is null
+    //             3    5                 Successor of 3 is 4
  */
-
-
 /**
  *  1. Find the node for which we are trying to find the ancestor
  *
@@ -26,8 +23,6 @@ package ds.patterns.trees.bst;
  *        - Walk  from the root to that current node to find the deepest/nearest ancestor for which the current node will be to its left
  *        - This can be done by storing the node from where we take left until we reach the current node.
  *        - while traversing if we find another deeper node where the current node will be to its left, then the ancestor wil be updated
- *
- *
  *
  *  Reference:
  *      https://youtu.be/5cPbNCrdotA?t=947
@@ -54,7 +49,11 @@ public class InOrderSuccessor {
         }
     }
 
-    // https://gist.github.com/mycodeschool/6515e1ec66482faf9d79
+
+    //               6                Successor of 6 is 7
+    //         2           8          Successor of 2 is 3, Successor of 8 is 9
+    //     0      4     7     9       Successor of 9 is null
+    //         3    5                 Successor of 3 is 4
     public TreeNode inorderSuccessor(TreeNode root, TreeNode pNode) {
         // Fetch Node - Not needed
         // TreeNode pNodeFetched = search(root, pNode.val);
@@ -71,7 +70,7 @@ public class InOrderSuccessor {
                     successor = current; // So far this is the deepest node for which current node is in left
                     current = current.left;
                 }else{
-                    current = current.right;
+                    current = current.right;        //  For p==3, we traverse 6 >left> 2 >right> 4 >left> 3
                 }
             }
             return successor;

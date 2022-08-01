@@ -19,11 +19,12 @@ public class ValidateBinarySearchTree {
 
     public boolean isValidBST(TreeNode root) {
         // Approach 1 - Lower and Upper bound checks
-        //return validate(root,Integer.MIN_VALUE, Integer.MAX_VALUE);
+        return validate(root,Integer.MIN_VALUE, Integer.MAX_VALUE);
 
         // Approach 2 - Inorder processing
-        inorder(root);
-        return isValid;
+        // inorder(root);
+        // return isValid;
+
     }
 
     /**
@@ -88,7 +89,8 @@ public class ValidateBinarySearchTree {
         // if (left!=null && left.val >= node.val) isValid = false; // Not required any more with the introduction of previous
 
         // Inorder node check -  the value of the current node needs to be greater than the previous node we have already processed.
-        if (prevNode!=null && node.val <= prevNode.val) // <= will work if there are no duplicates. to handle duplicates we can return false when node.val < prevNode.val
+        // <= will work if there are no duplicates. to handle duplicates we can return false when node.val < prevNode.val
+        if (prevNode!=null && node.val <= prevNode.val ) // node.val < prevNode.val - to handle duplicates
             isValid = false;
 
         // Inorder node assignment

@@ -23,3 +23,20 @@ Time complexity and space complexity of the search operation in a BST whose heig
 ### Inorder Successor in a BST
 To find the inorder successor in a BST, we can obviously do the inorder traversal to find the inorder successor in a BST.
 But we could apply other properties of the BST to find out a better way.
+
+
+### Handling duplicates in a BST
+To insert in a binary Search tree without duplicates we
+    Go left if element is less than root
+    Go right if the element is greater than root.
+
+To allow duplicates we
+    Go left if the element is less or equal root
+    Go right if the element is greater than root.
+                    or
+    Go left if the element is less than root
+    Go right if the element is greater or equal root.
+                    or
+    Go left if the element is less than root
+    Go right if the element is greater than root.
+    Increase the count if the element is equal to the root.

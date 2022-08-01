@@ -59,9 +59,7 @@ public class LowestCommonAncestorBST {
         if (node == null)
             return;
 
-        int nodeVal = node.val;
-        int pVal = p.val;
-        int qVal = q.val;
+        int nodeVal = node.val; int pVal = p.val; int qVal = q.val;
 
         // Scenario 1: P and Q are to the left and right of the node, node is the lca
         if( (nodeVal > pVal && nodeVal < qVal) || (nodeVal<pVal && nodeVal>qVal) ){
@@ -86,13 +84,12 @@ public class LowestCommonAncestorBST {
         // Optimization for log(n) search - Guide the search using BST properties
 
         // P and Q are either in the left or right subtree
-        if (pVal < nodeVal && qVal < nodeVal ){
+        if (pVal < nodeVal && qVal < nodeVal )
             lca(node.left, p, q);
-        }
+
         // P and Q are either in the left or right subtree
-        if (pVal > nodeVal && qVal > nodeVal){
+        if (pVal > nodeVal && qVal > nodeVal)
             lca(node.right, p, q);
-        }
 
 
     }
