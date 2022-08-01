@@ -32,7 +32,7 @@ import java.util.*;
 
 public class TopKFrequentElements {
 
-    class FrequencyComparator implements Comparator<Integer>{
+    class MinFrequencyComparator implements Comparator<Integer>{
         @Override
         public int compare(Integer n1, Integer n2) {
             return charToFreqMap.get(n1).compareTo(charToFreqMap.get(n2));  //
@@ -61,9 +61,9 @@ public class TopKFrequentElements {
         //   When the heap size exceeds k, we will remove the minimum element,
         //   that will guarantee that we have the k largest elements left in the heap.
 
-        // Within the heap store the less frequent elements first -  O(N log K) solution
-        Queue<Integer> queue = new PriorityQueue<>(new FrequencyComparator());
-        // 2. Keep K top frequent elements in the heap iun reverse order using min heap
+        // Within the heap store the less frequent elements on the front or on the top of the heap -  O(N log K) solution
+        Queue<Integer> queue = new PriorityQueue<>(new MinFrequencyComparator());
+        // 2. Keep K top frequent elements in the heap in reverse order using min heap
         // O(K log N) < O(N log N) time [iterate over n elements keeping K elements in ascending order]
         for (int key: charToFreqMap.keySet()) {
             queue.offer(key);

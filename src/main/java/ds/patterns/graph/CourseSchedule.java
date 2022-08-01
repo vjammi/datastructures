@@ -117,7 +117,7 @@ public class CourseSchedule {
                     return false;
             }
         }
-        // Once we have visit all the current nodes neighbors, we mark the node as fully visited during downhill
+        // Once we have visited all the current nodes neighbors, we mark the node as fully visited during downhill
         visited[node] = 1;
         return true;
     }
