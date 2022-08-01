@@ -63,7 +63,6 @@ public class InvertBinaryTree {
         invert(node.left);
         invert(node.right);
         //swapNodes(node);  // Can also be inverted in post-order
-
     }
 
     public void swapNodes(TreeNode node){

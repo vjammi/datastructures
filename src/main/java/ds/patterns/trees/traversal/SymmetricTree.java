@@ -34,12 +34,13 @@ public class SymmetricTree {
 
     public boolean isSymmetric(TreeNode root) {
         if (root == null) return true;
-        return symmetric(root.left, root.right);
+        return symmetric(root.left, root.right); // ***
     }
 
-    //                     1
-    //                  2     2
-    //                3  4  4   3
+    //                   1
+    //
+    //                2      2
+    //              3  4   4   3
     private boolean symmetric(TreeNode p, TreeNode q){
         if ( p == null && q == null)
             return true;
@@ -50,10 +51,10 @@ public class SymmetricTree {
         if ( (p != null && q != null) && (p.val != q.val) )
             return false;
 
-        boolean left  = symmetric(p.left, q.right);
-        boolean right = symmetric(p.right, q.left);
+        boolean leftSymmetric  = symmetric(p.left, q.right); // ***
+        boolean rightSymmetric = symmetric(p.right, q.left); // ***
 
-        if (left && right)
+        if (leftSymmetric && rightSymmetric)
             return true;
 
         return false;
