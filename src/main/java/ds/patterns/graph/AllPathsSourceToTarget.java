@@ -50,9 +50,8 @@ public class AllPathsSourceToTarget {
 
     public List<List<Integer>> allPathsSourceTarget2(int[][] graph) {
         List<List<Integer>> result = new ArrayList();
-        List<Integer> path = new ArrayList<>();
 
-        // Source = 0, target = n-1/graph.length-1
+        List<Integer> path = new ArrayList<>();
         path.add(0);
         dfs2(0, graph, path, result);
         System.out.println(result);

@@ -46,11 +46,11 @@ public class CloneGraph {
         if (node == null)
             return null;
 
-        Map<Node, Node> visited = new HashMap();
-        dfs(node, visited);
-        //dfs2(node, visited);
+        Map<Node, Node> map = new HashMap();
+        dfs(node, map);
+        //dfs2(node, map);
 
-        return visited.get(node);
+        return map.get(node);
     }
 
     // 1. Create a copy of each node of the Graph
