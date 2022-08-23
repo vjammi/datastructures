@@ -4,19 +4,17 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
-      Passing by Value and Pass by Reference
-
-      Java always is Pass by Value
-      C++ is Pass by Reference
+   Passing by Value / Pass by Reference
+      - Java always is Pass by Value
+      - C++ is Pass by Reference
 
       Pass by value:
-        makes a copy in memory of the parameter’s value, or a copy of the contents of the parameter.
+        Makes a copy in memory of the parameter’s value, or a copy of the contents of the parameter.
       Pass by reference:
-        a copy of the address (or reference) to the parameter is stored rather than the value itself. In this case,
-        modifying the value of the parameter will change the value. Here is an example in C++,
-        which is very similar to Java syntax (cout is C++’s way of printing to the terminal):
+        A copy of the address (or reference to the object) to the parameter is stored rather than the value itself.
+        In this case, modifying the value of the parameter will change the value. Below is an example in C++
 
-      So, why does it appear that Java is (mostly) pass-by-reference, but books say that Java is always pass-by-value?
+   So, why does it appear that Java is (mostly) pass-by-reference, but books say that Java is always pass-by-value?
       Passing in the Cat myCat into adoptCat() and changing the name there using the parameter c did, in fact,
       change the name of the cat! This intuitively looks like the pass-by-reference example above:
       making a change to the passed-in object affects that object’s values in memory.
@@ -26,13 +24,14 @@ import java.util.function.Consumer;
       When any variable is passed to a method in Java, the value of the variable on the stack is copied into a new variable
       inside the new method.
 
+   References
       https://www.cs.virginia.edu/~jh2jf/courses/cs2110/java-pass-by-value.html#:~:text=Java%20is%20officially%20always%20pass,the%20reference%20for%20reference%20types.
       https://www.andrew.cmu.edu/course/15-121/lectures/Class%20Design/classes.html
  */
-public class PassByValue_PassByReference {
+public class PassByValueAndReferencesInJava {
 
     public static void main(String[] args) {
-        PassByValue_PassByReference obj = new PassByValue_PassByReference();
+        PassByValueAndReferencesInJava obj = new PassByValueAndReferencesInJava();
 
         obj.testPassingPrimitiveTypes();
         obj.testPassingString();
