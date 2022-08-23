@@ -1,4 +1,4 @@
-package ds.patterns.subs.subarray;
+package ds.patterns.subarray;
 
 /**
  * 53. Maximum Subarray

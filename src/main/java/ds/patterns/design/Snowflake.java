@@ -1,4 +1,4 @@
-package ds.patterns.design.uid;
+package ds.patterns.design;
 
 import java.net.NetworkInterface;
 import java.security.SecureRandom;

@@ -1,6 +1,6 @@
 # Graph
 - A graph is a collection of vertices and edges. Unlike a Tree which uses a Node class, in a graph we usually care about the adjacent nodes.
-- The Relationship between the edges. Neighbors of a node. We can usually represent as a graph with an adjacency list or adjacency matrix.
+- The Relationship between the edges. Neighbors of a listNode. We can usually represent as a graph with an adjacency list or adjacency matrix.
 ```
               3
              / 
@@ -184,12 +184,12 @@ It is east to lookup all the nods neighbors.
 - We initially use a for-loop to initialize all these lists to be empty
 - We then we iterate thru the input pairs and populate the adjacency list with edges.
 - Since the graph is undirected, we need to add each edge twice, since a is b's neighbors. Then b is a's neighbor too.
-- After this we need to iterate thru each node and explore all its neighbors.
+- After this we need to iterate thru each listNode and explore all its neighbors.
 - As we encounter nodes we use this boolean visited array to make the nodes that we have seen.
 - As we finish exploring all the connected components, we increment by 1.
 - Visited array prevents us from double counting a connected components and
 - the for loop prevents from missing one of the connected component.
-- Within the DFS, you mark the current node as visited and then you get the list of neighbors from the adjacency list.
+- Within the DFS, you mark the current listNode as visited and then you get the list of neighbors from the adjacency list.
 - We DFS into the one we have not seen.
 - Once all of them are visited. the DFS calls will automatically stop and then we are done.
 - Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
@@ -200,20 +200,20 @@ Time Complexity
 - The time complexity of DFS actually depends on the data structure being used to represent the graph.
 
 ##### Graph representation as adjacency list
-- Each node maintains a list of all its adjacent edges within a list.
+- Each listNode maintains a list of all its adjacent edges within a list.
 - If we assume that there are ```V number of nodes``` and ```E number of edges``` in the graph.
-- For each node, we discover all its neighbors by traversing its adjacency list just once in linear time.
+- For each listNode, we discover all its neighbors by traversing its adjacency list just once in linear time.
 - Directed graph - For a directed graph, the sum of the sizes of the adjacency lists of all the nodes is E. So, the time complexity in this case is ```O(V) + O(E) = O(V + E)```
 - Undirected graph - For an undirected graph, each edge appears twice. Once in the adjacency list of either end of the edge. The time complexity for this case will be ```O(V) + O (2E) ~ O(V + E)```.
 
 ##### Graph representation as an adjacency matrix (v x v matrix)
-- Each node maintains a list of all its adjacent edges within an array.
-- Each row in the adjacency matrix corresponds to a node in the graph and that row stores information about the edges emerging from the node.
+- Each listNode maintains a list of all its adjacent edges within an array.
+- Each row in the adjacency matrix corresponds to a listNode in the graph and that row stores information about the edges emerging from the listNode.
 - We traverse the entire row of length V in the matrix to discover all its outgoing edges.
 - Hence, the time complexity of DFS in this case is ```O(V * V) = O(V^2)```.
 
 Space Complexity
-- Since we are maintaining a stack to keep track of the last visited node in worst case, the stack could take upto the size of the nodes (or vertices) in the graph.
+- Since we are maintaining a stack to keep track of the last visited listNode in worst case, the stack could take upto the size of the nodes (or vertices) in the graph.
 - Hence, the space complexity is O(V).
 
 #### Complexity Analysis of Breadth First Search
@@ -222,9 +222,9 @@ Time Complexity
 - The time complexity of BFS actually depends on the data structure being used to represent the graph.
 
 ##### Graph representation as an Adjacency List
-- Here, each node maintains a list of all its adjacent edges.
+- Here, each listNode maintains a list of all its adjacent edges.
 - If we assume that there are V number of nodes and E number of edges in the graph.
-- For each node, we discover all its neighbors by traversing its adjacency list just once in linear time.
+- For each listNode, we discover all its neighbors by traversing its adjacency list just once in linear time.
 
 Directed Graph
 - For a directed graph, the sum of the sizes of the adjacency lists of all the nodes is E. So, the time complexity in this case is O(V) + O(E) = O(V + E).
@@ -234,8 +234,8 @@ Undirected Graph
 - The time complexity for this case will be ```O(V) + O (2E) ~ O(V + E)```.
 
 Graph represented as an adjacency matrix (a V x V array)
-- For each node, we will have to traverse an entire row of length V in the matrix to discover all its outgoing edges.
-- Each row in an adjacency matrix corresponds to a node in the graph, and that row stores information about edges emerging from the node.
+- For each listNode, we will have to traverse an entire row of length V in the matrix to discover all its outgoing edges.
+- Each row in an adjacency matrix corresponds to a listNode in the graph, and that row stores information about edges emerging from the listNode.
 - Hence, the time complexity of BFS in this case is ```O(V * V) = O(V2)```.
 
 Space Complexity
@@ -243,7 +243,7 @@ Space Complexity
 - Hence, the space complexity is ```O(V)```.
 
 Adjacency list vs  Adjacency matrix - Space Complexity
-- In general, the space complexity of an adjacency list is O(V+E), and in the worst case, it is O(V2) when every node is connected to all the other nodes.
+- In general, the space complexity of an adjacency list is O(V+E), and in the worst case, it is O(V2) when every listNode is connected to all the other nodes.
 - Here, V represents the number of vertices and E represents the number of edges in the graph.
 - The space complexity of the adjacency matrix is O(V2).
 - Benefits of Adjacency list over Adjacency matrix w.r.t space complexity 
@@ -269,9 +269,9 @@ Once we draw we could see that there could be different clusters or islands of n
 Each of these is called a connected component.
 We need to algorithmically count these connected components.
 Similar to the number of islands problem in a graph instead of a matrix.
-We want to pick a node and see all the nodes connected to it the next node.
+We want to pick a listNode and see all the nodes connected to it the next listNode.
 Eventually we will visit all the nodes in that cluster, that would be 1 connected component.
-The main logic is to use a DFS that lets use explore all the neighbors of a node, mark them as visited [an array]
+The main logic is to use a DFS that lets use explore all the neighbors of a listNode, mark them as visited [an array]
 so that we do not visit them again.
 
 We setup an adjacency list or a matrix  so that we can easily lookup each nodes neighbors.
@@ -281,13 +281,13 @@ We will set the key as the nodes name and the values a list of its edges.
 We initially use a for-loop to initialize all these lists to be empty
 We then we iterate thru the input pairs and populate the adjacency list with edges.
 Since the graph is undirected, we need to add each edge twice, since a is b's neighbors. Then b is a's neighbor too.
-After this we need to iterate thru each node and explore all its neighbors.
+After this we need to iterate thru each listNode and explore all its neighbors.
 As we encounter nodes we use a boolean visited array to mark the nodes that we have seen.
 As we finish exploring all the connected components, we increment by 1.
 Visited array prevents us from double counting a connected components and the for loop prevents from missing one of the connected component.
 
-Within the DFS, we mark the current node as visited and then get the list of neighbors from the adjacency list.
-We then DFS into the node we have not seen.
+Within the DFS, we mark the current listNode as visited and then get the list of neighbors from the adjacency list.
+We then DFS into the listNode we have not seen.
 Once all the nodes are visited, the DFS calls will stop. We are done.
 
 Calling DFS in a graph is no different from trees. It involves some setup with adjacency list and a visited array.
@@ -390,7 +390,7 @@ Space complexity ``` O(E+V)```
 - Also, the run-time stack for DFS will use O(V) space.
 
 Adjacency list vs  Adjacency matrix - Space Complexity
-- In general, the space complexity of an adjacency list is O(V+E), and in the worst case, it is O(V2) when every node is connected to all the other nodes. 
+- In general, the space complexity of an adjacency list is O(V+E), and in the worst case, it is O(V2) when every listNode is connected to all the other nodes. 
 - Here, V represents the number of vertices and E represents the number of edges in the graph.
 - The space complexity of the adjacency matrix is O(V2).
 
@@ -425,9 +425,9 @@ The only case you cannot complete all the courses is when we have a cycle.
 *This problem is all about finding cycle*
 
 Then how do you find cycles in a graph?
-The traversal part is the same, we pick and node and visit all its neighbors and mark them as visited in the visited graph.
-*Now anytime you come across a node that is already visited, you would know that have a cycle.* \
-But there is an issue. *A cycle is only when you come across a node in the current traversal, not from the past traversal.*\
+The traversal part is the same, we pick and listNode and visit all its neighbors and mark them as visited in the visited graph.
+*Now anytime you come across a listNode that is already visited, you would know that have a cycle.* \
+But there is an issue. *A cycle is only when you come across a listNode in the current traversal, not from the past traversal.*\
 This calls for the below pattern - keeping track of visiting and visited nodes. 
 ```
      0 = unvisited
@@ -457,20 +457,20 @@ The only difference is, since this is a *directed graph* we only need to add eac
 For the visited array, instead of using a boolean array we are using an integer array.     
 then we run the DFS function. Note that not all the components may be connected.
 We are done if the cycle is found. 
-Within the DFS function. as we enter the dfs [up the hill] we mark the node as -1.
-Now when we are done visiting, on the way back [downhill] we change it to 1, marking as the node as visited and we return true 
+Within the DFS function. as we enter the dfs [up the hill] we mark the listNode as -1.
+Now when we are done visiting, on the way back [downhill] we change it to 1, marking as the listNode as visited and we return true 
 since there were no cycles found.    
-The base cases basically ensure that we stop, when we see a node that we have encountered before. Obliviously when the node is labeled 0 we should visit it
+The base cases basically ensure that we stop, when we see a listNode that we have encountered before. Obliviously when the listNode is labeled 0 we should visit it
 if its 1 we checked it in a previous traversal and there are no cycles necessarily.
-However, if its -1, it would mean we encountered the node in the same exploration.
+However, if its -1, it would mean we encountered the listNode in the same exploration.
  
 If the above example is an undirected graph, you would not be able to use the same logic to detect if there is a cycle.
-You pass the parent node to determine where you came from.
+You pass the parent listNode to determine where you came from.
 
 For example, this one below is not a cycle.    
         -1      -1
          0   -   1
-This can be identified by passing the parent node as a param to the next node you are visiting.
+This can be identified by passing the parent listNode as a param to the next listNode you are visiting.
    
 ##### Solution
 The problem could be modeled as yet another graph traversal problem, where each course can be represented as a vertex in a graph and the dependency between the courses can be modeled as a directed edge between two vertex.\
@@ -481,7 +481,7 @@ A typical strategy for graph traversal problems would be backtracking or simply 
 We only need to add each edge once
 
 2. Cycle detection
-A cycle is only when you come across a node in the current traversal, not from the past traversal.
+A cycle is only when you come across a listNode in the current traversal, not from the past traversal.
 This calls for the below pattern - keeping track of visiting and visited nodes.
 ```
     0 = unvisited
@@ -546,19 +546,19 @@ The components in the graph will not need to be connected, the graph can have se
         return true;
     }
 
-    private boolean dfs(Map<Integer, ArrayList<Integer>> adjacencyList, int[] visited, int node){
-        // if we run into a node that visited in the current dfs traversal, then there is a cycle
-        if (visited[node] == -1 )
+    private boolean dfs(Map<Integer, ArrayList<Integer>> adjacencyList, int[] visited, int listNode){
+        // if we run into a listNode that visited in the current dfs traversal, then there is a cycle
+        if (visited[listNode] == -1 )
             return false;
 
-        // if we run into a node that we have already seen in an previous dfs traversal
-        if (visited[node] == 1)
+        // if we run into a listNode that we have already seen in an previous dfs traversal
+        if (visited[listNode] == 1)
             return true;
 
-        //Current node is not -1 or 1, it is 0. So mark the node as currently visiting before going uphill
-        visited[node]  = -1;
+        //Current listNode is not -1 or 1, it is 0. So mark the listNode as currently visiting before going uphill
+        visited[listNode]  = -1;
 
-        List<Integer> list = adjacencyList.get(node);
+        List<Integer> list = adjacencyList.get(listNode);
         for (int neighbor: list){
             boolean cycle = dfs(adjacencyList, visited, neighbor);
             // if a cycle is found return false, which should bubble all the way up to return false, else continue
@@ -566,8 +566,8 @@ The components in the graph will not need to be connected, the graph can have se
                 return false;
         }
 
-        // Once we have visit all the current nodes neighbors, we mark the node as fully visited during downhill
-        visited[node] = 1;
+        // Once we have visit all the current nodes neighbors, we mark the listNode as fully visited during downhill
+        visited[listNode] = 1;
         return true;
     }
 
@@ -613,8 +613,8 @@ G is fully connected. In other words, for every pair of nodes in G, there is a p
 G contains no cycles. In other words, there is exactly one path between each pair of nodes in G.
 Depth-first search is a classic graph-traversal algorithm that can be used to check for both of these conditions:
 G is fully connected if, and only if, we started a depth-first search from a single source and discovered all nodes in G during it.
-G contains no cycles if, and only if, the depth-first search never goes back to an already discovered node. We need to be careful though not to count trivial cycles of the form A → B → A that occur with most implementations of undirected edges.
-Depth-first search requires being able to look up the adjacent (immediate neighbours) of a given node. Like many graph interview problems though, the input format we're given doesn't allow us to quickly get the neighbours of a node. Therefore, our first step is to convert the input into an adjacency list. Recall that an adjacency list is where we have a list of sub-lists, where each sub-list is the list of the immediate neighbours for the i'th node.
+G contains no cycles if, and only if, the depth-first search never goes back to an already discovered listNode. We need to be careful though not to count trivial cycles of the form A → B → A that occur with most implementations of undirected edges.
+Depth-first search requires being able to look up the adjacent (immediate neighbours) of a given listNode. Like many graph interview problems though, the input format we're given doesn't allow us to quickly get the neighbours of a listNode. Therefore, our first step is to convert the input into an adjacency list. Recall that an adjacency list is where we have a list of sub-lists, where each sub-list is the list of the immediate neighbours for the i'th listNode.
 
 Complexity Analysis \
 Let E be the number of edges, and N be the number of nodes or vertices [V ???]
@@ -624,7 +624,7 @@ Creating the adjacency list requires
 - Initialising a list of length N, with a cost of O(N), and 
 - then iterating over and inserting E edges, for a cost of O(E). 
 - This gives us O(E) + O(N) = O(N + E).
-- This means that the outer loop will run N times (Each node is added to the data structure once). 
+- This means that the outer loop will run N times (Each listNode is added to the data structure once). 
 - For each of the N nodes, its adjacent edges is iterated over once. 
 - In total, this means that all E edges are iterated over once by the inner loop. 
 - This, therefore, gives a total time complexity of O(N + E).
@@ -649,7 +649,7 @@ Implementation
             adjList.get(edge[1]).add(edge[0]);            
         }
 
-        int[] visited  = new int[n]; // Mark the node visited
+        int[] visited  = new int[n]; // Mark the listNode visited
         //boolean validTree = dfs(0, adjList, visited, -1);
         //boolean validTree = bfs(0, adjList, visited);
         boolean validTree = bfs2(0, adjList, visited);
@@ -667,14 +667,14 @@ Implementation
     }
 
     private boolean dfs(int current, Map<Integer, List<Integer>> adjList, int[] visited, int parent) {
-        if (visited[current] == 1) // Detects if there is a path that goes back to an already discovered node
+        if (visited[current] == 1) // Detects if there is a path that goes back to an already discovered listNode
             return false;   
 
         visited[current] = 1;
         List<Integer> children = adjList.get(current);
         for (int child: children){            
-            if (parent != child) { // *** check prevents going back to parent node in a self loop (current = 1, parent of current = 0, child of current = 0)
-                boolean validTree = dfs(child, adjList, visited, current); // add the current node as parent to the child node. 
+            if (parent != child) { // *** check prevents going back to parent listNode in a self loop (current = 1, parent of current = 0, child of current = 0)
+                boolean validTree = dfs(child, adjList, visited, current); // add the current listNode as parent to the child listNode. 
                 if (!validTree) return false;
             }
         }
@@ -770,7 +770,7 @@ Time Complexity: O(V + E)
     }
 ```
 
-## 886. Possible BiPartition [UnDirected Graph + Graph Coloring - Group A & B - visited[node] != visit]
+## 886. Possible BiPartition [UnDirected Graph + Graph Coloring - Group A & B - visited[listNode] != visit]
 Given a set of n people (numbered 1, 2, ..., n), we would like to split everyone into two groups of any size.
 Each person may dislike some other people, and they should not go into the same group.
 Formally, if dislikes[i] = [a, b], it means it is not allowed to put the people numbered a and b into the same group.
@@ -839,23 +839,23 @@ Implementation
         return true;
     }
 
-    private boolean dfs(int node, Map<Integer, List<Integer>> adjList, int[] visited, int visit, int parent) {
-        if (visited[node] != 0 && visited[node] != visit)
+    private boolean dfs(int listNode, Map<Integer, List<Integer>> adjList, int[] visited, int visit, int parent) {
+        if (visited[listNode] != 0 && visited[listNode] != visit)
             return false;
 
-        if (visited[node] != 0 && visited[node] == visit){      // protects from re-processing of a node, when cycling thru all nodes of the adjList
+        if (visited[listNode] != 0 && visited[listNode] == visit){      // protects from re-processing of a listNode, when cycling thru all nodes of the adjList
             return true;
         }
 
-        visited[node] = visit;                                  // v[1]=1,  v[2]=-1,  v[4]:1
-        List<Integer> children = adjList.get(node);             // 1:[2,3], 2:[1,4],  4:[2]
+        visited[listNode] = visit;                                  // v[1]=1,  v[2]=-1,  v[4]:1
+        List<Integer> children = adjList.get(listNode);             // 1:[2,3], 2:[1,4],  4:[2]
         for (int child: children){
-            // child  - child of index node
-            // parent - parent of index node, parent method argument
+            // child  - child of index listNode
+            // parent - parent of index listNode, parent method argument
             if (child != parent) {                              //(2 != 1) T,  (1 != 1) F,    (4 != 1)T,   (2 != 1)T
                 boolean canBePartitioned = dfs(child, adjList,
                         visited, -visit,
-                        node);                                  //(2,-(1),1), x(1,-(-1),2), (4,-(-1),2)
+                        listNode);                                  //(2,-(1),1), x(1,-(-1),2), (4,-(-1),2)
                 if (!canBePartitioned)
                     return false;
             }
@@ -874,7 +874,7 @@ O(E+V) - Adjacency list for our nodes and a visited array for storing the adjace
 ## Indegrees and Outdegrees
 Any graph can be seen as collection of nodes connected through edges.
 If edges have direction then graphs are known as directed graphs else undirected graphs.
-In case of directed graphs, number of edges going into a node is known as in degree of the corresponding node and number of edges coming out of a node is known as outdegree of the corresponding node. For any graph sum of total indegree should be equal to total outdegree. (Why ? Think !)
+In case of directed graphs, number of edges going into a listNode is known as in degree of the corresponding listNode and number of edges coming out of a listNode is known as outdegree of the corresponding listNode. For any graph sum of total indegree should be equal to total outdegree. (Why ? Think !)
 Assumptions: Self loops contribute to both indegree and outdegree.
 Reference: https://www.quora.com/What-is-the-indegree-and-outdegree-of-a-graph
 
@@ -882,8 +882,8 @@ Reference: https://www.quora.com/What-is-the-indegree-and-outdegree-of-a-graph
 A tree is an undirected graph in which any two vertices are connected by exactly one path. 
 In other words, any connected graph without simple cycles is a tree.
 Given a tree of n nodes labelled from 0 to n - 1, and an array of n - 1 edges where edges[i] = [ai, bi] indicates that 
-there is an undirected edge between the two nodes ai and bi in the tree, you can choose any node of the tree as the root. 
-When you select a node x as the root, the result tree has height h. 
+there is an undirected edge between the two nodes ai and bi in the tree, you can choose any listNode of the tree as the root. 
+When you select a listNode x as the root, the result tree has height h. 
 Among all possible rooted trees, those with minimum height (i.e. min(h)) are called minimum height trees (MHTs).
 Return a list of all MHTs' root labels. 
 You can return the answer in any order.
@@ -892,7 +892,7 @@ The height of a rooted tree is the number of edges on the longest downward path 
 Example 1:
     Input: n = 4, edges = [[1,0],[1,2],[1,3]]
     Output: [1]
-    Explanation: As shown, the height of the tree is 1 when the root is the node with label 1 which is the only MHT.
+    Explanation: As shown, the height of the tree is 1 when the root is the listNode with label 1 which is the only MHT.
 
 Solution
     We will solve this using BFS.
@@ -904,15 +904,15 @@ Solution
 
 ### 797 All Paths From Source to Target
 Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1,
-find all possible paths from node 0 to node n - 1 and return them in any order.
-The graph is given as follows: graph[i] is a list of all nodes you can visit from node i (i.e., there is a directed edge from node i to node graph[i][j]).
+find all possible paths from listNode 0 to listNode n - 1 and return them in any order.
+The graph is given as follows: graph[i] is a list of all nodes you can visit from listNode i (i.e., there is a directed edge from listNode i to listNode graph[i][j]).
 
 Input:  graph = [[1,2],[3],[3],[]]
 Output: [[0,1,3],[0,2,3]]
 Explanation: There are two paths: 0 -> 1 -> 3 and 0 -> 2 -> 3.
 
 ```
-        // Given, n nodes labeled from 0 to n - 1. Find all possible paths from node 0 to node n - 1
+        // Given, n nodes labeled from 0 to n - 1. Find all possible paths from listNode 0 to listNode n - 1
         int[][] graph = {{1,2},     // 0 {1,2}
                          {3},       // 1 {3}
                          {3},       // 2 {3}

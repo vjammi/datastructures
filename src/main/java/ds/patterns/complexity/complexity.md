@@ -8,7 +8,7 @@ Space Complexity : O(N). In the worst case space utilized by the recursion stack
 ### Binary Tree - BFS
 Let N be the total number of nodes in the input tree.
 Time Complexity: O(N)
-We visit each node once and only once. And at each visit, it takes a constant time to process.
+We visit each listNode once and only once. And at each visit, it takes a constant time to process.
 Space Complexity: O(N)
 We used a queue to maintain the nodes along with its indices, which is the main memory consumption of the algorithm.
 Due to the nature of BFS, at any given moment, the queue holds no more than two levels of nodes. In the worst case,
@@ -49,7 +49,7 @@ Time:  O(N) number of nodes in the graph
 Data Structures: HashSet / Visited array to detect a cycle
 
 ### Dijkastra's Algorithm
-Used to find the shortest path from one node to every other node in the graph.
+Used to find the shortest path from one listNode to every other listNode in the graph.
 Time:  E Log V, 
 Data Structures: 
 A Heap/Priority Queue. We will be looking at the edge of min weight. 

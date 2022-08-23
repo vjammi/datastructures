@@ -1,19 +1,19 @@
 # Linked List
-- Insertion and Deletion is O(N). Fetching a specific node is O(N)
+- Insertion and Deletion is O(N). Fetching a specific listNode is O(N)
 - Linked Lists are all about modify the pointers in a systematic way.
 - If you are reordering elements of a list, you take thee nodes and change their next pointer points to.
-- if deleting a node, we modify the previous nodes next pointer to point to the next of the node to be deleted.
+- if deleting a listNode, we modify the previous nodes next pointer to point to the next of the listNode to be deleted.
 - We use the dummy nodes for convenience.
 
 ## LC19 Remove Nth Node from End of List
-- Add a dummy node to the start of the list with dummy.next pointing to the head. 
+- Add a dummy listNode to the start of the list with dummy.next pointing to the head. 
   Note: ??? Dummy nodes are pointers, not new nodes 
 - Setup two pointers - Runner and Walker
 - Remove the Nth Node
 
 The idea is we setup the runner and walker pointers with the runner setup n steps ahead of the walker. They will be 
 a distance of N nodes apart. Now we move the runner and walker one step at a time until the runner reaches the end. 
-At a certain point, the runner will reach the end (r==null), and the walker will be at the Nth node from the end.
+At a certain point, the runner will reach the end (r==null), and the walker will be at the Nth listNode from the end.
      
         N=2
         dummy   1   2    3   4   5   NULL
@@ -27,7 +27,7 @@ At a certain point, the runner will reach the end (r==null), and the walker will
         dummy   1   2    3    >   5   NULL
                          w   4 > null r         
                                
-Note: Deleting the nth node will require the walker to the n+1 nodes behind the runner.
+Note: Deleting the nth listNode will require the walker to the n+1 nodes behind the runner.
        
 Iterative Solution                         
 
@@ -36,11 +36,11 @@ Iterative Solution
             if (head == null)
                 return head;
             
-            // Setup the dummy node to point to the head of the list
+            // Setup the dummy listNode to point to the head of the list
             ListNode dummy = new ListNode(0) ;        
             dummy.next = head;
             
-            // Setup the walker and runner to start at the dummy node
+            // Setup the walker and runner to start at the dummy listNode
             ListNode walker = dummy;
             ListNode runner = dummy;
             
@@ -57,8 +57,8 @@ Iterative Solution
                 runner= runner.next;            
             }
             
-            // Delete the Nth node from the end. 
-            ListNode next = walker.next; // Save the next node temporarily so that its next could be set to null
+            // Delete the Nth listNode from the end. 
+            ListNode next = walker.next; // Save the next listNode temporarily so that its next could be set to null
             walker.next = walker.next.next;
             next.next = null;        
             
@@ -72,7 +72,7 @@ Recursive Solution
             if (head == null)
                 return head;
     
-            // Setup the dummy node to point to the head of the list
+            // Setup the dummy listNode to point to the head of the list
             ListNode dummy = new ListNode(0) ;
             dummy.next = head;
     
@@ -81,21 +81,21 @@ Recursive Solution
             return dummy.next;
         }
     
-        private int removeNthNode(ListNode node, int n) {
-            if (node == null)
+        private int removeNthNode(ListNode listNode, int n) {
+            if (listNode == null)
                 return 0;
     
-            int level = removeNthNode(node.next, n) + 1;
+            int level = removeNthNode(listNode.next, n) + 1;
             
-            // Nth node from the end - Determined on the way back of the recursion stack.
-            // dummy   1   2   3   4   5   NULL         n=2, so remove node 4
+            // Nth listNode from the end - Determined on the way back of the recursion stack.
+            // dummy   1   2   3   4   5   NULL         n=2, so remove listNode 4
             //                 ^
             //                 3   2    1    0
             //                n+1  n    1    0
             if (level == n+1){                
-                // Note the same iterative delete logic - deleting Nth node from the end.
-                ListNode next = node.next; // Save the next node temporarily so that its next could be set to null
-                node.next = node.next.next;
+                // Note the same iterative delete logic - deleting Nth listNode from the end.
+                ListNode next = listNode.next; // Save the next listNode temporarily so that its next could be set to null
+                listNode.next = listNode.next.next;
                 next.next = null;
             }
     
@@ -145,11 +145,11 @@ Iterative Solution
         if (head == null)
             return head;
         
-        // Setup the dummy node to point to the head of the list
+        // Setup the dummy listNode to point to the head of the list
         ListNode dummy = new ListNode(0);        
         dummy.next = head;        
         
-        // Setup the walker and runner to start at the dummy node
+        // Setup the walker and runner to start at the dummy listNode
         ListNode walker = dummy;
         ListNode runner = dummy;
         
@@ -195,7 +195,7 @@ Recursive Solution
             if (head == null || head.next == null)
                 return head;
 
-            // Setup the dummy node to point to the head of the list
+            // Setup the dummy listNode to point to the head of the list
             ListNode dummy = new ListNode(0);
             dummy.next = head;
 
@@ -203,16 +203,16 @@ Recursive Solution
             return dummy.next;
         }
 
-        private void swap(ListNode node) {
-            if (node == null || node.next == null || node.next.next == null) // takes care of odd input such as [1,2,3]
+        private void swap(ListNode listNode) {
+            if (listNode == null || listNode.next == null || listNode.next.next == null) // takes care of odd input such as [1,2,3]
                 return;
 
-            ListNode walker = node;
-            ListNode runner = node;
+            ListNode walker = listNode;
+            ListNode runner = listNode;
 
             // Advance runner 2 steps not n+1/2+1 steps because n+1 would become null at the end
-            // The current node here is the node before the nodes that are to ve swapped.
-            // ???            node     >       1     >      2       >    3   >   4   >   null
+            // The current listNode here is the listNode before the nodes that are to ve swapped.
+            // ???            listNode     >       1     >      2       >    3   >   4   >   null
             // ???     dummy/walker        walkerNext       runner      runnerNext
             // ???              2      >       1     >      3       >      4       >    null
             // ???                      dummy/walker        walkerNext       runner      runnerNext
@@ -224,10 +224,10 @@ Recursive Solution
             ListNode runnerNext = runner.next;
             walkerNext.next = runnerNext;
             runner.next = walkerNext;
-            node.next = runner;
-            node = node.next;
+            listNode.next = runner;
+            listNode = listNode.next;
 
-            swap(node.next);
+            swap(listNode.next);
 
         }
 ```
@@ -247,7 +247,7 @@ Iterative Solution
         if (head == null)
             return head;
 
-        ListNode previous = null; // Important for the first node, that needs to be turned to last
+        ListNode previous = null; // Important for the first listNode, that needs to be turned to last
         ListNode current = head;
         while(current!=null){
             // previous
@@ -266,7 +266,7 @@ Iterative Solution
 Recursive Solution        
 ```
         /*
-            #    node    previous   next
+            #    listNode    previous   next
             --------------------------------
             4    5                  null
             3    4    <  5
@@ -285,22 +285,22 @@ Recursive Solution
     }
     
     ListNode newHead;
-    public ListNode reverseListRecurssive(ListNode node) {
-        if (node.next == null){
-            newHead = node;               
-            return node;
+    public ListNode reverseListRecurssive(ListNode listNode) {
+        if (listNode.next == null){
+            newHead = listNode;               
+            return listNode;
         }        
         
-        ListNode previous =  reverseListRecurssive(node.next);                    
+        ListNode previous =  reverseListRecurssive(listNode.next);                    
 
         if (previous.next == null)
             newHead = previous;                
 
          // Change direction
-         previous.next = node;
+         previous.next = listNode;
          //current.next = null;  // WE do not do this????
 
-        return node;
+        return listNode;
     }
 
 ```
@@ -343,7 +343,7 @@ Recursive Solution
 Solution           
 We will create 2 new linked lists.
 One of them will hold all the elements less than x and the other will hold all the elements >= x
-We iterate thru the original linked list and at each node we compare the node with x and move* the node to the 
+We iterate thru the original linked list and at each listNode we compare the listNode with x and move* the listNode to the 
 corresponding list. At the end we take the list with the bigger numbers and attach it to end of the smaller list with smaller numbers
 ***Space efficient. Note that we are moving the nodes to the newer lists, not copying the nodes. 
 The only new nodes we are creating are the 2 new dummy nodes.
@@ -375,10 +375,10 @@ The only new nodes we are creating are the 2 new dummy nodes.
             // Iterate thru the original list splitting the partitioning the list into 2
             while(walker.next!=null){
     
-                // Freeup the node from the list
+                // Freeup the listNode from the list
                 ListNode next = walker.next;
                 walker.next = runner; // remove walkers next element from the list
-                next.next = null;     // dis-associate the node from the list by setting up the next to null
+                next.next = null;     // dis-associate the listNode from the list by setting up the next to null
     
                 if (next.val < x){
                     runner1.next = next;
@@ -402,7 +402,7 @@ The only new nodes we are creating are the 2 new dummy nodes.
 This basically is a Cycle Detection Problem, we are looking to see if there is a loop in the list. We also want to know where the cycle starts.            
 
 Solution                
-Option 1: An easy solution would be to use an HashSet to store the nodes. If we come to a node that is already in the HashSet 
+Option 1: An easy solution would be to use an HashSet to store the nodes. If we come to a listNode that is already in the HashSet 
 then we have a cycle.     
 
 Option 2: Since it s a Linked list problem, we can try to solve it using pointers. 
@@ -413,7 +413,7 @@ Option 2: Since it s a Linked list problem, we can try to solve it using pointer
                     6
         ^^
         SF
-        The slow pointer and fast pointer start out at the dummy node at the beginning
+        The slow pointer and fast pointer start out at the dummy listNode at the beginning
         
                     4
         1   2   3       5
@@ -487,7 +487,7 @@ Implementation
                 }
             }
     
-            // If there is a cycle then find the node where there is a cycle using floyd's cycle detection algorithm
+            // If there is a cycle then find the listNode where there is a cycle using floyd's cycle detection algorithm
             if (cyle){
                 walker = dummy;
                 // runner stays where it was last

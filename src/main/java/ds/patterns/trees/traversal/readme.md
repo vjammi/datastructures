@@ -28,22 +28,22 @@ Creates a list of lists (result list) by creating a list for each level and addi
             1           2
             2           3
         */
-        public void traversal(TreeNode node, List<List<Integer>> lists, int level){
-            if (node == null)
+        public void traversal(TreeNode listNode, List<List<Integer>> lists, int level){
+            if (listNode == null)
                 return;
     
             if (lists.size() <= level){             // For instance, initially at level 0 the size of the result list will be 0.
-                System.out.println(node.val +" -- " +level);
+                System.out.println(listNode.val +" -- " +level);
                 List<Integer> list = new ArrayList<>();
-                list.add(node.val);
+                list.add(listNode.val);
                 lists.add(list);
-            }else{ // else - if a list for that level has already been created, then just retrieve the list by level and add the node value to the list
-                lists.get(level).add(node.val);
-                System.out.println(node.val +" - " +level);
+            }else{ // else - if a list for that level has already been created, then just retrieve the list by level and add the listNode value to the list
+                lists.get(level).add(listNode.val);
+                System.out.println(listNode.val +" - " +level);
             }
     
-            traversal(node.left,  lists, level+1);
-            traversal(node.right, lists, level+1);
+            traversal(listNode.left,  lists, level+1);
+            traversal(listNode.right, lists, level+1);
         }
     }
 ```
@@ -68,14 +68,14 @@ class LargestValueInEachTreeRow{
         1           2
         2           3
     */
-    private void dfs(TreeNode node, List<Integer> result, int level){
-        if (node == null)
+    private void dfs(TreeNode listNode, List<Integer> result, int level){
+        if (listNode == null)
             return;
 
         if (result.size() <= level){                    // Level not created so far. Add new level to the list.
-            result.add(node.val);                       // Add the node val - first val
+            result.add(listNode.val);                       // Add the listNode val - first val
         }else{                                          // Adding the already created level
-            Integer largestVal = Math.max(result.get(level), node.val);
+            Integer largestVal = Math.max(result.get(level), listNode.val);
 
             // Can use either
             // result.remove(level); result.add(level, largestVal);    // remove and add val at index
@@ -83,8 +83,8 @@ class LargestValueInEachTreeRow{
             result.set(level, largestVal);                             // Set val at index
         }
 
-        dfs(node.left, result, level+1);
-        dfs(node.right, result, level+1);
+        dfs(listNode.left, result, level+1);
+        dfs(listNode.right, result, level+1);
 
     }
 
@@ -99,15 +99,15 @@ class LargestValueInEachTreeRow{
 
             int levelSize = queue.size();
             for (int i=0; i<levelSize; i++){
-                TreeNode node = queue.poll();
+                TreeNode listNode = queue.poll();
 
-                largestVal = Math.max(node.val, largestVal);
+                largestVal = Math.max(listNode.val, largestVal);
 
-                if (node.left!=null)
-                    queue.offer(node.left);
+                if (listNode.left!=null)
+                    queue.offer(listNode.left);
 
-                if(node.right!=null)
-                    queue.offer(node.right);
+                if(listNode.right!=null)
+                    queue.offer(listNode.right);
 
             }
             result.add(largestVal);
@@ -121,8 +121,8 @@ class LargestValueInEachTreeRow{
 
 ### Binary Tree Zigzag Level Order Traversal
 ```
-    private void zigzagLevelOrderTraversal(TreeNode node, List<List<Integer>> lists, int level) {
-        if(node == null) return;
+    private void zigzagLevelOrderTraversal(TreeNode listNode, List<List<Integer>> lists, int level) {
+        if(listNode == null) return;
 
         if(lists.size() <= level){
             List<Integer> newLevel = new LinkedList<>();
@@ -131,15 +131,15 @@ class LargestValueInEachTreeRow{
 
         List<Integer> list  = lists.get(level);
         if(level % 2 == 0) {
-            list.add(node.val);
+            list.add(listNode.val);
         }else {
             // Inserts the the element at the position 0, in the list. 
             // Shifts the element currently at that position if any to the right for the zigZag
-            list.add(0, node.val);
+            list.add(0, listNode.val);
         }
 
-        zigzagLevelOrderTraversal(node.left, lists, level + 1);
-        zigzagLevelOrderTraversal(node.right, lists, level + 1);
+        zigzagLevelOrderTraversal(listNode.left, lists, level + 1);
+        zigzagLevelOrderTraversal(listNode.right, lists, level + 1);
     }
 ```
 
@@ -154,7 +154,7 @@ The binary tree has the following definition:
           Node *next;
         }
 
-Populate each next pointer to point to its next right node. If there is no next right node, 
+Populate each next pointer to point to its next right listNode. If there is no next right listNode, 
 the next pointer should be set to NULL. Initially, all next pointers are set to NULL.
 
 Solution
@@ -162,8 +162,8 @@ Solution
     We do not need to recurse or backtrack. 
     At any point we are connecting the nodes at its next level, children's level
     We will assign the next pointers to the 
-            1. left node 
-            2. right node
+            1. left listNode 
+            2. right listNode
             
                              1
      
@@ -186,57 +186,57 @@ Solution
             queue.add(root);
     
             while(!queue.isEmpty()){
-                Node node = queue.poll();
+                Node listNode = queue.poll();
     
-                // Assigning next pointer to a left node
-                if (node.left !=null && node.right !=null ){
-                    node.left.next = node.right;
-                }else if(node.left != null && node.right == null){
-                    Node nextNode = node.next;
+                // Assigning next pointer to a left listNode
+                if (listNode.left !=null && listNode.right !=null ){
+                    listNode.left.next = listNode.right;
+                }else if(listNode.left != null && listNode.right == null){
+                    Node nextNode = listNode.next;
                     if (nextNode == null){
-                        node.left.next = null;
+                        listNode.left.next = null;
                     }else{
                         while(nextNode !=null ){
                             if (nextNode.left != null){
-                                node.left.next = nextNode.left;
+                                listNode.left.next = nextNode.left;
                                 break;
                             }else if (nextNode.right != null){
-                                node.left.next = nextNode.right;
+                                listNode.left.next = nextNode.right;
                                 break;
                             }else{
                                 nextNode = nextNode.next;
                             }
-                            node.left.next = null;
+                            listNode.left.next = null;
                         }
                     }
                 }
     
-                // Assigning next pointer to a right node
-                if(node.right != null ){
-                    Node nextNode = node.next;
+                // Assigning next pointer to a right listNode
+                if(listNode.right != null ){
+                    Node nextNode = listNode.next;
                     if (nextNode == null){
-                        node.right.next = null;
+                        listNode.right.next = null;
                     }else{
                         while(nextNode !=null ){
                             if (nextNode.left != null){
-                                node.right.next = nextNode.left;
+                                listNode.right.next = nextNode.left;
                                 break;
                             }else if (nextNode.right != null){
-                                node.right.next = nextNode.right;
+                                listNode.right.next = nextNode.right;
                                 break;
                             }else{
                                 nextNode = nextNode.next;
                             }
-                            node.right.next = null;
+                            listNode.right.next = null;
                         }
                     }
                 }
     
-                if (node.left != null){
-                    queue.add(node.left);
+                if (listNode.left != null){
+                    queue.add(listNode.left);
                 }
-                if (node.right != null){
-                    queue.add(node.right);
+                if (listNode.right != null){
+                    queue.add(listNode.right);
                 }
     
             }
@@ -259,8 +259,8 @@ Example 1:
 Solution
               1
             2   3
-    PreOrder [1-2-3]: In a Preorder, you perform something on the current node first, before exploring its left and right nodes ???
-    Inorder  [2-1-3]: In a InOrder, you perform something on the left node first, then the current node and then on its right node ???.
+    PreOrder [1-2-3]: In a Preorder, you perform something on the current listNode first, before exploring its left and right nodes ???
+    Inorder  [2-1-3]: In a InOrder, you perform something on the left listNode first, then the current listNode and then on its right listNode ???.
 
         
                                        16
@@ -310,9 +310,9 @@ Solution
                            [7]
                         -------------------------------------------------------------------
 Note:
-This is similar to building a tree from a sorted array. Unlike finding the mid node by using binary search (low+hi)/2 on the sorted array,
-here we first find the node to be created by looking at the next node in the preorder sequence. We then look up that node in the
-inorder array and build the node node of our binary tree.
+This is similar to building a tree from a sorted array. Unlike finding the mid listNode by using binary search (low+hi)/2 on the sorted array,
+here we first find the listNode to be created by looking at the next listNode in the preorder sequence. We then look up that listNode in the
+inorder array and build the listNode listNode of our binary tree.
 
 Reference
 https://youtu.be/FBaSrNSf9po?list=PLFj4kIJmwGu2WedpHdv1p_LrLGvwqDvjZ
@@ -344,16 +344,16 @@ https://youtu.be/FBaSrNSf9po?list=PLFj4kIJmwGu2WedpHdv1p_LrLGvwqDvjZ
                 return null;
             }
     
-            // Pick the next node to be built by selecting the next preorder node as the current root and incrementing the preorder index
-            // This is similar to building a a tree from a sorted array where we pick the next node by find the mid (low+hi)/2 of the segment of the array.
+            // Pick the next listNode to be built by selecting the next preorder listNode as the current root and incrementing the preorder index
+            // This is similar to building a a tree from a sorted array where we pick the next listNode by find the mid (low+hi)/2 of the segment of the array.
             int preorderNodeVal = preorder[nextPreorderIndex++]; // preOrderIndex++;
             TreeNode currNode = new TreeNode(preorderNodeVal);
 
             int inorderIndexForCurrNode = inOrderMap.get(preorderNodeVal); // lookup the index of the nextPreOrderNodeVal within the inorder map.
-            currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);  // Return left node. On your way back, add the returned node to the left of the current root node
-            currNode.right = buildTree(inorderIndexForCurrNode + 1, rightIndex); // Return right node. On your way back, add the returned node to the right of the current root node
+            currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);  // Return left listNode. On your way back, add the returned listNode to the left of the current root listNode
+            currNode.right = buildTree(inorderIndexForCurrNode + 1, rightIndex); // Return right listNode. On your way back, add the returned listNode to the right of the current root listNode
 
-            // Return the current node to be added to the left or the right side of the parent node.
+            // Return the current listNode to be added to the left or the right side of the parent listNode.
             return currNode;
         }
         
@@ -371,7 +371,7 @@ then its left child, etc. The value picked from preorder/postorder traversal spl
 from inorder - if the current subtree is empty (= return None) or not (= continue to construct the subtree).
 
 #### What is the reason that we have to construct the right sub-tree first and then the left sub-tree?
-Postorder sequence is left -> right -> node. So since here we are building it backward, it should go from node, right, left
+Postorder sequence is left -> right -> listNode. So since here we are building it backward, it should go from listNode, right, left
 
 Complexity Analysis
 Time complexity : O(N)\mathcal{O}(N)O(N). Let us compute the solution with the help of master theorem T(N)=aT(bN)+Θ(Nd)T(N) = aT\left(\frac{b}{N}\right) + \Theta(N^d)T(N)=aT(Nb​)+Θ(Nd). The equation represents dividing the problem up into aaa subproblems of size Nb\frac{N}{b}bN​ in Θ(Nd)\Theta(N^d)Θ(Nd) time. Here one divides the problem in two subproblemes a = 2, the size of each subproblem (to compute left and right subtree) is a half of initial problem b = 2, and all this happens in a constant time d = 0. That means that log⁡b(a)>d\log_b(a) > dlogb​(a)>d and hence we are dealing with case 1 that means O(Nlog⁡b(a))=O(N)\mathcal{O}(N^{\log_b(a)}) = \mathcal{O}(N)O(Nlogb​(a))=O(N) time complexity.
@@ -462,12 +462,12 @@ Implementation
         }
 
         int mid = (start+end)/2;
-        TreeNode node = new TreeNode(nums[mid]);
+        TreeNode listNode = new TreeNode(nums[mid]);
 
-        node.left  = buildTree(nums, start, mid-1);
-        node.right = buildTree(nums, mid+1, end);
+        listNode.left  = buildTree(nums, start, mid-1);
+        listNode.right = buildTree(nums, mid+1, end);
 
-        return node;
+        return listNode;
     }
 ```
 ## 109 Convert Sorted List to Binary Search Tree
@@ -478,7 +478,7 @@ The important condition that we have to adhere to in this problem is that we hav
 a height balanced binary search tree using the set of nodes given to us in the form of a linked list.
 The good thing is that the nodes in the linked list are sorted in ascending order.
 As we know, a binary search tree is essentially a rooted binary tree with a very special property or
-relationship amongst its nodes. For a given node of the binary search tree, its value must be ≥\ge≥
+relationship amongst its nodes. For a given listNode of the binary search tree, its value must be ≥\ge≥
 the value of all the nodes in the left subtree and ≤\le≤ the value of all the nodes in the right subtree.
 Since a binary tree has a recursive substructure, so does a BST i.e. all the subtrees are binary search trees in themselves.
 
@@ -491,11 +491,11 @@ This would ensure the height balance required in the resulting binary search tre
 Since we are given a linked list and not an array, we dont really have access to the elements of the list using indexes.
 We want to know the middle element of the linked list.
 We can use the two pointer approach for finding out the middle element of a linked list. Essentially, we have two pointers
-called slow_ptr and fast_ptr. The slow_ptr moves one node at a time whereas the fast_ptr moves two nodes at a time.
+called slow_ptr and fast_ptr. The slow_ptr moves one listNode at a time whereas the fast_ptr moves two nodes at a time.
 By the time the fast_ptr reaches the end of the linked list, the slow_ptr would have reached the middle element of the linked list.
 For an even sized list, any of the two middle elements can act as the root of the BST.
 Once we have the middle element of the linked list, we disconnect the portion of the list to the left of the middle element.
-The way we do this is by keeping a prev_ptr as well which points to one node before the slow_ptr i.e. prev_ptr.next = slow_ptr.
+The way we do this is by keeping a prev_ptr as well which points to one listNode before the slow_ptr i.e. prev_ptr.next = slow_ptr.
 For disconnecting the left portion we simply do prev_ptr.next = None
 We only need to pass the head of the linked list to the function that converts it to a height balances BST. So, we recurse on
 the left half of the linked list by passing the original head of the list and on the right half by passing slow_ptr.next as the head.
@@ -512,24 +512,24 @@ the left half of the linked list by passing the original head of the list and on
         ListNode mid = findMid(head);
 
         // The mid becomes the root of the BST.
-        TreeNode node = new TreeNode(mid.val);
+        TreeNode listNode = new TreeNode(mid.val);
 
         // Another base case - when there is just one element in the linked list
-        // When the node has no left and right siblings (only 1 element left) - head will be the mid.
+        // When the listNode has no left and right siblings (only 1 element left) - head will be the mid.
         // Then, we will no longer need to traverse its left and right subtree
         if (head == mid) {
-            return node;
+            return listNode;
         }
 
         // Recursively form balanced BSTs using the left and right halves of the original list.
-        node.left = sortedListToBST(head);
-        node.right = sortedListToBST(mid.next);
-        return node;
+        listNode.left = sortedListToBST(head);
+        listNode.right = sortedListToBST(mid.next);
+        return listNode;
     }
 
     private ListNode findMid(ListNode head) {
 
-        ListNode prev = null; // The pointer used to disconnect the left half from the mid node.
+        ListNode prev = null; // The pointer used to disconnect the left half from the mid listNode.
         ListNode slow = head; // Mid element
         ListNode fast = head;
 

@@ -1,4 +1,4 @@
-package ds.linkedlist;
+package ds.patterns.design;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -150,6 +150,7 @@ class LRUCache {
         int param_4 = obj.get(3);
         int param_5 = obj.get(4);
     }
+
 }
 
 

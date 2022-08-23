@@ -1,17 +1,17 @@
 # Binary Search Tree
 A binary search tree (BST), a special form of a binary tree, satisfies the binary search property:
-1. The value in each node must be greater than (or equal to) any values stored in its left subtree.
-2. The value in each node must be less than (or equal to) any values stored in its right subtree.
+1. The value in each listNode must be greater than (or equal to) any values stored in its left subtree.
+2. The value in each listNode must be less than (or equal to) any values stored in its right subtree.
 
 Like a normal binary tree, we can traverse a BST in preorder, inorder, postorder or level-order.
 However, inorder traversal in BST will return the elements in ascending order.
 Therefore, the inorder traversal is the most frequent used traversal method of a BST.
 
 ## Operations within a BST
-BSTs support three main operations: search, insertion and deletion. According to the property of BST, for each node:
-1. return the node if the target value is equal to the value of the node;
-2. continue searching in the left subtree if the target value is less than the value of the node;
-3. continue searching in the right subtree if the target value is larger than the value of the node.
+BSTs support three main operations: search, insertion and deletion. According to the property of BST, for each listNode:
+1. return the listNode if the target value is equal to the value of the listNode;
+2. continue searching in the left subtree if the target value is less than the value of the listNode;
+3. continue searching in the right subtree if the target value is larger than the value of the listNode.
 
 ### Search
 Time complexity and space complexity of the search operation in a BST whose height is h.

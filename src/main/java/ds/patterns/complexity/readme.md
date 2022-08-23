@@ -293,7 +293,7 @@ Space complexity : O(d) = O(log N) to keep the recursion stack, where d is a tre
 ### Binary Tree - BFS
 Let N be the total number of nodes in the input tree.
 Time Complexity: O(N)
-We visit each node once and only once. And at each visit, it takes a constant time to process.
+We visit each listNode once and only once. And at each visit, it takes a constant time to process.
 Space Complexity: O(N)
 We used a queue to maintain the nodes along with its indices, which is the main memory consumption of the algorithm.
 Due to the nature of BFS, at any given moment, the queue holds no more than two levels of nodes. In the worst case,

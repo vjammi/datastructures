@@ -14,7 +14,7 @@ Exchange with the last element and sink it until heap order is restored.
 - Save off the root of the heap/tree to a min variable
 - Exchange the last element of the tree/heap with the root and decrement the size of the heap by 1 element.
 - The element which went from bottom to top will most likely violate the heap order, 
-  so recursively exchange that node with the *min* of its two children, until the heep order is restored, also called the sink operation.
+  so recursively exchange that listNode with the *min* of its two children, until the heep order is restored, also called the sink operation.
   Note: Need to compare the 2 children first and then compare the min of the children with the parent. 
 ```
     Input: 
@@ -74,7 +74,7 @@ Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
         
                 Save off the root of the heap/tree to a min variable
                 Exchange the last element of the tree/heap with the root and decrement the size of the heap by 1 element.
-                The element which went from bottom to top will most likely violate the heap order, so recursively exchange that node with the min of its two children (sink operation), until the heep order is restored
+                The element which went from bottom to top will most likely violate the heap order, so recursively exchange that listNode with the min of its two children (sink operation), until the heep order is restored
              */
             private int delMin() {
                 int min = pq[1];
@@ -225,7 +225,7 @@ Exchange with the last element and sink it until heap order is restored.
 - Save off the root of the heap/tree to a min variable
 - Exchange the last element of the tree/heap with the root and decrement the size of the heap by 1 element.
 - The element which went from bottom to top will most likely violate the heap order. 
-- Exchange that node with the *max* element of its two children (sink operation), 
+- Exchange that listNode with the *max* element of its two children (sink operation), 
 - Recursively repeat until the heep order is restored.
 
 ## Priority Queue Runtime
@@ -546,7 +546,7 @@ Return the top k min distance
             ListNode current = lists[i];
             while(current!=null){
                 ListNode next = current.next;  // Next is safe
-                current.next = null;           // Free up the current node
+                current.next = null;           // Free up the current listNode
                 pq.add(current);               // Adding listNode to pq instead of the copy - pq.add(new ListNode(current.val));
                 current = next;
             }
@@ -562,7 +562,7 @@ Return the top k min distance
         // int i=0;
         // pq      1  4  1  3  4  2  6
         // pq      1  1  2  3  4  4  6
-        // node                      ^
+        // listNode                      ^
         // head    1> 1> 2> 3> 4> 4> 6 > null
         // head    ^
         // tail                      ^
@@ -571,16 +571,16 @@ Return the top k min distance
         ListNode head = null;
         int i = 0;
         while (!pq.isEmpty()) {
-            ListNode node = pq.poll();
-            System.out.print(node.val +" > ");
+            ListNode listNode = pq.poll();
+            System.out.print(listNode.val +" > ");
             if (i == 0) {
-                head = node;
-                tail = node;
-                node.next = null;
+                head = listNode;
+                tail = listNode;
+                listNode.next = null;
             } else {
-                tail.next = node;
-                tail = node;
-                node.next = null;
+                tail.next = listNode;
+                tail = listNode;
+                listNode.next = null;
             }
             i++;
         }
@@ -747,7 +747,7 @@ public class MergeKSortedLists {
             ListNode current = lists[i];
             while(current!=null){
                 ListNode next = current.next;  // Next is safe
-                current.next = null;           // Free up the current node
+                current.next = null;           // Free up the current listNode
                 pq.add(current);               // Adding listNode to pq instead of the copy - pq.add(new ListNode(current.val));
                 current = next;
             }
@@ -757,7 +757,7 @@ public class MergeKSortedLists {
         // int i=0;
         // pq      1  4  1  3  4  2  6
         // pq      1  1  2  3  4  4  6
-        // node                      ^
+        // listNode                      ^
         // head    1> 1> 2> 3> 4> 4> 6 > null
         // head    ^
         // tail                      ^
@@ -766,16 +766,16 @@ public class MergeKSortedLists {
         ListNode head = null;
         int i = 0;
         while (!pq.isEmpty()) {
-            ListNode node = pq.poll();
-            System.out.print(node.val +" > ");
+            ListNode listNode = pq.poll();
+            System.out.print(listNode.val +" > ");
             if (i == 0) {
-                head = node;
-                tail = node;
-                node.next = null;
+                head = listNode;
+                tail = listNode;
+                listNode.next = null;
             } else {
-                tail.next = node;
-                tail = node;
-                node.next = null;
+                tail.next = listNode;
+                tail = listNode;
+                listNode.next = null;
             }
             i++;
         }

@@ -20,7 +20,7 @@ public class SelectionSort{
             }
             exch(i, min); // Swap the smallest element to the right of i, with the ith element
             printArray();
-            // Remember that the the last element swaps it with itself at the end.
+            // Remember that the last element swaps it with itself at the end.
         }
         printArray();
     }

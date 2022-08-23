@@ -41,25 +41,25 @@
 ### Preorder Traversal
 ```
     // preorder +AB
-    public void preorder(TreeNode node){
-       if(node == null)
+    public void preorder(TreeNode listNode){
+       if(listNode == null)
            return;
 
-       System.out.println(node.val); //  + [Print node]
-       preorder(node.left);          //  A [Traverse left of the node]
-       preorder(node.right)          //  B [Traverse right of the node]
+       System.out.println(listNode.val); //  + [Print listNode]
+       preorder(listNode.left);          //  A [Traverse left of the listNode]
+       preorder(listNode.right)          //  B [Traverse right of the listNode]
     }
 ```
 
 ```
-    public List<Integer> preorderTraversal(TreeNode node) {
+    public List<Integer> preorderTraversal(TreeNode listNode) {
         List<Integer> preOrderedList = new ArrayList<>();
-        if (node == null)
+        if (listNode == null)
             return preOrderedList;
 
         // Create an empty stack and push root to it
         Stack<TreeNode> stack = new Stack<>();
-        stack.push(node);
+        stack.push(listNode);
 
         // Note that right child is pushed first so that left child can be processed first
         // +AB (Node Left Right)
@@ -69,7 +69,7 @@
             TreeNode current = stack.pop();  //stack.peek();
             preOrderedList.add(current.val); // +
 
-            // *** [+AB] Push right and left children of the popped node to stack
+            // *** [+AB] Push right and left children of the popped listNode to stack
             if (current.right != null) {
                 stack.push(current.right);  // R
             }
@@ -87,35 +87,35 @@
 ### Inorder Traversal
 ```
     // inorder A+B
-    public void inorder(TreeNode node){
-       if(node == null)
+    public void inorder(TreeNode listNode){
+       if(listNode == null)
            return;
 
-       inorder(node.left);           //  A [Traverse left of the node]
-       System.out.println(node.val); //  + [Print node]
-       inorder(node.right)           //  B [Traverse right of the node]
+       inorder(listNode.left);           //  A [Traverse left of the listNode]
+       System.out.println(listNode.val); //  + [Print listNode]
+       inorder(listNode.right)           //  B [Traverse right of the listNode]
     }
 ```
 ```
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> inOrderedList = new ArrayList<>();
 
-        Stack<TreeNode> stack = new Stack();        // We are not adding the node to the stack, since we need to traverse to the leftmost node first
-        TreeNode current = root;                    // *** We add the node to the current to traverse to the leftmost node before printing the node.
+        Stack<TreeNode> stack = new Stack();        // We are not adding the listNode to the stack, since we need to traverse to the leftmost listNode first
+        TreeNode current = root;                    // *** We add the listNode to the current to traverse to the leftmost listNode before printing the listNode.
 
         // A+B (Left Node Right)
         while (current != null || !stack.empty()) {            
             // When current != null - Push current element into stack & update current pointer
             // When the left of Node (L/A) is null, traverse the right Node.
-            // For the right node, traverse again its left side until its left is null
+            // For the right listNode, traverse again its left side until its left is null
             if (current != null) {                                
                 stack.push(current);                // *** We push the element to the stack, to be processed when current is null                                 
                 current = current.left;             // A                            
-            }else{ // While iterating to the left of a node, when current becomes null, we process the topmost element in the stack
+            }else{ // While iterating to the left of a listNode, when current becomes null, we process the topmost element in the stack
                 // At this point, we pop the top most element from the stack, and Print it
                 TreeNode poppedNode = stack.pop();  // +              
                 inOrderedList.add(poppedNode.val);  
-                // and then assign its right node to the current, to traverse its left subtree
+                // and then assign its right listNode to the current, to traverse its left subtree
                 current = poppedNode.right;         // B
             }
         }
@@ -131,13 +131,13 @@
 Recursive
 ```
     // postorder AB+
-    public void postorder(TreeNode node){
-       if(node == null)
+    public void postorder(TreeNode listNode){
+       if(listNode == null)
            return;
 
-       postorder(node.left);           //  A [Traverse left of the node]
-       postorder(node.right)           //  B [Traverse right of the node]
-       System.out.println(node.val);   //  + [Print node]
+       postorder(listNode.left);           //  A [Traverse left of the listNode]
+       postorder(listNode.right)           //  B [Traverse right of the listNode]
+       System.out.println(listNode.val);   //  + [Print listNode]
     }
 ```
 
@@ -172,7 +172,7 @@ Iterative
 ```
 #### Use of Postorder
 - PostOrder traversal is used to delete the tree. When we delete nodes in a tree, deletion process will be in post-order. 
-  That is to say, when we delete a node, we will delete its left child and its right child before you delete the node itself.
+  That is to say, when we delete a listNode, we will delete its left child and its right child before you delete the listNode itself.
 - Post-order is widely used to get mathematical postfix expression of an expression tree [http://en.wikipedia.org/wiki/Reverse_Polish_notation]
   It is easier to write a program to parse a post-order expression. We can easily figure out the original expression using the inorder traversal.
   However, it is not easy for a program to handle this expression since you have to check the priorities of operations.
@@ -217,13 +217,13 @@ https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
             levelList = new ArrayList();
             System.out.println("Processing level " +level +" of size " +size);
             while(size > 0){
-                TreeNode node = queue.poll();
-                levelList.add(node.val);
-                if (node.left != null) {
-                    queue.add(node.left);
+                TreeNode listNode = queue.poll();
+                levelList.add(listNode.val);
+                if (listNode.left != null) {
+                    queue.add(listNode.left);
                 }
-                if (node.right != null) {
-                    queue.add(node.right);
+                if (listNode.right != null) {
+                    queue.add(listNode.right);
                 }
                 size--;
             }
@@ -234,28 +234,28 @@ https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
     }
 
     List<List<Integer>> levelOrderTraversalRecursiveList =  new ArrayList<>();
-    private void levelOrderTraversalRecursive(TreeNode node, int level) {
-        if (node == null)
+    private void levelOrderTraversalRecursive(TreeNode listNode, int level) {
+        if (listNode == null)
             return;
 
         if (levelOrderTraversalRecursiveList.size() == level) { // For instance, initially at level 0 the size of the result list will be 0. Same with other levels.
             List<Integer> list = new ArrayList<>();             // Since we do not have a list for this level yet (1st in above), we will then create a new list for the this level [level index 0 == index 0 of the list]. 
-            list.add(node.val);
-            levelOrderTraversalRecursiveList.add(list); // Note: list.get(level).add(node.val) will throw IndexOutOfBoundsException: Index: 0, Size: 0
+            list.add(listNode.val);
+            levelOrderTraversalRecursiveList.add(list); // Note: list.get(level).add(listNode.val) will throw IndexOutOfBoundsException: Index: 0, Size: 0
         }else {
-            // if a list for that level has already been created, then just retrieve the list by level and add the node value to the list
-            levelOrderTraversalRecursiveList.get(level).add(node.val);
+            // if a list for that level has already been created, then just retrieve the list by level and add the listNode value to the list
+            levelOrderTraversalRecursiveList.get(level).add(listNode.val);
         }
-        levelOrderTraversalRecursive(node.left, level+1);
-        levelOrderTraversalRecursive(node.right, level+1);
+        levelOrderTraversalRecursive(listNode.left, level+1);
+        levelOrderTraversalRecursive(listNode.right, level+1);
     }
 ```
 
 ## Binary Tree
-- A binary tree is made of nodes, where each node contains a "left" reference, a "right" reference, and a data element.
-- The topmost node in the tree is called the root.
-- Every node (excluding root) in a tree is connected by a directed edge from exactly one other node. This node is called a parent. 
-- On the other hand, each node can be connected to arbitrary number of nodes, called children.
+- A binary tree is made of nodes, where each listNode contains a "left" reference, a "right" reference, and a data element.
+- The topmost listNode in the tree is called the root.
+- Every listNode (excluding root) in a tree is connected by a directed edge from exactly one other listNode. This listNode is called a parent. 
+- On the other hand, each listNode can be connected to arbitrary number of nodes, called children.
 - Nodes with no children are called leaves, or external nodes.
 - Nodes which are not leaves are called internal nodes. 
 - Nodes with the same parent are called siblings.
@@ -269,20 +269,20 @@ https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
             /  \        /  \                        
           40    50    100   40              0                                                   2                
 ```
-- Height of a node
-  - The height of a node is the number of edges from the node to the deepest leaf.
+- Height of a listNode
+  - The height of a listNode is the number of edges from the listNode to the deepest leaf.
 - Height of a tree
   - The height of a tree is a height of the root.
 
 
-- Depth of a node
-    - The depth of a node is the number of edges from the root to the node.
+- Depth of a listNode
+    - The depth of a listNode is the number of edges from the root to the listNode.
     - Depth is in relation to nodes 
 
 ### Binary Tree Classifications
     
 #### Full Binary Tree [zero or two children]
-A full binary tree is a binary tree in which each node has exactly zero or two children.
+A full binary tree is a binary tree in which each listNode has exactly zero or two children.
 ```
                  1
            2          3
@@ -328,9 +328,9 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
                 Figure (c)
 ```
 ##### Property 1: The number of nodes of a perfect binary tree at depth (d) is 2^d nodes
-- There is only 1 node (= the root node) at depth 0 
+- There is only 1 listNode (= the root listNode) at depth 0 
      2^0 = 1
-- In a perfect binary tree, every node has 2 children nodes
+- In a perfect binary tree, every listNode has 2 children nodes
 ```
                                                                                 Depth  Nodes at level
                                 1                                                 0     2^0 
@@ -342,9 +342,9 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
 ```
          Depth (d)   Number of Nodes at depth    Num of child nodes
          -----------------------------------------------------------------------
-            0        2^0=1                       2 (each node has 2 children)                               1
-            1        2^1=2                       4 (each node has 2 children)                     2                    3
-            2        2^2=4                       8 (each node has 2 children)               4           5         6          7
+            0        2^0=1                       2 (each listNode has 2 children)                               1
+            1        2^1=2                       4 (each listNode has 2 children)                     2                    3
+            2        2^2=4                       8 (each listNode has 2 children)               4           5         6          7
             3        2^2=8                       16                                      8       9   10    11   12   13   14    15
 ```
 - i.e. 
@@ -380,7 +380,7 @@ A binary tree where each level contains the maximum number of nodes. i.e., every
 ##### Property 4: Number of internal nodes in a perfect binary tree of height h is 2^(h)−1
 - Number of nodes in a perfect binary tree of height h = 2^(h+1)−1     (see Property 2)
 - Number of leaf nodes in a perfect binary tree of height h = 2^h      (see Property 3)
-- The other nodes are internal nodes (i.e., with at least 1 child node)
+- The other nodes are internal nodes (i.e., with at least 1 child listNode)
 - So the number of internal nodes in a perfect binary tree of height h is
   - [Total number of nodes] - [Number of nodes at height h] 
   - [(2^(h+1)−1)] − [2^h = 2^(h) − 1]
@@ -408,7 +408,7 @@ Difference between the left and right subtree is not more than k.
         | leftHeight - rightHeight | = 1
 The absolute difference between the height of the left and right subtree must not more than K.
 K in this case of a balanced binary tree is 1. 
-For example, if we remove the node 5 from the below tree, it becomes unbalanced.
+For example, if we remove the listNode 5 from the below tree, it becomes unbalanced.
 ```
               1
           2       3

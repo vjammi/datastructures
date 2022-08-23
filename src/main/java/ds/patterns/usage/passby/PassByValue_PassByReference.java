@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
-    Passing by Value and Pass by Reference
+      Passing by Value and Pass by Reference
 
       Java always is Pass by Value
       C++ is Pass by Reference
@@ -30,6 +30,20 @@ import java.util.function.Consumer;
       https://www.andrew.cmu.edu/course/15-121/lectures/Class%20Design/classes.html
  */
 public class PassByValue_PassByReference {
+
+    public static void main(String[] args) {
+        PassByValue_PassByReference obj = new PassByValue_PassByReference();
+
+        obj.testPassingPrimitiveTypes();
+        obj.testPassingString();
+        obj.testPassingReferenceTypes();
+        obj.testPassingByReferenceInCPP();
+
+        obj.testPassingAnArray();
+        obj.testPassingAMap();
+        obj.testPassingAnArrayList();
+        obj.testPassingMyList();
+    }
 
     /** Pass by Value */
     public void testPassingPrimitiveTypes() {
@@ -69,10 +83,8 @@ public class PassByValue_PassByReference {
 
          // & below tells C++ to specifically "pass x by reference"
          int myMethod(int &x) {
-             // myMethod has the address of x, or the
-             // reference to x (rather than the value),
-             // so it overwrites the value of variable y
-             // used in main() that called myMethod
+             // myMethod has the address of x, or the reference to x (rather than the value),
+             // so it overwrites the value of variable y used in main() that called myMethod
              x = 4;
          }
          **/
@@ -91,18 +103,20 @@ public class PassByValue_PassByReference {
     }
 
 
-    private void testPassingArraysAsReferenceTypes() {
+    // Passing a reference to an array obj [address of the obj] on the heap
+    private void testPassingAnArray() {
         int[] arr = new int[3];
         arr[0] = 1;
         addToArray(arr);
         arr[2] = 3;
         Arrays.stream(arr).forEach(System.out::println);
     }
-    private void addToArray(int[] arr) {
-        arr[1] = 2;
+    private void addToArray(int[] arr1) {
+        arr1[1] = 2;
     }
 
-    private void testPassingMapsAsReferenceTypes() {
+    // Passing a reference to a Map obj [address of the obj] on the heap
+    private void testPassingAMap() {
         Map<String, Integer> map = new HashMap<>();
         map.put("One", 1);
         addToMap(map);
@@ -115,7 +129,8 @@ public class PassByValue_PassByReference {
         map.put("Four", 4);
     }
 
-    private void testPassingListsAsReferenceTypes() {
+    // Passing a reference to an ArrayList obj [address of the obj] on the heap
+    private void testPassingAnArrayList() {
         List<Integer> list = new ArrayList<>();
         list.add(1);
         appendToList(list);
@@ -128,7 +143,9 @@ public class PassByValue_PassByReference {
         list.add(2);
     }
 
-    private void testPassingMyListsAsReferenceTypes() {
+
+    // Passing a reference to a MyList obj [address of the obj] on the heap
+    private void testPassingMyList() {
         MyList<Integer> list = new MyList<>();
         list.add(1);
         appendToList(list);
@@ -234,20 +251,5 @@ public class PassByValue_PassByReference {
             return name;
         }
     }
-
-    public static void main(String[] args) {
-        PassByValue_PassByReference obj = new PassByValue_PassByReference();
-
-        obj.testPassingPrimitiveTypes();
-        obj.testPassingString();
-        obj.testPassingReferenceTypes();
-        obj.testPassingByReferenceInCPP();
-
-        obj.testPassingArraysAsReferenceTypes();
-        obj.testPassingMapsAsReferenceTypes();
-        obj.testPassingListsAsReferenceTypes();
-        obj.testPassingMyListsAsReferenceTypes();
-    }
-
 
 }

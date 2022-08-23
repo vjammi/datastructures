@@ -1,4 +1,4 @@
-package ds.patterns.subs.substring;
+package ds.patterns.substring;
 
 /**
  * m: dabc

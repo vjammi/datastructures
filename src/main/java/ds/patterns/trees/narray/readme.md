@@ -1,9 +1,9 @@
 N-Array (Generic Trees)
-Generic trees are a collection of nodes where each node is a data structure that consists of records and a list of references to its children(duplicate references are not allowed).
-Unlike the linked list, each node stores the address of multiple nodes. Every node stores address of its children and the very first node’s address will be stored in a separate pointer called root.
+Generic trees are a collection of nodes where each listNode is a data structure that consists of records and a list of references to its children(duplicate references are not allowed).
+Unlike the linked list, each listNode stores the address of multiple nodes. Every listNode stores address of its children and the very first listNode’s address will be stored in a separate pointer called root.
 The Generic trees are the N-ary trees which have the following properties:
-1. Many children at every node.
-2. The number of nodes for each node is not known in advance.
+1. Many children at every listNode.
+2. The number of nodes for each listNode is not known in advance.
 
 Node Definition
 ```
@@ -43,13 +43,13 @@ Preorder Traversal
         stack.push(root);
 
         while(!stack.isEmpty()){
-            Node node = stack.pop();
-            if (node != null){
-                System.out.println(node.val);
-                preorderList.add(node.val);
-                List<Node> children = node.children;
+            Node listNode = stack.pop();
+            if (listNode != null){
+                System.out.println(listNode.val);
+                preorderList.add(listNode.val);
+                List<Node> children = listNode.children;
                 // Notice that we are adding items into the stack backwards.
-                // This is similar to we adding node.right first and then node.left for preorder Binary Trees iterative traversals
+                // This is similar to we adding listNode.right first and then listNode.left for preorder Binary Trees iterative traversals
                 for (int i=children.size() -1; i>=0; i--){
                     Node child =  children.get(i);
                     if (child != null) stack.push(child);
@@ -68,14 +68,14 @@ Postorder Traversal
         stack.push(root);
 
         while(!stack.isEmpty()){
-            Node node = stack.pop();
+            Node listNode = stack.pop();
 
-            if (node!=null) {
-                List<Node> children = node.children;
+            if (listNode!=null) {
+                List<Node> children = listNode.children;
                 for(int i=0; i<children.size(); i++){
                     stack.push(children.get(i));
                 }
-                postorderList.add(0, node.val); // Could also use a Stack to store the elements
+                postorderList.add(0, listNode.val); // Could also use a Stack to store the elements
             }
         }
 
@@ -98,10 +98,10 @@ LevelOrder Traversal
 
             List<Integer> list = new ArrayList<>();
             while(size > 0){
-                Node node = queue.poll();
-                if(node != null){
-                    list.add(node.val);
-                    List<Node> children = node.children;
+                Node listNode = queue.poll();
+                if(listNode != null){
+                    list.add(listNode.val);
+                    List<Node> children = listNode.children;
                     for (Node child: children){
                         if (child!=null) queue.offer(child);
                     }

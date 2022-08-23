@@ -1,4 +1,4 @@
-package ds.patterns.subs.subsequence;
+package ds.patterns.subsequence;
 
 import java.util.ArrayList;
 import java.util.List;
