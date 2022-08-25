@@ -83,6 +83,11 @@
 #### Use of PreOrder Traversal
 - Preorder traversal is used to create a copy of the tree.
 - Preorder traversal is also used to get prefix expression on an expression tree [http://en.wikipedia.org/wiki/Polish_notation]
+  - The expression for adding the numbers 1 and 2 is written in Polish notation as + 1 2 (prefix), rather than as 1 + 2 (infix).
+  - For instance, the expression that would be written in conventional infix notation as (5 − 6) × 7 can be written in Polish notation as × (− 5 6) 7
+                       *
+                -             7
+            5       6
 
 ### Inorder Traversal
 ```
@@ -124,7 +129,6 @@
 ```
 #### Use of InOrder Traversal
 - In a binary search tree, we can retrieve all the data in sorted order using in-order traversal.
-- 
 
 ### Postorder Traversal
 
