@@ -1,5 +1,3 @@
-
-
 https://bigdata.uni-saarland.de/datenbankenlernen/
 
 ## Hardware and Storage
@@ -15,3 +13,6 @@ https://youtu.be/Ilf3f9ZSqqE
 https://youtu.be/3vCLgS9xaQk?t=570
 
 ### Multicore
+
+### system design scalability
+https://www.educative.io/path/scalability-system-design
