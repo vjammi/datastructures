@@ -83,14 +83,22 @@
 #### Use of PreOrder Traversal
 - Preorder traversal is used to create a copy of the tree.
 - Preorder traversal is also used to get prefix expression on an expression tree [http://en.wikipedia.org/wiki/Polish_notation]
-  - The expression for adding the numbers 1 and 2 is written in Polish notation as + 1 2 (prefix), rather than as 1 + 2 (infix).
-  - For instance, the expression that would be written in conventional infix notation as (5 − 6) × 7 can be written in Polish notation as × (− 5 6) 7
-    ```      
-                        *
-                -             7
-            5       6
-    ```
-
+  - Polish notation [Pre Order]
+    - The expression for adding the numbers 1 and 2 is written in Polish notation as + 1 2 (prefix), rather than as 1 + 2 (infix).
+    - For instance, the expression that would be written in conventional infix notation as ```(5 − 6) × 7``` can be written in Polish notation as ```× (− 5 6) 7```
+    - ??? We can handle the expression using a stack. Each time when we meet two operands, we pop the two operands from the stack, calculate the result and push the result back into the stack.
+      ```      
+                          *
+                  -             7
+              5       6
+      ```
+  - Reverse Polish Notation [Post Order] 
+    - The expression ((2+1) * 3) can be written in Reverse Polish notation as 2 1 + 3 * 
+      ```      
+                          *
+                  +             3
+              2       1
+      ```
 ### Inorder Traversal
 ```
     // inorder A+B
@@ -179,11 +187,15 @@ Iterative
 #### Use of Postorder
 - PostOrder traversal is used to delete the tree. When we delete nodes in a tree, deletion process will be in post-order. 
   That is to say, when we delete a listNode, we will delete its left child and its right child before you delete the listNode itself.
+
 - Post-order is widely used to get mathematical postfix expression of an expression tree [http://en.wikipedia.org/wiki/Reverse_Polish_notation]
-  It is easier to write a program to parse a post-order expression. We can easily figure out the original expression using the inorder traversal.
-  However, it is not easy for a program to handle this expression since you have to check the priorities of operations.
-  If we handle this tree in postorder, you can easily handle the expression using a stack.
-  Each time when you meet an operator, you can just pop 2 elements from the stack, calculate the result and push the result back into the stack.
+- For Instance, the expression written ```3 − 4 + 5``` in conventional notation would be written as ``` 3 4 − 5 + ```in reverse Polish notation
+- Note: 
+  - It is easier to write a program to parse a post-order expression. 
+  - We can easily figure out the original expression using the inorder traversal.
+  - However, it is not easy for a program to handle this expression since we have to check the priorities of operations.
+  - If we handle this tree in postorder, we can easily handle the expression using a stack. 
+  - Each time when we meet an operator, we can just pop 2 elements from the stack, calculate the result and push the result back into the stack.
 
 References: 
 https://leetcode.com/explore/learn/card/data-structure-tree/134/traverse-a-tree/992/
