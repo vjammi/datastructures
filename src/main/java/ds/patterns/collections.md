@@ -9,6 +9,15 @@
         ```List list = Collections.synchronizedList(new ArrayList(...));```
    - The iterators returned by this class's iterator and listIterator methods are fail-fast: if the list is structurally modified at any time after the iterator is created, in any way except through the iterator's own remove or add methods, the iterator will throw a ConcurrentModificationException. Thus, in the face of concurrent modification, the iterator fails quickly and cleanly, rather than risking arbitrary, non-deterministic behavior at an undetermined time in the future.
      Note that the fail-fast behavior of an iterator cannot be guaranteed as it is, generally speaking, impossible to make any hard guarantees in the presence of unsynchronized concurrent modification. Fail-fast iterators throw ConcurrentModificationException on a best-effort basis. Therefore, it would be wrong to write a program that depended on this exception for its correctness: the fail-fast behavior of iterators should be used only to detect bugs.
+   
+    1.1 CopyOnWriteArrayList
+    - A thread-safe variant of ArrayList in which all mutative operations (add, set, and so on) are implemented by making a fresh copy of the underlying array.
+    - This is ordinarily too costly, but may be more efficient than alternatives when traversal operations vastly outnumber mutations, and is useful when you cannot or don't want to synchronize traversals, yet need to preclude interference among concurrent threads. The "snapshot" style iterator method uses a reference to the state of the array at the point that the iterator was created. This array never changes during the lifetime of the iterator, so interference is impossible and the iterator is guaranteed not to throw ConcurrentModificationException. 
+    - The iterator will not reflect additions, removals, or changes to the list since the iterator was created. 
+    - Element-changing operations on iterators themselves (remove, set, and add) are not supported. These methods throw UnsupportedOperationException.
+    - All elements are permitted, including null.
+    - Memory consistency effects: As with other concurrent collections, actions in a thread prior to placing an object into a CopyOnWriteArrayList happen-before actions
+      subsequent to the access or removal of that element from the CopyOnWriteArrayList in another thread.
 
 2. Java LinkedList
    - Doubly-linked list implementation of the List and Deque interfaces. Implements all optional list operations, and permits all elements (including null).
@@ -49,7 +58,10 @@
     - A structural modification is any operation that adds or deletes one or more mappings or, in the case of access-ordered linked hash maps, affects iteration order. In insertion-ordered linked hash maps, merely changing the value associated with a key that is already contained in the map is not a structural modification. In access-ordered linked hash maps, merely querying the map with get is a structural modification. )
     - The iterators returned by the iterator method of the collections returned by all of this class's collection view methods are fail-fast: if the map is structurally modified at any time after the iterator is created, in any way except through the iterator's own remove method, the iterator will throw a ConcurrentModificationException. Thus, in the face of concurrent modification, the iterator fails quickly and cleanly, rather than risking arbitrary, non-deterministic behavior at an undetermined time in the future.
     - Note that the fail-fast behavior of an iterator cannot be guaranteed as it is, generally speaking, impossible to make any hard guarantees in the presence of unsynchronized concurrent modification. Fail-fast iterators throw ConcurrentModificationException on a best-effort basis. Therefore, it would be wrong to write a program that depended on this exception for its correctness: the fail-fast behavior of iterators should be used only to detect bugs.
-
+      
+    - Additional References
+      - https://www.educative.io/courses/collections-in-java/qAgmRPypYZ0
+   
 5. Java TreeMap
     - Constructs a new, empty tree map, using the natural ordering of its keys. All keys inserted into the map must implement the Comparable interface. 
     - Furthermore, all such keys must be mutually comparable: k1.compareTo(k2) must not throw a ClassCastException for any keys k1 and k2 in the map. 
@@ -98,3 +110,16 @@
 
 
 11. Comparable and Comparator
+
+
+
+## Additional References
+
+### Fail Fast and Fail Safe Iterators in Java
+https://www.geeksforgeeks.org/fail-fast-fail-safe-iterators-java/
+
+### Synchronization of ArrayList in Java
+https://www.geeksforgeeks.org/synchronization-arraylist-java/
+
+### Vector vs ArrayList in Java
+https://www.geeksforgeeks.org/vector-vs-arraylist-java/

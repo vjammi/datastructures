@@ -108,6 +108,7 @@ public class Hashtable<K,V> extends Dictionary<K,V>
 Collections
 - This class consists exclusively of static methods that operate on or return collections. 
 - It contains polymorphic algorithms that operate on collections, "wrappers", which return a new collection backed by a specified collection, and a few other odds and ends.
+
 Arrays
 - This class contains various methods for manipulating arrays (such as sorting and searching). 
 - This class also contains a static factory that allows arrays to be viewed as lists.
