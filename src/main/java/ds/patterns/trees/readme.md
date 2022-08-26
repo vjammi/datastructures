@@ -300,7 +300,7 @@ https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/
 ### Binary Tree Classifications
     
 #### Full Binary Tree [zero or two children]
-A full binary tree is a binary tree in which each node has exactly zero or two children.
+A full binary tree is a binary tree in which each node has exactly ```zero or two children```.
 ```
                  1
            2          3
@@ -311,7 +311,7 @@ A full binary tree is a binary tree in which each node has exactly zero or two c
 ```
 
 #### Complete Binary Tree [Completely filled from left to right]
-A complete binary tree is a binary tree, which is completely filled, with the possible exception of the bottom level, which is filled from left to right. 
+A complete binary tree is a binary tree, which is completely filled, with the possible exception of the bottom level, which is ```filled from left to right```. 
 The Heap data structure is a good example of a complete binary tree.
 A complete binary tree provides the best possible ratio between the number of nodes and the height.
 - The height h of a complete binary tree with N nodes is at most O(log N). 
