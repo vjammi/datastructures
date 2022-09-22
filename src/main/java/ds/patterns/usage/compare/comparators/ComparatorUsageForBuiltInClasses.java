@@ -1,4 +1,4 @@
-package ds.patterns.usage.comparators;
+package ds.patterns.usage.compare.comparators;
 
 import java.text.Collator;
 import java.util.*;

@@ -1,6 +1,6 @@
 package ds.hashing;
 
-public class Hashing_SeperateChaining<Key, Value> {
+public class                          Hashing_SeperateChaining<Key, Value> {
 
     private int M ;                   // 5 or 97      Number of chains. A prime number.
     private Node[] arrayOfNodeChains;      // 0-4 or 0-96  Array of chains / list of Nodes

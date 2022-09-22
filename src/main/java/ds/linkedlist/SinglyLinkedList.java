@@ -23,10 +23,10 @@ import java.util.NoSuchElementException;
  *  @author Robert Sedgewick
  *  @author Kevin Wayne
  */
-public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
+public class SinglyLinkedList<Item> implements Iterable<Item> {
+    private Node head;    // beginning of queue
+    private Node tail;     // end of queue
     private int n;         // number of elements on queue
-    private Node first;    // beginning of queue
-    private Node last;     // end of queue
 
     // helper linked list class
     private class Node {
@@ -37,9 +37,9 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
     /**
      * Initializes an empty queue.
      */
-    public LinkedQueueForGenericItems() {
-        first = null;
-        last  = null;
+    public SinglyLinkedList() {
+        head = null;
+        tail = null;
         n = 0;
         assert check();
     }
@@ -49,7 +49,7 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
      * @return true if this queue is empty; false otherwise
      */
     public boolean isEmpty() {
-        return first == null;
+        return head == null;
     }
 
     /**
@@ -67,7 +67,7 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
      */
     public Item peek() {
         if (isEmpty()) throw new NoSuchElementException("Queue underflow");
-        return first.item;
+        return head.item;
     }
 
     /**
@@ -75,14 +75,14 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
      * @param item the item to add
      */
     public void insert(Item item) {
-        Node oldlast = last;
-        last = new Node();
-        last.item = item;
-        last.next = null;
+        Node oldTail = tail;
+        tail = new Node();
+        tail.item = item;
+        tail.next = null;
         if (isEmpty())
-            first = last;
+            head = tail;
         else
-            oldlast.next = last;
+            oldTail.next = tail;
 
         n++;
         assert check();
@@ -95,10 +95,10 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
      */
     public Item delete() {
         if (isEmpty()) throw new NoSuchElementException("Queue underflow");
-        Item item = first.item;
-        first = first.next;
+        Item item = head.item;
+        head = head.next;
         n--;
-        if (isEmpty()) last = null;   // to avoid loitering
+        if (isEmpty()) tail = null;   // to avoid loitering
         assert check();
         return item;
     }
@@ -120,33 +120,33 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
             return false;
         }
         else if (n == 0) {
-            if (first != null) return false;
-            if (last  != null) return false;
+            if (head != null) return false;
+            if (tail != null) return false;
         }
         else if (n == 1) {
-            if (first == null || last == null) return false;
-            if (first != last)                 return false;
-            if (first.next != null)            return false;
+            if (head == null || tail == null) return false;
+            if (head != tail)                 return false;
+            if (head.next != null)            return false;
         }
         else {
-            if (first == null || last == null) return false;
-            if (first == last)      return false;
-            if (first.next == null) return false;
-            if (last.next  != null) return false;
+            if (head == null || tail == null) return false;
+            if (head == tail)      return false;
+            if (head.next == null) return false;
+            if (tail.next  != null) return false;
 
             // check internal consistency of instance variable n
             int numberOfNodes = 0;
-            for (Node x = first; x != null && numberOfNodes <= n; x = x.next) {
+            for (Node x = head; x != null && numberOfNodes <= n; x = x.next) {
                 numberOfNodes++;
             }
             if (numberOfNodes != n) return false;
 
             // check internal consistency of instance variable last
-            Node lastNode = first;
+            Node lastNode = head;
             while (lastNode.next != null) {
                 lastNode = lastNode.next;
             }
-            if (last != lastNode) return false;
+            if (tail != lastNode) return false;
         }
 
         return true;
@@ -163,7 +163,7 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
 
     // an iterator, doesn't implement remove() since it's optional
     private class LinkedIterator implements Iterator<Item> {
-        private Node current = first;
+        private Node current = head;
 
         public boolean hasNext()  { return current != null;                     }
         public void remove()      { throw new UnsupportedOperationException();  }
@@ -182,7 +182,7 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        LinkedQueueForGenericItems<String> list = new LinkedQueueForGenericItems<String>();
+        SinglyLinkedList<String> list = new SinglyLinkedList<String>();
 
         String[] strings = {"1", "-", "2", "-", "3", "11", "-", "22", "-", "33"};
         for (String item: strings){
@@ -190,6 +190,13 @@ public class LinkedQueueForGenericItems<Item> implements Iterable<Item> {
                 list.insert(item);
             else if (!list.isEmpty())
                 System.out.println(list.delete() + " ");
+        }
+
+        Iterator<String> iterator = list.iterator();
+
+        while(iterator.hasNext()){
+            String item = iterator.next();
+            System.out.println(item);
         }
 
         System.out.println("(" + list.size() + " left on queue)");
