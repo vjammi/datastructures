@@ -1,4 +1,4 @@
-package ds.patterns.designsystems.concurrency;
+package ds.patterns.usage.concurrency;
 
 public class Task{
 

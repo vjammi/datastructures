@@ -1,4 +1,4 @@
-package ds.patterns.designsystems.concurrency;
+package ds.patterns.usage.concurrency;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

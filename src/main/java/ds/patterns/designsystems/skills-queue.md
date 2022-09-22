@@ -1,6 +1,3 @@
-
-
-
 ## Hardware and Storage: 
 https://youtu.be/ZWgPdCiPQ-I
 https://bigdata.uni-saarland.de/datenbankenlernen/
