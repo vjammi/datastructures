@@ -2,7 +2,7 @@ package ds.patterns.usage.concurrency;
 
 import java.util.concurrent.*;
 
-public class CallableUsageWithInteruptsAndFuture {
+public class CallableUsageWithInterruptsAndFuture {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         simpleCallableTask();
@@ -10,17 +10,17 @@ public class CallableUsageWithInteruptsAndFuture {
         spawnCallableTasksUsingExecutorService();
     }
 
-    private static void simpleCallableTask() {
+    private static void simpleCallableTask() throws InterruptedException {
         System.out.println("Creating a callable task ...");
-        CallableTaskVer1 task = new CallableTaskVer1(0);
+        CallableTaskVer1 task = new CallableTaskVer1(0, new CountDownLatch(10));
         Integer result = task.call();
         System.out.println("Callable Result: " +result);
     }
 
     private static void spawnCallableTasksUsingExecutorService() throws InterruptedException, ExecutionException {
         System.out.println("Creating callable tasks ...");
-        CallableTaskVer1 task1 = new CallableTaskVer1(0);
-        CallableTaskVer1 task2 = new CallableTaskVer1(1);
+        CallableTaskVer1 task1 = new CallableTaskVer1(0, new CountDownLatch(10));
+        CallableTaskVer1 task2 = new CallableTaskVer1(1, new CountDownLatch(10));
 
         System.out.println("Launching executor thread pool  service ...");
         ExecutorService executorService = Executors.newFixedThreadPool(2);
@@ -48,15 +48,14 @@ public class CallableUsageWithInteruptsAndFuture {
     }
 
     private static void spawnACallableTaskWithInterrupt() throws InterruptedException, ExecutionException {
-        CallableTaskVer1 task = new CallableTaskVer1(0);
-        FutureTask[] futureTask = new FutureTask[1];
-        futureTask[0] = new FutureTask(task);
+        CallableTaskVer1 task = new CallableTaskVer1(0, new CountDownLatch(10));
+        FutureTask futureTask = new FutureTask(task);
 
         // Option 1
-        task.start(futureTask[0], 0);
+        task.start(futureTask, 0, new CountDownLatch(10));
 
         // Option 2
-        // Thread worker = new Thread(futureTask[0]);
+        // Thread worker = new Thread(futureTask);
         // worker.start();
 
         // Sleep for 3000 ms
@@ -66,7 +65,7 @@ public class CallableUsageWithInteruptsAndFuture {
         task.stop();
 
         // Now get Task Results
-        System.out.println("Task Results: " +futureTask[0].get());
+        System.out.println("Task Results: " +futureTask.get());
     }
 }
 
@@ -74,21 +73,23 @@ public class CallableUsageWithInteruptsAndFuture {
 class CallableTaskVer1 implements Callable<Integer> {
 
    private volatile boolean interrupt = false;
-   private volatile int iterations = 0;
+   private CountDownLatch latch;
    private int taskNum;
 
     private Thread worker;
 
-    public CallableTaskVer1(int taskNum) {
+    public CallableTaskVer1(int taskNum, CountDownLatch latch) {
         this.taskNum = taskNum;
-        System.out.println("Task Started..." +taskNum);
+        this.latch = latch;
+        System.out.println("Task Started ..." +taskNum);
     }
 
 
-    public void start(FutureTask futureTask, int taskNum) {
+    public void start(FutureTask futureTask, int taskNum, CountDownLatch iterations) {
         worker = new Thread(futureTask);
         worker.start();
         this.taskNum = taskNum;
+        this.latch = iterations;
         System.out.println("Task Started..." +taskNum);
     }
 
@@ -98,19 +99,16 @@ class CallableTaskVer1 implements Callable<Integer> {
     }
 
     @Override
-    public Integer call() {
-        while (!interrupt && iterations < 10) {
-            try {
-                Thread.sleep(500);
-                System.out.println(Thread.currentThread().getName() +" taskNum "+taskNum+ " running. Iteration # "+ iterations +". Task interrupted? " + interrupt);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.out.println("Thread was interrupted," + e.getMessage());
-            }
-            iterations++;
+    public Integer call() throws InterruptedException{
+
+        while (!interrupt && latch.getCount() > 0) {
+            Thread.sleep(500);
+            System.out.println(Thread.currentThread().getName() +" taskNum "+taskNum+ " running. Iteration # "+ latch.getCount() +". Task interrupted? " + interrupt);
+            latch.countDown();
         }
-        System.out.println(Thread.currentThread().getName() +" taskNum "+taskNum+ " completed after " + iterations +" iterations. Task interrupted? " + interrupt);
-        return iterations + 100 + taskNum;
+
+        System.out.println(Thread.currentThread().getName() +" taskNum "+taskNum+ " completed after " + latch.getCount() +" iterations. Task interrupted? " + interrupt);
+        return 100+taskNum;
     }
 
 }
