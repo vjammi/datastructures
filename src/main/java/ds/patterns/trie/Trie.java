@@ -75,12 +75,12 @@ public class Trie {
 
     public static void main(String[] args) {
         Trie trie = new Trie();
+        trie.insert("dog");
         trie.insert("dob");
         trie.insert("doc");
         trie.insert("dod");
         trie.insert("doe");
         trie.insert("dof");
-        trie.insert("dog");
         trie.insert("doggy");
 
         trie.search("dog");

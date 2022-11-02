@@ -1,4 +1,45 @@
-## Trie Implementation
+## Trie 
+
+```
+                        [*]
+                   d  /     \ t
+                    [*]      [*]
+                o  /       / o   \ r
+                 [*]      [*]    [*]
+              g /        / m       \ a
+             [true]    [true]      [*]
+                                     \ i
+                                     [*]
+                                      \ n
+                                     [true]
+                                    
+            dog, tom, train                                    
+```
+```
+        root = {Trie$TrieNode@698} 
+         children = {HashMap@699}  size = 1
+          {Character@703} d -> {Trie$TrieNode@704} 
+            key = {Character@703} d
+            value = {Trie$TrieNode@704} 
+              children = {HashMap@705}  size = 1
+              {Character@709} o -> {Trie$TrieNode@710} 
+                key = {Character@709} o
+                value = {Trie$TrieNode@710} 
+                 children = {HashMap@711}  size = 1
+                  {Character@715} g -> {Trie$TrieNode@716} 
+                   key = {Character@715} g
+                   value = {Trie$TrieNode@716} 
+                    children = {HashMap@717}  size = 0
+                    endOfWord = true
+                    this$0 = {Trie@697} 
+                 endOfWord = false
+                 this$0 = {Trie@697} 
+              endOfWord = false
+              this$0 = {Trie@697} 
+           endOfWord = false
+           this$0 = {Trie@697}
+```
+#### Trie Implementation
 ```
 public class Trie {
     TrieNode root;

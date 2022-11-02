@@ -28,18 +28,23 @@ package ds.patterns.binarysearch;
 
 public class SearchInRotatedSortedArrayII {
     /**
-    Solution: This is similar to the problem 33 [Search in Rotated Sorted Array is normal cases] the same solution works for this one too
+     Solution: This is similar to the problem 33 [Search in Rotated Sorted Array is normal cases] the same solution works for this one too
              nums [2,5,6,0,0,1,2] target = 0
 
-        However in a scenario where, (nums[mid] != target) && (nums[low] == nums[mid] && nums[high] == nums[mid]) we are
-        not able to reduce the search space by half. say for example
-             [1,0,1,1,1], target = 0
-                    or
+     However, in a scenario where, we are not able to reduce the search space by half. say for example
+            // [1, 0, 1, 1, 1], target = 0
+                0  1  2  3  4
+                ^     ^     ^
+               lo    mid    hi
+
+            if (nums[mid] != target) && (nums[low] == nums[mid] && nums[high] == nums[mid]){
+                return search(nums, target, low+1, high-1);
+            }
+
+     In worst case, this might turn into a linear search
             [1, 1, 1, 1, 1, 1, 1], target = 2
 
-        In worst case, this might turn into a linear search
-
-             if (nums[mid] == target){
+            if (nums[mid] == target){
                 // ...
              }else if(nums[low] == nums[mid] && nums[high] == nums[mid]) { // Additional logic to handle duplicates
                 return search(nums, target, low+1, high-1);
@@ -47,9 +52,8 @@ public class SearchInRotatedSortedArrayII {
                 // ...
              }else {                                                        //right side is sorted
                 // ...
-             }
-
-    Complexity Analysis
+            }
+     Complexity Analysis
          Time complexity : O(N) worst case, O(logN) best case, where NN is the length of the input array.
 
         Worst case: This happens when all the elements are the same and we search for some different element.

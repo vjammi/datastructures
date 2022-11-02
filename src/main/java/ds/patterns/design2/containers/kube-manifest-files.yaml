@@ -1,0 +1,97 @@
+###################################################################
+### reference https://www.eksworkshop.com/beginner/050_deploy/servicetype/
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecsdemo-nodejs
+  labels:
+    app: ecsdemo-nodejs
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecsdemo-nodejs
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: ecsdemo-nodejs
+    spec:
+      containers:
+        - image: brentley/ecsdemo-nodejs:latest
+          imagePullPolicy: Always
+          name: ecsdemo-nodejs
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+---
+### kubernetes/service.yaml for the frontend service.
+### Note the type: LoadBalancer will configure an ELB to handle incoming traffic to this service.
+### Compare this kubernetes/service.yaml with the one for our backend services
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecsdemo-frontend
+spec:
+  selector:
+    app: ecsdemo-frontend
+  type: LoadBalancer
+  ports:
+    -  protocol: TCP
+       port: 80
+       targetPort: 3000
+---
+### Notice there is no specific service type described. The default type is ClusterIP.
+### This Exposes the service on a cluster-internal IP. Choosing this value makes the service only reachable from within the cluster.
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecsdemo-nodejs
+spec:
+  selector:
+    app: ecsdemo-nodejs
+  ports:
+    -  protocol: TCP
+       port: 80
+       targetPort: 3000
+---
+###################################################################
+kind: Service
+apiVersion: v1
+metadata:
+  name: exampleservice
+spec:
+  selector:
+    app: myapp
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster.  8081 > 8080
+      port: 8081
+      # Port to forward to inside the pod
+      targetPort: 8080
+      # Port accessible outside cluster. 30002 > 8080
+      nodePort: 30002
+  type: LoadBalancer
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: myappdeployment
+spec:
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp
+          image: jamesquigley/exampleapp:v1.0.0
+          ports:
+            - containerPort: 8080
+###################################################################
