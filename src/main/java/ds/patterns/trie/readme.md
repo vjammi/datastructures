@@ -12,9 +12,9 @@
                                      [*]
                                       \ n
                                      [true]
-                                    
             dog, tom, train                                    
 ```
+
 ```
         root = {Trie$TrieNode@698} 
          children = {HashMap@699}  size = 1
@@ -60,12 +60,14 @@ public class Trie {
 
     private void add(String word){
         TrieNode currentNode = root;
-
+        
+        // 0 1 2 
+        // d o g
         for (int i=0; i<word.length(); i++){
             char ch = word.charAt(i);
             TrieNode childNode  = currentNode.map.get(ch);
             if ( childNode == null)
-                currentNode.map.put(ch, new TrieNode());
+               currentNode.map.put(ch, new TrieNode());         //  d o g
             // CANNOT assign the childNode to the currentNode.
             // It has to be currentNode.map.get(ch), in case childNode null, we end up creating it prior to
             currentNode = currentNode.map.get(ch);
