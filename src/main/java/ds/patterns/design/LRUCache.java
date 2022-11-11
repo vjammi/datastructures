@@ -4,30 +4,30 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 146. LRU Cache: https://leetcode.com/problems/lru-cache/
- * K      V
- * 1 -> ListNode(100)
- * 2 -> ListNode(200)
- * 3 -> ListNode(300)
- * 4 -> ListNode(400)
- * 5 -> ListNode(500)
- * 6 -> ListNode(600)
- * <p>
- * head                   tail
- * |                        |
- * 6 >  5 >  4 >  3 >  2 >  1
- * <    <    <    <    <
- * <p>
- * ["LRUCache","put", "put", "get", "put", "get","put", "get", "get", "get"]
- * [ [2],       [1,1], [2,2], [1],  [3,3], [2],  [4,4], [1],   [3],   [4]]
- * <p>
- * ["LRUCache","put","get","put","get","get"]
- * [[1],[2,1],[2],[3,2],[2],[3]]
- * <p>
- * ["LRUCache","put","get","put","get","get"]
- * [[1],[2,1],[2],[3,2],[2],[3]]
- * <p>
- * 12/22 test cases pass
+     * 146. LRU Cache: https://leetcode.com/problems/lru-cache/
+     * K      V
+     * 1 -> ListNode(100)
+     * 2 -> ListNode(200)
+     * 3 -> ListNode(300)
+     * 4 -> ListNode(400)
+     * 5 -> ListNode(500)
+     * 6 -> ListNode(600)
+     * <p>
+     * head                   tail
+     * |                        |
+     * 6 >  5 >  4 >  3 >  2 >  1
+     * <    <    <    <    <
+     * <p>
+     * ["LRUCache","put", "put", "get", "put", "get","put", "get", "get", "get"]
+     * [ [2],       [1,1], [2,2], [1],  [3,3], [2],  [4,4], [1],   [3],   [4]]
+     * <p>
+     * ["LRUCache","put","get","put","get","get"]
+     * [[1],[2,1],[2],[3,2],[2],[3]]
+     * <p>
+     * ["LRUCache","put","get","put","get","get"]
+     * [[1],[2,1],[2],[3,2],[2],[3]]
+     * <p>
+     * 12/22 test cases pass
  */
 class LRUCache {
 

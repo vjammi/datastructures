@@ -112,38 +112,51 @@ Given an integer array nums, find a contiguous non-empty subarray within the arr
 The test cases are generated so that the answer will fit in a 32-bit integer.
 A subarray is a contiguous subsequence of the array.
 ```
-        Scenarios
-           1. If all positives we can keep multiplying all the elements
-                +ve x Max (+ve) = +ve
-           2. If we come across a -ve, it will reduce the product
-                -ve x Max (+ve) = -ve
-           3. However, if we come across another negative, it will now increase the product based on previous -ve
-                -ve x Min (-ve) = +ve
-           4. If we come across a 0 it will take our product down to 0
+    Scenarios     
+    1. If all positives we can keep multiplying all the elements
+        +ve x Max (+ve) = +ve
+    2. If we come across a -ve, then we will reduce the product
+        -ve x Max (+ve) = -ve
+    3. However, if we come across another negative, it will increase the product based on previous -ve
+        -ve x Min (-ve) = +ve
+    4. If we come across a 0 it will take our product down to 0
+    
+    //                n =    1 ----------------------- n-1
+    //           nums = [-2  1 -3  4   -1  2   1  -5    4]
+    //   minProdAtKth =  -2 -2 -3 -12 -24 -48 -48 -120 -480
+    //   maxProdAtKth =  -2  1  6  24  12  24  24  240  960
+    // globalMaxAtKth =  -2  1  6  24  24* 24  24  240  960      * Note that 24 is being carried from previous globalMax    
+    //      globalMaxAtKth = max(globalMaxAtKth, maxProdAtKth)        
 
-                       n =      1 ----------------------- n-1
-        //          nums = [-2  1 -3  4   -1  2   1  -5    4]
-        //      minSoFar =  -2 -2 -3 -12 -24 -48 -48 -120 -480
-        //      maxSoFar =  -2  1  6  24  12  24  24  240  960
-        //     globalMax =  -2  1  6  24  24* 24  24  240  960   * Note that 24 is being carried from previous globalMax
-    */
-```
-
-```
-    //  int[] nums = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
     public int maxProduct(int[] nums) {
-        int maxSoFar  = nums[0];
-        int minSoFar  = nums[0];
-        int globalMax = nums[0];
-        System.out.println(minSoFar +" " +maxSoFar +" " +globalMax);
 
-        for(int i = 1; i < nums.length; ++i){
-            int tmp = maxSoFar;
-            maxSoFar = Math.max(nums[i], Math.max(nums[i]*maxSoFar, nums[i]*minSoFar));
-            minSoFar = Math.min(nums[i], Math.min(nums[i]*tmp, nums[i]*minSoFar));
-            globalMax = Math.max(globalMax, maxSoFar);
-            System.out.println(minSoFar +" " +maxSoFar +" " +globalMax);
+        int maxProdAtKMinus1   = nums[0];
+        int minProdAtKMinus1   = nums[0];
+        int globalMaxAtKth     = nums[0];
+        System.out.println(minProdAtKMinus1 +" " +maxProdAtKMinus1 +" " +globalMaxAtKth);
+
+        for(int k=1; k<nums.length; k++){
+            int current = nums[k];
+
+            int maxProdAtKth = 0;
+            if (Math.max(current * maxProdAtKMinus1, current * minProdAtKMinus1) > current){
+                maxProdAtKth = Math.max(current * maxProdAtKMinus1, current * minProdAtKMinus1);
+            }else{
+                maxProdAtKth = current;
+            }
+
+            int minProdAtKth = 0;
+            if (Math.min(current * maxProdAtKMinus1, current * minProdAtKMinus1) < current){
+                minProdAtKth = Math.min(current * maxProdAtKMinus1, current * minProdAtKMinus1); //minProdAtKth;
+            }else{
+                minProdAtKth = current;
+            }
+
+            globalMaxAtKth = Math.max(globalMaxAtKth, maxProdAtKth);
+            maxProdAtKMinus1 = maxProdAtKth;
+            minProdAtKMinus1 = minProdAtKth;
         }
-        return globalMax;
+
+        return globalMaxAtKth;
     }
 ```

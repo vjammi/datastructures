@@ -33,8 +33,9 @@ public class MaximumProductSubarray {
         return maxProductSoFar;
     }
 
-       /*
+    /**
         Scenarios
+
            1. If all positives we can keep multiplying all the elements
                 +ve x Max (+ve) = +ve
            2. If we come across a -ve, then we will reduce the product
@@ -43,45 +44,46 @@ public class MaximumProductSubarray {
                 -ve x Min (-ve) = +ve
            4. If we come across a 0 it will take our product down to 0
 
-        //          nums = [-2  1 -3  4   -1  2   1  -5    4]
-        //      minSoFar =  -2 -2 -3 -12 -24 -48 -48 -120 -480
-        //      maxSoFar =  -2  1  6  24  12  24  24  240  960
+           //                n =      1 ----------------------- n-1
+           //           nums = [-2  1 -3  4   -1  2   1  -5    4]
+           //   minProdAtKth =  -2 -2 -3 -12 -24 -48 -48 -120 -480
+           //   maxProdAtKth =  -2  1  6  24  12  24  24  240  960
+           // globalMaxAtKth =  -2  1  6  24  24* 24  24  240  960      * Note that 24 is being carried from previous globalMax
 
-        //     globalMax =  -2  1  6  24  24* 24  24  240  960   * Note that 24 is being carried from previous globalMax
+           //   globalMaxAtKth = max(globalMaxAtKth, maxProdAtKth)
+
     */
 
     public int maxProduct(int[] nums) {
 
-        int maxProdAtKMinusOne  = nums[0];
-        int minProdAtKMinusOne  = nums[0];
-        int globalMaxSubarraySum       = nums[0];
-        System.out.println(minProdAtKMinusOne +" " +maxProdAtKMinusOne +" " +globalMaxSubarraySum);
+        int maxProdAtKMinus1   = nums[0];
+        int minProdAtKMinus1   = nums[0];
+        int globalMaxAtKth     = nums[0];
+        System.out.println(minProdAtKMinus1 +" " +maxProdAtKMinus1 +" " +globalMaxAtKth);
 
-        for(int i=1; i<nums.length; i++){
-            int current = nums[i];
+        for(int k=1; k<nums.length; k++){
+            int current = nums[k];
 
-            int maxProdAtKthIndex = 0;
-            //maxProdAtKMinusOne = Math.max(nums[i], maxProdAtKthIndex);
-            if (Math.max(current * maxProdAtKMinusOne, current * minProdAtKMinusOne) > current){
-                maxProdAtKthIndex = Math.max(current * maxProdAtKMinusOne, current * minProdAtKMinusOne);
+            int maxProdAtKth = 0;
+            if (Math.max(current * maxProdAtKMinus1, current * minProdAtKMinus1) > current){
+                maxProdAtKth = Math.max(current * maxProdAtKMinus1, current * minProdAtKMinus1);
             }else{
-                maxProdAtKthIndex = current;
+                maxProdAtKth = current;
             }
 
-            int minProdAtKthIndex = 0;
-            //minProdAtKMinusOne = Math.min(nums[i], minProdAtKthIndex);
-            if (Math.min(current * maxProdAtKMinusOne, current * minProdAtKMinusOne) < current){
-                minProdAtKthIndex = Math.min(current * maxProdAtKMinusOne, current * minProdAtKMinusOne); //minProdAtKthIndex;
+            int minProdAtKth = 0;
+            if (Math.min(current * maxProdAtKMinus1, current * minProdAtKMinus1) < current){
+                minProdAtKth = Math.min(current * maxProdAtKMinus1, current * minProdAtKMinus1); //minProdAtKth;
             }else{
-                minProdAtKthIndex = current;
+                minProdAtKth = current;
             }
 
-            globalMaxSubarraySum = Math.max(globalMaxSubarraySum, maxProdAtKthIndex);
-            maxProdAtKMinusOne = maxProdAtKthIndex;
-            minProdAtKMinusOne = minProdAtKthIndex;
+            globalMaxAtKth = Math.max(globalMaxAtKth, maxProdAtKth);
+            maxProdAtKMinus1 = maxProdAtKth;
+            minProdAtKMinus1 = minProdAtKth;
         }
 
-        return globalMaxSubarraySum;
+        return globalMaxAtKth;
     }
 
     public int maxProductConcise(int[] nums) {
