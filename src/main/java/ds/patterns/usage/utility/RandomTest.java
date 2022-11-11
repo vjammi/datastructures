@@ -1,4 +1,4 @@
-package ds.patterns.usage;
+package ds.patterns.usage.utility;
 
 import java.util.Random;
 
