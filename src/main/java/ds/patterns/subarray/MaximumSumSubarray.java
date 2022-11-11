@@ -39,89 +39,88 @@ public class MaximumSumSubarray {
     }
 
     /**
-     * Insight from Kadane's Algorithm could help [https://youtu.be/86CQq3pKSUw?t=259]
-     * Runtime O(n)
-     * Space   O(1)
-     * <p>
-     * Approach
-     * |---------|
-     * nums                =  [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-     * subArray at k       =   -2  1  -2  4   3  5  6  1   5
-     * maxSubArray at k-1  =   -2  1   1  4   4  5  6  6   6
-     * [-2, 1, -3]+[4]
-     * [4]
-     * <p>
-     * if max subarray upto a[k-1] + subarray at a[k] > subarray at a[k]
-     * Add the a[k] to the existing subarray
-     * else
-     * Discard the previous max subarray, and start a new one starting a[k]
-     * <p>
-     * -2 +  1 >  1  [F]
-     * 1 + -3 > -3  [T]
-     * -2 +  4 >  4  [F]
-     * 4 + -1 > -1  [T]
-     * 3 +  2 >  2  [T]
-     * 5 +  1 >  1  [T]
-     * 6 + -5 > -5  [T]
-     * 1 +  4 >  4  [T]
-     * Why does this work?
-     */
+        //    Insight from Kadane's Algorithm could help [https://youtu.be/86CQq3pKSUw?t=259]
+        //                            k =      1 -------------------- n-1
+        //                         nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        //                                            |---------|
+        //         subArraySumAtKMinus1 =  -2  1  -2  4   3  5  6   1  5
+        //                  subArrayAtK =  -2, 1, -3, 4, -1, 2, 1, -5, 4
+        //          maxSubArraySumSoFar =  -2  1   1  4   4  5  6   6  6
 
-    /*
-               nums                      = [5, 4, -1, 7, 8]
-               indexes                      0  1   2  3  4
-        subArrayAtK                      =  5  4  -1  7  4
-    subArrayMaxAtKMinusOne + subArrayAtK =     9   8  15 19
-    subArrayMaxsoFar                     =  5  9   8  15 19
+        //         if  max subarray upto a[k-1] + a[k] > a[k]
+        //              Add the a[k] to the existing subarray
+        //         else
+        //              Discard the previous max subarray, and start a new one starting a[k]
 
+        //         Runtime O(n)
+        //         Space   O(1)
 
-               nums                      = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
-               indexes                       0  1   2  3   4  5  6   7  8
-    subArrayMaxsoFar                     =  -2 -1   4
-        subArrayAtK                      =      1  -3  4
-    subArrayMaxsoFar + subArrayAtK       =     -1   4
+        //                  -2 +  1 >  1  [F]
+        //                  1 + -3 > -3  [T]
+        //                  -2 +  4 >  4  [F]
+        //                  4 + -1 > -1  [T]
+        //                  3 +  2 >  2  [T]
+        //                  5 +  1 >  1  [T]
+        //                  6 + -5 > -5  [T]
+        //                  1 +  4 >  4  [T]
+        // Why does this work?
+    */
 
-
+    /**
+        //                           nums                      = [5, 4, -1, 7, 8]
+        //                           indexes                      0  1   2  3  4
+        //                    subArrayAtK                      =  5  4  -1  7  4
+        //                subArrayMaxAtKMinusOne + subArrayAtK =     9   8  15 19
+        //                subArrayMaxsoFar                     =  5  9   8  15 19
+        //
+        //
+        //                           nums                      = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+        //                           indexes                       0  1   2  3   4  5  6   7  8
+        //                subArrayMaxsoFar                     =  -2 -1   4
+        //                    subArrayAtK                      =      1  -3  4
+        //                subArrayMaxsoFar + subArrayAtK       =     -1   4
     */
     public int maxSubArrayKadane(int[] nums) {
         if (nums.length == 0)
             return 0;
 
-        // We initialize currSubArrayAtKMinusOne & maxSubArraySumSoFar with the value of the first index[0'th]
+        // We initialize subArrayAtKMinusOne & maxSubArraySumSoFar with the value of the first index[0'th]
         // We will then iterate from 1 - len-1 to find the max for the entire subarray
+        int subArrayAtKMinusOne  = nums[0];
         int globalMaxSubarraySum = nums[0];
-        int currSubArrayAtKMinusOne = nums[0];
         for (int k = 1; k < nums.length; k++) {
             //    if max subarray upto a[k-1] + subarray at a[k] > subarray at a[k] -  [positive subArray + positive subArrayAtK or positive subArray + negative subArrayAtK
             //          Add the a[k] to the existing subarray
             //    else
             //          Discard the previous max subarray, and start a new one starting a[k] [negative subarray + positive current subArrayAtK]
-            // We then update the globalMaxSum with the currentMaxSum collected in currSubArrayAtKMinusOne
+            // We then update the globalMaxSum with the currentMaxSum collected in subArrayAtKMinusOne
 
             //  indexes                 0   1   2   3   4  5  6   7   8
             //  nums                =  [-2, 1, -3,  4, -1, 2, 1, -5, 4]
-            //  maxsum until k-1 + k   [         ]+[4]
+            //  max sum until k-1 + k  [         ]+[4]
             //                                     [4]
-
-            int subArrayAtK = nums[k];
             int subarraySumWithKthVal = 0;
-            if (currSubArrayAtKMinusOne + subArrayAtK > subArrayAtK) {
-                // Val at the current index can added to the sum
-                // *** Note that it is not yet known if currSubArrayAtKMinusOne + subArrayAtK > globalMaxSubarraySum. We do that check later
-                subarraySumWithKthVal = currSubArrayAtKMinusOne + subArrayAtK;
+            int subArrayAtK = nums[k];
+            if (subArrayAtKMinusOne + subArrayAtK > subArrayAtK) {
+                // Val at the current index can be added to the sum. *** Note that it is not yet known if subArrayAtKMinusOne + subArrayAtK > globalMaxSubarraySum. We do that check later
+                subarraySumWithKthVal = subArrayAtKMinusOne + subArrayAtK;
             } else {
                 subarraySumWithKthVal = subArrayAtK;
             }
+            // if subArrayAtKMinusOne + subArrayAtK > globalMaxSubarraySum, we update the globalMaxSubarraySum
             globalMaxSubarraySum = Math.max(globalMaxSubarraySum, subarraySumWithKthVal);
-            currSubArrayAtKMinusOne = subarraySumWithKthVal;  // Add subArrayAtK to the current running subarray
+
+            // We update subArrayAtKMinusOne with subarraySumWithKthVal, which could be (subArrayAtKMinusOne + subArrayAtK) || subArrayAtK
+            subArrayAtKMinusOne = subarraySumWithKthVal;
         }
         return globalMaxSubarraySum;
     }
 
-    // Returns sum of maximum sum subarray in arr[low..high]
-    // https://www.geeksforgeeks.org/maximum-subarray-sum-using-divide-and-conquer-algorithm/
-    // https://youtu.be/Eo2wQIPSwrw?t=287
-
+    /**
+        // Approach using Binary Search - Returns sum of maximum sum subarray in arr[low..high]
+        // https://www.geeksforgeeks.org/maximum-subarray-sum-using-divide-and-conquer-algorithm/
+        // https://youtu.be/Eo2wQIPSwrw?t=287
+    */
     int maxSubArraySum(int arr[], int low, int high) {
         // Base Case: Only one element
         if (low == high)
