@@ -1,8 +1,14 @@
 target/
 .idea/
 /datastructures.iml
-/src/main/java/ds/patterns/fb/
+/src/main/java/dev/vjammi/ds/v2/fb/
 /snip/
 /**/lc100/**
-/src/main/java/ds/patterns/practice/
-/src/main/java/ds/patterns/practice/
+/src/main/java/dev/vjammi/ds/v2/practice/
+/src/main/java/dev/vjammi/ds/v2/practice/
+/src/main/java/dev/vjammi/ds/v2/dev/patterns/
+/src/main/java/dev/vjammi/ds/v2/dev/frameworks/api/rest/
+/src/main/java/dev/vjammi/ds/v2/dev/patterns/
+/src/main/java/dev/vjammi/ds/v2/dev/frameworks/junit/
+/src/main/java/dev/vjammi/ds/v2/dev/frameworks/junit/
+/src/main/java/dev/vjammi/ds/v2/dev/frameworks/api/rest/
