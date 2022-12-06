@@ -1,4 +1,4 @@
-package dev.vjammi.ds.v1.arrays;
+package dev.vjammi.ds.v2.matrix;
 
 public class TwoDimArrayIterations {
     /**

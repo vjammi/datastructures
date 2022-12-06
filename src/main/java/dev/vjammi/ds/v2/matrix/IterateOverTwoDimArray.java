@@ -1,43 +1,29 @@
-package dev.vjammi.ds.v1.arrays;
+package dev.vjammi.ds.v2.matrix;
 
 public class IterateOverTwoDimArray {
-		/*		
-		1  2  3  4  5
-		6  7  8  9  10 
-		11 12 13 14 15 
-		16 17 18 19 20
-		21 22 23 24 25
-		*/ 
-	
-/*	Arrays of arrays
-	Java builds multi-dimensional arrays from many one-dimensional arrays, the so-called "arrays of arrays" approach.
-	There are a couple of interesting consequences of this: Rows may be different sizes. Also, each row is an object (an array) that can be used independently. 
-*/
+
+	/**
+	 Arrays of arrays
+		Java builds multi-dimensional arrays from many one-dimensional arrays, the so-called "arrays of arrays" approach.
+		There are a couple of interesting consequences of this: Rows may be different sizes. Also, each row is an object (an array) that can be used independently.
+	*/
 	public static void main(String[] args) {
 		// Array of Arrays - Some languages, like Java, build multi-dimensional arrays from many one-dimensional arrays, 
 		// the so-called "arrays of arrays" approach. C++ supports both styles. 
-		int[][] twoDimArray = { 
+		int[][] arr = {
 									{1,2,3,4,5}, 
 									{6,7,8,9,10}, 
 									{11,12,13,14,15}, 
 									{16,17,18,19,20}, 
 									{21,22,23,24,25} 
 					    	};
-		// 3 dim - Array of Array of Arrays
-		int[][][] threeDimArray = {  
-							  { {1,   2,  3}, { 4,  5,  6}, { 7,  8,  9} },
-		    				  { {10, 11, 12}, {13, 14, 15}, {16, 17, 18} },
-		    				  { {19, 20, 21}, {22, 23, 24}, {25, 26, 27} } 
-		    			   };
-		
-		
-		//itreateOverArray(arr);
-		//itreateOver2DimArray(arr, 5, 5);
-		//itreateCornersOf2DimArray(arr,5,5);
-		itreateCornersOf2DimArrayPractice(twoDimArray,5,5);
+		iterateOverArray(arr);
+		iterateOver2DimArray(arr, 5, 5);
+		iterateCornersOf2DimArray(arr,5,5);
+		iterateCornersOf2DimArrayPractice(arr,5,5);
 	}
 
-	private static void itreateOver2DimArray(int[][] arr, int m, int n) {
+	private static void iterateOver2DimArray(int[][] arr, int m, int n) {
 		int top = 0, left = 0, bottom = m-1, right = n-1;
 		int dir = 0;
 		
@@ -60,7 +46,7 @@ public class IterateOverTwoDimArray {
 		}
 	}
 
-	private static void itreateCornersOf2DimArray(int[][] arr, int m, int n) {
+	private static void iterateCornersOf2DimArray(int[][] arr, int m, int n) {
 		int top=0, left=0, bottom=m-1, right=n-1;
 		int dir = 1;
 		
@@ -90,7 +76,7 @@ public class IterateOverTwoDimArray {
 		
 	}
 	
-	private static void itreateCornersOf2DimArrayPractice(int[][] arr, int m, int n) {
+	private static void iterateCornersOf2DimArrayPractice(int[][] arr, int m, int n) {
 		int top = 0, left = 0, bottom = m-1, right = n-1;
 		int dir = 0; // 0,1,2,3
 		
@@ -118,7 +104,7 @@ public class IterateOverTwoDimArray {
 		
 	}
 	
-	private static void itreateOverArray(int[][] arr) {
+	private static void iterateOverArray(int[][] arr) {
 		System.out.println("Print all elemetns of a matrix");
 		for (int row=0; row<arr.length; row++){
 			for (int col=0; col<arr[row].length; col++){
