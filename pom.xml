@@ -15,8 +15,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -30,7 +30,6 @@
             <scope>compile</scope>
         </dependency>
         -->
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -44,7 +43,6 @@
             <scope>test</scope>
         </dependency>
 
-        
         <dependency>
             <groupId>commons-collections</groupId>
             <artifactId>commons-collections</artifactId>
@@ -63,12 +61,21 @@
             <artifactId>json</artifactId>
             <version>20220924</version>
         </dependency>
-        <!-- javax.servlet/servlet-api dependencies-->
+        <!-- javax.servlet/servlet-api dependencies -->
+
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10</version>
+        </dependency>
+
 
     </dependencies>
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -78,6 +85,7 @@
                     <target>16</target>
                 </configuration>
             </plugin>
+
             <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -90,6 +98,7 @@
                 </configuration>
             </plugin>
             -->
+
         </plugins>
     </build>
 
