@@ -1,4 +1,4 @@
-package dev.vjammi.ds.v1.hashing;
+package dev.vjammi.ds.v2.hashing;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -36,6 +36,26 @@ public class CryptographicHash {
         }
 
         return hash;
+    }
+
+    //Applies Sha256 to a string and returns the result.
+    public static String applySha256(String input){
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] messageDigestBytes = messageDigest.digest(input.getBytes("UTF-8")); //Applies sha256 to our input
+
+            StringBuffer hexString = new StringBuffer(); // This will contain messageDigestBytes as hexidecimal
+            for (int i = 0; i < messageDigestBytes.length; i++) {
+                String hex = Integer.toHexString(0xff & messageDigestBytes[i]);
+                if(hex.length() == 1)
+                    hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        }
+        catch(Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {
