@@ -1,4 +1,5 @@
 ### System Design Concepts
+    OSI
     Client-server model
     Network Protocols
     Storage
@@ -23,6 +24,22 @@
     Security
 
 Reference: https://itnext.io/system-design-concepts-that-helped-me-get-sr-frontend-offers-from-amazon-linkedin-9e100f3ce7d2#9629
+
+### OSI Model and 7 Layers 
+OSI Model
+    
+7 Layers
+    Layer 1: Physical
+    Layer 2: Data Link
+    Layer 3: Network
+    Layer 4: Transport
+    Layer 5: Session
+    Layer 6: Presentation
+    Layer 7: Application
+Data flow example
+
+Reference: https://www.educative.io/blog/osi-model-layers?utm_campaign=brand_educative&utm_source=google&utm_medium=ppc&utm_content=performance_max&eid=5082902844932096&utm_term=&utm_campaign=%5BNew%5D+Performance+Max&utm_source=adwords&utm_medium=ppc&hsa_acc=5451446008&hsa_cam=18511913007&hsa_grp=&hsa_ad=&hsa_src=x&hsa_tgt=&hsa_kw=&hsa_mt=&hsa_net=adwords&hsa_ver=3&gclid=CjwKCAiAnZCdBhBmEiwA8nDQxTIbeAPHOAzW-_Yz99X-HGh5SiWdkzjp6aKS2suqXMK9_Fjk17mgLhoC3_UQAvD_BwE
+            
 
 Client-server model
 

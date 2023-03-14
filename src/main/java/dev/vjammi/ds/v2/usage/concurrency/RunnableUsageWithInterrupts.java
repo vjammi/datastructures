@@ -44,11 +44,11 @@ public class RunnableUsageWithInterrupts {
 class RunnableTaskVer1 implements Runnable {
 
     private volatile boolean flag = false;
-    private Thread worker;
+    private Thread workerThread;
 
     public void start() {
-        worker = new Thread(this);
-        worker.start();
+        workerThread = new Thread(this);
+        workerThread.start();
     }
 
     public void stop() {
