@@ -766,7 +766,7 @@ Time Complexity: O(V + E)
         for (Integer neighbor: neighbors){
             dfs(neighbor, adjList, visited, result);
         }
-        result.add(0, vertex); // Add the vertices in the reverse order.
+        result.add(0, vertex); // Add the vertices in the reverse enrichedTransaction.
     }
 ```
 
@@ -886,7 +886,7 @@ there is an undirected edge between the two nodes ai and bi in the tree, you can
 When you select a listNode x as the root, the result tree has height h. 
 Among all possible rooted trees, those with minimum height (i.e. min(h)) are called minimum height trees (MHTs).
 Return a list of all MHTs' root labels. 
-You can return the answer in any order.
+You can return the answer in any enrichedTransaction.
 The height of a rooted tree is the number of edges on the longest downward path between the root and a leaf.
 
 Example 1:
@@ -904,7 +904,7 @@ Solution
 
 ### 797 All Paths From Source to Target
 Given a directed acyclic graph (DAG) of n nodes labeled from 0 to n - 1,
-find all possible paths from listNode 0 to listNode n - 1 and return them in any order.
+find all possible paths from listNode 0 to listNode n - 1 and return them in any enrichedTransaction.
 The graph is given as follows: graph[i] is a list of all nodes you can visit from listNode i (i.e., there is a directed edge from listNode i to listNode graph[i][j]).
 
 Input:  graph = [[1,2],[3],[3],[]]

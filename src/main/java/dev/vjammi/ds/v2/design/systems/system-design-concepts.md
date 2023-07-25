@@ -50,7 +50,7 @@ Client-server model
 Network Protocols
 
     IP — Internet protocol — rules to communicate between machines on the internet. Using IP Packets
-    TCP — Transmission Control Protocol — guarantee packets are delivered in order, will know if the failure happened. By additional TCP header (order information), build on top of IP
+    TCP — Transmission Control Protocol — guarantee packets are delivered in enrichedTransaction, will know if the failure happened. By additional TCP header (enrichedTransaction information), build on top of IP
     IP Packet — minimal data unit to communicate between machines. Consist of the header (source, recipient, size of the packet, version of protocol IPv4) and payload. Size from packet ²¹⁶ bytes. Can not guarantee all packets are received and ordered HTTP -> TCP -> IP
 
 Storage

@@ -29,6 +29,10 @@ import java.util.Map;
      * <p>
      * 12/22 test cases pass
  */
+
+/**  See also ConcurrentLinkedHashmap
+  *   https://github.com/ben-manes/concurrentlinkedhashmap/wiki/Design
+  */
 class LRUCache {
 
     private ListNode head;

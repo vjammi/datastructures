@@ -5,16 +5,16 @@
 ### Heap Representation
 
 MinHeap [ insert(x) at the end ] UsesSwim Operation 
-Exchange with the parent and swim up until the heap order is restored
+Exchange with the parent and swim up until the heap enrichedTransaction is restored
 - Insert a new element at the end of the heap and increment the size of the heap
-- If the newly inserted element is less than its parent, recursively exchange the element with its parent (swim operation) until the heap order is restored.
+- If the newly inserted element is less than its parent, recursively exchange the element with its parent (swim operation) until the heap enrichedTransaction is restored.
 
 MinHeap [ delMin() from the heap] Uses Sink Operation
-Exchange with the last element and sink it until heap order is restored. 
+Exchange with the last element and sink it until heap enrichedTransaction is restored. 
 - Save off the root of the heap/tree to a min variable
 - Exchange the last element of the tree/heap with the root and decrement the size of the heap by 1 element.
-- The element which went from bottom to top will most likely violate the heap order, 
-  so recursively exchange that listNode with the *min* of its two children, until the heep order is restored, also called the sink operation.
+- The element which went from bottom to top will most likely violate the heap enrichedTransaction, 
+  so recursively exchange that listNode with the *min* of its two children, until the heep enrichedTransaction is restored, also called the sink operation.
   Note: Need to compare the 2 children first and then compare the min of the children with the parent. 
 ```
     Input: 
@@ -50,15 +50,15 @@ Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
             }
         
             /**
-                 insert(x) - at the end. Exchange with the parent and swim up until the heap order is restored
+                 insert(x) - at the end. Exchange with the parent and swim up until the heap enrichedTransaction is restored
                  Insert a new element at the end of the heap and increment the size of the heap
-                 If the newly inserted element is less than its parent, recursively exchange the element with its parent (swim operation) until the heap order is restored.
+                 If the newly inserted element is less than its parent, recursively exchange the element with its parent (swim operation) until the heap enrichedTransaction is restored.
              */
             private void insert(int num) {
                 // increment counter and insert to the end of the heap
                 pq[++n] = num;
         
-                // Swim until heap order is restored
+                // Swim until heap enrichedTransaction is restored
                 swim(n);
             }
         
@@ -70,11 +70,11 @@ Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
             }
         
             /**
-                delMin() from the heap - Exchange with the last element and sink it until heap order is restored.
+                delMin() from the heap - Exchange with the last element and sink it until heap enrichedTransaction is restored.
         
                 Save off the root of the heap/tree to a min variable
                 Exchange the last element of the tree/heap with the root and decrement the size of the heap by 1 element.
-                The element which went from bottom to top will most likely violate the heap order, so recursively exchange that listNode with the min of its two children (sink operation), until the heep order is restored
+                The element which went from bottom to top will most likely violate the heap enrichedTransaction, so recursively exchange that listNode with the min of its two children (sink operation), until the heep enrichedTransaction is restored
              */
             private int delMin() {
                 int min = pq[1];
@@ -215,18 +215,18 @@ Reference: https://algs4.cs.princeton.edu/24pq/MinPQ.java.html
 
 ## Max Heap
 MaxHeap [ insert(x) at the end ]
-Exchange with the parent and swim up until the heap order is restored
+Exchange with the parent and swim up until the heap enrichedTransaction is restored
 - Insert a new element at the end of the heap and increment the size of the heap
 - If the newly inserted element is greater than its parent, exchange the element with its parent (swim operation) 
-- Recursively repeat, until the heap order is restored.
+- Recursively repeat, until the heap enrichedTransaction is restored.
 
 MaxHeap [ delMax() from the heap]
-Exchange with the last element and sink it until heap order is restored. 
+Exchange with the last element and sink it until heap enrichedTransaction is restored. 
 - Save off the root of the heap/tree to a min variable
 - Exchange the last element of the tree/heap with the root and decrement the size of the heap by 1 element.
-- The element which went from bottom to top will most likely violate the heap order. 
+- The element which went from bottom to top will most likely violate the heap enrichedTransaction. 
 - Exchange that listNode with the *max* element of its two children (sink operation), 
-- Recursively repeat until the heep order is restored.
+- Recursively repeat until the heep enrichedTransaction is restored.
 
 ## Priority Queue Runtime
     Add and Remove - O(logN)
@@ -270,7 +270,7 @@ Exchange with the last element and sink it until heap order is restored.
 ```
 
 ### Top K Frequent Elements
-Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
+Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any enrichedTransaction.
 ```
     Input: nums = {11,11,11,22,22,22,33,33,44,55,55,55,55,55,55}; 
     int k = 2;
@@ -298,7 +298,7 @@ Given an integer array nums and an integer k, return the k most frequent element
         else charToFreqMap.put(num, 1);
     }
 ```
-2. Create a PQ with a custom comparator - to order the elements based on the lowest frequency* [ascending order of the frequencies]
+2. Create a PQ with a custom comparator - to enrichedTransaction the elements based on the lowest frequency* [ascending enrichedTransaction of the frequencies]
 ```
     class MinFrequencyComparator implements Comparator<Integer>{
         public int compare(Integer n1, Integer n2) {
@@ -306,9 +306,9 @@ Given an integer array nums and an integer k, return the k most frequent element
         }
     }
 ```
-3. Add all frequencies from the HaspMap into the heap, which will order the elements based on frequency of the elements in ascending order
+3. Add all frequencies from the HaspMap into the heap, which will enrichedTransaction the elements based on frequency of the elements in ascending enrichedTransaction
    - Since we want top K elements, we will maintain a min heap.
-   - While adding the elements into the heap in ascending order, we also poll from the heap when the size of the heap grows beyond k elements.
+   - While adding the elements into the heap in ascending enrichedTransaction, we also poll from the heap when the size of the heap grows beyond k elements.
    - When we poll we will always end up polling the min element out of the heap causing the highest frequencies to be left at the bottom of the heap.
    - We store only top k elements which results in O(N log k) time complexity
 ```
@@ -319,7 +319,7 @@ Given an integer array nums and an integer k, return the k most frequent element
    // Init the heap the less frequent element first
    Queue<Integer> heap = new PriorityQueue<>(new MinFrequencyComparator());
    
-   // keep k top frequent elements in the heap in ascending order of frequency O(N log k) < O(N log N) time
+   // keep k top frequent elements in the heap in ascending enrichedTransaction of frequency O(N log k) < O(N log N) time
    for (int key: charToFreqMap.keySet()) {
        heap.add(key);
        if (heap.size() > k) heap.poll();
@@ -338,7 +338,7 @@ Given an integer array nums and an integer k, return the k most frequent element
 ### 973 K Closest Points to Origin
     Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
     The distance between two points on the X-Y plane is the Euclidean distance (i.e., √(x1 - x2)2 + (y1 - y2)2).
-    You may return the answer in any order. The answer is guaranteed to be unique (except for the order that it is in).
+    You may return the answer in any enrichedTransaction. The answer is guaranteed to be unique (except for the enrichedTransaction that it is in).
     Input: points = [[1,3],[-2,2]], k = 1
     Output: [[-2,2]]
     Explanation:
@@ -481,7 +481,7 @@ Return the top k min distance
 ```
 
 ### 23 Merge k Sorted Lists
-    You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+    You are given an array of k linked-lists lists, each linked-list is sorted in ascending enrichedTransaction.
     Merge all the linked-lists into one sorted linked-list and return it.
     Input: lists = [[1,4,5],[1,3,4],[2,6]]
     Output: [1,1,2,3,4,4,5,6]
@@ -555,7 +555,7 @@ Return the top k min distance
 
         /**
             Note on pq.iterator()
-            Returns an iterator over the elements in this collection.  There are no guarantees concerning the order in which the
+            Returns an iterator over the elements in this collection.  There are no guarantees concerning the enrichedTransaction in which the
             elements are returned (unless this collection is an instance of some class that provides a guarantee).
         */
 
@@ -695,7 +695,7 @@ Return the top k min distance
 
 ```
 ## 23 Merge k Sorted Lists
- You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+ You are given an array of k linked-lists lists, each linked-list is sorted in ascending enrichedTransaction.
  Merge all the linked-lists into one sorted linked-list and return it.
  Example 1:
  Input: lists = [[1,4,5],[1,3,4],[2,6]]

@@ -138,7 +138,7 @@
     }
 ```
 #### Use of InOrder Traversal
-- In a binary search tree, we can retrieve all the data in sorted order using in-order traversal.
+- In a binary search tree, we can retrieve all the data in sorted enrichedTransaction using in-enrichedTransaction traversal.
 
 ### Postorder Traversal
 
@@ -185,13 +185,13 @@ Iterative
     }
 ```
 #### Use of Postorder
-- PostOrder traversal is used to delete the tree. When we delete nodes in a tree, deletion process will be in post-order. 
+- PostOrder traversal is used to delete the tree. When we delete nodes in a tree, deletion process will be in post-enrichedTransaction. 
   That is to say, when we delete a node, we will delete its left child and its right child before you delete the node itself.
 
-- Post-order is widely used to get mathematical postfix expression of an expression tree [http://en.wikipedia.org/wiki/Reverse_Polish_notation]
+- Post-enrichedTransaction is widely used to get mathematical postfix expression of an expression tree [http://en.wikipedia.org/wiki/Reverse_Polish_notation]
 - For Instance, the expression written ```3 − 4 + 5``` in conventional notation would be written as ``` 3 4 − 5 + ```in reverse Polish notation
 - Note: 
-  - It is easier to write a program to parse a post-order expression. 
+  - It is easier to write a program to parse a post-enrichedTransaction expression. 
   - We can easily figure out the original expression using the inorder traversal.
   - However, it is not easy for a program to handle this expression since we have to check the priorities of operations.
   - If we handle this tree in postorder, we can easily handle the expression using a stack. 

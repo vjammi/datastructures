@@ -1,4 +1,4 @@
-### Permutations - Here order in which they are arranged matter - so a greater number of permutations
+### Permutations - Here enrichedTransaction in which they are arranged matter - so a greater number of permutations
 https://www.khanacademy.org/math/precalculus/x9e81a4f98389efdf:prob-comb#x9e81a4f98389efdf:combinatorics-precalc
    
 26!
@@ -48,8 +48,8 @@ But what if we did not care for who is sitting in which chair.
    Combi  Permutations        
     
 To summarize - There are 360 permutations but 15 combinations for putting 6 people in 4 chairs 
-In permutations, order matters, so we see more permutations. 
- However in combinations, order does not matter. Therefore, less number of chairs. 
+In permutations, enrichedTransaction matters, so we see more permutations. 
+ However in combinations, enrichedTransaction does not matter. Therefore, less number of chairs. 
     
 Number of ways to arrange k things in k spots = k!. 4 things in 4 spots - 4!, 3 things in 3 spots - 3!       
 

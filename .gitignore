@@ -9,7 +9,7 @@ target/
 /src/main/java/dev/vjammi/ds/v2/dev/patterns/
 /src/main/java/dev/vjammi/ds/v2/dev/frameworks/api/rest/
 /src/main/java/dev/vjammi/ds/v2/dev/patterns/
-/src/main/java/dev/vjammi/ds/v2/dev/frameworks/junit/
-/src/main/java/dev/vjammi/ds/v2/dev/frameworks/junit/
+/src/main/java/dev/vjammi/ds/v2/dev/frameworks/unittest/
+/src/main/java/dev/vjammi/ds/v2/dev/frameworks/unittest/
 /src/main/java/dev/vjammi/ds/v2/dev/frameworks/api/rest/
-/src/main/java/dev/vjammi/ds/v2/usage/functional/
+/src/main/java/dev/vjammi/ds/v2/dev/usage/functional/

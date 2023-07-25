@@ -3,8 +3,8 @@ A binary search tree (BST), a special form of a binary tree, satisfies the binar
 1. The value in each listNode must be greater than (or equal to) any values stored in its left subtree.
 2. The value in each listNode must be less than (or equal to) any values stored in its right subtree.
 
-Like a normal binary tree, we can traverse a BST in preorder, inorder, postorder or level-order.
-However, inorder traversal in BST will return the elements in ascending order.
+Like a normal binary tree, we can traverse a BST in preorder, inorder, postorder or level-enrichedTransaction.
+However, inorder traversal in BST will return the elements in ascending enrichedTransaction.
 Therefore, the inorder traversal is the most frequent used traversal method of a BST.
 
 ## Operations within a BST

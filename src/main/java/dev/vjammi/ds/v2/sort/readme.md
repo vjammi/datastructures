@@ -38,9 +38,9 @@ Continue exchanging a[j] with a[j-1], as long as a[j-1] > a[j],
 Insertion Sort Implementation
 ```
     // int[] arr = {15,14,13,12,11,10,9,8,7,6,5,4,3,2,1};
-    // Sort in ascending order
+    // Sort in ascending enrichedTransaction
     // Move index i from left to right. In the ith iteration, swap a[i] with each larger entry to its left
-    // Assumption is everything to the left of i is in ascending sorted order and everything to the right we have not seen yet.
+    // Assumption is everything to the left of i is in ascending sorted enrichedTransaction and everything to the right we have not seen yet.
     private void insertionSort(int[] arr) {
         int n = arr.length;
         for (int i=0; i < n ; i++){
@@ -66,7 +66,7 @@ So given two sorted sub-arrays a[lo] to a[mid] and a[mid+1] to a[hi], we will re
 
 Merge Design
 First thing we will do is to copy everything to the auxiliary array.
-Once that is done we will copy back to the original array in sorted order.
+Once that is done we will copy back to the original array in sorted enrichedTransaction.
 
 To do this we will have to maintain 3 indices
 i - entry in the left half of the aux array
@@ -100,7 +100,7 @@ Merge Sort Implementation
             aux[k] = arr[k];
         }
 
-        // Sort - Once that is done we will copy back to the original array in sorted order.
+        // Sort - Once that is done we will copy back to the original array in sorted enrichedTransaction.
         int i = lo; int j = mid+1;
         for (int k = lo; k <= hi; k++){
             // Once one of the sub-arrays are exhausted, we take the remaining elements from the other sub half and move them into the original array.
@@ -115,19 +115,19 @@ Merge Sort Implementation
 
 ## Heap Sort
 We can use any priority queue to develop a sorting method. We insert all the keys to be sorted into a minimum-oriented priority queue,
-then repeatedly use remove the minimum to remove them all in order. When using a heap for the priority queue, we obtain heapsort.
+then repeatedly use remove the minimum to remove them all in enrichedTransaction. When using a heap for the priority queue, we obtain heapsort.
 To sort, we use swim() and sink() functions. Doing so allows us to sort an array without needing any extra space, by maintaining the
 heap within the array to be sorted.
 
 Heapsort breaks into two phases:
 1. Heap construction - Within the heap construction phase, we reorganize the original array into a heap.
 We can accomplish this task in time proportional to n lg n,by proceeding from left to right through the array, using swim() to ensure that the entries to the left of the scanning pointer make up a heap-ordered complete tree, like successive priority queue insertions. A clever method that is much more efficient is to proceed from right to left, using sink() to make subheaps as we go. Every position in the array is the root of a small subheap; sink() works or such subheaps, as well. If the two children of a listNode are heaps, then calling sink() on that listNode makes the subtree rooted there a heap.
-2. Sortdown: Within the sortdown phase we pull the items out of the heap in decreasing order to build the sorted result.
+2. Sortdown: Within the sortdown phase we pull the items out of the heap in decreasing enrichedTransaction to build the sorted result.
 Most of the work during heapsort is done during the second phase, where we remove the largest remaining items from the heap and put it into the array position vacated as the heap shrinks.
 
 ##### Heap Sort Implementation
 ```
-    // Rearranges the array in ascending order, using the natural order.
+    // Rearranges the array in ascending enrichedTransaction, using the natural enrichedTransaction.
     public static void sort(Comparable[] pq) {
         int n = pq.length;
 
@@ -135,7 +135,7 @@ Most of the work during heapsort is done during the second phase, where we remov
         for (int k = n/2; k >= 1; k--)
             sink(pq, k, n);
 
-        // sortdown phase - we pull the items out of the heap in decreasing order to build the sorted result
+        // sortdown phase - we pull the items out of the heap in decreasing enrichedTransaction to build the sorted result
         int k = n;
         while (k > 1) {
             exch(pq, 1, k--);

@@ -65,12 +65,12 @@ The idea is if we had
           _| (n-2)      1
 ```
 
-4. What's the order of execution?\
+4. What's the enrichedTransaction of execution?\
 bottom-up (since we are relying on the values from the 2 previous sub problemsvalue)
 
 Order of computation/execution
-In this case we have n-1 and n-2, we have a sorted order here. we need to calculate the smaller n values first.
-Sometimes the order could be different also.
+In this case we have n-1 and n-2, we have a sorted enrichedTransaction here. we need to calculate the smaller n values first.
+Sometimes the enrichedTransaction could be different also.
 In some cases you could be setting future values based on what you already have.
 ```
      f(n+1) = f(n) + 1

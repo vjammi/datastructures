@@ -5,7 +5,7 @@ Here we will be exploring all the nodes within a tree, generally in some unique 
 ![Binary Tree Traversals](img/binarytree.jpg "Binary Tree Traversals").
 
 ## 102. Binary Tree Level Order Traversal
-Given the root of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+Given the root of a binary tree, return the level enrichedTransaction traversal of its nodes' values. (i.e., from left to right, level by level).
 Example 1:
 Input: root = [3,9,20,null,null,15,7]
 Output: [[3],[9,20],[15,7]]
@@ -158,7 +158,7 @@ Populate each next pointer to point to its next right listNode. If there is no n
 the next pointer should be set to NULL. Initially, all next pointers are set to NULL.
 
 Solution
-    We will use a level order traversal. At any point we are going down and across/laterally. 
+    We will use a level enrichedTransaction traversal. At any point we are going down and across/laterally. 
     We do not need to recurse or backtrack. 
     At any point we are connecting the nodes at its next level, children's level
     We will assign the next pointers to the 
@@ -429,7 +429,7 @@ https://youtu.be/rY9ejIY9Osw?list=PLFj4kIJmwGu2WedpHdv1p_LrLGvwqDvjZ
             TreeNode currNode = new TreeNode(postOrderNodeVal);
             int inorderIndexForCurrNode = inorderMap.get(postOrderNodeVal);
 
-            // Note: Because the sequence is post order, we build the right first???
+            // Note: Because the sequence is post enrichedTransaction, we build the right first???
             currNode.right = buildTree(inorderIndexForCurrNode+1, rightIndex);
             currNode.left = buildTree(leftIndex, inorderIndexForCurrNode - 1);
 
@@ -442,7 +442,7 @@ https://youtu.be/rY9ejIY9Osw?list=PLFj4kIJmwGu2WedpHdv1p_LrLGvwqDvjZ
 
 ## 285. Inorder Successor in BST                                        https://leetcode.com/problems/inorder-successor-in-bst/
 ## 1676. Lowest Common Ancestor of a Binary Tree IV                     https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-iv/
-## 314. Binary Tree Vertical Order Traversal                            https://leetcode.com/problems/binary-tree-vertical-order-traversal/
+## 314. Binary Tree Vertical Order Traversal                            https://leetcode.com/problems/binary-tree-vertical-enrichedTransaction-traversal/
 ## 431. Encode N-ary Tree to Binary Tree                                https://leetcode.com/problems/encode-n-ary-tree-to-binary-tree/
 
 ## 108. Convert Sorted Array to Binary Search Tree
@@ -476,7 +476,7 @@ https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
 #### Intuition
 The important condition that we have to adhere to in this problem is that we have to create
 a height balanced binary search tree using the set of nodes given to us in the form of a linked list.
-The good thing is that the nodes in the linked list are sorted in ascending order.
+The good thing is that the nodes in the linked list are sorted in ascending enrichedTransaction.
 As we know, a binary search tree is essentially a rooted binary tree with a very special property or
 relationship amongst its nodes. For a given listNode of the binary search tree, its value must be ≥\ge≥
 the value of all the nodes in the left subtree and ≤\le≤ the value of all the nodes in the right subtree.

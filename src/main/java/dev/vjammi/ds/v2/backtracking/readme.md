@@ -128,7 +128,7 @@ If the number of choices is variable, will need to use a loop, e.g., chess dev.v
 
 ## 17 Letter Combinations of a Phone Number
 Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
-Return the answer in any order. A mapping of digit to letters (just like on the telephone buttons) is given below.
+Return the answer in any enrichedTransaction. A mapping of digit to letters (just like on the telephone buttons) is given below.
 Notice that level 0 does not map to any digits/letters. Can also be said as find all permutations of letters formed from digits
 Input: digits = "23"
             2 = abc
@@ -839,15 +839,15 @@ In general, our solution looks like ```8^(s−1) = 8^s ∗ 8^−1```. Since ```8
 ## Permutations & Combinations
 
 ### Permutations - How many ways can we award a 1st, 2nd and 3rd place prize among eight contestants? (Gold / Silver / Bronze)?
-We use permutations since the order we need to hand out these medals matters.
-To order 3 people out of 8, we start with all options (8) then take away one at a time (7, then 6) until we run out of medals.
+We use permutations since the enrichedTransaction we need to hand out these medals matters.
+To enrichedTransaction 3 people out of 8, we start with all options (8) then take away one at a time (7, then 6) until we run out of medals.
 
 If we have n items and want to find the number of ways k items can be ordered
     P(n,k)                   = n!/(n-k)!
     Permute(8,3) = 8!/(8-3)! = 8*7*6
 
 ### Combinations - How many ways can I give 3 tin cans to 8 people or How many ways can we rearrange 3 people?
-Well, in this case, the order we pick people doesn’t matter.
+Well, in this case, the enrichedTransaction we pick people doesn’t matter.
 We have 3 choices for the first person, 2 for the second, and only 1 for the last.
 So we have 3*2*1 ways to re-arrange 3 people.
 If you have N people and you want to know how many arrangements there are for all of them, it’s just N factorial or N!

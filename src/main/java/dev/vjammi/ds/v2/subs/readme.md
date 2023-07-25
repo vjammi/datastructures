@@ -6,7 +6,7 @@ If we consider the array
 A subarray would be a contiguous sequence of elements in the array
     {1},{1,2},{1,2,3},{1,2,3,4}...
 
-A subsequence would need not to be contiguous sequence of elements, but the sequence/order of the elements need to be maintained
+A subsequence would need not to be contiguous sequence of elements, but the sequence/enrichedTransaction of the elements need to be maintained
     {1,2,4}
 
 A subset is similar to a subsequence except that in addition it has an an empty set

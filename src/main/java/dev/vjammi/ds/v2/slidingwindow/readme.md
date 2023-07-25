@@ -239,7 +239,7 @@ Given a string s, find the length of the longest substring without repeating cha
 ```
 
 ## Find All Anagrams in a String
-Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any order.
+Given two strings s and p, return an array of all the start indices of p's anagrams in s. You may return the answer in any enrichedTransaction.
 ```
     // Window size changes overtime
     // Create a static window of size 3 and move it across s
