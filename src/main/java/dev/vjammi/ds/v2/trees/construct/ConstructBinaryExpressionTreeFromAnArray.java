@@ -95,7 +95,7 @@ public class ConstructBinaryExpressionTreeFromAnArray {
         Stack<String> operator = new Stack<>();
         Stack<TreeNode> operand = new Stack<>();
 
-        for (int i=0; i< expression.length; i++) { //String token : expression
+        for (int i=0; i< expression.length; i++) {
 
             String token = expression[i];
             if ("(".equals(token)) {
@@ -126,21 +126,12 @@ public class ConstructBinaryExpressionTreeFromAnArray {
     }
 
     private int getPriority(String token) {
-//        if ("*".equals(token) || "/".equals(token)) {
-//            return 2;
-//        }
-//        if ("-".equals(token) || "+".equals(token)) {
-//            return 1;
-//        }
-//        // "(" or digit
-//        return 0;
         if ("AND".equals(token) || "OR".equals(token)) {
             return 1;
         }
         if (":".equals(token) || "=".equals(token)) {
             return 2;
         }
-        // "(" or digit
         return 0;
     }
 
