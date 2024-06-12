@@ -110,7 +110,7 @@ public class TwoThreeSum {
         int[] a = {-5, -2, -1, 0, 1, 3, 4, 6};
 
         TwoThreeSum ts = new TwoThreeSum();
-        //Pair pair = ts.twoSum(a, 0);
+        //Pair pair = ts.twoSumOptimnization1(a, 0);
         //System.out.println(pair.getLo() +", "+ pair.getHi());
 
         PairPlusOne pairPlusOne = ts.threeSum(a, 8);

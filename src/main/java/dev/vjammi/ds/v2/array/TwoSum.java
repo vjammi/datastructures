@@ -32,29 +32,56 @@ import java.util.Map;
  */
 public class TwoSum {
 
-    public int[] twoSum_Option1(int[] nums, int target) {
-        int[] answer = new int[2];
+    public static void main(String[] args) {
+        TwoSum obj = new TwoSum();
+        int[] nums = {2, 7, 11, 15};
+        obj.twoSum_Naive1(nums, 9);
+    }
 
-        if (nums.length == 0)
+    /**
+        nums = [2, 7, 11, 15], target = 19
+                ^         ^
+                   ^      ^
+                      ^   ^
+                 i<len-1  j<len
+    */
+    public int[] twoSum_Naive1(int[] nums, int target) {
+        int len = nums.length;
+        int[] answer = new int[2];
+        if (len == 0)
             return answer;
 
-        for (int i=0; i< nums.length-1; i++){
+        for (int i = 0; i<len-1; i++){
             int num1 = nums[i];
-            for (int j=i; j< nums.length; j++){
+            for (int j=i; j<len; j++){
                 int num2 = nums[j];
                 if (num1 + num2 == target)
                     return new int[]{i,j};
+                System.out.println("j: "+j);
             }
         }
         return answer;
     }
 
-    public int[] twoSum(int[] nums, int target) {
-        int[] answer = new int[2];
+    public int[] twoSum_Naive2(int[] nums, int target) {
+        int len = nums.length;
+
+        for (int i = 0; i<len-1; i++){
+            for (int j = i+1; j<len; j++){
+                if (nums[i] + nums[j] == target)
+                    return new int[]{i, j};
+            }
+        }
+
+        return new int[]{};
+    }
+
+    public int[] twoSum_UsingMap1(int[] nums, int target) {
+        //int[] answer = new int[2];
         Map<Integer, Integer> map = new HashMap();
 
         if (nums.length == 0)
-            return answer;
+            return new int[]{}; //answer;
 
         for (int i=0; i< nums.length; i++){
             int num = nums[i];
@@ -62,7 +89,22 @@ public class TwoSum {
                 return new int[]{map.get(target-num), i};
             map.put(num, i);
         }
-        return answer;
+
+        return new int[]{};
+    }
+
+    public int[] twoSum_UsingMap2(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for(int i=0; i<nums.length; i++){
+            int complementOfI = target-nums[i];
+            if (map.containsKey(complementOfI)){
+                return new int[]{i, map.get(complementOfI)};
+            }
+            //map.put(nums[i], i);
+            map.put(Integer.valueOf(nums[i]), Integer.valueOf(i));
+        }
+        return new int[]{};
     }
 
 }
