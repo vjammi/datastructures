@@ -45,6 +45,11 @@ public class ReactiveService {
         return users;
     }
 
+    //  .flatMap(id -> repository.retrieveById(id)
+    //    .doOnError(System.err::println)
+    //    .onErrorResume(e -> Mono.empty()))
+
+
     public User transformUser(User user) {
         try {
             return toUpper(user);

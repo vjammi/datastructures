@@ -35,7 +35,7 @@ public class CompletableFutureUsage {
     public static void main(String[] args) throws InterruptedException {
         CompletableFutureUsage obj = new CompletableFutureUsage();
         //obj.tryChaining();
-        Thread.sleep(10000);
+        //Thread.sleep(10000);
         obj.tryCombine();
 
 
