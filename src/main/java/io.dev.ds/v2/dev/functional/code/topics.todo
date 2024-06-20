@@ -1,0 +1,51 @@
+Refactoring to Functional Style
+
+How is it different:
+-Imperative Style
+-Declarative Style
+-Functional Style
+  Declarative style + higher order functions
+-higher-order functions
+-favor immutability
+-functional composition
+-lazy evaluations   
+
+Exercise 1: is prime:
+-from imperative to declarative/functional
+-less noise
+-no garbage variables
+-using higher-order functions
+
+Exercise 2: factorial:
+-from imperative to functional
+-avoid mutation
+-more expressive
+
+Exercise 3: lines count:
+-from imperative to functional
+-no explicit mutability
+-using streams and filter
+
+Exercise 4: grouping:
+-from verbose to concise
+-highly expressive
+-declarative
+-using specialized functions
+
+Exercise 5: Decorator:
+-From verbose to concise code
+-using lambdas and functional composition
+
+Exercise 6: Rethinking the Algorithm:
+-From mundane steps to reduced complexity 
+
+Exercise 7: Pythagorean triples: 
+-From messy iterative to functional
+-using function composition
+-using lazy evaluation     
+
+Exercise 8: sum of sqrt of k primes starting with n:
+-from cryptic to clear
+-concise
+-infinite series
+-lazy evaluation
