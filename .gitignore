@@ -1,9 +1,10 @@
 target/
 .idea/
 /datastructures.iml
-/src/main/java/io.dev.ds/v2/fb/
+/src/main/java/io/dev/v2/fb/
 /snip/
 /**/lc100/**
-/src/main/java/io.dev.ds/v2/practice/
-/src/main/java/io.dev.ds/v2/dev/patterns/
-/src/main/java/io.dev.ds/v2/dev/usage/functional/
+/src/main/java/io/dev/v2/practice/
+/src/main/java/io/dev/v2/dev/patterns/
+/src/main/java/io/dev/v2/dev/usage/functional/
+/arc/
