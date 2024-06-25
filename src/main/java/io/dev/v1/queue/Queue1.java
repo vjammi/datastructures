@@ -2,38 +2,33 @@ package io.dev.v1.queue;
 import java.util.Iterator;
 
 public class Queue1<Item> implements Iterable<Item>{
-
     private Node<Item> first;
     private Node<Item> last = null;
     private int N = 0;
-
     public class Node<Item>{
         Item item;
         Node<Item> next;
     }
-
     public Iterator<Item> iterator(){
         return new ListIterator<Item>(first);
     }
-
     private class ListIterator<Item> implements Iterator<Item>{
         private final Node<Item> current;
-
         public ListIterator(Node<Item> first){
             current = first;
         }
-
         public boolean hasNext(){
             return current!=null;
         }
         public void remove(){ throw new UnsupportedOperationException();}
         public Item next(){
-            if (current == null){  return null;   }
+            if (current == null){
+                return null;
+            }
             Item item = current.item;
             return item;
         }
     }
-
     public Iterator<Item> iterator1(){
         return new ListIterator1<Item>(first);
     }

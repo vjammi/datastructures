@@ -309,7 +309,7 @@ Recursive Solution
     
 ## Partition List
     Given the head of a linked list and a value x, partition it such that all nodes less than x come before nodes 
-    greater than or equal to x. You should preserve the original relative enrichedTransaction of the nodes in each of the two partitions.
+    greater than or equal to x. You should preserve the original relative order of the nodes in each of the two partitions.
     
     Partition the list at 3
         Input  = 1   5   4   2       
