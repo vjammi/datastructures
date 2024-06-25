@@ -83,7 +83,10 @@
 #### Use of PreOrder Traversal
 - Preorder traversal is used to create a copy of the tree.
 - Preorder traversal is also used to get prefix expression on an expression tree [http://en.wikipedia.org/wiki/Polish_notation]
-  - Polish notation [Pre Order]
+
+Polish/Prefix, Common Infix & Reverse Polish/Postfix Notations
+  - Polish notation [Prefix / PreOrder]
+    - Polish notation or Polish prefix notation or simply Prefix notation is a mathematical notation in which operators precede their operands
     - The expression for adding the numbers 1 and 2 is written in Polish notation as + 1 2 (prefix), rather than as 1 + 2 (infix).
     - For instance, the expression that would be written in conventional infix notation as ```(5 − 6) × 7``` can be written in Polish notation as ```× (− 5 6) 7```
     - ??? We can handle the expression using a stack. Each time when we meet two operands, we pop the two operands from the stack, calculate the result and push the result back into the stack.
@@ -92,13 +95,19 @@
                   -             7
               5       6
       ```
-  - Reverse Polish Notation [Post Order] 
+    
+  - Infix notation
+    - Common Infix notation is where operators are placed between operands
+    
+  - Reverse Polish Notation [PostFix / PostOrder]
+    - Reverse Polish notation, in which operators follow their operands.
     - The expression ((2+1) * 3) can be written in Reverse Polish notation as 2 1 + 3 * 
       ```      
                           *
                   +             3
               2       1
-      ```
+      ``` 
+
 ### Inorder Traversal
 ```
     // inorder A+B
