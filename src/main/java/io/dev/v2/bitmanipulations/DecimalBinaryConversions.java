@@ -1,11 +1,11 @@
-package io.dev.v1.bitmanipulations;
+package io.dev.v2.bitmanipulations;
 
-public class DecimalAndBinaryConversions {
+public class DecimalBinaryConversions {
 
     public static void main(String[] args) {
-        String binary = DecimalAndBinaryConversions.decimalToBinary(233);
-        System.out.println();
-        DecimalAndBinaryConversions.binaryToDecimal(Integer.valueOf(binary));
+        //String binary = DecimalAndBinaryConversions.decimalToBinary(233);
+        //System.out.println(binary);
+        DecimalBinaryConversions.binaryToDecimal(Integer.valueOf(11101001)); //11101001
     }
 
     public static String decimalToBinary(int number) {
@@ -18,7 +18,7 @@ public class DecimalAndBinaryConversions {
             binary.append(remainder);
             System.out.println(number +" " +remainder);
         }
-        System.out.println("Binary values (before reversing):  " +binary);
+        //System.out.println("Binary values (before reversing):  " +binary);
         binary.reverse();
         System.out.println("Binary values (after reversing):  " +binary);
         return binary.toString();

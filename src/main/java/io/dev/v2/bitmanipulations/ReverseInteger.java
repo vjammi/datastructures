@@ -1,4 +1,4 @@
-package io.dev.v1.bitmanipulations;
+package io.dev.v2.bitmanipulations;
 
 public class ReverseInteger {
 
@@ -43,7 +43,7 @@ public class ReverseInteger {
     }
 
     // Option 2: We go through each digit from right to left and make that the digit of our reversed number.
-    //           This solution is still O(number of digits) but the operations (modulus and divide) are less expensive.
+    //           This solution is still O (number of digits) but the operations (modulus and divide) are less expensive.
     public long reverse2(int x) {
         // Cast the number passed in to int-64.
         long num = x;
@@ -60,6 +60,7 @@ public class ReverseInteger {
         long reversedNum = 0;
         while (num != 0) {
             long digit = num % 10;
+            System.out.print(digit +" ");
             num /= 10;
             reversedNum = reversedNum * 10 + digit;
         }
@@ -70,12 +71,11 @@ public class ReverseInteger {
         }
 
         // If there was an overflow, return 0.
-        int MIN_VALUE = -2147483648;
-        int MAX_VALUE = 2147483647;
-        if (isNegative && reversedNum < MIN_VALUE) {
+        int MIN_VALUE = -2147483648; int MAX_VALUE = 2147483647;
+        if (isNegative && reversedNum < Integer.MIN_VALUE) { //MIN_VALUE
             return 0;
         }
-        if (!isNegative && reversedNum > MAX_VALUE) {
+        if (!isNegative && reversedNum > Integer.MAX_VALUE) { //MAX_VALUE
             return 0;
         }
 
@@ -124,6 +124,6 @@ public class ReverseInteger {
 
     public static void main(String[] args) {
         ReverseInteger obj = new ReverseInteger();
-        System.out.println(obj.reverse2(91123333));
+        System.out.println(obj.reverse2(-91123333));
     }
 }

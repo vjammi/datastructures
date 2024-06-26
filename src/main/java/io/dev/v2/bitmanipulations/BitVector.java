@@ -1,4 +1,4 @@
-package io.dev.v1.bitmanipulations;
+package io.dev.v2.bitmanipulations;
 
 public class BitVector {
 

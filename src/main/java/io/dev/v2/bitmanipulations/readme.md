@@ -15,6 +15,20 @@ To convert 13 to binary
             1/2 	0 	        1 	        3
     So 13 = 1101
 ```
+Convert binary to decimal 
+```
+            Binary        Quotient    Remainder   Decimal Number
+                          num / 10    num % 10     2^i * remainder                	
+          ---------------------------------------------------------
+            111001        11100       1           2^0 * 1       1
+            11100         1110        0           2^1 * 0       0
+            1110          111         0           2^2 * 0       0
+            111    	      11 	      1           2^3 * 1 	    8   
+            11            1	          1           2^4 * 0 	    16    
+            1             0	          1           2^5 * 1       32
+          --------------------------------------------------------
+                                                                57
+```
 
 ```
     public static String decimalToBinary(int number) {
@@ -30,14 +44,21 @@ To convert 13 to binary
         return binary.toString();
     }
 ```
+Alternate method
+![img.png](../../../../../../../img/dectobinary.png)
+
 
 ### How to convert binary to decimal?
 To find the decimal value of 111001
 ```
     Binary number: 	1 	    1 	    1 	    0 	    0 	    1
+                    --------------------------------------------
     Power of 2: 	2^5 	2^4 	2^3 	2^2 	2^1 	2^0
-                    -------------------------------------------
-                    1x2^5 + 1x2^4 + 1x2^3 + 0x2^2 + 0x2^1 + 1x2^0 = 57
+                    ---------------------------------------------
+                    1x2^5 + 1x2^4 + 1x2^3 + 0x2^2 + 0x2^1 + 1*2^0 
+                    ---------------------------------------------
+                    1*32  + 1*16  + 1*8   + 0*4   + 0*1   + 1*1  = 57
+                    ---------------------------------------------  
 ```
 
 ```
@@ -54,7 +75,6 @@ To find the decimal value of 111001
         return decimal;
    }
 ```
-
 
 REFERENCES
 https://www.rapidtables.com/convert/number/binary-to-decimal.html
