@@ -22,7 +22,7 @@ Impl
         int remainder = 0;
         while (number > 0) {
             remainder = number % 2;
-            number = number/2;
+            number = number / 2;
             binary.append(remainder);
             System.out.println(number +" " +remainder);
         }
@@ -30,9 +30,6 @@ Impl
         return binary.toString();
     }
 ```
-Alternate method
-![img.png](../../../../../../../img/dectobinary.png)
-
 
 ### How to convert binary to decimal?
 To find the decimal value of 111001
