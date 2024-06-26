@@ -15,21 +15,7 @@ To convert 13 to binary
             1/2 	0 	        1 	        3
     So 13 = 1101
 ```
-Convert binary to decimal 
-```
-            Binary        Quotient    Remainder   Decimal Number
-                          num / 10    num % 10     2^i * remainder                	
-          ---------------------------------------------------------
-            111001        11100       1           2^0 * 1       1
-            11100         1110        0           2^1 * 0       0
-            1110          111         0           2^2 * 0       0
-            111    	      11 	      1           2^3 * 1 	    8   
-            11            1	          1           2^4 * 0 	    16    
-            1             0	          1           2^5 * 1       32
-          --------------------------------------------------------
-                                                                57
-```
-
+Impl
 ```
     public static String decimalToBinary(int number) {
         StringBuilder binary = new StringBuilder();
@@ -60,7 +46,21 @@ To find the decimal value of 111001
                     1*32  + 1*16  + 1*8   + 0*4   + 0*1   + 1*1  = 57
                     ---------------------------------------------  
 ```
-
+Convert binary to decimal
+```
+            Binary        Quotient    Remainder   Decimal Number
+                          num / 10    num % 10     2^i * remainder                	
+          ---------------------------------------------------------
+            111001        11100       1           2^0 * 1       1
+            11100         1110        0           2^1 * 0       0
+            1110          111         0           2^2 * 0       0
+            111    	      11 	      1           2^3 * 1 	    8   
+            11            1	          1           2^4 * 0 	    16    
+            1             0	          1           2^5 * 1       32
+          --------------------------------------------------------
+                                                                57
+```
+Impl
 ```
     public static long binaryToDecimal(long binary) {
         long decimal = 0;
