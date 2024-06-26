@@ -8,7 +8,7 @@ package io.dev.v2.trees.path;
 
     Given the root of a binary tree, return the maximum path sum of any path.
     Remember that in your recursive function, you almost always have to do something with the current node's value.
-    Combining or modifying it w3ith the solution from its children.
+    Combining or modifying it with the solution from its children.
     You need to know how to combine those intermediate solutions into the current solution and you need to pass it back up
     the recursive tree stack, and the cycle repeats itself.
 
@@ -70,7 +70,7 @@ public class BinaryTreeMaximumPathSum {
         int leftOutput = search(node.left);
         int rightOutput = search(node.right);
 
-        // If there is a negative value coming from the subtree, we pick 0 instead, we zero it out.
+        // If there is a negative value coming from the subtree, we pick 0 instead. We zero it out.
         // We only want to take positive sums from the subtrees
         int left = Math.max(0, leftOutput);
         int right = Math.max(0, rightOutput);
@@ -122,16 +122,16 @@ public class BinaryTreeMaximumPathSum {
         int left = maxPath(node.left);
         int right = maxPath(node.right);
 
-        // Return only a positive or zero sum from left and right sides of the subtree. If a side evalutes to negative, return 0 instead.
+        // Step 1 - Return only a positive or zero sum from left and right sides of the subtree. If a side evalutes to negative, return 0 instead.
         int leftSideSum =  Math.max(0, (node.val + left) );  // NOT node.val + Math.max(0, left);
         int rightSideSum = Math.max(0, (node.val + right) ); // NOT node.val + Math.max(0, right);
 
-        // Evaluate the maxPathSum at each node for the current node + its left + its right child.
+        // Step 2 - Evaluate the maxPathSum at each node for the current node + its left + its right child.
         // Update the global maxPathSum, if the current node's maxPathSum is greater than the global maxPathSum.
         maxPathSum = Math.max(maxPathSum, (left + node.val + right));
         System.out.println("Node:" +node.val +" LeftSum:" +leftSideSum + " RightSum:" +rightSideSum +" maxPathSum: " +maxPathSum);
 
-        // Return the max of left or right side of the subtree to the higer nodes for possible maxSumPath calculations.
+        // Step 3 - Return the max of left or right side of the subtree to the higher nodes for possible maxSumPath calculations.
         return Math.max(leftSideSum, rightSideSum);
     }
 

@@ -37,9 +37,7 @@ import java.util.Stack;
 
  **/
 public class PathSumII {
-
     private int targetSum;
-
     public class TreeNode {
         int val;
         TreeNode left;
@@ -54,7 +52,6 @@ public class PathSumII {
           this.right = right;
         }
     }
-
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
         Stack<Integer> stack = new Stack();
         List<List<Integer>> result = new ArrayList<>();

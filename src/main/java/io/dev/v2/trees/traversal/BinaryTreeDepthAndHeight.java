@@ -19,33 +19,19 @@ public class BinaryTreeDepthAndHeight {
     // A binary tree's maximum depth is the number of nodes along the longest path from the
     // root node down to the farthest leaf node.
     public int maxDepth(TreeNode root) {
-        if (root == null)
-            return 0;
-
-        depth(root, 0);
-        return maxDepthSeenSofar;
+        dfs(root, 1);
+        return maxDepth;
     }
-
-    // TODO: Needs to be revisited. Does not look right
-    //Input: root = [3,9,20,null,null,15,7]
-    //       depth(node, 0)
-    //    3                 1                 +1      1
-    // 9    20          2      2              +1      2
-    //    15   7             3    3           +1      3
-    int maxDepthSeenSofar;
-    public void depth(TreeNode node, int  currentDepth) {
+    int maxDepth = 0;
+    public void dfs(TreeNode node, int depth){
         if (node == null)
             return;
 
-        // If left and right nodes are null, you know its a leaf node, lets get the depth at this level and compare to the maxDepth
-        int depthAtCurrentNode = currentDepth + 1;
         if (node.left == null && node.right == null) {
-            maxDepthSeenSofar = Math.max(depthAtCurrentNode, maxDepthSeenSofar);
-            System.out.println("depthAtCurrentNode: " +depthAtCurrentNode +" maxDepthSeenSofar "+maxDepthSeenSofar);
+            maxDepth = Math.max(maxDepth, depth);
         }
-
-        depth(node.left, depthAtCurrentNode);
-        depth(node.right, depthAtCurrentNode);
+        dfs(node.left,  depth+1);
+        dfs(node.right, depth+1);
     }
 
     public int maxHeight(TreeNode root){
@@ -66,10 +52,10 @@ public class BinaryTreeDepthAndHeight {
         if (node == null)
             return 0;
 
-        int leftHeight  = height(node.left);
-        int rightHeight = height(node.right);
+        int leftHeight  = height(node.left)  + 1; // Adding 1 for the current depth to the left subtree
+        int rightHeight = height(node.right) + 1; // Adding 1 for the current depth to the right subtree
 
-        int maxHeightSeenSoFar = Math.max(leftHeight, rightHeight) + 1; // Adding 1 for the current depth
+        int maxHeightSeenSoFar = Math.max(leftHeight, rightHeight);
         System.out.println(maxHeightSeenSoFar);
 
         return maxHeightSeenSoFar;

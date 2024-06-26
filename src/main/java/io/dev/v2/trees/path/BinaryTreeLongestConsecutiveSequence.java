@@ -57,25 +57,28 @@ public class BinaryTreeLongestConsecutiveSequence {
         int right = longestSequence(node.right);
 
         //*** Now do something with the previous left and right nodes return values ***
-
-        int longestConsecutiveSeqAtCurrentNode = 1; // If left and right is null we will receive 0 from left and right so the longestConsecutivePath at the current node will be 1
-
         // Check if the value of the current node is one less than its left or right child.
         // If true, the max of left or right can add to the consecutive sequence,
         // else we bubble up 1 from the current node to its parent
         // If the current node cannot form a consecutive path with either children, then the Longest Consecutive path including the current node is 1.
 
-        // Checking if the value of the current node one less than its left child. If yes, then take the max of the left and current node
+        // Step 1 - If left and right is null we will receive 0 from left and right so the longestConsecutivePath at the current node will be 1
+        int longestConsecutiveSeqAtCurrentNode = 1;
+
+        // Step 2 Check the longest between the left and right
+        // Step 2.1 - Checking if the value of the current node one less than its left child. If yes, then take the max of the left and current node
         if (node.left != null && node.left.val == node.val+1) {
             longestConsecutiveSeqAtCurrentNode = Math.max(longestConsecutiveSeqAtCurrentNode, left+1); // max at teh current node
         }
-        // Checking if the value of the current node one less than its right child. If yes, then we take the max of the left and right node
+        // Step 2.2 -Checking if the value of the current node one less than its right child. If yes, then we take the max of the left and right node
         if (node.right != null && node.right.val == node.val+1)
             longestConsecutiveSeqAtCurrentNode = Math.max(longestConsecutiveSeqAtCurrentNode, right+1); // max at the current node
 
-        globalMax = Math.max(globalMax, longestConsecutiveSeqAtCurrentNode); // max within the tree as a whole
+        // Step 3 - Check max within the tree as a whole
+        globalMax = Math.max(globalMax, longestConsecutiveSeqAtCurrentNode);
 
-        // If the current node cannot form a consecutive path with either children, then the Longest Consecutive path including the current node is 1.
+        // Step 4 - If the current node cannot form a consecutive path with either children,
+        // then the Longest Consecutive path including the current node is 1.
         return longestConsecutiveSeqAtCurrentNode;
     }
 
