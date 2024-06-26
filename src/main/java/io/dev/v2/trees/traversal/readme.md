@@ -37,7 +37,7 @@ Creates a list of lists (result list) by creating a list for each level and addi
                 List<Integer> list = new ArrayList<>();
                 list.add(listNode.val);
                 lists.add(list);
-            }else{ // else - if a list for that level has already been created, then just retrieve the list by level and add the listNode value to the list
+            }else{ // else [level < levels.size()] if a list for that level has already been created, then just retrieve the list by level and add the listNode value to the list
                 lists.get(level).add(listNode.val);
                 System.out.println(listNode.val +" - " +level);
             }
@@ -47,7 +47,7 @@ Creates a list of lists (result list) by creating a list for each level and addi
         }
     }
 ```
-### Find the largest value in each Tree Row
+### 515. Find the largest value in each Tree Row
 ```
 class LargestValueInEachTreeRow{
 
@@ -119,7 +119,7 @@ class LargestValueInEachTreeRow{
 
 ```
 
-### Binary Tree Zigzag Level Order Traversal
+### 103. Binary Tree Zigzag Level Order Traversal
 ```
     private void zigzagLevelOrderTraversal(TreeNode listNode, List<List<Integer>> lists, int level) {
         if(listNode == null) return;

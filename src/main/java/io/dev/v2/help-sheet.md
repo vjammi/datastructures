@@ -6,7 +6,7 @@ This article will be a collection of cheat sheets that you can use as you solve 
 
 Time complexity (Big O) cheat sheet
     big O chart
-    ![img.png](img.png)
+    ![img.png](../../../../../../img/img.png)
 
 First, let's talk about the time complexity of common operations, split by data structure/algorithm. Then, we'll talk about reasonable complexities given input sizes.
 
@@ -190,14 +190,14 @@ Sorting algorithms
 All major programming languages have a built-in method for sorting. It is usually correct to assume and say sorting costs O(n⋅log⁡n)O(n⋅logn), where nn is the number of elements being sorted. For completeness, here is a chart that lists many common sorting algorithms and their completeness. The algorithm implemented by a programming language varies; for example, Python uses Timsort but in C++, the specific algorithm is not mandated and varies.
 
 Sorting algorithm complexities
-    ![img_1.png](img_1.png)
-    ![img_3.png](img_3.png)
+    ![img_1.png](../../../../../../img/img_1.png)
+    ![img_3.png](../../../../../../img/img_3.png)
     Definition of a stable sort from Wikipedia: "Stable sorting algorithms maintain the relative order of records with equal keys (i.e. values). That is, a sorting algorithm is stable if whenever there are two records R and S with the same key and with R appearing before S in the original list, R will appear before S in the sorted list."
 
 General DS/A flowchart
 
 Here's a flowchart that can help you figure out which data structure or algorithm should be used. Note that this flowchart is very general as it would be impossible to cover every single scenario.
-    ![img_2.png](img_2.png)
+    ![img_2.png](../../../../../../img/img_2.png)
     Note that this flowchart only covers methods taught in LICC, and as such more advanced algorithms like Dijkstra's is excluded.
 
 data structures and algorithm flowchart
