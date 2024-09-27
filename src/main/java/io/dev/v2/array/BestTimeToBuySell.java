@@ -16,7 +16,7 @@ public class BestTimeToBuySell {
 
     /**   Option 1: Two Passes
     //         1. Find the min value and day/index
-    //         2. From the min index, iteratre forward to find the max profit
+    //         2. From the min index, iterate forward to find the max profit
     //         Time: O(n)
     //         Space: O(n)
     //
@@ -28,14 +28,15 @@ public class BestTimeToBuySell {
     //             else
     //                keep the minPriceIndex and priceOnMinPriceIndex
     //         2) Recalculate the current the profit compared to the minPriceIndex
-    //         Time:  O(n)
-    //         Space: O(1)
+    //              Time:  O(n)
+    //              Space: O(1)
      */
 
     public int maxProfit(int[] prices) {
         int minPriceIndex = 0;
         int priceOnMinPriceIndex = Integer.MAX_VALUE;
         int profit = 0;
+
         for (int i=0; i<prices.length; i++){
             if (prices[i] < priceOnMinPriceIndex){
                 minPriceIndex  = i;
@@ -44,6 +45,12 @@ public class BestTimeToBuySell {
             profit = Math.max(profit, prices[i] - prices[minPriceIndex]);
         }
         return profit;
+    }
+
+    public static void main(String[] args) {
+        BestTimeToBuySell obj = new BestTimeToBuySell();
+        obj.maxProfit(new int[]{7,4,6,1,3,2});
+        obj.maxProfit(new int[]{7,4,5,3,1,1});
     }
 
 }

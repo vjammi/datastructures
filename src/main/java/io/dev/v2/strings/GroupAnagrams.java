@@ -18,6 +18,25 @@ import java.util.*;
 */
 public class GroupAnagrams {
 
+    /*
+        map =  size = 3
+         "1#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#1#0#0#0#0#0#0#" ->  size = 2
+         "1#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0#" ->  size = 1
+         "1#0#0#0#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0#" ->  size = 3
+
+         1#0#0#0#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0# eat
+         1#0#0#0#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0# tea
+         1#0#0#0#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0# ate
+
+         1#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#1#0#0#0#0#0#0# tan
+         1#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#1#0#0#0#0#0#0# nat
+
+         1#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0# bat
+
+         [[tan, nat], [bat], [eat, tea, ate]]
+
+
+    * */
     public List<List<String>> groupAnagrams_Solution2(String[] strs) {
 
         List<List<String>> result = new ArrayList<>();
@@ -31,17 +50,17 @@ public class GroupAnagrams {
             String anagram = strs[i];
             int[] charset = new int[26];
             for(int j=0; j<anagram.length(); j++){
-                int ch = anagram.charAt(j);       // ch is the ascii value of character
+                int ch = anagram.charAt(j);             // ch is the ascii value of character
                 charset[ch-97] = charset[ch-97] + 1;    // increment the char count by 1
             }
             // TODO: Use StringBuilder
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             for (int k=0; k<charset.length; k++){
                 // Adding a delimiter # to differentiate [111...] to be either [1#11...] or [11#1...]
-                buffer.append(charset[k]+"#");          // 1#0#0#0#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0# eat
-                //buffer.append(charset[k]+'#');        // 3635353536353535353535353535353535353536353535353535 eat
+                sb.append(charset[k]+"#");          // 1#0#0#0#1#0#0#0#0#0#0#0#0#0#0#0#0#0#0#1#0#0#0#0#0#0# eat
+                //sb.append(charset[k]+'#');        // 3635353536353535353535353535353535353536353535353535 eat
             }
-            String key = buffer.toString();
+            String key = sb.toString();
 
             if (map.containsKey(key)){
                 map.get(key).add(anagram);
@@ -52,7 +71,6 @@ public class GroupAnagrams {
                 map.put(key, list);
                 System.out.println(key +" " +anagram);
             }
-
         }
 
         for (Map.Entry<String, List<String>> entry: map.entrySet()){
@@ -102,7 +120,7 @@ public class GroupAnagrams {
 
     public static void main(String[] args) {
         String[] strs = {"eat", "tea", "tan", "ate", "nat", "bat"};
-        System.out.println(new GroupAnagrams().groupAnagrams_Solution1(strs));
+        //System.out.println(new GroupAnagrams().groupAnagrams_Solution1(strs));
         System.out.println(new GroupAnagrams().groupAnagrams_Solution2(strs));
     }
 

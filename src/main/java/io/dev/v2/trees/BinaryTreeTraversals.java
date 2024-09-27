@@ -92,7 +92,7 @@ public class BinaryTreeTraversals {
         List<List<Integer>> levelOrderTraversalLists = new ArrayList();
         List<Integer> levelList = null;
         Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
+        queue.offer(root);
 
         int level = 0;
         while(!queue.isEmpty()){
@@ -105,6 +105,7 @@ public class BinaryTreeTraversals {
                 TreeNode node = queue.poll();
                 levelList.add(node.val);
                 if (node.left != null) {
+                    queue.add(node.left);
                     queue.add(node.left);
                 }
                 if (node.right != null) {

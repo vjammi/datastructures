@@ -17,6 +17,12 @@ public class ProductOfArrayExceptSelf {
          Traverse from front to back - To find the product at each index to its left
          Traverse from back to front - to find the product at each index to its right
          Runtime: O(n+n+n) = O(3n) = O(n)
+
+
+        nums         = [1,2,3,4]
+        forwardsArr  = [1,2,6,4]
+        backwardsArr = [1,2,3,4]
+
      */
     public int[] productExceptSelf(int[] nums) {
 
@@ -69,6 +75,11 @@ public class ProductOfArrayExceptSelf {
             answer[i] = productExceptSelf;
         }
         return answer;
+    }
+
+    public static void main(String[] args) {
+        ProductOfArrayExceptSelf obj = new ProductOfArrayExceptSelf();
+        obj.productExceptSelf(new int[]{1,2,3,4});
     }
 
 }

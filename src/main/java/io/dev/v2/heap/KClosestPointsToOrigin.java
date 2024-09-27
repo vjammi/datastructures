@@ -70,9 +70,10 @@ public class KClosestPointsToOrigin {
         Map<Coordinate, Double> map = new HashMap<>();
         for(int i=0; i<points.length; i++){
             int[] coord = points[i];
-            double dist = Math.sqrt(((coord[0]-0) *(coord[0]-0)) + ((coord[1]-0)*(coord[1]-0)));
+            double dist = Math.sqrt( ((coord[0]-0) *(coord[0]-0)) + ((coord[1]-0)*(coord[1]-0)) );
             System.out.println(dist);
-            map.put(new Coordinate(coord[0], coord[1], dist), dist);
+            Coordinate coordinate = new Coordinate(coord[0], coord[1], dist);
+            map.put(coordinate, dist);
         }
 
         // Load the elements of the map in a PQ using minOrder Comparator - n log(k)

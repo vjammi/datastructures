@@ -10,8 +10,8 @@ package io.dev.v2.strings;
         Explanation: "aba" is also a valid answer.
 
         Input: "babcdefghgfedcad"
-                ^    ^    ^
-             0123456789012345
+                ^ ^    ^ ^
+                0123456789012345
         Output: "bab" or "aba"
 */
 // TODO: Need to work on this further
