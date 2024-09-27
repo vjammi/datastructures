@@ -1,4 +1,4 @@
-package io.dev.v2.dev.java.patterns.di.lastevalkey;
+package io.dev.v2.dev.java.lastevalkey;
 
 public interface LastEvaluatedKey {
 
