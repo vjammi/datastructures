@@ -80,3 +80,60 @@ Intent of functional/declarative programming is readability.
   - code clarity???
   - fewer errors - no accidental complexity, remove extra variables, and no mutability
   - easier parallelization - 
+
+
+------------------------------------------------------------------------------------------------------------------------
+Imperative
+Shared/ Mutable state is common in imperative OO programming
+State is some data maintained over time starting some initial value
+State is mutable if it can be modified or in other words it can be reassigned after its been reinitialized
+State is shared -  If multiple threads can modify the same instance of object simultaneously
+Then those different threads can access and/or modify the instance simultaneously
+Can cause hazards when called in an unsyncronized way and needs to be avoided in concurrent and parallel programming
+
+Functional
+Discourages state changes and shared mutable state to avoid these hazards (??? side effects)
+Understanding the effects of a method that uses shared state requires
+knowing the entire history of every shared variable that the method uses or effects
+Now changing the order these methods are called can cause cascadding failures
+Shared mutable state is specially in parallel and conecurrent programming
+
+Declarative
+
+Functional
+Composition using Lambda functions
+Computations are treated as evaluating math functions ythat can be composed together into a pipeline
+
+State - Immutable / SideEffects
+  Minimizing or ideally eliminating state changes and mutable shared state
+  
+  
+Immutablity
+  final
+  
+Pure funtions
+Side Effects
+  
+Composing Functions
+  Functional Composition
+  Lambda Calulus
+  Streams - Pipeline of operations that can be used to process a sequence of elements
+  Operations
+      Intermediate opoerations
+      Short Circuiting operations
+      Terminal operations
+      
+      public void checkForPrimes(){
+      
+          new Random().ints(1, Integer.MAX_VALUE)
+              .filter(num::isOdd)			// Only allow odd nums. Using isOdd method reference
+              .mapToObj( num::isPrime )   // Using isPrime method reference
+              .limit(200) 				// Apply the limit intermediate operation to short ciruit after 200 odd nums
+              .forEach(num::printResult); // forEach terminal operation, which supports side effects intentionally. 
+                                          // Terminates the stream and prints the results
+      }
+  
+  Notice how Java Streams apply the "Fluent interface" pattern that chains method calls by connecting output of one intermediate operation, as input to the other intermediate operation
+  
+      
+

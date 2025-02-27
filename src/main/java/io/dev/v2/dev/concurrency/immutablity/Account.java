@@ -1,5 +1,7 @@
 package io.dev.v2.dev.concurrency.immutablity;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.Date;
 
 public final class Account {
@@ -21,5 +23,10 @@ public final class Account {
 
     public Date getCreationDate() {
         return new Date(this.creationDate.getTime());
+    }
+
+
+    public static void main(String[] args) {
+        Account account =  new Account(, "12345", "Five Nums", new Date());
     }
 }
