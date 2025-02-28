@@ -5,9 +5,7 @@ import graphql.parser.Parser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.*;
-
-public class GraphQLQueryValidatorEnhanced {
+public class GraphQLQueryAndResponseValidatorEnhanced {
 
     public static void main(String[] args) throws Exception {
         // Sample GraphQL Query with Nested Fields

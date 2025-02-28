@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.*;
 
-public class GraphQLQueryValidator {
+public class GraphQLQueryAndResponseValidator {
 
     public static void main(String[] args) throws Exception {
         // Sample GraphQL Query
