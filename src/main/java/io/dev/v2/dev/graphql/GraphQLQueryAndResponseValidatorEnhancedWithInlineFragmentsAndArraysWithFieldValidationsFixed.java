@@ -1,24 +1,26 @@
 package io.dev.v2.dev.graphql;
 
-import graphql.language.*;
-import graphql.parser.Parser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.util.*;
+import graphql.language.*;
+import graphql.parser.Parser;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArraysWithFieldValidationsFixed {
+
     public static void main(String[] args) throws Exception {
         // Sample GraphQL Query with nested fields, inline fragments, and arrays
         // String query = "{ user { id name profile { age address } friends { id name } ... on Admin { role } } }";
         String query = """ 
-                { 
+                query userQuery{ 
                     user { 
                         id 
-                        name 
-                        profile { age address } 
-                        friends { id name } 
+                        name
                         ... on Admin { role } 
+                        profile { age address } 
+                        friends { id name }                         
                     } 
                 }
                 """;
@@ -31,12 +33,12 @@ public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArray
                   "user": {
                     "id": 1,    
                     "name": "Alice",
+                    "role": "admin",
                     "profile": { "age": 25, "address": "123 Street" },
                     "friends": [
                       { "id": 2, "name": "Bob" },
                       { "id": 3, "name": "Charlie" }
-                    ],
-                    "role": "admin"
+                    ]                    
                   }
                 }
                 """;
@@ -168,7 +170,7 @@ public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArray
      * Validates that the JSON field matches the expected GraphQL type.
      */
     private static boolean validateType(JsonNode fieldNode, String expectedType) {
-        return switch (expectedType) {
+        boolean isValid = switch (expectedType) {
             case "Integer" -> fieldNode.isInt();
             case "String" -> fieldNode.isTextual();
             case "Boolean" -> fieldNode.isBoolean();
@@ -176,5 +178,6 @@ public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArray
             case "Array" -> fieldNode.isArray();
             default -> true; // Unknown types are ignored
         };
+        return isValid;
     }
 }
