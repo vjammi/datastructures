@@ -1,4 +1,4 @@
-package io.dev.v2.dev.graphql;
+package io.dev.v2.dev.graphql.parser.arc;
 
 import graphql.language.*;
 import graphql.parser.Parser;

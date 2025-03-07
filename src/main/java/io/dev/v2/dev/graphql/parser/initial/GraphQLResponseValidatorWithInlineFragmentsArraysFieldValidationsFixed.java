@@ -1,4 +1,4 @@
-package io.dev.v2.dev.graphql;
+package io.dev.v2.dev.graphql.parser.initial;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArraysWithFieldValidationsFixed {
+public class GraphQLResponseValidatorWithInlineFragmentsArraysFieldValidationsFixed {
 
     public static void main(String[] args) throws Exception {
         // Sample GraphQL Query with nested fields, inline fragments, and arrays
