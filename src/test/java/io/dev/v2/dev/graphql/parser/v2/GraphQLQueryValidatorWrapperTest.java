@@ -1,17 +1,14 @@
-package io.dev.v2.dev.graphql.parser.ooo;
+package io.dev.v2.dev.graphql.parser.v2;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import graphql.language.*;
-import graphql.parser.Parser;
+import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-public class GraphQLQueryValidatorWrapper {
+class GraphQLQueryValidatorWrapperTest {
 
-    public static void main(String[] args) throws Exception {
+    @Test
+    void shouldRunSpecTest() throws JsonProcessingException {
 
         String query = """
             {
@@ -61,29 +58,4 @@ public class GraphQLQueryValidatorWrapper {
             System.out.println("✅ Validation passed!");
         }
     }
-    public static ValidationContext validateQuery(String query, String jsonResponse, Map<String, String> expectedTypes) throws JsonProcessingException {
-
-        Parser parser = new Parser();
-        Document document = parser.parseDocument(query);
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
-        JsonNode jsonNode = objectMapper.readTree(jsonResponse);
-
-        ValidationContext context = new ValidationContext(expectedTypes);
-
-        GraphQLQueryValidator validator = new GraphQLQueryValidator();
-
-        for (Definition<?> definition : document.getDefinitions()) {
-            if (definition instanceof OperationDefinition operation) {
-                for (Selection<?> selection : operation.getSelectionSet().getSelections()) {
-                    if (selection instanceof Field field) {
-                        validator.validate(field, jsonNode, context);
-                    }
-                }
-            }
-        }
-
-        return context;
-    }
-
 }

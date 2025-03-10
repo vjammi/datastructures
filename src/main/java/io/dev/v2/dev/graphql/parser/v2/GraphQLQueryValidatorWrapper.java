@@ -1,16 +1,17 @@
-package io.dev.v2.dev.graphql.parser.ooo;
+package io.dev.v2.dev.graphql.parser.v2;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import graphql.language.*;
+import graphql.parser.Parser;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+public class GraphQLQueryValidatorWrapper {
 
-class GraphQLQueryValidatorWrapperTest {
-
-    @Test
-    void shouldRunSpecTest() throws JsonProcessingException {
+    public static void main(String[] args) throws Exception {
 
         String query = """
             {
@@ -59,5 +60,33 @@ class GraphQLQueryValidatorWrapperTest {
         } else {
             System.out.println("✅ Validation passed!");
         }
+
+        System.out.println("\nTypes ...");
+        context.getQualifiedExpectedTypes().forEach(System.out::println);
     }
+    public static ValidationContext validateQuery(String query, String jsonResponse, Map<String, String> expectedTypes) throws JsonProcessingException {
+
+        Parser parser = new Parser();
+        Document document = parser.parseDocument(query);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(JsonParser.Feature.ALLOW_COMMENTS, true);
+        JsonNode jsonNode = objectMapper.readTree(jsonResponse);
+
+        ValidationContext context = new ValidationContext(expectedTypes);
+
+        GraphQLQueryValidator validator = new GraphQLQueryValidator();
+
+        for (Definition<?> definition : document.getDefinitions()) {
+            if (definition instanceof OperationDefinition operation) {
+                for (Selection<?> selection : operation.getSelectionSet().getSelections()) {
+                    if (selection instanceof Field field) {
+                        validator.validate(field, jsonNode, context, "", new StringBuffer());
+                    }
+                }
+            }
+        }
+
+        return context;
+    }
+
 }

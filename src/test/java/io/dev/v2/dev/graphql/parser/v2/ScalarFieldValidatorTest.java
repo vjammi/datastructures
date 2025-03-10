@@ -1,4 +1,4 @@
-package io.dev.v2.dev.graphql.parser.ooo;
+package io.dev.v2.dev.graphql.parser.v2;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,8 +8,6 @@ import graphql.language.Field;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ScalarFieldValidatorTest {
     private final ScalarFieldValidator validator = new ScalarFieldValidator();

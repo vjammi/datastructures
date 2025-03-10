@@ -1,11 +1,4 @@
-package io.dev.v2.dev.graphql.parser.ooo;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.JsonNode;
-import graphql.language.*;
-import graphql.parser.Parser;
-
-import java.util.Map;
+package io.dev.v2.dev.graphql.parser.v2;
 
 public class GraphQLValidatorTest {
 

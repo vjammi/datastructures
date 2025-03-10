@@ -1,4 +1,4 @@
-package io.dev.v2.dev.graphql.parser.ooo;
+package io.dev.v2.dev.graphql.parser.v2;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import graphql.language.Field;
@@ -13,7 +13,7 @@ class InlineFragmentValidator implements Validator {
     }
 
     @Override
-    public void validate(Field field, JsonNode jsonNode, ValidationContext context) {
+    public void validate(Field field, JsonNode jsonNode, ValidationContext context, String parentPath, StringBuffer depth) {
         if (!jsonNode.isObject()) {
             context.addError("❌ Inline fragment expected an object for field: " + field.getName());
             return;
@@ -21,12 +21,12 @@ class InlineFragmentValidator implements Validator {
 
         for (Selection<?> selection : field.getSelectionSet().getSelections()) {
             if (selection instanceof Field subField) {
-                queryValidator.validate(subField, jsonNode, context);
+                queryValidator.validate(subField, jsonNode, context, parentPath, depth);
             }
         }
     }
 
-    public void validate(InlineFragment fragment, JsonNode jsonNode, ValidationContext context) {
+    public void validate(InlineFragment fragment, JsonNode jsonNode, ValidationContext context, String parentPath, StringBuffer depth) {
         if (!jsonNode.isObject()) {
             context.addError("❌ Expected an object for inline fragment.");
             return;
@@ -34,7 +34,7 @@ class InlineFragmentValidator implements Validator {
 
         for (Selection<?> selection : fragment.getSelectionSet().getSelections()) {
             if (selection instanceof Field subField) {
-                queryValidator.validate(subField, jsonNode, context);
+                queryValidator.validate(subField, jsonNode, context, parentPath, depth);
             }
         }
     }

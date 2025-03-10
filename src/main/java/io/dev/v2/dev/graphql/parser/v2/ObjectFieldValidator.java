@@ -1,4 +1,4 @@
-package io.dev.v2.dev.graphql.parser.ooo;
+package io.dev.v2.dev.graphql.parser.v2;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import graphql.language.Field;
@@ -13,8 +13,7 @@ class ObjectFieldValidator implements Validator {
     }
 
     @Override
-    public void validate(Field field, JsonNode jsonNode, ValidationContext context) {
-        //System.out.println(field.getName() + " > ");
+    public void validate(Field field, JsonNode jsonNode, ValidationContext context, String parentPath, StringBuffer depth) {
         if (!jsonNode.isObject()) {
             context.addError("❌ Expected an object for field: " + field.getName());
             return;
@@ -22,9 +21,9 @@ class ObjectFieldValidator implements Validator {
 
         for (Selection<?> selection : field.getSelectionSet().getSelections()) {
             if (selection instanceof Field subField) {
-                queryValidator.validate(subField, jsonNode, context);
+                queryValidator.validate(subField, jsonNode, context, parentPath, depth);
             } else if (selection instanceof InlineFragment inlineFragment) {
-                new InlineFragmentValidator(queryValidator).validate(inlineFragment, jsonNode, context);
+                new InlineFragmentValidator(queryValidator).validate(inlineFragment, jsonNode, context, parentPath, depth);
             }
         }
     }

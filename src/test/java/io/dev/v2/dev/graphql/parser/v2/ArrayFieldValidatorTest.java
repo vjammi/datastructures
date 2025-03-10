@@ -1,14 +1,4 @@
-package io.dev.v2.dev.graphql.parser.ooo;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import graphql.language.Field;
-import graphql.language.SelectionSet;
-import org.junit.jupiter.api.Test;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+package io.dev.v2.dev.graphql.parser.v2;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

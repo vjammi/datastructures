@@ -1,40 +1,44 @@
-package io.dev.v2.dev.graphql.parser.arc;
+package io.dev.v2.dev.graphql.parser.v1;
 
-import graphql.language.*;
-import graphql.parser.Parser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import graphql.language.*;
+import graphql.parser.Parser;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import java.util.*;
+public class GraphQLResponseValidatorWithInlineFragmentsArraysFieldValidationsFixed {
 
-public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArraysWithFieldValidations {
     public static void main(String[] args) throws Exception {
         // Sample GraphQL Query with nested fields, inline fragments, and arrays
+        // String query = "{ user { id name profile { age address } friends { id name } ... on Admin { role } } }";
         String query = """ 
-        { 
-            user { 
-                id 
-                name 
-                profile { age address } 
-                friends { id name } 
-                ... on Admin { role } 
-            } 
-        }
-        """;
+                query userQuery{ 
+                    user { 
+                        id 
+                        name
+                        ... on Admin { role } 
+                        profile { age address } 
+                        friends { id name }                         
+                    } 
+                }
+                """;
 
-        // Sample JSON Response from the server (with missing and incorrect data types)
-        // ❌ Missing "role" field from Admin inline fragment
-        // ❌ Wrong type (string instead of int)
+        // Sample JSON Response (with errors)
+        // ❌ Wrong type (string instead of int) - "id": "ONE",
+        // ❌ Should be an array but is a string - "friends": "invalidArray",
         String jsonResponse = """
                 {
                   "user": {
-                    "id": "one",   
+                    "id": 1,    
                     "name": "Alice",
+                    "role": "admin",
                     "profile": { "age": 25, "address": "123 Street" },
                     "friends": [
                       { "id": 2, "name": "Bob" },
                       { "id": 3, "name": "Charlie" }
-                    ]
+                    ]                    
                   }
                 }
                 """;
@@ -47,7 +51,7 @@ public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArray
                 "age", "Integer",
                 "address", "String",
                 "friends", "Array",
-                "role", "String" // Role should exist for Admin inline fragment
+                "role", "String"
         );
 
         // Parse the query and JSON response
@@ -92,16 +96,22 @@ public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArray
         String fieldName = field.getName();
 
         if (!jsonNode.has(fieldName)) {
-            errors.add("  ❌ Missing field: " + fieldName);
+            errors.add("❌ Missing field: " + fieldName);
             return;
         }
 
         JsonNode fieldNode = jsonNode.get(fieldName);
         String expectedType = expectedTypes.getOrDefault(fieldName, "Unknown");
 
+        // Handle array fields correctly
+        if ("Array".equals(expectedType)) {
+            validateArray(field, jsonNode, expectedTypes, errors);
+            return;
+        }
+
         // Validate type
         if (!validateType(fieldNode, expectedType)) {
-            errors.add("  ❌ Type mismatch for field: " + fieldName + " (Expected: " + expectedType + ", Found: " + fieldNode.getNodeType() + ")");
+            errors.add("❌ Type mismatch for field: " + fieldName + " (Expected: " + expectedType + ", Found: " + fieldNode.getNodeType() + ")");
             return;
         }
 
@@ -134,14 +144,16 @@ public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArray
      * Handles validation of arrays (lists of objects).
      */
     private static void validateArray(Field field, JsonNode jsonNode, Map<String, String> expectedTypes, List<String> errors) {
-        if (!jsonNode.has(field.getName())) {
-            errors.add("  ❌ Missing field: " + field.getName());
+        String fieldName = field.getName();
+
+        if (!jsonNode.has(fieldName)) {
+            errors.add("❌ Missing field: " + fieldName);
             return;
         }
 
-        JsonNode arrayNode = jsonNode.get(field.getName());
+        JsonNode arrayNode = jsonNode.get(fieldName);
         if (!arrayNode.isArray()) {
-            errors.add("  ❌ Expected an array but found: " + arrayNode.getNodeType());
+            errors.add("❌ Expected an array but found: " + arrayNode.getNodeType() + " for field: " + fieldName);
             return;
         }
 
@@ -158,7 +170,7 @@ public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArray
      * Validates that the JSON field matches the expected GraphQL type.
      */
     private static boolean validateType(JsonNode fieldNode, String expectedType) {
-        return switch (expectedType) {
+        boolean isValid = switch (expectedType) {
             case "Integer" -> fieldNode.isInt();
             case "String" -> fieldNode.isTextual();
             case "Boolean" -> fieldNode.isBoolean();
@@ -166,5 +178,6 @@ public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragmentsAndArray
             case "Array" -> fieldNode.isArray();
             default -> true; // Unknown types are ignored
         };
+        return isValid;
     }
 }

@@ -1,4 +1,4 @@
-package io.dev.v2.dev.graphql.parser.ooo;
+package io.dev.v2.dev.graphql.parser.v2;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import graphql.language.Field;
@@ -14,19 +14,22 @@ public class GraphQLQueryValidator {
         validators.put("inlineFragment", new InlineFragmentValidator(this));
     }
 
-    public void validate(Field field, JsonNode jsonNode, ValidationContext context) {
+    public void validate(Field field, JsonNode jsonNode, ValidationContext context, String parentPath, StringBuffer depth) {
         String fieldName = field.getName();
+        String qualifiedFieldName = buildQualifiedFieldName(field, parentPath);
+        context.addQualifiedExpectedType(qualifiedFieldName);
+        depth.append(" ");
 
         if (!jsonNode.has(fieldName)) {
-            context.addError("❌ Missing field: " + fieldName);
+            // context.addError("❌ Missing field: " + fieldName);
+            context.addError("❌ Missing field: " + qualifiedFieldName);
             return;
         }
 
         JsonNode fieldNode = jsonNode.get(fieldName);
-
         String expectedType = context.getExpectedType(fieldName);
-
-        System.out.println(field.getName() + " " +expectedType +" " +fieldNode);
+        //String expectedType = context.getExpectedType(qualifiedFieldName);
+        System.out.println(depth + " " +qualifiedFieldName +" " +field.getName() + " " +expectedType +" " +fieldNode);
 
         Validator validator = switch (expectedType) {
             case "Object" -> validators.get("object");
@@ -35,7 +38,12 @@ public class GraphQLQueryValidator {
             default -> validators.get("scalar");
         };
 
-        validator.validate(field, fieldNode, context);
+        validator.validate(field, fieldNode, context, qualifiedFieldName, depth);
+        depth.deleteCharAt(depth.length()-1);
+    }
+
+    private String buildQualifiedFieldName(Field field, String parentPath) {
+        return parentPath.isEmpty() ? field.getName() : parentPath + "." + field.getName();
     }
 
     //    public static void main(String[] args) throws Exception {

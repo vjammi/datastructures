@@ -1,15 +1,4 @@
-package io.dev.v2.dev.graphql.parser.ooo;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import graphql.language.Field;
-import graphql.language.InlineFragment;
-import graphql.language.SelectionSet;
-import graphql.language.TypeName;
-import org.junit.jupiter.api.Test;
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.*;
+package io.dev.v2.dev.graphql.parser.v2;
 
 class InlineFragmentValidatorTest {
 //    private final ObjectMapper objectMapper = new ObjectMapper();

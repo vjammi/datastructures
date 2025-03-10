@@ -1,10 +1,8 @@
-package io.dev.v2.dev.graphql.parser.arc;
+package io.dev.v2.dev.graphql.parser.v0;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.language.*;
 import graphql.parser.Parser;
-
-import java.util.*;
 
 public class GraphQLQueryAndResponseValidatorEnhancedWithInlineFragments {
 

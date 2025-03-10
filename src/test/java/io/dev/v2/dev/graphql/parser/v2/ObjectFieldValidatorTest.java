@@ -1,16 +1,4 @@
-package io.dev.v2.dev.graphql.parser.ooo;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import graphql.language.Field;
-import graphql.language.SelectionSet;
-import org.junit.jupiter.api.Test;
-
-
-import java.util.*;
+package io.dev.v2.dev.graphql.parser.v2;
 
 
 class ObjectFieldValidatorTest {
