@@ -16,7 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class GraphQLQueryRecurssiveFieldTypeResolver {
+public class GraphQLFieldTypeResolver {
 
     public static void main(String[] args) throws IOException {
         // Step 1: Load and merge schema files
