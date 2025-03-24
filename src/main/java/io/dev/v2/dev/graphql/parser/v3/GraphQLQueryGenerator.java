@@ -2,7 +2,6 @@ package io.dev.v2.dev.graphql.parser.v3;
 
 import graphql.language.*;
 import graphql.parser.Parser;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
