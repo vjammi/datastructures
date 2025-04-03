@@ -2,6 +2,7 @@ package io.dev.v2.dev.graphql.parser.v3;
 
 import graphql.language.*;
 import graphql.parser.Parser;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -56,7 +57,7 @@ public class GraphQLQueryGenerator {
 
                 queryBuilder.append(" ");
             }
-        }
+        } 
 
         // Handle Union and Interface types with inline fragments
         if (typeDef instanceof UnionTypeDefinition) {
@@ -84,11 +85,9 @@ public class GraphQLQueryGenerator {
     }
 
     public static void main(String[] args) throws IOException {
-        String schemaFilePath = "/ds/workspace/datastructures/src/main/java/io/dev/v2/dev/graphql/parser/v3/schema/schema.graphqls";
+        String schemaFilePath = "schema.graphql";
         GraphQLQueryGenerator generator = new GraphQLQueryGenerator(schemaFilePath);
         String query = generator.generateQuery("Query");
         System.out.println(query);
     }
-
 }
-
