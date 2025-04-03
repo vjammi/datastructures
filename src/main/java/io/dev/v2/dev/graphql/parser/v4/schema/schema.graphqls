@@ -1,0 +1,28 @@
+type Query {
+    user: [User]
+}
+type User {
+    id: ID
+    name: String
+    age: Int
+    address: [Address]
+    posts: [Posts]
+}
+type Address {
+    city: String
+    zip: String
+}
+
+type Posts {
+    title: ID
+    comments: Comments
+}
+
+type Comments {
+    text: String
+    author: Author
+}
+
+type Author {
+    username: String
+}
