@@ -1,0 +1,4 @@
+# schema.graphqls
+type Query {
+    hello: String
+}

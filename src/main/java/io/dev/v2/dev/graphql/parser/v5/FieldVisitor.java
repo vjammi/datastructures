@@ -28,12 +28,14 @@ class FieldVisitor {
 
                 if (parentType instanceof GraphQLFieldsContainer container) {
                     GraphQLFieldDefinition fieldDef = container.getFieldDefinition(fieldName);
+
                     if (fieldDef != null) {
                         GraphQLType fieldType = GraphQLTypeUtil.unwrapType(fieldDef.getType());
                         fieldTypes.put(fullPath, fieldType.toString()); // getName() ???
 
                         if (fieldType instanceof GraphQLFieldsContainer || fieldType instanceof GraphQLInterfaceType || fieldType instanceof GraphQLUnionType) {
-                            TypeHandlerFactory.getHandler(fieldType).handle(fieldType, field.getSelectionSet(), this, fullPath, schema, fragments);
+                            TypeHandler handler = TypeHandlerFactory.getHandler(fieldType);
+                            handler.handle(fieldType, field.getSelectionSet(), this, fullPath, schema, fragments);
                         }
                     }
                 }
