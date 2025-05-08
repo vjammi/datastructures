@@ -20,6 +20,11 @@ import java.util.Arrays;
 */
 public class ValidAnagram {
 
+    public static void main(String[] args) {
+        new ValidAnagram().isAnagram_using_two_charsets("anagram", "nagaram");
+
+    }
+
     /**
         An anagram is produced by rearranging the letters of sss into ttt. Therefore, if ttt is an anagram of sss, sorting both strings
         will result in two identical strings. Furthermore, if sss and ttt have different lengths, ttt must not be an anagram of sss and
@@ -63,6 +68,7 @@ public class ValidAnagram {
 
         for (int i=0; i<s.length(); i++){
             int ch = s.charAt(i);
+            char charAtIndex = s.charAt(i);
             charSetS[ch-97] = charSetS[ch-97] + 1;
         }
 
@@ -113,6 +119,7 @@ public class ValidAnagram {
         if (s.length() != t.length())
             return false;
 
+        // Use a single charset to increment and decrement the counts of the chars
         int[] charSet = new int[26];
         for (int i=0; i<s.length(); i++){
             int chAtS = s.charAt(i);

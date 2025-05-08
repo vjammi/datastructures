@@ -29,10 +29,12 @@ public class BinarySearch {
             return mid;
         }else if(key < arr[mid]) {
             high = mid - 1;
-            return search(arr, key, low, high);
+            int left = search(arr, key, low, high);
+            return left;
         } else { // if (key > arr[mid])
             low = mid + 1;
-            return search(arr, key, low, high);
+            int right = search(arr, key, low, high);
+            return right;
         }
     }
 
@@ -114,9 +116,9 @@ public class BinarySearch {
         //                               mid      mid
 
         int low = 0; int high = a.length - 1;
-        System.out.println("result: " +search.search(a, 119, low, high));
+        //System.out.println("result: " +search.search(a, 33, low, high));
         //search.searchIteratively(a, 66, low, high);
-        //search.searchFirstOccurrence(a, 66, low, high);
+        search.searchFirstOccurrence(a, 66, low, high);
         //search.searchLastOccurrence(a, 66, low, high);
     }
 }

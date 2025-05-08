@@ -125,7 +125,7 @@ which half to continue with, reducing the search space by half at each step
 
 ## Binary Search Patterns
 
-### 1 Given an array of integers sorted in ascending enrichedTransaction, find the frequency of a given target value
+### 1 Given an array of integers sorted in ascending order, find the frequency of a given target value
 
 ```
 

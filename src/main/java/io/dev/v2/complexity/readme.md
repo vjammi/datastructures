@@ -8,7 +8,7 @@
 ```
 
 ### 2. Logarithmic O(log(n))
-- Logarithmic is opposite of exponent ```log4(32) = 5```
+- Logarithmic is opposite of exponent ```log2(32) = 5```
 - Exponent (to the power) is repeated multiplication ```2^5 = 32```
 - Logarithmic of a base is repeated division by the base.
 ```

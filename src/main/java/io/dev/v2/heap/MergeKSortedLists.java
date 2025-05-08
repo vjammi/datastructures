@@ -75,7 +75,7 @@ public class MergeKSortedLists {
             while(current!=null){
                 ListNode next = current.next;  // Next is safe
                 current.next = null;           // Free up the current node
-                heap.offer(current);               // Adding listNode to heap instead of the copy - heap.add(new ListNode(current.val));
+                heap.offer(current);           // Adding listNode to heap instead of the copy - heap.add(new ListNode(current.val));
                 current = next;
             }
             // current == null
